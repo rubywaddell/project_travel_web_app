@@ -11,12 +11,13 @@ class User(db.Model):
 
     user_id = db.Column(db.Integer, autoincrement = True, primary_key = True)
     username = db.Column(db.String(15), unique=True)
-    full_name = db.Column(db.String(25))
+    fname = db.Column(db.String(20))
+    lname = db.Column(db.String(20))
     email = db.Column(db.String, unique=True)
     password = db.Column(db.String(15))
 
     def __repr__(self):
-        return f"<User object: user_id={self.user_id}, username={self.username}, full_name={self.full_name}>"
+        return f"<User object: user_id={self.user_id}, username={self.username}, full_name={self.fname} {self.lname}>"
 
 
 def connect_to_db(flask_app, db_uri="postgresql:///travel_project", echo=True):
