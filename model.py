@@ -16,8 +16,26 @@ class User(db.Model):
     email = db.Column(db.String, unique=True)
     password = db.Column(db.String(15))
 
+    travel_id = db.Column(db.Integer, db.ForeignKey("travels.travel_id"))
+
+    travel = db.relationship("Travel", backref="travels")
+
     def __repr__(self):
         return f"<User object: user_id={self.user_id}, username={self.username}, full_name={self.fname} {self.lname}>"
+
+
+class Travel(db.Model):
+    """A user's travel information, related to the User table"""
+
+    __tablename__ = "travels"
+
+    travel_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    departure_date = db.Column(db.Date, nullable=True)
+    arrival_date = db.Column(db.Date, nullable=True)
+    #travel_id = Foreign Key in Users table
+
+    def __repr__(self):
+        return f"<Travels object: travel_id={self.travel_id}>"
 
 
 def connect_to_db(flask_app, db_uri="postgresql:///travel_project", echo=True):
