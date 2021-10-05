@@ -13,6 +13,16 @@ def create_user(username, fname, lname, email, password):
     return user
 
 
+def create_travel(departure_date, arrival_date):
+    """Create and return a new travel object"""
+
+    travel = model.Travel(departure_date=departure_date, arrival_date=arrival_date)
+
+    model.db.session.add(travel)
+    model.db.session.commit()
+
+    return travel
+
 
 if __name__ == "__main__":
     from server import app
