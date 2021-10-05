@@ -12,8 +12,8 @@ model.db.create_all()
 
 for n in range(10):
     username = f"username{n}"
-    fname = "first_name"
-    lname = "last_name"
+    fname = f"first_name{n}"
+    lname = f"last_name{n}"
     email = f"user{n}@test.com"
     password = f"password{n}"
     print(f"username={username}, fname={fname}, lname={lname}, email={email}, password={password}")
