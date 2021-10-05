@@ -55,6 +55,27 @@ class TravelTestCase(unittest.TestCase):
         # os.system('createdb travel_project')
 
 
+class StateTestCase(unittest.TestCase):
+    """Tests for State table in database"""
+
+    def setUp(self):
+        print("********* setUp function is running **************")
+        os.system('dropdb travel_project')
+        os.system('createdb travel_project')
+        crud.model.connect_to_db(app)
+        crud.model.db.create_all()
+
+    def test_state_exists(self):
+        """Test that a state is in the states table after adding to db.session"""
+        test_state = crud.create_travel(state_name="Narnia")
+        crud.model.db.session.add(test_state)
+        crud.model.db.session.commit()
+        test_query = crud.model.State.query.filter(crud.model.State.state_name == test_state.state_name).first()
+        self.assertEqual(test_state, test_query)
+
+    def tearDown(self):
+        os.system('dropdb travel_project')
+
 
 if __name__ == "__main__":
     unittest.main()
