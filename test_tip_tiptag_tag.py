@@ -27,16 +27,16 @@ class TipTestCase(unittest.TestCase):
         test_query = model.Tip.query.filter(model.Tip.tip_text == test_tip.tip_text).first()
         self.assertEqual(test_tip, test_query)
 
-    # def test_tip_state_relationship(self):
-    #     """Test that a tip object is successfuly connected to the states table"""
+    def test_tip_state_relationship(self):
+        """Test that a tip object is successfuly connected to the states table"""
 
-    #     test_state = model.State.query.first()
-    #     test_tip = model.Tip(tip_text="Don't go out alone at night if you're travelling alone.", state_id=test_state.state_id)
-    #     model.db.session.add(test_tip)
-    #     model.db.session.commit()
+        test_state = model.State.query.first()
+        test_tip = model.Tip(tip_text="Don't go out alone at night if you're travelling alone.", state_id=test_state.state_id)
+        model.db.session.add(test_tip)
+        model.db.session.commit()
 
-    #     self.assertFalse(test_tip.state_id == None)
-    #     self.assertFalse(test_tip.state.state_name == None)
+        self.assertFalse(test_tip.state_id == None)
+        self.assertFalse(test_tip.state.state_name == None)
 
     def test_tip_user_relationship(self):
         """Test that a tip object is successfully connected to the users table"""

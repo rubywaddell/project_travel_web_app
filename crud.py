@@ -83,11 +83,20 @@ def get_state_by_state_name(state_name):
     state = model.State.query.filter(model.State.state_name == state_name).first()
     return state
 
+def create_state_with_city_id(state_name, city_id):
+    """Create and return a State object with a city_id"""
+
+    state = model.State(state_name=state_name, city_id=city_id)
+
+    model.db.session.add(state)
+    model.db.session.commit()
+
+    return state
 
 def create_city(city_name, state_id=None):
     """Create and return a new city object"""
 
-    city = model.City(city_name=city_name, state_id=state_id)
+    city = model.City(city_name=city_name)
 
     model.db.session.add(city)
     model.db.session.commit()

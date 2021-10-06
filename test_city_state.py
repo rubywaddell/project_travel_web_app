@@ -32,6 +32,18 @@ class StateTestCase(unittest.TestCase):
         test_state = model.State.query.filter(model.State.state_name == 'Narnia').first()
         crud_state = crud.get_state_by_state_name(state_name = 'Narnia')
         self.assertEqual(test_state, crud_state)
+    
+    def test_state_city_relationship(self):
+        """Test that a state object has been successfully connected to the City table"""
+
+        test_city = model.City.query.first()
+        test_state = crud.create_state_with_city_id(state_name='Hogwarts', city_id=test_city.city_id)
+        model.db.session.add(test_state)
+        model.db.session.commit()
+
+        test_query = model.State.query.filter(model.State.state_name == test_state.state_name).first()
+        self.assertEqual(test_state, test_query)
+        self.assertEqual(test_state.city_id, test_query.city_id)
 
 class CityTestCase(unittest.TestCase):
     """Tests for City table in database"""
@@ -55,17 +67,6 @@ class CityTestCase(unittest.TestCase):
         test_city = model.City.query.filter(model.City.city_name == 'Oz').first()
         crud_city = crud.get_city_by_city_name(city_name = 'Oz')
         self.assertEqual(test_city, crud_city)
-
-    def test_city_state_relationship(self):
-        """Test that a city object is successfuly connected to the states table"""
-
-        test_state = crud.create_state(state_name="Hogwarts")
-        test_city = model.City(city_name="Oz", state_id=test_state.state_id)
-        model.db.session.add(test_city)
-        model.db.session.commit()
-
-        self.assertFalse(test_city.state_id == None)
-        self.assertFalse(test_city.state.state_name == None)
 
 if __name__ == "__main__":
     unittest.main()
