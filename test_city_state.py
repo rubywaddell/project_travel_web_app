@@ -45,6 +45,19 @@ class StateTestCase(unittest.TestCase):
         self.assertEqual(test_state, test_query)
         self.assertFalse(test_state.city.city_name == None)
 
+    
+    def test_state_tip_tag_relationship(self):
+        """Test that a state object has been successfully connected to the TipTag table"""
+
+        test_tip_tag = crud.create_tip_tag()
+        test_state = crud.create_state_with_tip_tag_id(state_name='Balloonicorn Castle', tip_tag_id=test_tip_tag.tip_tag_id)
+        model.db.session.add(test_state)
+        model.db.session.commit()
+
+        test_query = model.State.query.filter(model.State.state_name == test_state.state_name).first()
+        self.assertEqual(test_state, test_query)
+        self.assertFalse(test_state.tip_tag.tip_tag_id == None)
+
 
 class CityTestCase(unittest.TestCase):
     """Tests for City table in database"""

@@ -36,7 +36,7 @@ class Travel(db.Model):
     state_id = db.Column(db.Integer, db.ForeignKey("states.state_id"))
 
     state = db.relationship("State", backref="states")
-    
+
     def __repr__(self):
         return f"<Travels object: travel_id={self.travel_id}>"
 
@@ -49,8 +49,10 @@ class State(db.Model):
     state_name = db.Column(db.String)
 
     city_id = db.Column(db.Integer, db.ForeignKey("cities.city_id"))
+    tip_tag_id = db.Column(db.Integer, db.ForeignKey("tip_tags.tip_tag_id"))
 
     city = db.relationship("City", backref="cities")
+    tip_tag = db.relationship("TipTag", backref="tip_tags")
 
     def __repr__(self):
         return f"<State object: state_id={self.state_id} state_name={self.state_name}"
