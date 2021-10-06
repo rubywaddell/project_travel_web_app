@@ -54,6 +54,19 @@ class State(db.Model):
         return f"<State object: state_id={self.state_id} state_name={self.state_name}"
 
 
+class City(db.Model):
+    """Table to store cities and their corresponding states"""
+
+    __tablename__ = "cities"
+
+    city_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    city_name = db.Column(db.String)
+    #city_id = Foreign Key in Travels table
+
+    def __repr__(self):
+        return f"<Cities object: city_id={self.city_id} city_name={self.city_name}>"
+
+
 def connect_to_db(flask_app, db_uri="postgresql:///travel_project", echo=True):
     flask_app.config["SQLALCHEMY_DATABASE_URI"] = db_uri
     flask_app.config["SQLALCHEMY_ECHO"] = echo
