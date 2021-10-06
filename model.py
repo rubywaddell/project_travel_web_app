@@ -85,6 +85,21 @@ class Tip(db.Model):
         return f"<Tip object: tip_id={self.tip_id}>"
 
 
+class TipTag(db.Model):
+    """Association table between Tips and Tags tables"""
+
+    __tablename__ = "tip_tags"
+
+    tip_tag_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    
+#     tip_id = db.Column(db.Integer, db.ForeignKey("tips.tip_id"))
+#     tag_id = db.Column(db.Integer, db.ForeignKey("tags.tag_id"))
+
+#     tip = relationship("Tip", backref="tips")
+#     tag = relationship("Tag", backref="tags")
+
+    def __repr__(self):
+        return f"<TipTags object: tip_tags_id={self.tip_tag_id}>"
 
 def connect_to_db(flask_app, db_uri="postgresql:///travel_project", echo=True):
     flask_app.config["SQLALCHEMY_DATABASE_URI"] = db_uri

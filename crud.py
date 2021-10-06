@@ -66,6 +66,16 @@ def create_tip(tip_text):
 
     return tip
 
+def create_tip_tag():
+    """Create and return a new tip_tag object"""
+
+    tip_tag = model.TipTag()
+
+    model.db.session.add(tip_tag)
+    model.db.session.commit()
+
+    return tip_tag
+
 if __name__ == "__main__":
     from server import app
     model.connect_to_db(app)

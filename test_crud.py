@@ -122,7 +122,7 @@ class TipTestCase(unittest.TestCase):
         crud.model.db.create_all()    
 
     def test_tip_exists(self):
-        """Test that a tip is in the cities table after adding to db.session"""
+        """Test that a tip is in the tips table after adding to db.session"""
         test_tip = crud.create_tip(tip_text="Watch out for pickpockets!")
         crud.model.db.session.add(test_tip)
         crud.model.db.session.commit()
@@ -142,7 +142,7 @@ class TipTestCase(unittest.TestCase):
 
 
 class TipTagTestCase(unittest.TestCase):
-    """Tests for the Tips table in database"""
+    """Tests for the TipTags table in database"""
 
     def setUp(self):
         print("********* TipTag setUp function is running **************")
@@ -150,11 +150,21 @@ class TipTagTestCase(unittest.TestCase):
         crud.model.db.create_all()    
 
     def test_tip_tag_exists(self):
-        """Test that a tip is in the cities table after adding to db.session"""
+        """Test that a tip_tag is in the tiptags table after adding to db.session"""
+        
         test_tip_tag = crud.create_tip_tag()
+
         crud.model.db.session.add(test_tip_tag)
         crud.model.db.session.commit()
-        test_query = crud.model.TipTag.query.filter(crud.model.TipTag.tip_id == test_tip_tag.tip_id).first()
+        print("*"*35)
+        print("TEST TIPTAG: ", test_tip_tag)
+        print("*"*35)
+
+        print("*"*35)
+        print("TEST TIPTAG ID: ", test_tip_tag.tip_tag_id)
+        print("*"*35)
+
+        test_query = crud.model.TipTag.query.filter(crud.model.TipTag.tip_tag_id == test_tip_tag.tip_tag_id).first()
         self.assertEqual(test_tip_tag, test_query)
 
 
