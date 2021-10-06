@@ -93,10 +93,10 @@ class TipTag(db.Model):
     tip_tag_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     
     tip_id = db.Column(db.Integer, db.ForeignKey("tips.tip_id"))
-#     tag_id = db.Column(db.Integer, db.ForeignKey("tags.tag_id"))
+    tag_id = db.Column(db.Integer, db.ForeignKey("tags.tag_id"))
 
     tip = db.relationship("Tip", backref="tips")
-#     tag = relationship("Tag", backref="tags")
+    tag = db.relationship("Tag", backref="tags")
 
     def __repr__(self):
         return f"<TipTags object: tip_tags_id={self.tip_tag_id}>"
