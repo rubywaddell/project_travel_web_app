@@ -69,7 +69,6 @@ class City(db.Model):
 
     city_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     city_name = db.Column(db.String)
-    #city_id used as a Foreign Key in Travels table
 
     state_id = db.Column(db.Integer, db.ForeignKey("states.state_id"))
 
@@ -102,10 +101,10 @@ class TipTag(db.Model):
 
     tip_tag_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     
-#     tip_id = db.Column(db.Integer, db.ForeignKey("tips.tip_id"))
+    tip_id = db.Column(db.Integer, db.ForeignKey("tips.tip_id"))
 #     tag_id = db.Column(db.Integer, db.ForeignKey("tags.tag_id"))
 
-#     tip = db.relationship("Tip", backref="tips")
+    tip = db.relationship("Tip", backref="tips")
 #     tag = db.relationship("Tag", backref="tags")
 
     def __repr__(self):
