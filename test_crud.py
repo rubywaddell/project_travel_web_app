@@ -131,6 +131,16 @@ class TipTestCase(unittest.TestCase):
         self.assertEqual(test_tip, test_query)
 
 
+    def test_state_relationship(self):
+        """Test that a tip object is successfuly connected to the states table"""
+
+        test_state = crud.model.State.query.first()
+        test_tip = crud.model.Tip(tip_text="Don't go out alone at night if you're travelling alone.", state_id=test_state.state_id)
+        crud.model.db.session.add(test_tip)
+        crud.model.db.session.commit()
+
+        self.assertFalse(test_tip.state_id == None)
+        self.assertFalse(test_tip.state.state_name == None)
 
 if __name__ == "__main__":
     unittest.main()
