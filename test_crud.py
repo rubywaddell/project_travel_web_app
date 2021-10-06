@@ -129,7 +129,6 @@ class TipTestCase(unittest.TestCase):
         test_query = crud.model.Tip.query.filter(crud.model.Tip.tip_text == test_tip.tip_text).first()
         self.assertEqual(test_tip, test_query)
 
-
     # def test_tip_state_relationship(self):
     #     """Test that a tip object is successfuly connected to the states table"""
 
@@ -141,8 +140,23 @@ class TipTestCase(unittest.TestCase):
     #     self.assertFalse(test_tip.state_id == None)
     #     self.assertFalse(test_tip.state.state_name == None)
 
+
+class TipTagTestCase(unittest.TestCase):
+    """Tests for the Tips table in database"""
+
+    def setUp(self):
+        print("********* TipTag setUp function is running **************")
+        crud.model.connect_to_db(app)
+        crud.model.db.create_all()    
+
+    def test_tip_tag_exists(self):
+        """Test that a tip is in the cities table after adding to db.session"""
+        test_tip_tag = crud.create_tip_tag()
+        crud.model.db.session.add(test_tip_tag)
+        crud.model.db.session.commit()
+        test_query = crud.model.TipTag.query.filter(crud.model.TipTag.tip_id == test_tip_tag.tip_id).first()
+        self.assertEqual(test_tip_tag, test_query)
+
+
 if __name__ == "__main__":
     unittest.main()
-
-
-os.system('dropdb travel_project')

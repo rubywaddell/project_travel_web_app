@@ -77,9 +77,9 @@ class Tip(db.Model):
     tip_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     tip_text = db.Column(db.Text)
 
-    state_id = db.Column(db.Integer, db.ForeignKey("states.state_id"))
+    # state_id = db.Column(db.Integer, db.ForeignKey("states.state_id"))
 
-    state = db.relationship("State", backref="states")
+    # state = db.relationship("State", backref="states")
 
     def __repr__(self):
         return f"<Tip object: tip_id={self.tip_id}>"
