@@ -38,6 +38,18 @@ class TipTestCase(unittest.TestCase):
     #     self.assertFalse(test_tip.state_id == None)
     #     self.assertFalse(test_tip.state.state_name == None)
 
+    def test_tip_user_relationship(self):
+        """Test that a tip object is successfully connected to the users table"""
+
+        test_user = crud.create_user(username="buttersnaps", fname="Ghee", lname="Buttersnaps",
+                                            email = "gbutter@me.com", password="123441")
+        
+        test_tip = model.Tip(tip_text="Test tip text", user_id = test_user.user_id)
+        model.db.session.add(test_tip)
+        model.db.session.commit()
+
+        self.assertFalse(test_tip.user_id == None)
+        self.assertFalse(test_tip.user.username == None)
 
 class TipTagTestCase(unittest.TestCase):
     """Tests for the TipTags table in database"""

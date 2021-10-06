@@ -86,8 +86,10 @@ class Tip(db.Model):
     tip_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     tip_text = db.Column(db.Text)
 
+    user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"))
 #     # state_id = db.Column(db.Integer, db.ForeignKey("states.state_id"))
 
+    user = db.relationship("User", backref="users")
 #     # state = db.relationship("State", backref="states")
 
     def __repr__(self):
