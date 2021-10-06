@@ -55,6 +55,18 @@ class TravelTestCase(unittest.TestCase):
         self.assertEqual(test_travel, test_query)
 
 
+    def test_state_relationship(self):
+        """Test that a trip object is successfuly connected to the states table"""
+
+        test_state = crud.model.State.query.first()
+        test_travel = crud.model.State(departure_date="12.24.2010", arrival_date="12.26.2015", state_id=test_state.state_id)
+        crud.model.db.session.add(test_travel)
+        crud.model.db.session.commit()
+
+        self.assertFalse(test_travel.state_id == None)
+        self.assertFalse(test_travel.state_id.state_name == None)
+
+
 class StateTestCase(unittest.TestCase):
     """Tests for State table in database"""
 
