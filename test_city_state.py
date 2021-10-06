@@ -1,4 +1,4 @@
-"""Tests to insure model.py State and City tables are functioning propery"""
+"""Tests to ensure model.py State and City tables are functioning propery"""
 
 import unittest
 import os

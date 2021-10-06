@@ -1,4 +1,4 @@
-"""Tests to insure model.py travel table is functioning propery"""
+"""Tests to ensure model.py travel table is functioning propery"""
 
 import unittest
 import os

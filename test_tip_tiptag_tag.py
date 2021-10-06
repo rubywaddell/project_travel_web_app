@@ -1,4 +1,4 @@
-"""Tests to insure model.py Tips, Tags, and TipTags tables are functioning propery"""
+"""Tests to ensure model.py Tips, Tags, and TipTags tables are functioning propery"""
 
 import unittest
 import os

@@ -1,4 +1,4 @@
-"""Tests to insure model.py user table is functioning propery"""
+"""Tests to ensure model.py user table is functioning propery"""
 
 import unittest
 import os
@@ -9,6 +9,7 @@ import model
 
 os.system('dropdb travel_project')
 os.system('createdb travel_project')
+
 
 class UserTestCase(unittest.TestCase):
     """Tests for User table in model"""
@@ -58,7 +59,7 @@ class UserTestCase(unittest.TestCase):
     def test_user_travel_relationship(self):
         """Test that the user is successfully related to travels table"""
 
-        test_travel = model.Travel.query.first()
+        test_travel = crud.create_travel(departure_date="2021.10.05", arrival_date="2021.10.15")
         test_user = crud.create_user_with_travel_id(username='tapman', fname='Burton', lname='Guster', 
                                 email='guster@me.com', password='goawayshawn', travel_id = test_travel.travel_id)
         

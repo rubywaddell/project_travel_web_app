@@ -16,9 +16,9 @@ class User(db.Model):
     email = db.Column(db.String, unique=True)
     password = db.Column(db.String(15))
 
-    # travel_id = db.Column(db.Integer, db.ForeignKey("travels.travel_id"))
+    travel_id = db.Column(db.Integer, db.ForeignKey("travels.travel_id"))
 
-    # travel = db.relationship("Travel", back_populates="travels")
+    travel = db.relationship("Travel", backref="travels")
 
     def __repr__(self):
         return f"<User object: user_id={self.user_id}, username={self.username}, full_name={self.fname} {self.lname}>"
@@ -39,7 +39,8 @@ class Travel(db.Model):
 
     # state = db.relationship("State", backref="states")
     # city = db.relationship("City", backref="cities")
-    # user = db.relationship("User", back_populates="users")
+
+    # user = db.relationship("User", back_populates="travels")
 
     def __repr__(self):
         return f"<Travels object: travel_id={self.travel_id}>"
