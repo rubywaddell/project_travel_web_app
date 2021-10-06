@@ -151,21 +151,34 @@ class TipTagTestCase(unittest.TestCase):
 
     def test_tip_tag_exists(self):
         """Test that a tip_tag is in the tiptags table after adding to db.session"""
-        
+
         test_tip_tag = crud.create_tip_tag()
 
         crud.model.db.session.add(test_tip_tag)
         crud.model.db.session.commit()
-        print("*"*35)
-        print("TEST TIPTAG: ", test_tip_tag)
-        print("*"*35)
-
-        print("*"*35)
-        print("TEST TIPTAG ID: ", test_tip_tag.tip_tag_id)
-        print("*"*35)
 
         test_query = crud.model.TipTag.query.filter(crud.model.TipTag.tip_tag_id == test_tip_tag.tip_tag_id).first()
         self.assertEqual(test_tip_tag, test_query)
+
+
+class TagTestCase(unittest.TestCase):
+    """Tests for the Tags table in database"""
+
+    def setUp(self):
+        print("********* Tag setUp function is running **********\n")
+        crud.model.connect_to_db(app)
+        crud.model.db.create_all()
+    
+    def test_tag_exists(self):
+        """Test that a tag is in the tags table after adding to db.session"""
+
+        test_tag = crud.create_tag(tag_name="Vegetarian")
+
+        crud.model.db.session.add(test_tag)
+        crud.model.db.session.commit()
+
+        test_query = crud.model.Tag.query.filter(crud.model.Tag.tag_name == test_tag.tag_name).first()
+        self.assertEqual(test_tag, test_query)
 
 
 if __name__ == "__main__":
