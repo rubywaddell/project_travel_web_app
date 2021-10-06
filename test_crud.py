@@ -28,7 +28,7 @@ class UserTestCase(unittest.TestCase):
         test_query = crud.model.User.query.filter(crud.model.User.fname == test_user.fname).first()
         self.assertEqual(test_user, test_query)
     
-    def test_travel_relationship(self):
+    def test_user_travel_relationship(self):
         """Test that the user is successfully related to travels table"""
         test_travel = crud.model.Travel.query.first()
         test_user = crud.create_user_with_travel_id(username='tapman', fname='Burton', lname='Guster', 
@@ -55,7 +55,7 @@ class TravelTestCase(unittest.TestCase):
         self.assertEqual(test_travel, test_query)
 
 
-    def test_state_relationship(self):
+    def test_travel_state_relationship(self):
         """Test that a trip object is successfuly connected to the states table"""
 
         test_state = crud.model.State.query.first()
@@ -67,7 +67,7 @@ class TravelTestCase(unittest.TestCase):
         self.assertFalse(test_travel.state.state_name == None)
 
 
-    def test_city_relationship(self):
+    def test_travel_city_relationship(self):
         """Test that a trip object is successfully connected to the states table"""
 
         test_city = crud.model.City.query.first()
@@ -121,7 +121,6 @@ class TipTestCase(unittest.TestCase):
         crud.model.connect_to_db(app)
         crud.model.db.create_all()    
 
-
     def test_tip_exists(self):
         """Test that a tip is in the cities table after adding to db.session"""
         test_tip = crud.create_tip(tip_text="Watch out for pickpockets!")
@@ -131,16 +130,16 @@ class TipTestCase(unittest.TestCase):
         self.assertEqual(test_tip, test_query)
 
 
-    def test_state_relationship(self):
-        """Test that a tip object is successfuly connected to the states table"""
+    # def test_tip_state_relationship(self):
+    #     """Test that a tip object is successfuly connected to the states table"""
 
-        test_state = crud.model.State.query.first()
-        test_tip = crud.model.Tip(tip_text="Don't go out alone at night if you're travelling alone.", state_id=test_state.state_id)
-        crud.model.db.session.add(test_tip)
-        crud.model.db.session.commit()
+    #     test_state = crud.model.State.query.first()
+    #     test_tip = crud.model.Tip(tip_text="Don't go out alone at night if you're travelling alone.", state_id=test_state.state_id)
+    #     crud.model.db.session.add(test_tip)
+    #     crud.model.db.session.commit()
 
-        self.assertFalse(test_tip.state_id == None)
-        self.assertFalse(test_tip.state.state_name == None)
+    #     self.assertFalse(test_tip.state_id == None)
+    #     self.assertFalse(test_tip.state.state_name == None)
 
 if __name__ == "__main__":
     unittest.main()

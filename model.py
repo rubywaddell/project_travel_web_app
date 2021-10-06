@@ -50,7 +50,7 @@ class State(db.Model):
 
     state_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     state_name = db.Column(db.String)
-    #state_id used as a foreign key in the travels table
+    #state_id used as a foreign key in the travels and tips tables
 
     def __repr__(self):
         return f"<State object: state_id={self.state_id} state_name={self.state_name}"
@@ -77,8 +77,14 @@ class Tip(db.Model):
     tip_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     tip_text = db.Column(db.Text)
 
+    state_id = db.Column(db.Integer, db.ForeignKey("states.state_id"))
+
+    state = db.relationship("State", backref="states")
+
     def __repr__(self):
         return f"<Tip object: tip_id={self.tip_id}>"
+
+
 
 def connect_to_db(flask_app, db_uri="postgresql:///travel_project", echo=True):
     flask_app.config["SQLALCHEMY_DATABASE_URI"] = db_uri
