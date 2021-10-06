@@ -180,6 +180,18 @@ class TipTagTestCase(unittest.TestCase):
         self.assertFalse(test_tip_tag.tip_id == None)
         self.assertFalse(test_tip_tag.tip.tip_text == None)
 
+    def test_tip_tag_tag_relationship(self):
+        """Test that a tiptag object is successfully connected to the tags table"""
+
+        test_tag = crud.model.Tag.query.first()
+
+        test_tip_tag = crud.model.TipTag(tag_id = test_tag.tag_id)
+        crud.model.db.session.add(test_tip_tag)
+        crud.model.db.session.commit()
+
+        self.assertFalse(test_tip_tag.tag_id == None)
+        self.assertFalse(test_tip_tag.tag.tag_name == None)
+
 
 class TagTestCase(unittest.TestCase):
     """Tests for the Tags table in database"""
