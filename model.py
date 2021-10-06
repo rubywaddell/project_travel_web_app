@@ -101,6 +101,19 @@ class TipTag(db.Model):
     def __repr__(self):
         return f"<TipTags object: tip_tags_id={self.tip_tag_id}>"
 
+
+class Tag(db.Model):
+    """Tags to help filter safety tips"""
+
+    __tablename__ = "tags"
+
+    tag_id = db.Column(db.Integer, primary_key=True)
+    tag_name = db.Column(db.String(25))
+
+    def __repr__(self):
+        return f"<Tags object: tag_id={self.tag_id} tag_name={self.tag_name}"
+
+
 def connect_to_db(flask_app, db_uri="postgresql:///travel_project", echo=True):
     flask_app.config["SQLALCHEMY_DATABASE_URI"] = db_uri
     flask_app.config["SQLALCHEMY_ECHO"] = echo
