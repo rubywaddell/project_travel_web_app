@@ -32,16 +32,11 @@ class Travel(db.Model):
     travel_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     departure_date = db.Column(db.Date, nullable=True)
     arrival_date = db.Column(db.Date, nullable=True)
-    #travel_id = Foreign Key in Users table
 
-    # state_id = db.Column(db.Integer, db.ForeignKey("states.state_id"))
-    # city_id = db.Column(db.Integer, db.ForeignKey("cities.city_id"))
+    state_id = db.Column(db.Integer, db.ForeignKey("states.state_id"))
 
-    # state = db.relationship("State", backref="states")
-    # city = db.relationship("City", backref="cities")
-
-    # user = db.relationship("User", back_populates="travels")
-
+    state = db.relationship("State", backref="states")
+    
     def __repr__(self):
         return f"<Travels object: travel_id={self.travel_id}>"
 
@@ -52,7 +47,6 @@ class State(db.Model):
 
     state_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     state_name = db.Column(db.String)
-    #state_id used as a foreign key in the travels tables
 
     city_id = db.Column(db.Integer, db.ForeignKey("cities.city_id"))
 

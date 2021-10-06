@@ -43,7 +43,8 @@ class StateTestCase(unittest.TestCase):
 
         test_query = model.State.query.filter(model.State.state_name == test_state.state_name).first()
         self.assertEqual(test_state, test_query)
-        self.assertEqual(test_state.city_id, test_query.city_id)
+        self.assertFalse(test_state.city.city_name == None)
+
 
 class CityTestCase(unittest.TestCase):
     """Tests for City table in database"""
