@@ -159,6 +159,17 @@ class TipTagTestCase(unittest.TestCase):
 
         test_query = crud.model.TipTag.query.filter(crud.model.TipTag.tip_tag_id == test_tip_tag.tip_tag_id).first()
         self.assertEqual(test_tip_tag, test_query)
+    
+    def test_tip_tag_tip_relationship(self):
+        """Test that a tiptag object is successfuly connected to the tips table"""
+
+        test_tip = crud.model.Tip.query.first()
+        test_tip_tag = crud.model.TipTag(tip_id=test_tip.tip_id)
+        crud.model.db.session.add(test_tip_tag)
+        crud.model.db.session.commit()
+
+        self.assertFalse(test_tip_tag.tip_id == None)
+        self.assertFalse(test_tip.tip.tip_name == None)
 
 
 class TagTestCase(unittest.TestCase):
