@@ -97,7 +97,7 @@ class CityTestCase(unittest.TestCase):
         test_city = crud.create_city(city_name="Oz")
         crud.model.db.session.add(test_city)
         crud.model.db.session.commit()
-        test_query = crud.model.city.query.filter(crud.model.city.city_name == test_city.city_name).first()
+        test_query = crud.model.City.query.filter(crud.model.City.city_name == test_city.city_name).first()
         self.assertEqual(test_city, test_query)
 
 if __name__ == "__main__":

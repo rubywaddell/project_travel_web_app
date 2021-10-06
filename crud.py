@@ -45,6 +45,17 @@ def create_state(state_name):
     return state
 
 
+def create_city(city_name):
+    """Create and return a new city object"""
+
+    city = model.City(city_name=city_name)
+
+    model.db.session.add(city)
+    model.db.session.commit()
+
+    return city
+
+
 if __name__ == "__main__":
     from server import app
     model.connect_to_db(app)
