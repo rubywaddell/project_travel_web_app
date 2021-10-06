@@ -66,6 +66,17 @@ class TravelTestCase(unittest.TestCase):
         self.assertFalse(test_travel.state_id == None)
         self.assertFalse(test_travel.state.state_name == None)
 
+    def test_city_relationship(self):
+        """Test that a trip object is successfully connected to the states table"""
+
+        test_city = crud.model.City.query.first()
+        test_travel = crud.model.Travel(departure_date="12.26.2015", arrival_date="12.24.2010", city_id=test_city.city_id)
+        crud.model.db.session.add(test_travel)
+        crud.model.db.session.commit()
+
+        self.assertFalse(test_travel.city_id == None)
+        self.assertFalse(test_travel.city.city_name == None)
+
 
 class StateTestCase(unittest.TestCase):
     """Tests for State table in database"""
