@@ -69,6 +69,17 @@ class City(db.Model):
         return f"<Cities object: city_id={self.city_id} city_name={self.city_name}>"
 
 
+class Tip(db.Model):
+    """User generated tips about safety while travelling"""
+
+    __tablename__ = "tips"
+
+    tip_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    tip_text = db.Column(db.Text)
+
+    def __repr__(self):
+        return f"<Tip object: tip_id={self.tip_id}>"
+
 def connect_to_db(flask_app, db_uri="postgresql:///travel_project", echo=True):
     flask_app.config["SQLALCHEMY_DATABASE_URI"] = db_uri
     flask_app.config["SQLALCHEMY_ECHO"] = echo

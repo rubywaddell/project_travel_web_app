@@ -56,6 +56,16 @@ def create_city(city_name):
     return city
 
 
+def create_tip(tip_text):
+    """Create and return a new tip object"""
+
+    tip = model.Tip(tip_text=tip_text)
+
+    model.db.session.add(tip)
+    model.db.session.commit()
+
+    return tip
+
 if __name__ == "__main__":
     from server import app
     model.connect_to_db(app)

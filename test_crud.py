@@ -124,10 +124,10 @@ class TipTestCase(unittest.TestCase):
 
     def test_tip_exists(self):
         """Test that a tip is in the cities table after adding to db.session"""
-        test_tip = crud.create_tip(tip_name="Oz")
+        test_tip = crud.create_tip(tip_text="Watch out for pickpockets!")
         crud.model.db.session.add(test_tip)
         crud.model.db.session.commit()
-        test_query = crud.model.Tip.query.filter(crud.model.Tip.tip_name == test_tip.tip_name).first()
+        test_query = crud.model.Tip.query.filter(crud.model.Tip.tip_text == test_tip.tip_text).first()
         self.assertEqual(test_tip, test_query)
 
 
