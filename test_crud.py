@@ -66,6 +66,7 @@ class TravelTestCase(unittest.TestCase):
         self.assertFalse(test_travel.state_id == None)
         self.assertFalse(test_travel.state.state_name == None)
 
+
     def test_city_relationship(self):
         """Test that a trip object is successfully connected to the states table"""
 
@@ -110,6 +111,26 @@ class CityTestCase(unittest.TestCase):
         crud.model.db.session.commit()
         test_query = crud.model.City.query.filter(crud.model.City.city_name == test_city.city_name).first()
         self.assertEqual(test_city, test_query)
+
+
+class TipTestCase(unittest.TestCase):
+    """Tests for the Tips table in database"""
+
+    def setUp(self):
+        print("********* Tip setUp function is running **************")
+        crud.model.connect_to_db(app)
+        crud.model.db.create_all()    
+
+
+    def test_tip_exists(self):
+        """Test that a tip is in the cities table after adding to db.session"""
+        test_tip = crud.create_tip(tip_name="Oz")
+        crud.model.db.session.add(test_tip)
+        crud.model.db.session.commit()
+        test_query = crud.model.Tip.query.filter(crud.model.Tip.tip_name == test_tip.tip_name).first()
+        self.assertEqual(test_tip, test_query)
+
+
 
 if __name__ == "__main__":
     unittest.main()
