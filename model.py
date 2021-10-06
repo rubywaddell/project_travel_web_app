@@ -35,8 +35,10 @@ class Travel(db.Model):
     #travel_id = Foreign Key in Users table
 
     state_id = db.Column(db.Integer, db.ForeignKey("states.state_id"))
+    city_id = db.Column(db.Integer, db.ForeignKey("cities.city_id"))
 
     state = db.relationship("State", backref="states")
+    city = db.relationship("City", backref="cities")
 
     def __repr__(self):
         return f"<Travels object: travel_id={self.travel_id}>"
@@ -61,7 +63,7 @@ class City(db.Model):
 
     city_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     city_name = db.Column(db.String)
-    #city_id = Foreign Key in Travels table
+    #city_id used as a Foreign Key in Travels table
 
     def __repr__(self):
         return f"<Cities object: city_id={self.city_id} city_name={self.city_name}>"
