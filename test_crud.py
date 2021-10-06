@@ -84,6 +84,22 @@ class StateTestCase(unittest.TestCase):
         self.assertEqual(test_state, test_query)
 
 
+class CityTestCase(unittest.TestCase):
+    """Tests for City table in database"""
+
+    def setUp(self):
+        print("********* City setUp function is running **************")
+        crud.model.connect_to_db(app)
+        crud.model.db.create_all()
+
+    def test_city_exists(self):
+        """Test that a city is in the cities table after adding to db.session"""
+        test_city = crud.create_city(city_name="Oz")
+        crud.model.db.session.add(test_city)
+        crud.model.db.session.commit()
+        test_query = crud.model.city.query.filter(crud.model.city.city_name == test_city.city_name).first()
+        self.assertEqual(test_city, test_query)
+
 if __name__ == "__main__":
     unittest.main()
 
