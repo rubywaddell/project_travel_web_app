@@ -23,6 +23,27 @@ def create_travel(departure_date, arrival_date):
 
     return travel
 
+def create_user_with_travel_id(username, fname, lname, email, password, travel_id):
+    """Create and return a new user object that has relationship with travel table"""
+
+    user = model.User(username=username, fname=fname, lname=lname, email=email, password=password, travel_id=travel_id)
+
+    model.db.session.add(user)
+    model.db.session.commit()
+
+    return user
+
+
+def create_state(state_name):
+    """Create and return a new state object"""
+
+    state = model.State(state_name=state_name)
+
+    model.db.session.add(state)
+    model.db.session.commit()
+
+    return state
+
 
 if __name__ == "__main__":
     from server import app
