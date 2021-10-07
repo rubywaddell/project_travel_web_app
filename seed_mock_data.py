@@ -109,3 +109,15 @@ def seed_tag_table():
         new_tag = crud.create_tag(tag_name)
         tags_in_db.append(new_tag)
     return tags_in_db
+
+def seed_tip_tag_table():
+    """Seed tip_tags table with mock data"""
+
+    for i in range(50):
+        new_tip_tag = crud.create_tip_tag_w_tip_and_tag_id(
+            tip_id= tips_in_db[i].tip_id,
+            tag_id=tags_in_db[i].tag_id
+        )
+        tip_tags_in_db.append(new_tip_tag)
+
+    return tip_tags_in_db
