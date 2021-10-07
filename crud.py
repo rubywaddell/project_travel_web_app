@@ -36,6 +36,12 @@ def get_user_by_fname(fname):
     user = model.User.query.filter(model.User.fname == fname).first()
     return user
 
+def get_user_by_username(username):
+    """Return the first user with a give username"""
+
+    user = model.User.query.filter(model.User.username == username).first()
+    return user
+
 def create_travel(departure_date, arrival_date):
     """Create and return a new travel object"""
 
@@ -150,6 +156,11 @@ def create_tip(tip_text):
     model.db.session.commit()
 
     return tip
+
+def get_all_tips():
+    """"Return a list of all tips in the database"""
+    tips = model.Tip.query.all()
+    return tips
 
 def create_tip_w_user_id(tip_text, user_id):
     """Create and return a new tip object"""

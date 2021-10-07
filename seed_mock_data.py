@@ -4,13 +4,13 @@ import json
 
 import crud
 import model
-import server
+# import server
 
 os.system('dropdb travel_project')
 os.system('createdb travel_project')
 
-model.connect_to_db(server.app)
-model.db.create_all()
+# model.connect_to_db(server.app)
+# model.db.create_all()
 
 
 users_in_db = []
@@ -149,6 +149,18 @@ def seed_tip_table_user_w_no_travel():
         new_tip = crud.create_tip_w_user_id(tip_text=tip_text, user_id=user_id)
         tips_in_db.append(new_tip)
     
+    return tips_in_db
+
+def seed_tip_table():
+    """Seed the tips table with mock data"""
+
+    with open("data/mock_tip_data.json") as tips:
+        tip_data = json.loads(tips.read())
+    
+    for tip in tip_data:
+        tip_text = tip["tip_text"]
+        new_tip = crud.create_tip(tip_text)
+        tips_in_db.append(new_tip)
     return tips_in_db
 
 def seed_tag_table():
