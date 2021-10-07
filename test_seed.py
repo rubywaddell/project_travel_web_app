@@ -11,7 +11,6 @@ import seed_database
 os.system('dropdb travel_project')
 os.system('createdb travel_project')
 
-
 class TestSeedDatabase(unittest.TestCase):
     """Tests for Seed Database file"""
 
@@ -21,6 +20,14 @@ class TestSeedDatabase(unittest.TestCase):
         seed_users = seed_database.seed_users_table()
         test_length = 10
         self.assertEqual(test_length, len(seed_users))
+
+    def test_user_w_travel_id_seeded_to_db(self):
+        """Test that the users table has successfully been seeded with test users that are related to travels table"""
+
+        seed_users = seed_database.users_in_db
+        test_travel_id = 1
+        test_user = seed_users[0]
+        self.assertEqual(test_travel_id, test_user.travel_id)
     
     def test_travel_seeded_to_db(self):
         """Test that the travels table has successfully been seeded with test data"""

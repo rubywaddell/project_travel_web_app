@@ -51,22 +51,6 @@ tips_in_db = []
 tags_in_db = []
 # tip_tags_in_db = []
 
-
-def seed_users_table():
-    """Seed User table with test data"""
-    for n in range(10):
-        
-        fname = FIRST_NAMES[n]
-        lname = LAST_NAMES[n]
-        username = f"{fname.lower()}{n}"
-        email = f"{fname.lower()}@test.com"
-        password = f"Password{n}!"
-
-        new_user = crud.create_user(username, fname, lname, email, password)
-        users_in_db.append(new_user)
-
-    return users_in_db
-
 def seed_travels_table():
     """Seed Travel table with test data"""
 
@@ -79,6 +63,24 @@ def seed_travels_table():
         travels_in_db.append(new_travel)
     
     return travels_in_db
+
+def seed_users_table():
+    """Seed User table with test data"""
+    for n in range(10):
+        
+        travel = travels_in_db[n]
+
+        fname = FIRST_NAMES[n]
+        lname = LAST_NAMES[n]
+        username = f"{fname.lower()}{n}"
+        email = f"{fname.lower()}@test.com"
+        password = f"Password{n}!"
+        travel_id = travel.travel_id
+
+        new_user = crud.create_user_with_travel_id(username, fname, lname, email, password, travel_id)
+        users_in_db.append(new_user)
+
+    return users_in_db
 
 def seed_states_table():
     """Seed State table with test data"""
