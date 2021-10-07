@@ -15,6 +15,7 @@ model.db.create_all()
 
 users_in_db = []
 travels_in_db = []
+states_in_db = []
 
 def seed_user_table():
     """Seed user table with mock user data"""
@@ -50,3 +51,17 @@ def seed_travel_table():
 
         travels_in_db.append(new_travel)
     return travels_in_db
+
+def seed_state_table():
+    """Seed states table with American states"""
+
+    with open("data/mock_state_data.json") as states:
+        state_data = json.loads(states.read())
+
+    for state in state_data:
+        state_name = state["state_name"]
+
+        new_state = crud.create_state(state_name)
+
+        states_in_db.append(new_state)
+    return states_in_db
