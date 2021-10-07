@@ -114,6 +114,16 @@ def create_state_with_tip_tag_id(state_name, tip_tag_id):
 
     return state
 
+def create_state_with_tip_tag_and_city_id(state_name, city_id, tip_tag_id):
+    """Create and return a State object with a tip_tag_id"""
+
+    state = model.State(state_name=state_name, city_id=city_id, tip_tag_id=tip_tag_id)
+
+    model.db.session.add(state)
+    model.db.session.commit()
+
+    return state
+
 def create_city(city_name):
     """Create and return a new city object"""
 

@@ -41,16 +41,18 @@ class TestSeedDatabase(unittest.TestCase):
         """Test that the travels table has successfully been seeded with test data"""
 
         seed_travels = seed_database.seed_travels_table()
-        test_length = 10
-        self.assertEqual(test_length, len(seed_travels))
+        self.assertEqual(1, seed_travels[0].travel_id)
 
     def test_travel_w_state_id_seeded_to_db(self):
         """Test that the travels table has successfully been seeded with test travels that are related to the states tabel"""
 
-        seed_travels = seed_database.travels_in_db
-        test_state_id = 1
-        test_travel= seed_travels[0]
-        self.assertEqual(test_state_id, test_travel.state_id)   
+        test_state = model.State.query.filter(model.State.state_name == "California").first()
+        print("\n*"*5)
+        print("test_state =", test_state)
+        test_travel = model.Travel.query.filter(model.Travel.state_id == 5).first()
+        print("test_travel =", test_travel)
+        print("\n*"*5)
+        self.assertEqual(test_state.state_id, test_travel.state_id)
 
     def test_user_travel_state_query(self):
         """Test that users can be queried through travel table relations"""
@@ -81,13 +83,19 @@ class TestSeedDatabase(unittest.TestCase):
         test_city_id = 1
         test_state = model.State.query.filter(model.State.state_name == "California").first()
         self.assertEqual(test_city_id, test_state.city_id)
+    
+    def test_state_w_tip_tag_id_seeded_to_db(self):
+        """Test that that states table has successfully been seeded with example data connected to the tips table"""
+
+        test_tip_tag_id = 1
+        test_state = model.State.query.filter(model.State.state_name == "California").first()
+        self.assertEqual(test_tip_tag_id, test_state.tip_tag_id)
 
     def test_tip_seeded_to_db(self):
         """Testt that the tips table has successfully been seeded with example data"""
 
         seed_tips = seed_database.seed_tips_table()
-        test_length = 10
-        self.assertEqual(test_length, len(seed_tips))
+        self.assertEqual("Test tip 0", seed_tips[0].tip_text)
 
     def test_tip_w_user_id_seeded_to_db(self):
         """Test that tip objects with relationships to users are successfully seed to database"""
@@ -105,15 +113,13 @@ class TestSeedDatabase(unittest.TestCase):
         """Test that the tags table has successfully been seeded with data"""
 
         seed_tags = seed_database.seed_tags_table()
-        test_length = 10
-        self.assertEqual(test_length, len(seed_tags))
+        self.assertEqual("Woman", seed_tags[0].tag_name)
 
     def test_tip_tag_seeded_to_db(self):
         """Test that the tip_tags table has successfully been seeded with data"""
 
         seed_tip_tags = seed_database.seed_tip_tags_table()
-        test_length = 10
-        self.assertEqual(test_length, len(seed_tip_tags))
+        self.assertEqual(1, seed_tip_tags[0].tip_tag_id)
 
     def test_tip_tag_w_tip_id_seeded_to_db(self):
         """Test that the travels table has successfully been seeded with test travels that are related to the states tabel"""

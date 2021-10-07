@@ -1,7 +1,7 @@
 import os
-import json
-import urllib
-import requests 
+# import json
+# import urllib
+# import requests 
 
 import crud
 import model
@@ -39,57 +39,43 @@ tip_tags_in_db = []
 def seed_travels_table():
     """Seed Travel table with test data"""
 
-    if travels_in_db == []:
-
+    if states_in_db == []:
         for n in range(10):
-
+            departure_date = f"01.{n+1}.2010"
+            arrival_date = f"01.{n+5}.2010"
+            new_travel = crud.create_travel(departure_date=departure_date, arrival_date=arrival_date)
+            travels_in_db.append(new_travel)
+    else:
+        for n in range(10):
             departure_date = f"01.{n+1}.2010"
             arrival_date = f"01.{n+5}.2010"
 
             new_travel = crud.create_travel_with_state_id(departure_date=departure_date, arrival_date=arrival_date, state_id=1)
             travels_in_db.append(new_travel)
-    
-        return travels_in_db
-    
-    else:
-        return travels_in_db
+
+    return travels_in_db
 
 def seed_users_table():
     """Seed User table with test data"""
-    if users_in_db == []:
-        for n in range(10):
-            
-            if travels_in_db == []:
-                seed_travels_table()
+    if travels_in_db == []:
+        seed_travels_table()
 
-                travel = travels_in_db[n]
-
-                fname = FIRST_NAMES[n]
-                lname = LAST_NAMES[n]
-                username = f"{fname.lower()}{n}"
-                email = f"{fname.lower()}@test.com"
-                password = f"Password{n}!"
-                travel_id = travel.travel_id
-
-                new_user = crud.create_user_with_travel_id(username, fname, lname, email, password, travel_id)
-                users_in_db.append(new_user)
-
-            else:
-                travel = travels_in_db[n]
-
-                fname = FIRST_NAMES[n]
-                lname = LAST_NAMES[n]
-                username = f"{fname.lower()}{n}"
-                email = f"{fname.lower()}@test.com"
-                password = f"Password{n}!"
-                travel_id = travel.travel_id
-
-                new_user = crud.create_user_with_travel_id(username, fname, lname, email, password, travel_id)
-                users_in_db.append(new_user)
-
+    if users_in_db != []:
         return users_in_db
-
     else:
+        for n in range(10):
+            travel = travels_in_db[n]
+
+            fname = FIRST_NAMES[n]
+            lname = LAST_NAMES[n]
+            username = f"{fname.lower()}{n}"
+            email = f"{fname.lower()}@test.com"
+            password = f"Password{n}!"
+            travel_id = travel.travel_id
+
+            new_user = crud.create_user_with_travel_id(username, fname, lname, email, password, travel_id)
+            users_in_db.append(new_user)
+
         return users_in_db
 
 
@@ -99,18 +85,29 @@ def seed_states_table():
     if cities_in_db == []:
         seed_cities_table()
 
-    for state in STATES:
+    if tip_tags_in_db == []:
+        seed_tip_tags_table()
+    
+    if states_in_db != []:
+        return states_in_db
+    else:
+        for state in STATES:
+            if state == 'California':
+                for i in range(10):
+                    city = cities_in_db[i]
+                    tip_tag = tip_tags_in_db[i]
 
-        if state == 'California':
-            for city in cities_in_db:
-                new_state = crud.create_state_with_city_id(state_name=state, city_id=city.city_id)
+                    new_state = crud.create_state_with_tip_tag_and_city_id(state_name=state, 
+                        city_id=city.city_id, tip_tag_id=tip_tag.tip_tag_id)
+                    print(f"Line 90 new_state: {new_state}\n")
+                    states_in_db.append(new_state)
+            else:
+                print()
+                new_state = crud.create_state(state_name=state)
+                print(f"Line 96 new_state: {new_state}")
                 states_in_db.append(new_state)
-
-        else:
-            new_state = crud.create_state(state_name=state)
-            states_in_db.append(new_state)
        
-    return states_in_db
+        return states_in_db
 
 def seed_cities_table():
     """Seed City table with example data"""
@@ -123,38 +120,49 @@ def seed_cities_table():
 def seed_tips_table():
     """Seed Tip table with example data"""
 
-    for n in range(10):
-        if users_in_db == []:
-            seed_users_table()
+    if users_in_db == []:
+        seed_users_table()
+
+    if tips_in_db != []:
+        return tips_in_db
+    else:
+        for n in range(10):
             user = users_in_db[n]
             tip_text = f"Test tip {n}"
             new_tip = crud.create_tip_w_user_id(tip_text=tip_text, user_id=user.user_id)
             tips_in_db.append(new_tip)
-        else:
-            user = users_in_db[n]
-            tip_text = f"Test tip {n}"
-            new_tip = crud.create_tip_w_user_id(tip_text=tip_text, user_id=user.user_id)
-            tips_in_db.append(new_tip)
-    
-    return tips_in_db
+        
+        return tips_in_db
 
 def seed_tags_table():
     """Seed Tag table with example data"""
 
-    for n in range(10):
-        tag_name = TAGS[n]
-        new_tag = crud.create_tag(tag_name=tag_name)
-        tags_in_db.append(new_tag)
-    
-    return tags_in_db
+    if tags_in_db != []:
+        return tags_in_db
+    else:
+        for n in range(10):
+            tag_name = TAGS[n]
+            new_tag = crud.create_tag(tag_name=tag_name)
+            tags_in_db.append(new_tag)
+        
+        return tags_in_db
 
 def seed_tip_tags_table():
     """Seed TipTag table with example data"""
 
-    for n in range(10):
-        tip = tips_in_db[n]
-        tag = tags_in_db[n]
-        new_tip_tag = crud.create_tip_tag_w_tip_and_tag_id(tip_id=tip.tip_id, tag_id=tag.tag_id)
-        tip_tags_in_db.append(new_tip_tag)
-    
-    return tip_tags_in_db
+    if tips_in_db == []:
+        seed_tips_table()
+
+    if tags_in_db == []:
+        seed_tags_table()
+
+    if tip_tags_in_db != []:
+        return tip_tags_in_db
+    else:
+        for n in range(10):
+            tip = tips_in_db[n]
+            tag = tags_in_db[n]
+            new_tip_tag = crud.create_tip_tag_w_tip_and_tag_id(tip_id=tip.tip_id, tag_id=tag.tag_id)
+            tip_tags_in_db.append(new_tip_tag)
+        
+        return tip_tags_in_db
