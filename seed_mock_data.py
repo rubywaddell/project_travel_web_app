@@ -26,7 +26,7 @@ def seed_user_table():
 
     with open("data/mock_user_data.json") as users:
         user_data = json.loads(users.read())
-    
+    i = 0
     for user in user_data:
         username = user["username"]
         fname = user["fname"]
@@ -34,10 +34,14 @@ def seed_user_table():
         email = user["email"]
         password = user["password"]
         
-        new_user = crud.create_user(username=username, fname=fname,
-            lname=lname, email=email, password=password)
+        travel_id = travels_in_db[i].travel_id
+
+        new_user = crud.create_user_with_travel_id(username=username, fname=fname,
+            lname=lname, email=email, password=password, travel_id=travel_id)
         
         users_in_db.append(new_user)
+
+        i += 1
 
     return users_in_db
 
