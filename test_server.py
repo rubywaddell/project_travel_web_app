@@ -70,6 +70,11 @@ class TestViewTipsPage(unittest.TestCase):
         result = self.client.get("/view_travel_tips")
         self.assertIn(b"<h2>All Travel Tips:</h2>", result.data) 
 
+    def test_view_tip_table(self):
+        """Test that the travel tips are displaying in an HTML table"""
+        result = self.client.get("/view_travel_tips")
+        self.assertIn(b"<table>", result.data)
+
 
 if __name__ == "__main__":
     unittest.main()
