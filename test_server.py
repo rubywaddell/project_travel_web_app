@@ -39,7 +39,7 @@ class TestLoginPage(unittest.TestCase):
         """Test that the /login route opens the Log In page"""
 
         result = self.client.get("/login")
-        self.assertIn(b"<input type='password'", result.data)    
+        self.assertIn(b"""<input type="password" name="password">""", result.data)    
 
 if __name__ == "__main__":
     unittest.main()

@@ -18,6 +18,11 @@ def show_homepage():
 
     return render_template("homepage.html")
 
+@app.route("/login")
+def show_login_page():
+    """Renders the login page to allow users to log in to their account"""
+    return render_template("login.html")
+
 
 if __name__ == "__main__":
     # DebugToolbarExtension(app)
