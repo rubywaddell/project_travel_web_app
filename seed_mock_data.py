@@ -73,12 +73,15 @@ def seed_state_table():
     with open("data/mock_state_data.json") as states:
         state_data = json.loads(states.read())
 
+    i = 0
     for state in state_data:
         state_name = state["state_name"]
 
-        new_state = crud.create_state(state_name)
+        city_id = cities_in_db[i].city_id
+        new_state = crud.create_state_with_city_id(state_name, city_id)
 
         states_in_db.append(new_state)
+        i += 1
     return states_in_db
 
 def seed_city_table():
