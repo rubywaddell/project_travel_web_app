@@ -14,7 +14,7 @@ model.db.create_all()
 
 
 users_in_db = []
-
+travels_in_db = []
 
 def seed_user_table():
     """Seed user table with mock user data"""
@@ -36,3 +36,17 @@ def seed_user_table():
 
     return users_in_db
 
+def seed_travel_table():
+    """Seed travels table with mock travel data"""
+
+    with open("data/mock_travel_data.json") as travels:
+        travel_data = json.loads(travels.read())
+
+    for travel in travel_data:
+        departure_date = travel["departure_date"]
+        arrival_date = travel["arrival_date"]
+
+        new_travel = crud.create_travel(departure_date=departure_date, arrival_date=arrival_date)
+
+        travels_in_db.append(new_travel)
+    return travels_in_db
