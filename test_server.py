@@ -28,5 +28,18 @@ class TestHomePageRoutes(unittest.TestCase):
         result = self.client.get("/")
         self.assertIn(b"<ul>Navigation:</ul>", result.data)
 
+class TestLoginPage(unittest.TestCase):
+    """Tests for Log In page view functions"""
+
+    def setUp(self):
+        self.client = server.app.test_client()
+        server.app.config["TESTING"] = True
+
+    def test_login_route(self):
+        """Test that the /login route opens the Log In page"""
+
+        result = self.client.get("/login")
+        self.assertIn(b"<input type='password'", result.data)    
+
 if __name__ == "__main__":
     unittest.main()
