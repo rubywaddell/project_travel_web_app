@@ -141,6 +141,16 @@ def create_tip(tip_text):
 
     return tip
 
+def create_tip_w_user_id(tip_text, user_id):
+    """Create and return a new tip object"""
+
+    tip = model.Tip(tip_text=tip_text, user_id=user_id)
+
+    model.db.session.add(tip)
+    model.db.session.commit()
+
+    return tip
+
 
 def create_tip_tag():
     """Create and return a new tip_tag object"""
@@ -181,7 +191,6 @@ def create_tip_tag_w_tip_and_tag_id(tip_id, tag_id):
     model.db.session.commit()
 
     return tip_tag
-
 
 def create_tag(tag_name):
     """Create and return a new tag object"""

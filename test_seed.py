@@ -87,9 +87,12 @@ class TestSeedDatabase(unittest.TestCase):
     def test_tip_w_user_id_seeded_to_db(self):
         """Test that tip objects with relationships to users are successfully seed to database"""
 
-        seed_tips = seed_database.tips_in_db
-        test_user_id = 3
-        test_tip = seed_tips[2]
+        seed_tips = seed_database.seed_tips_table()
+        print("\n*"*5)
+        print("Seed_tips list=", seed_tips)
+        print("\n*"*5)
+        test_user_id = 1
+        test_tip = seed_tips[0]
 
         self.assertEqual(test_user_id, test_tip.user_id)
 
