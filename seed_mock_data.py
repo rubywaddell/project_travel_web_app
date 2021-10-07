@@ -16,6 +16,7 @@ model.db.create_all()
 users_in_db = []
 travels_in_db = []
 states_in_db = []
+cities_in_db = []
 
 def seed_user_table():
     """Seed user table with mock user data"""
@@ -65,3 +66,17 @@ def seed_state_table():
 
         states_in_db.append(new_state)
     return states_in_db
+
+def seed_city_table():
+    """Seed cities table with mock city data"""
+
+    with open("data/mock_city_data.json") as cities:
+        city_data = json.loads(cities.read())
+    
+    for city in city_data:
+        city_name = city["city_name"]
+
+        new_city = crud.create_city(city_name)
+
+        cities_in_db.append(new_city)
+    return cities_in_db
