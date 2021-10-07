@@ -31,28 +31,23 @@ model.db.create_all()
 FIRST_NAMES = ["Ruby", "Shawn", "Gus", "Juliet", "Carlton", "Olivia", "Amanda", "Sonny", "Fin", "Karen"]
 LAST_NAMES = ["Waddell", "Spencer", "Burton", "O'Hara", "Lassiter", "Benson", "Rollins", "Carisi", "Tutuola", "Vick"]
 
-# STATES = ["Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware", "Florida", "Georgia", 
-#         "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts",
-#         "Michigan", "Minnesota", "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire", "New Jersey", "New Mexico", 
-#         "New York", "North Carolina", "North Dakota", "Ohio", "Oklahoma", "Oregon", "Pennsylvania", "Rhode Island", "South Carolina", 
-#         "South Dakota", "Tennessee", "Texas", "Utah", "Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"]
+STATES = ["Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware", "Florida", "Georgia", 
+        "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts",
+        "Michigan", "Minnesota", "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire", "New Jersey", "New Mexico", 
+        "New York", "North Carolina", "North Dakota", "Ohio", "Oklahoma", "Oregon", "Pennsylvania", "Rhode Island", "South Carolina", 
+        "South Dakota", "Tennessee", "Texas", "Utah", "Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"]
 
 # CA_CITIES = ["San Francisco", "Oakland", "Sacramento", "Palo Alto", "Santa Cruz",
 #             "Carmel", "Monterey", "Los Angeles", "San Luis Obispo", "Capitola"]
 
 users_in_db = []
 travels_in_db = []
-# states_in_db = []
+states_in_db = []
 # cities_in_db = []
 # tips_in_db = []
 # tags_in_db = []
 # tip_tags_in_db = []
 
-
-# for n in range(50):
-#     state_name = STATES[n]
-#     new_state = create_state(state_name=state_name)
-#     states_in_db.append(new_state)
 
 def seed_users_table():
     """Seed User table with test data"""
@@ -81,6 +76,16 @@ def seed_travels_table():
         travels_in_db.append(new_travel)
     
     return travels_in_db
+
+def seed_states_table():
+    """Seed State table with test data"""
+
+    for n in range(50):
+        state_name = STATES[n]
+        new_state = create_state(state_name=state_name)
+        states_in_db.append(new_state)
+    
+    return states_in_db
 
 #     new_city = create_city(city_name= CA_CITIES[n])
 #     cities_in_db.append(new_city)

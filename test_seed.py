@@ -29,5 +29,12 @@ class TestSeedDatabase(unittest.TestCase):
         test_length = 10
         self.assertEqual(test_length, len(seed_travels))
 
+    def test_state_seeded_to_db(self):
+        """Test that the states table has successfully been seeded with example data"""
+
+        seed_states = seed_database.seed_states_table()
+        test_length = 50
+        self.assertEqual(test_length, len(seed_states))
+
 if __name__ == "__main__":
     unittest.main()
