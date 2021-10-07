@@ -59,7 +59,7 @@ def seed_travels_table():
         departure_date = f"01.{n+1}.2010"
         arrival_date = f"01.{n+5}.2010"
 
-        new_travel = crud.create_travel(departure_date=departure_date, arrival_date=arrival_date)
+        new_travel = crud.create_travel_with_state_id(departure_date=departure_date, arrival_date=arrival_date, state_id=1)
         travels_in_db.append(new_travel)
     
     return travels_in_db

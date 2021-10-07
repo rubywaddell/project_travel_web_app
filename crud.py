@@ -1,5 +1,6 @@
 """CRUD operations for data in model.py"""
 
+from os import stat
 import model
 
 def create_user(username, fname, lname, email, password):
@@ -39,6 +40,16 @@ def create_travel(departure_date, arrival_date):
     """Create and return a new travel object"""
 
     travel = model.Travel(departure_date=departure_date, arrival_date=arrival_date)
+
+    model.db.session.add(travel)
+    model.db.session.commit()
+
+    return travel
+
+def create_travel_with_state_id(departure_date, arrival_date, state_id):
+    """Create and return a new travel object with state_id foreign key"""
+
+    travel = model.Travel(departure_date=departure_date, arrival_date=arrival_date, state_id=state_id)
 
     model.db.session.add(travel)
     model.db.session.commit()

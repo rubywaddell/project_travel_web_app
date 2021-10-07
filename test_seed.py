@@ -36,6 +36,14 @@ class TestSeedDatabase(unittest.TestCase):
         test_length = 10
         self.assertEqual(test_length, len(seed_travels))
 
+    def test_travel_w_state_id_seeded_to_db(self):
+        """Test that the travels table has successfully been seeded with test travels that are related to the states tabel"""
+
+        seed_travels = seed_database.travels_in_db
+        test_state_id = 1
+        test_travel= seed_travels[0]
+        self.assertEqual(test_state_id, test_travel.state_id)        
+
     def test_state_seeded_to_db(self):
         """Test that the states table has successfully been seeded with example data"""
 
