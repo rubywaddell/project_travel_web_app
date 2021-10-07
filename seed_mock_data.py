@@ -51,13 +51,20 @@ def seed_travel_table():
     with open("data/mock_travel_data.json") as travels:
         travel_data = json.loads(travels.read())
 
+    i = 0
     for travel in travel_data:
         departure_date = travel["departure_date"]
         arrival_date = travel["arrival_date"]
 
-        new_travel = crud.create_travel(departure_date=departure_date, arrival_date=arrival_date)
+        state_id = states_in_db[i].state_id
+
+        new_travel = crud.create_travel_with_state_id(departure_date=departure_date, 
+            arrival_date=arrival_date, state_id=state_id)
 
         travels_in_db.append(new_travel)
+
+        i += 1
+
     return travels_in_db
 
 def seed_state_table():
