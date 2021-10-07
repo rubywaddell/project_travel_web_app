@@ -17,8 +17,9 @@ class User(db.Model):
     password = db.Column(db.String(15))
 
     travel_id = db.Column(db.Integer, db.ForeignKey("travels.travel_id"))
+    travel = db.relationship("Travel", back_populates="user")
 
-    travel = db.relationship("Travel", backref="travels")
+    tip = db.relationship("Tip", back_populates="user")
 
     def __repr__(self):
         return f"<User object: user_id={self.user_id}, username={self.username}, full_name={self.fname} {self.lname}>"
@@ -34,8 +35,9 @@ class Travel(db.Model):
     arrival_date = db.Column(db.Date, nullable=True)
 
     state_id = db.Column(db.Integer, db.ForeignKey("states.state_id"))
+    state = db.relationship("State", back_populates="travel")
 
-    state = db.relationship("State", backref="states")
+    user = db.relationship("User", back_populates="travel")
 
     def __repr__(self):
         return f"<Travels object: travel_id={self.travel_id}>"
@@ -49,10 +51,12 @@ class State(db.Model):
     state_name = db.Column(db.String)
 
     city_id = db.Column(db.Integer, db.ForeignKey("cities.city_id"))
-    tip_tag_id = db.Column(db.Integer, db.ForeignKey("tip_tags.tip_tag_id"))
+    city = db.relationship("City", back_populates="state")
 
-    city = db.relationship("City", backref="cities")
-    tip_tag = db.relationship("TipTag", backref="tip_tags")
+    tip_tag_id = db.Column(db.Integer, db.ForeignKey("tip_tags.tip_tag_id"))
+    tip_tag = db.relationship("TipTag", back_populates="state")
+ 
+    travel = db.relationship("Travel", back_populates="state")
 
     def __repr__(self):
         return f"<State object: state_id={self.state_id} state_name={self.state_name}"
@@ -65,6 +69,8 @@ class City(db.Model):
 
     city_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     city_name = db.Column(db.String)
+
+    state = db.relationship("State", back_populates="city")
 
     def __repr__(self):
         return f"<Cities object: city_id={self.city_id} city_name={self.city_name}>"
@@ -79,10 +85,9 @@ class Tip(db.Model):
     tip_text = db.Column(db.Text)
 
     user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"))
-    # state_id = db.Column(db.Integer, db.ForeignKey("states.state_id"))
+    user = db.relationship("User", back_populates="tip")
 
-    user = db.relationship("User", backref="users")
-    # state = db.relationship("State", backref="states")
+    tip_tag = db.relationship("TipTag", back_populates="tip")
 
     def __repr__(self):
         return f"<Tip object: tip_id={self.tip_id}>"
@@ -98,8 +103,10 @@ class TipTag(db.Model):
     tip_id = db.Column(db.Integer, db.ForeignKey("tips.tip_id"))
     tag_id = db.Column(db.Integer, db.ForeignKey("tags.tag_id"))
 
-    tip = db.relationship("Tip", backref="tips")
-    tag = db.relationship("Tag", backref="tags")
+    tip = db.relationship("Tip", back_populates="tip_tag")
+    tag = db.relationship("Tag", back_populates="tip_tag")
+
+    state = db.relationship("State", back_populates="tip_tag")
 
     def __repr__(self):
         return f"<TipTags object: tip_tags_id={self.tip_tag_id}>"
@@ -112,6 +119,8 @@ class Tag(db.Model):
 
     tag_id = db.Column(db.Integer, primary_key=True)
     tag_name = db.Column(db.String(25))
+
+    tip_tag = db.relationship("TipTag", back_populates="tag")
 
     def __repr__(self):
         return f"<Tags object: tag_id={self.tag_id} tag_name={self.tag_name}"

@@ -42,7 +42,17 @@ class TestSeedDatabase(unittest.TestCase):
         seed_travels = seed_database.travels_in_db
         test_state_id = 1
         test_travel= seed_travels[0]
-        self.assertEqual(test_state_id, test_travel.state_id)        
+        self.assertEqual(test_state_id, test_travel.state_id)   
+
+    def test_user_travel_state_query(self):
+        """Test that users can be queried through travel table relations"""
+
+        test_travel = seed_database.travels_in_db[0]
+        test_state = test_travel.state
+        test_user = test_travel.user
+
+        self.assertFalse(test_state == None)
+        self.assertFalse(test_user == None)     
 
     def test_state_seeded_to_db(self):
         """Test that the states table has successfully been seeded with example data"""
