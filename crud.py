@@ -162,6 +162,26 @@ def create_tip_tag_w_tip_id(tip_id):
 
     return tip_tag
 
+def create_tip_tag_w_tag_id(tag_id):
+    """Create and return a new tip_tag object with tag_id"""
+
+    tip_tag = model.TipTag(tag_id=tag_id)
+
+    model.db.session.add(tip_tag)
+    model.db.session.commit()
+
+    return tip_tag
+
+def create_tip_tag_w_tip_and_tag_id(tip_id, tag_id):
+    """Create and return a new tip_tag object with tip and tag ids"""
+
+    tip_tag = model.TipTag(tip_id=tip_id, tag_id=tag_id)
+
+    model.db.session.add(tip_tag)
+    model.db.session.commit()
+
+    return tip_tag
+
 
 def create_tag(tag_name):
     """Create and return a new tag object"""

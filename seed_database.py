@@ -110,7 +110,8 @@ def seed_tip_tags_table():
 
     for n in range(10):
         tip = tips_in_db[n]
-        new_tip_tag = crud.create_tip_tag_w_tip_id(tip_id=tip.tip_id)
+        tag = tags_in_db[n]
+        new_tip_tag = crud.create_tip_tag_w_tip_and_tag_id(tip_id=tip.tip_id, tag_id=tag.tag_id)
         tip_tags_in_db.append(new_tip_tag)
     
     return tip_tags_in_db
