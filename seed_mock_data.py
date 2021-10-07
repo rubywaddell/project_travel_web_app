@@ -14,6 +14,7 @@ model.db.create_all()
 
 
 users_in_db = []
+users_no_travel_in_db = []
 travels_in_db = []
 states_in_db = []
 cities_in_db = []
@@ -44,6 +45,23 @@ def seed_user_table():
         i += 1
 
     return users_in_db
+
+def seed_user_w_no_travel():
+    """Seed user table with some users not connected to the travel table"""
+
+    with open("Data/mock_user_no_travel_data.json") as users:
+        user_data = json.loads(users.read())
+    for user in user_data:
+        username = user["username"]
+        fname = user["fname"]
+        lname = user["lname"]
+        email = user["email"]
+        password = user["password"]
+
+        new_user = crud.create_user(username, fname, lname, email, password)
+
+        users_no_travel_in_db.append(new_user)
+    return users_no_travel_in_db
 
 def seed_travel_table():
     """Seed travels table with mock travel data"""
@@ -100,18 +118,37 @@ def seed_city_table():
         cities_in_db.append(new_city)
     return cities_in_db
 
-def seed_tip_table():
-    """Seed tips table with mock data"""
+def seed_tip_table_user_w_travel():
+    """Seed tips table with user data where users have travel relationship"""
 
     with open("data/mock_tip_data.json") as tips:
         tip_data = json.loads(tips.read())
 
+    i = 0
     for tip in tip_data:
         tip_text = tip["tip_text"]
 
-        new_tip = crud.create_tip(tip_text)
+        user_id = users_in_db[i].user_id
+
+        new_tip = crud.create_tip_w_user_id(tip_text=tip_text, user_id=user_id)
 
         tips_in_db.append(new_tip)
+
+        i += 1
+    return tips_in_db
+
+def seed_tip_table_user_w_no_travel():
+    """Seed tips table wiht user data where users do not have a travel relationship"""
+
+    with open("data/mock_tip_data.json") as tips:
+        tip_data = json.loads(tips.read())
+
+    for i in range(len(users_no_travel_in_db)):
+        tip_text = tip_data[i]["tip_text"]
+        user_id = users_no_travel_in_db[i].user_id
+        new_tip = crud.create_tip_w_user_id(tip_text=tip_text, user_id=user_id)
+        tips_in_db.append(new_tip)
+    
     return tips_in_db
 
 def seed_tag_table():
