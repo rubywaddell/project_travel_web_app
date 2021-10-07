@@ -105,6 +105,14 @@ class TestSeedDatabase(unittest.TestCase):
         test_tip_id = 1
         test_tip_tag= seed_tip_tags[0]
         self.assertEqual(test_tip_id, test_tip_tag.tip_id)
+    
+    def test_tip_tag_w_tag_id_seeded_to_db(self):
+        """Test that the travels table has successfully been seeded with test travels that are related to the states tabel"""
+
+        seed_tip_tags = seed_database.tip_tags_in_db
+        test_tag_id = 1
+        test_tip_tag= seed_tip_tags[0]
+        self.assertEqual(test_tag_id, test_tip_tag.tag_id)
 
 if __name__ == "__main__":
     unittest.main()
