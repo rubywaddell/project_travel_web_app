@@ -88,7 +88,7 @@ def seed_users_table():
                 users_in_db.append(new_user)
 
         return users_in_db
-        
+
     else:
         return users_in_db
 
@@ -96,10 +96,20 @@ def seed_users_table():
 def seed_states_table():
     """Seed State table with test data"""
 
-    for n in range(50):
-        new_state = crud.create_state(state_name=STATES[n])
-        states_in_db.append(new_state)
-    
+    if cities_in_db == []:
+        seed_cities_table()
+
+    for state in STATES:
+
+        if state == 'California':
+            for city in cities_in_db:
+                new_state = crud.create_state_with_city_id(state_name=state, city_id=city.city_id)
+                states_in_db.append(new_state)
+
+        else:
+            new_state = crud.create_state(state_name=state)
+            states_in_db.append(new_state)
+       
     return states_in_db
 
 def seed_cities_table():

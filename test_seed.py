@@ -4,7 +4,6 @@ import unittest
 import os
 
 from server import app
-# import crud
 import model
 import seed_database
 
@@ -65,10 +64,9 @@ class TestSeedDatabase(unittest.TestCase):
 
     def test_state_seeded_to_db(self):
         """Test that the states table has successfully been seeded with example data"""
-
+        
         seed_states = seed_database.seed_states_table()
-        test_length = 50
-        self.assertEqual(test_length, len(seed_states))
+        self.assertEqual('Alabama', seed_states[0].state_name)
 
     def test_city_seeded_to_db(self):
         """Test that the cities table has successfully been seeded with exmaple data"""
@@ -76,6 +74,13 @@ class TestSeedDatabase(unittest.TestCase):
         seed_cities = seed_database.seed_cities_table()
         test_length = 10
         self.assertEqual(test_length, len(seed_cities))
+
+    def test_state_w_city_id_seeded_to_db(self):
+        """Test that the states table has successfully been seeded with example data connected to the cities table"""
+
+        test_city_id = 1
+        test_state = model.State.query.filter(model.State.state_name == "California").first()
+        self.assertEqual(test_city_id, test_state.city_id)
 
     def test_tip_seeded_to_db(self):
         """Testt that the tips table has successfully been seeded with example data"""
