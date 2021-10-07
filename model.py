@@ -66,10 +66,6 @@ class City(db.Model):
     city_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     city_name = db.Column(db.String)
 
-    # state_id = db.Column(db.Integer, db.ForeignKey("states.state_id"))
-
-    # state = db.relationship("State", backref="states")
-
     def __repr__(self):
         return f"<Cities object: city_id={self.city_id} city_name={self.city_name}>"
 
