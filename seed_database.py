@@ -7,21 +7,6 @@ import crud
 import model
 import server
 
-# url = 'https://parseapi.back4app.com/classes/Usabystate_States/list-of-cities?keys=name,totalAreaSquareKilometers,totalAreaSquareMiles,updatedAt,waterAreaSquareKilometers,waterAreaSquareMiles'
-
-# payload = {
-#     'X-Parse-Application-Id': 'x2ZubjWTlPlsKQlzW3uKTZNmAQfxBE7cI5UIdEH7', # This is the app's application id
-#     'X-Parse-REST-API-Key': 'Fg07v7RB9wDdO9bTa52gtWsu1GYGN7aFG64WfQzu' # This is the app's REST API key
-# }
-
-# response = requests.get(url, params=payload)
-# # data.content.decode('utf-8')
-# # print(json.dumps(data, indent=2))
-# data = response.json()
-# print('\n*'*5)
-# print(data)
-# print('\n*'*5)
-
 os.system('dropdb travel_project')
 os.system('createdb travel_project')
 
@@ -49,7 +34,7 @@ states_in_db = []
 cities_in_db = []
 tips_in_db = []
 tags_in_db = []
-# tip_tags_in_db = []
+tip_tags_in_db = []
 
 def seed_travels_table():
     """Seed Travel table with test data"""
@@ -119,3 +104,12 @@ def seed_tags_table():
         tags_in_db.append(new_tag)
     
     return tags_in_db
+
+def seed_tip_tags_table():
+    """Seed TipTag table with example data"""
+
+    for n in range(10):
+        new_tip_tag = crud.create_tip_tag()
+        tip_tags_in_db.append(new_tip_tag)
+    
+    return tip_tags_in_db

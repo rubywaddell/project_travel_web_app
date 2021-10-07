@@ -29,6 +29,15 @@ class TestSeedDatabase(unittest.TestCase):
         test_user = seed_users[0]
         self.assertEqual(test_travel_id, test_user.travel_id)
     
+    def test_user_travel_query(self):
+        """Test query between user and travel returns the correct attributes"""
+
+        test_user = seed_database.users_in_db[0]
+        test_travel = seed_database.travels_in_db[0]
+
+        self.assertEqual(test_travel.travel_id, test_user.travel_id)
+        self.assertEqual(test_travel.arrival_date, test_user.travel.arrival_date)
+
     def test_travel_seeded_to_db(self):
         """Test that the travels table has successfully been seeded with test data"""
 
@@ -82,6 +91,12 @@ class TestSeedDatabase(unittest.TestCase):
         test_length = 10
         self.assertEqual(test_length, len(seed_tags))
 
+    def test_tip_tag_seeded_to_db(self):
+        """Test that the tip_tags table has successfully been seeded with data"""
+
+        seed_tip_tags = seed_database.seed_tip_tags_table()
+        test_length = 10
+        self.assertEqual(test_length, len(seed_tip_tags))
 
 if __name__ == "__main__":
     unittest.main()
