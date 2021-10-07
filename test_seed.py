@@ -42,7 +42,14 @@ class TestSeedDatabase(unittest.TestCase):
         seed_cities = seed_database.seed_cities_table()
         test_length = 10
         self.assertEqual(test_length, len(seed_cities))
-        
+
+    def test_tip_seeded_to_db(self):
+        """Testt that the tips table has successfully been seeded with example data"""
+
+        seed_tips = seed_database.seed_tips_table()
+        test_length = 10
+        self.assertEqual(test_length, len(seed_tips))
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -3,7 +3,7 @@ import json
 import urllib
 import requests 
 
-from crud import create_city, create_state, create_travel, create_user, create_user_with_travel_id
+import crud
 import model
 import server
 
@@ -44,7 +44,7 @@ users_in_db = []
 travels_in_db = []
 states_in_db = []
 cities_in_db = []
-# tips_in_db = []
+tips_in_db = []
 # tags_in_db = []
 # tip_tags_in_db = []
 
@@ -59,7 +59,7 @@ def seed_users_table():
         email = f"{fname.lower()}@test.com"
         password = f"Password{n}!"
 
-        new_user = create_user(username, fname, lname, email, password)
+        new_user = crud.create_user(username, fname, lname, email, password)
         users_in_db.append(new_user)
 
     return users_in_db
@@ -72,7 +72,7 @@ def seed_travels_table():
         departure_date = f"01.{n+1}.2010"
         arrival_date = f"01.{n+5}.2010"
 
-        new_travel = create_travel(departure_date=departure_date, arrival_date=arrival_date)
+        new_travel = crud.create_travel(departure_date=departure_date, arrival_date=arrival_date)
         travels_in_db.append(new_travel)
     
     return travels_in_db
@@ -82,7 +82,7 @@ def seed_states_table():
 
     for n in range(50):
         state_name = STATES[n]
-        new_state = create_state(state_name=state_name)
+        new_state = crud.create_state(state_name=state_name)
         states_in_db.append(new_state)
     
     return states_in_db
@@ -90,8 +90,17 @@ def seed_states_table():
 def seed_cities_table():
     """Seed City table with example data"""
     for n in range(10):
-        new_city = create_city(city_name= CA_CITIES[n])
+        new_city = crud.create_city(city_name= CA_CITIES[n])
         cities_in_db.append(new_city)
 
     return cities_in_db
 
+def seed_tips_table():
+    """Seed Tip table with example data"""
+
+    for n in range(10):
+        tip_text = f"Test tip {n}"
+        new_tip = crud.create_tip(tip_text)
+        tips_in_db.append(new_tip)
+    
+    return tips_in_db
