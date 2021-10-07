@@ -17,6 +17,9 @@ users_in_db = []
 travels_in_db = []
 states_in_db = []
 cities_in_db = []
+tips_in_db = []
+tags_in_db = []
+tip_tags_in_db = []
 
 def seed_user_table():
     """Seed user table with mock user data"""
@@ -80,3 +83,17 @@ def seed_city_table():
 
         cities_in_db.append(new_city)
     return cities_in_db
+
+def seed_tip_table():
+    """Seed tips table with mock data"""
+
+    with open("data/mock_tip_data.json") as tips:
+        tip_data = json.loads(tips.read())
+
+    for tip in tip_data:
+        tip_text = tip["tip_text"]
+
+        new_tip = crud.create_tip(tip_text)
+
+        tips_in_db.append(new_tip)
+    return tips_in_db
