@@ -3,7 +3,7 @@ import unittest
 import os
 
 import server
-import crud
+import seed_mock_data
 import model
 
 os.system('dropdb travel_project')
@@ -42,20 +42,31 @@ class TestLoginPage(unittest.TestCase):
     def test_login_route(self):
         """Test that the /login route opens the Log In page"""
 
-        result = self.client.get("/login")
+        result = self.client.post("/login")
         self.assertIn(b"""<input type="password" name="password">""", result.data)   
 
     def test_login_post_method(self):
         """Test that the /login route uses a POST method to keep passwords safer"""
 
-        result = self.client.get("/login")
+        result = self.client.post("/login")
         self.assertIn(b'method="POST"', result.data) 
     
     def test_login_form_action(self):
-        """Test that the login form routes to the user profile page once they are logged in"""
+        """Test that the login form routes to the login route
+            - will later test to make sure user is in database, then redirect"""
 
-        result = self.client.get("/login")
-        self.assertIn(b'action="/profile/<username>"', result.data)
+        result = self.client.post("/login")
+        self.assertIn(b'action="/login"', result.data)
+    
+    def test_log_in_existing_user(self):
+        """Tests that the login only accepts an existing user profile"""
+        users = seed_mock_data.seed_user_w_no_travel()
+        user = users[0]
+        test_username = bytes(user.username, "utf-8")
+
+        result = self.client.post(f"/profile/{test_username}")
+
+        self.assertIn(test_username, result.data)
 
 class TestViewTipsPage(unittest.TestCase):
     """Test for the view_travel_tips page"""
