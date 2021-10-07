@@ -97,3 +97,15 @@ def seed_tip_table():
 
         tips_in_db.append(new_tip)
     return tips_in_db
+
+def seed_tag_table():
+    """Seed tags table with mock data"""
+
+    with open("data/mock_tag_data.json") as tags:
+        tag_data = json.loads(tags.read())
+    
+    for tag in tag_data:
+        tag_name = tag["tag_name"]
+        new_tag = crud.create_tag(tag_name)
+        tags_in_db.append(new_tag)
+    return tags_in_db
