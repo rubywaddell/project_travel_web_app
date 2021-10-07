@@ -78,7 +78,9 @@ def seed_state_table():
         state_name = state["state_name"]
 
         city_id = cities_in_db[i].city_id
-        new_state = crud.create_state_with_city_id(state_name, city_id)
+        tip_tag_id = tip_tags_in_db[i].tip_tag_id
+        new_state = crud.create_state_with_tip_tag_and_city_id(state_name=state_name, 
+            city_id=city_id, tip_tag_id=tip_tag_id)
 
         states_in_db.append(new_state)
         i += 1
