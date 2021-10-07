@@ -39,7 +39,13 @@ class TestLoginPage(unittest.TestCase):
         """Test that the /login route opens the Log In page"""
 
         result = self.client.get("/login")
-        self.assertIn(b"""<input type="password" name="password">""", result.data)    
+        self.assertIn(b"""<input type="password" name="password">""", result.data)   
+
+    def test_login_post_method(self):
+        """Test that the /login route uses a POST method to keep passwords safer"""
+
+        result = self.client.get("/login")
+        self.assertIn(b'method="POST"', result.data) 
 
 if __name__ == "__main__":
     unittest.main()
