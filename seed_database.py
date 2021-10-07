@@ -37,13 +37,13 @@ STATES = ["Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", 
         "New York", "North Carolina", "North Dakota", "Ohio", "Oklahoma", "Oregon", "Pennsylvania", "Rhode Island", "South Carolina", 
         "South Dakota", "Tennessee", "Texas", "Utah", "Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"]
 
-# CA_CITIES = ["San Francisco", "Oakland", "Sacramento", "Palo Alto", "Santa Cruz",
-#             "Carmel", "Monterey", "Los Angeles", "San Luis Obispo", "Capitola"]
+CA_CITIES = ["San Francisco", "Oakland", "Sacramento", "Palo Alto", "Santa Cruz",
+            "Carmel", "Monterey", "Los Angeles", "San Luis Obispo", "Capitola"]
 
 users_in_db = []
 travels_in_db = []
 states_in_db = []
-# cities_in_db = []
+cities_in_db = []
 # tips_in_db = []
 # tags_in_db = []
 # tip_tags_in_db = []
@@ -87,6 +87,11 @@ def seed_states_table():
     
     return states_in_db
 
-#     new_city = create_city(city_name= CA_CITIES[n])
-#     cities_in_db.append(new_city)
+def seed_cities_table():
+    """Seed City table with example data"""
+    for n in range(10):
+        new_city = create_city(city_name= CA_CITIES[n])
+        cities_in_db.append(new_city)
+
+    return cities_in_db
 
