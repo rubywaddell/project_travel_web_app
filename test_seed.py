@@ -50,6 +50,13 @@ class TestSeedDatabase(unittest.TestCase):
         test_length = 10
         self.assertEqual(test_length, len(seed_tips))
 
+    def test_tag_seeded_to_db(self):
+        """Test that the tags table has successfully been seeded with data"""
+
+        seed_tags = seed_database.seed_tags_table()
+        test_length = 10
+        self.assertEqual(test_length, len(seed_tags))
+
 
 if __name__ == "__main__":
     unittest.main()

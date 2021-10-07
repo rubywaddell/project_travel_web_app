@@ -40,12 +40,15 @@ STATES = ["Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", 
 CA_CITIES = ["San Francisco", "Oakland", "Sacramento", "Palo Alto", "Santa Cruz",
             "Carmel", "Monterey", "Los Angeles", "San Luis Obispo", "Capitola"]
 
+TAGS = ["Woman", "Man", "Non-Binary", "Vegetarian", "Vegan", "Solo Traveller", "Roadtrip",
+        "Train", "Unsafe neighborhood", "Dangerous roads"]
+
 users_in_db = []
 travels_in_db = []
 states_in_db = []
 cities_in_db = []
 tips_in_db = []
-# tags_in_db = []
+tags_in_db = []
 # tip_tags_in_db = []
 
 
@@ -104,3 +107,13 @@ def seed_tips_table():
         tips_in_db.append(new_tip)
     
     return tips_in_db
+
+def seed_tags_table():
+    """Seed Tag table with example data"""
+
+    for n in range(10):
+        tag_name = TAGS[n]
+        new_tag = crud.create_tag(tag_name=tag_name)
+        tags_in_db.append(new_tag)
+    
+    return tags_in_db
