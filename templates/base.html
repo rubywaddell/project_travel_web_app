@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{% block title %}TITLE GOES HERE{% endblock %}</title>
+        <!-- Script tags will go here when complete -->
+    </head>
+    <body>
+        {% for msg in get_flashed_messages() %} 
+            <div class="flashed-messages">{{ msg }}</div>
+        {% endfor %} 
+
+        {% block content %}CONTENT GOES HERE{% endblock %}
+    </body>
+</html>
