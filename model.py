@@ -16,7 +16,7 @@ class User(db.Model):
     email = db.Column(db.String, unique=True)
     password = db.Column(db.String(15))
 
-    travel_id = db.Column(db.Integer, db.ForeignKey("travels.travel_id"))
+    travel_id = db.Column(db.Integer, db.ForeignKey("travels.travel_id"), nullable=True)
     travel = db.relationship("Travel", back_populates="user")
 
     tip = db.relationship("Tip", back_populates="user")
@@ -34,7 +34,7 @@ class Travel(db.Model):
     departure_date = db.Column(db.Date, nullable=True)
     arrival_date = db.Column(db.Date, nullable=True)
 
-    state_id = db.Column(db.Integer, db.ForeignKey("states.state_id"))
+    state_id = db.Column(db.Integer, db.ForeignKey("states.state_id"), nullable=True)
     state = db.relationship("State", back_populates="travel")
 
     user = db.relationship("User", back_populates="travel")
@@ -50,10 +50,10 @@ class State(db.Model):
     state_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     state_name = db.Column(db.String)
 
-    city_id = db.Column(db.Integer, db.ForeignKey("cities.city_id"))
+    city_id = db.Column(db.Integer, db.ForeignKey("cities.city_id"), nullable=True)
     city = db.relationship("City", back_populates="state")
 
-    tip_tag_id = db.Column(db.Integer, db.ForeignKey("tip_tags.tip_tag_id"))
+    tip_tag_id = db.Column(db.Integer, db.ForeignKey("tip_tags.tip_tag_id"), nullable=True)
     tip_tag = db.relationship("TipTag", back_populates="state")
  
     travel = db.relationship("Travel", back_populates="state")
@@ -84,7 +84,7 @@ class Tip(db.Model):
     tip_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     tip_text = db.Column(db.Text)
 
-    user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"))
+    user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"), nullable=True)
     user = db.relationship("User", back_populates="tip")
 
     tip_tag = db.relationship("TipTag", back_populates="tip")
