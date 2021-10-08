@@ -40,14 +40,27 @@ def check_user_in_database():
     """Takes in log-in form submission and redirects depending on if user is in db or not"""
 
     username = request.form.get("username")
+    password = request.form.get("password")
 
     users_in_db = crud.show_users()
-    if username in users_in_db:
-        flash("Logged in!")
-        return redirect(f"/profile/{username}")
-    else:
+    user = crud.get_user_by_username(username=username)
+
+    if user == None:
         flash("Username not recognized, please create an account")
         return redirect("/create_account")
+
+    elif (username == user.username) and (password != user.password):
+        flash("Incorrect password, please try again")
+        return redirect("/login")
+
+    elif (username == user.username) and (password == user.password):
+        flash("Logged in!")
+        return redirect(f"/profile/{username}")
+
+    else:
+        flash("Something else is happening")
+        return redirect("/login")
+        
 
 @app.route("/profile/<username>")
 def show_user_profile(username):
@@ -122,6 +135,12 @@ def add_new_tip():
 
         flash(f"Thank you for adding your tip about {city_name}, {state_name}")
         return redirect("/view_travel_tips")
+
+@app.route("/add_vacation")
+def show_new_vacation():
+    """Renders for that allows users to create a new vacation for their profile"""
+
+    return render_template("new_vacation.html")
 
 
 if __name__ == "__main__":
