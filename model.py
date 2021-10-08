@@ -1,4 +1,4 @@
-"""Data models for travel safety app"""
+"""Models for travel safety app"""
 
 from flask_sqlalchemy import SQLAlchemy
 
@@ -11,59 +11,70 @@ class User(db.Model):
 
     user_id = db.Column(db.Integer, autoincrement = True, primary_key = True)
     username = db.Column(db.String(15), unique=True)
-    fname = db.Column(db.String(20))
-    lname = db.Column(db.String(20))
+    fname = db.Column(db.String(25))
+    lname = db.Column(db.String(25))
     email = db.Column(db.String, unique=True)
     password = db.Column(db.String(15))
 
-    travel_id = db.Column(db.Integer, db.ForeignKey("travels.travel_id"), nullable=True)
-    travel = db.relationship("Travel", back_populates="user")
+    vacation_id = db.Column(db.Integer, db.ForeignKey("vacations.vacation_id"), nullable=True)
+    vacation = db.relationship("Vacation", back_populates="user")
 
     tip = db.relationship("Tip", back_populates="user")
 
     def __repr__(self):
-        return f"<User object: user_id={self.user_id}, username={self.username}, full_name={self.fname} {self.lname}>"
+        return f"<User Object: user_id={self.user_id} username={self.username}>"
+    
+class Vacation(db.Model):
+    """A user's vacation information"""
+
+    __tablename__ = "vacations"
+
+    vacation_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+
+    vacation_label_id = db.Column(db.Integer, db.ForeignKey("vacation_labels.vacation_label_id"))
+    vacation_label = db.relationship("VacationLabel", back_populates="vacation")
+
+    user = db.relationship("User", back_populates="vacation")
+
+    def __repr__(self):
+        return f"<Vacation Object: vacation_id={self.vacation_id}>"
 
 
-class Travel(db.Model):
-    """A user's travel information, related to the User table"""
+class VacationLabel(db.Model):
+    """Tags to classify and query through vacation objects"""
 
-    __tablename__ = "travels"
+    __tablename__ = "vacation_labels"
 
-    travel_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    vacation_label_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     departure_date = db.Column(db.Date, nullable=True)
     arrival_date = db.Column(db.Date, nullable=True)
 
-    state_id = db.Column(db.Integer, db.ForeignKey("states.state_id"), nullable=True)
-    state = db.relationship("State", back_populates="travel")
+    state_id = db.Column(db.Integer, db.ForeignKey("states.state_id"))
+    state = db.relationship("State", back_populates="vacation_label")
 
-    user = db.relationship("User", back_populates="travel")
+    vacation = db.relationship("Vacation", back_populates="vacation_label")
 
     def __repr__(self):
-        return f"<Travels object: travel_id={self.travel_id}>"
+        return f"<VacationLabel object: vacation_label_id]{self.vacation_label_id} departure_date={self.departure_date}>"
 
 class State(db.Model):
-    """A US state, related to the Travel table"""
+    """State object to tag vacations with location data"""
 
     __tablename__ = "states"
 
     state_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     state_name = db.Column(db.String)
 
-    city_id = db.Column(db.Integer, db.ForeignKey("cities.city_id"), nullable=True)
+    city_id = db.Column(db.Integer, db.ForeignKey("cities.city_id"))
     city = db.relationship("City", back_populates="state")
 
-    tip_tag_id = db.Column(db.Integer, db.ForeignKey("tip_tags.tip_tag_id"), nullable=True)
-    tip_tag = db.relationship("TipTag", back_populates="state")
- 
-    travel = db.relationship("Travel", back_populates="state")
+    vacation_label = db.relationship("VacationLabel", back_populates="state")
 
     def __repr__(self):
-        return f"<State object: state_id={self.state_id} state_name={self.state_name}"
-
+        return f"<State Object: state_id= {self.state_id} state_name= {self.state_name}>"
 
 class City(db.Model):
-    """Table to store cities and their corresponding states"""
+    """City object, connected to States via one to many relationship"""
 
     __tablename__ = "cities"
 
@@ -72,61 +83,55 @@ class City(db.Model):
 
     state = db.relationship("State", back_populates="city")
 
-    def __repr__(self):
-        return f"<Cities object: city_id={self.city_id} city_name={self.city_name}>"
-
-
 class Tip(db.Model):
-    """User generated tips about safety while travelling"""
+    """Tip object, connected to the User, so users can generate travel tips"""
 
     __tablename__ = "tips"
 
     tip_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     tip_text = db.Column(db.Text)
 
-    user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"), nullable=True)
+    user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"))
     user = db.relationship("User", back_populates="tip")
 
     tip_tag = db.relationship("TipTag", back_populates="tip")
 
     def __repr__(self):
-        return f"<Tip object: tip_id={self.tip_id}>"
-
+        return f"<Tip Object: tip_id= {self.tip_id}>"
 
 class TipTag(db.Model):
-    """Association table between Tips and Tags tables"""
+    """Tags to classify and query through tip objects"""
 
     __tablename__ = "tip_tags"
 
     tip_tag_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    
-    tip_id = db.Column(db.Integer, db.ForeignKey("tips.tip_id"))
-    tag_id = db.Column(db.Integer, db.ForeignKey("tags.tag_id"))
 
+    tip_id = db.Column(db.Integer, db.ForeignKey("tips.tip_id"))
     tip = db.relationship("Tip", back_populates="tip_tag")
+
+    tag_id = db.Column(db.Integer, db.ForeignKey("tags.tag_id"))
     tag = db.relationship("Tag", back_populates="tip_tag")
 
-    state = db.relationship("State", back_populates="tip_tag")
-
     def __repr__(self):
-        return f"<TipTags object: tip_tags_id={self.tip_tag_id}>"
-
+        return f"<TipTag Object: tip_tag_id= {self.tip_tag_id}>"
 
 class Tag(db.Model):
-    """Tags to help filter safety tips"""
+    """Tags to store tagged data for tips"""
 
     __tablename__ = "tags"
 
-    tag_id = db.Column(db.Integer, primary_key=True)
-    tag_name = db.Column(db.String(25))
+    tag_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    tag_name = db.Column(db.String)
+    tag_state = db.Column(db.String)
+    tag_city = db.Column(db.String)
 
     tip_tag = db.relationship("TipTag", back_populates="tag")
 
     def __repr__(self):
-        return f"<Tags object: tag_id={self.tag_id} tag_name={self.tag_name}"
+        return f"<Tag Object: tag_id= {self.tag_id} tag_name= {self.tag_name}>"
 
 
-def connect_to_db(flask_app, db_uri="postgresql:///travel_project", echo=True):
+def connect_to_db(flask_app, db_uri="postgresql:///travel_app", echo=True):
     flask_app.config["SQLALCHEMY_DATABASE_URI"] = db_uri
     flask_app.config["SQLALCHEMY_ECHO"] = echo
     flask_app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False

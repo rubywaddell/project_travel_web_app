@@ -41,13 +41,12 @@ def check_user_in_database():
     """Takes in log-in form submission and redirects depending on if user is in db or not"""
 
     username = request.form.get("username")
-    password = request.form.get("password")
 
     users_in_db = model.User.query.all()
 
     if username in users_in_db:
         flash("Logged in!")
-        return redirect(f"/profile/{username}", username=username, password=password)
+        return redirect(f"/profile/{username}")
     else:
         flash("Username not recognized, please create an account")
         return redirect("/create_account")
@@ -89,6 +88,39 @@ def add_new_user():
                                                     password=password, travel_id=new_travel.travel_id)
     
     return redirect(f"/profile/{username}")
+
+@app.route("/create_tip")
+def show_new_tip():
+    """Renders the new_tip page to allow a user to create a new travel tip"""
+
+    return render_template("new_tip.html")
+
+@app.route("/add_new_tip", methods=["POST"])
+def add_new_tip():
+    """Adds new tip to the database after they submit the add new tip form"""
+
+    username= request.form.get("username")
+
+    state_name= request.form.get("state")
+    city_name= request.form.get("city")
+
+    tip_text = request.form.get("tip-text")
+
+    user = model.User.query.filter(model.User.username == username).first()
+    # state = model.State.query.filter(model.State.state_name == state_name).first()
+    # city = model.City.query.filter(model.City.city_name == city_name).first()
+
+    if user == None:
+        new_tip = crud.create_tip(tip_text=tip_text)
+    else:
+        new_tip = crud.create_tip_w_user_id(tip_text=tip_text, user_id=user.user_id)
+#Need to look more into how to get the value of checkbox and radio button inputs
+#currently just returning None, can't save None to the database
+    
+    flash(f"Thank you for adding your tip about {city_name}, {state_name}")
+    
+    return redirect("/view_travel_tips")
+
 
 if __name__ == "__main__":
     # DebugToolbarExtension(app)

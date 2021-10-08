@@ -1,168 +1,148 @@
 import os
-# import json
-# import urllib
-# import requests 
+import json
 
 import crud
 import model
 import server
 
-os.system('dropdb travel_project')
-os.system('createdb travel_project')
+os.system('dropdb travel_app')
+os.system('createdb travel_app')
 
 model.connect_to_db(server.app)
 model.db.create_all()
 
-FIRST_NAMES = ["Ruby", "Shawn", "Gus", "Juliet", "Carlton", "Olivia", "Amanda", "Sonny", "Fin", "Karen"]
-LAST_NAMES = ["Waddell", "Spencer", "Burton", "O'Hara", "Lassiter", "Benson", "Rollins", "Carisi", "Tutuola", "Vick"]
-
-STATES = ["Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware", "Florida", "Georgia", 
-        "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts",
-        "Michigan", "Minnesota", "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire", "New Jersey", "New Mexico", 
-        "New York", "North Carolina", "North Dakota", "Ohio", "Oklahoma", "Oregon", "Pennsylvania", "Rhode Island", "South Carolina", 
-        "South Dakota", "Tennessee", "Texas", "Utah", "Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"]
-
-CA_CITIES = ["San Francisco", "Oakland", "Sacramento", "Palo Alto", "Santa Cruz",
-            "Carmel", "Monterey", "Los Angeles", "San Luis Obispo", "Capitola"]
-
-TAGS = ["Woman", "Man", "Non-Binary", "Vegetarian", "Vegan", "Solo Traveller", "Roadtrip",
-        "Train", "Unsafe neighborhood", "Dangerous roads"]
-
-users_in_db = []
-travels_in_db = []
-states_in_db = []
 cities_in_db = []
+states_in_db = []
+vacation_labels_in_db = []
+vacations_in_db = []
+users_in_db = []
 tips_in_db = []
-tags_in_db = []
 tip_tags_in_db = []
-
-def seed_travels_table():
-    """Seed Travel table with test data"""
-
-    if states_in_db == []:
-        for n in range(10):
-            departure_date = f"01.{n+1}.2010"
-            arrival_date = f"01.{n+5}.2010"
-            new_travel = crud.create_travel(departure_date=departure_date, arrival_date=arrival_date)
-            travels_in_db.append(new_travel)
-    else:
-        for n in range(10):
-            departure_date = f"01.{n+1}.2010"
-            arrival_date = f"01.{n+5}.2010"
-
-            new_travel = crud.create_travel_with_state_id(departure_date=departure_date, arrival_date=arrival_date, state_id=1)
-            travels_in_db.append(new_travel)
-
-    return travels_in_db
-
-def seed_users_table():
-    """Seed User table with test data"""
-    if travels_in_db == []:
-        seed_travels_table()
-
-    if users_in_db != []:
-        return users_in_db
-    else:
-        for n in range(10):
-            travel = travels_in_db[n]
-
-            fname = FIRST_NAMES[n]
-            lname = LAST_NAMES[n]
-            username = f"{fname.lower()}{n}"
-            email = f"{fname.lower()}@test.com"
-            password = f"Password{n}!"
-            travel_id = travel.travel_id
-
-            new_user = crud.create_user_with_travel_id(username, fname, lname, email, password, travel_id)
-            users_in_db.append(new_user)
-
-        return users_in_db
-
-
-def seed_states_table():
-    """Seed State table with test data"""
-
-    if cities_in_db == []:
-        seed_cities_table()
-
-    if tip_tags_in_db == []:
-        seed_tip_tags_table()
-    
-    if states_in_db != []:
-        return states_in_db
-    else:
-        for state in STATES:
-            if state == 'California':
-                for i in range(10):
-                    city = cities_in_db[i]
-                    tip_tag = tip_tags_in_db[i]
-
-                    new_state = crud.create_state_with_tip_tag_and_city_id(state_name=state, 
-                        city_id=city.city_id, tip_tag_id=tip_tag.tip_tag_id)
-                    print(f"Line 90 new_state: {new_state}\n")
-                    states_in_db.append(new_state)
-            else:
-                print()
-                new_state = crud.create_state(state_name=state)
-                print(f"Line 96 new_state: {new_state}")
-                states_in_db.append(new_state)
-       
-        return states_in_db
+tags_in_db = []
 
 def seed_cities_table():
-    """Seed City table with example data"""
-    for n in range(10):
-        new_city = crud.create_city(city_name= CA_CITIES[n])
+    """Seed the cities table with mock data"""
+    
+    with open("data/mock_city_data.json") as city_data:
+            cities = json.loads(city_data.read())
+    
+    for city in cities:
+        new_city = crud.create_city(city_name=city["city_name"])
         cities_in_db.append(new_city)
 
     return cities_in_db
 
-def seed_tips_table():
-    """Seed Tip table with example data"""
 
-    if users_in_db == []:
-        seed_users_table()
+def seed_states_table():
+    """Seed the states table with mock data"""
 
-    if tips_in_db != []:
-        return tips_in_db
-    else:
-        for n in range(10):
-            user = users_in_db[n]
-            tip_text = f"Test tip {n}"
-            new_tip = crud.create_tip_w_user_id(tip_text=tip_text, user_id=user.user_id)
-            tips_in_db.append(new_tip)
+    with open("data/mock_state_data.json") as state_data:
+        states = json.loads(state_data.read())
+    
+    for i, state in enumerate(states):
+        new_state = crud.create_state(state_name=state["state_name"], city_id=cities_in_db[i].city_id)
+        states_in_db.append(new_state)
+    
+    return states_in_db
+
+def seed_vacation_label_table():
+    """Seed the vacation_label table with mock data"""
+
+    with open("data/mock_travel_data.json") as vacation_data:
+        vacations = json.loads(vacation_data.read())
+    
+    for i, vacation_label in enumerate(vacations):
+        new_vacation_label = crud.create_vacation_label(departure_date=vacation_label["departure_date"],
+                arrival_date=vacation_label["arrival_date"], state_id=states_in_db[i].state_id)
+
+        model.db.session.add(new_vacation_label)
+        model.db.session.commit()
+
+        vacation_labels_in_db.append(new_vacation_label)
+    
+    return vacation_labels_in_db 
+
+def seed_vacation_table():
+    """Seed the vacations table with mock data"""
+
+    for vacation_label in vacation_labels_in_db:
+        new_vacation = crud.create_vacation(vacation_label_id=vacation_label.vacation_label_id)
+        vacations_in_db.append(new_vacation)
+
+    return vacations_in_db
+
+def seed_user_table():
+    """Seed the users table with mock data"""
+
+    with open("data/mock_user_data.json") as user_data:
+        users = json.loads(user_data.read())
+    
+    for i, user in enumerate(users):
+
+        username = user["username"]
+        fname = user["fname"]
+        lname = user["lname"]
+        email = user["email"]
+        password = user["password"]
+
+        vacation_id = vacations_in_db[i].vacation_id        
+
+        new_user = crud.create_user(username=username, fname=fname, lname=lname, email=email, 
+                password=password, vacation_id=vacation_id)
         
-        return tips_in_db
+        users_in_db.append(new_user)
 
-def seed_tags_table():
-    """Seed Tag table with example data"""
+    return users_in_db
 
-    if tags_in_db != []:
-        return tags_in_db
-    else:
-        for n in range(10):
-            tag_name = TAGS[n]
-            new_tag = crud.create_tag(tag_name=tag_name)
-            tags_in_db.append(new_tag)
-        
-        return tags_in_db
+def seed_tip_table():
+    """Seed the tip table with mock data"""
 
-def seed_tip_tags_table():
-    """Seed TipTag table with example data"""
+    with open("data/mock_tip_data.json") as tip_data:
+        tips = json.loads(tip_data.read())
+    
+    for i, tip in enumerate(tips):
+        tip_text = tip["tip_text"]
+        user_id = users_in_db[i].user_id
 
-    if tips_in_db == []:
-        seed_tips_table()
+        new_tip = crud.create_tip(tip_text=tip_text, user_id=user_id)
+        tips_in_db.append(new_tip)
+    
+    return tips_in_db
 
-    if tags_in_db == []:
-        seed_tags_table()
+def seed_tag_table():
+    """Seed the tag table with mock data"""
 
-    if tip_tags_in_db != []:
-        return tip_tags_in_db
-    else:
-        for n in range(10):
-            tip = tips_in_db[n]
-            tag = tags_in_db[n]
-            new_tip_tag = crud.create_tip_tag_w_tip_and_tag_id(tip_id=tip.tip_id, tag_id=tag.tag_id)
-            tip_tags_in_db.append(new_tip_tag)
-        
-        return tip_tags_in_db
+    with open("data/mock_tag_data.json") as tag_data:
+        tags = json.loads(tag_data.read())
+
+    for tag in tags:
+        tag_name = tag["tag_name"]
+        tag_state = tag["tag_state"]
+        tag_city = tag["tag_city"]
+
+        new_tag = crud.create_tag(tag_name=tag_name, tag_state=tag_state, tag_city=tag_city)
+
+        tags_in_db.append(new_tag)
+    return tags_in_db
+
+def seed_tip_tag_table():
+    """Seed the tip_tag table with mock data"""
+
+    for i in range(len(tips_in_db)):
+        tip_id = tips_in_db[i].tip_id
+        tag_id = tags_in_db[i].tag_id
+
+        new_tip_tag = crud.create_tip_tag(tag_id=tag_id, tip_id=tip_id)
+
+        tip_tags_in_db.append(new_tip_tag)
+    
+    return tip_tags_in_db
+
+seed_cities_table()
+seed_states_table()
+seed_vacation_label_table()
+seed_vacation_table()
+seed_user_table()
+seed_tip_table()
+seed_tag_table()
+seed_tip_tag_table()

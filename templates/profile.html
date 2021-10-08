@@ -1,0 +1,29 @@
+{% extends 'base.html' %} 
+{% block title %}Profile{% endblock %} 
+
+{% block content %}
+
+<h1>{{user.fname}}'s Profile</h1>
+
+<h2>Your Trips:</h2>
+<table>
+    <tr>
+        <th>Departure Date:</th>
+        <th>Arrival Date:</th>
+        <th>Destination State:</th>
+        <th>Destination City:</th>
+    </tr>
+
+    <tr>
+        <td>{{ user.travel.departure_date }}</td>
+        <td>{{ user.travel.arrival_date }}</td>
+        <td>{{ user.travel.state.state_name }}</td>
+        <td>{{ user.travel.state.city.city_name }}</td>
+    </tr>
+
+</table>
+
+<p><a href="/add_travel">Add a new trip</a></p>
+<p><a href="/view_travel_tips">View travel tips</a></p>
+
+{% endblock %}

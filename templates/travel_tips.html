@@ -5,12 +5,18 @@
 
 <h2>All Travel Tips:</h2>
 
+<p><a href="/create_tip">Add a New Tip</a></p>
+
 <table>
     <tr>
+        <th>State:</th>
+        <th>City:</th>
         <th>Tip:</th>
     </tr>
 {% for tip in tips%}
     <tr>
+        <!-- <td>{{ tip.user.travel.city.state.state_name }}</td>
+        <td>{{  tip.user.travel.city.city_name }}</td> -->
         <td>{{ tip.tip_text }}</td>
     </tr>
 

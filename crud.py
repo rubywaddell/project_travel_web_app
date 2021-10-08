@@ -1,12 +1,14 @@
 """CRUD operations for data in model.py"""
 
-from os import stat
+# from os import stat
 import model
 
-def create_user(username, fname, lname, email, password):
+#User CRUD functions:
+def create_user(username, fname, lname, email, password, vacation_id=None):
     """Create a return a new user"""
 
-    user = model.User(username=username, fname=fname, lname=lname, email=email, password=password)
+    user = model.User(username=username, fname=fname, lname=lname, email=email, 
+            password=password, vacation_id=vacation_id)
 
     model.db.session.add(user)
     model.db.session.commit()
@@ -42,189 +44,143 @@ def get_user_by_username(username):
     user = model.User.query.filter(model.User.username == username).first()
     return user
 
-def create_travel(departure_date, arrival_date):
-    """Create and return a new travel object"""
 
-    travel = model.Travel(departure_date=departure_date, arrival_date=arrival_date)
+#Vacation CRUD functions:
+def create_vacation(vacation_label_id=None):
+    """Create and return a vacation object"""
 
-    model.db.session.add(travel)
+    vacation = model.Vacation(vacation_label_id=vacation_label_id)
+
+    model.db.session.add(vacation)
     model.db.session.commit()
 
-    return travel
+    return vacation
 
-def create_travel_with_state_id(departure_date, arrival_date, state_id):
-    """Create and return a new travel object with state_id foreign key"""
+def show_vacations():
+    """Return a list of all vacation objects in the database"""
 
-    travel = model.Travel(departure_date=departure_date, arrival_date=arrival_date, state_id=state_id)
+    vacations = model.Vacation.query.all()
+    return vacations
 
-    model.db.session.add(travel)
+def get_vacation_by_id(vacation_id):
+    """Get and return the first vacation object with a given id number"""
+
+    vacation = model.Vacation.query.filter(model.Vacation.vacation_id == vacation_id).first()
+    return vacation
+
+#VacationLabel CRUD Functions:
+def create_vacation_label(departure_date, arrival_date, state_id=None):
+    """Create and return a vacation_label object"""
+
+    vacation_label = model.VacationLabel(departure_date=departure_date, arrival_date=arrival_date, state_id=state_id)
+
+    model.db.session.add(vacation_label)
     model.db.session.commit()
 
-    return travel
+    return vacation_label
 
-def show_travels():
-    """Return a list of all travel objects"""
+def show_vacation_labels():
+    """Return a list of all vacation_labels in the database"""
 
-    return model.Travel.query.all()
+    return model.VacationLabel.query.all()
 
-def get_travel_by_departure_date(departure_date):
-    """Return the first travel object with the given departure date"""
+def get_vacation_label_by_id(vacation_label_id):
+    """Query and return the first vacation_label object with a given id number"""
 
-    travel = model.Travel.query.filter(model.Travel.departure_date == departure_date).first()
-    return travel
+    vacation_label = model.VacationLabel.query.filter(model.VacationLabel.vacation_label_id == vacation_label_id).first()
+    return vacation_label
 
-def create_user_with_travel_id(username, fname, lname, email, password, travel_id):
-    """Create and return a new user object that has relationship with travel table"""
+#State CRUD functions:
+def create_state(state_name, city_id=None):
+    """Create a new state, add to database, and return it"""
 
-    user = model.User(username=username, fname=fname, lname=lname, email=email, password=password, travel_id=travel_id)
+    new_state = model.State(state_name=state_name, city_id=city_id)
 
-    model.db.session.add(user)
+    model.db.session.add(new_state)
     model.db.session.commit()
+    
+    return new_state
 
-    return user
+def show_states():
+    """"Return a list of all states in database"""
 
+    return model.State.query.all()
 
-def create_state(state_name):
-    """Create and return a new state object"""
-
-    state = model.State(state_name=state_name)
-
-    model.db.session.add(state)
-    model.db.session.commit()
-
-    return state
-
-def get_state_by_state_name(state_name):
-    """Return the first state with a given first name"""
+def get_state_by_name(state_name):
+    """Query and return the first state with a given name"""
 
     state = model.State.query.filter(model.State.state_name == state_name).first()
     return state
 
-def create_state_with_city_id(state_name, city_id):
-    """Create and return a State object with a city_id"""
 
-    state = model.State(state_name=state_name, city_id=city_id)
-
-    model.db.session.add(state)
-    model.db.session.commit()
-
-    return state
-
-def create_state_with_tip_tag_id(state_name, tip_tag_id):
-    """Create and return a State object with a tip_tag_id"""
-
-    state = model.State(state_name=state_name, tip_tag_id=tip_tag_id)
-
-    model.db.session.add(state)
-    model.db.session.commit()
-
-    return state
-
-def create_state_with_tip_tag_and_city_id(state_name, city_id, tip_tag_id):
-    """Create and return a State object with a tip_tag_id"""
-
-    state = model.State(state_name=state_name, city_id=city_id, tip_tag_id=tip_tag_id)
-
-    model.db.session.add(state)
-    model.db.session.commit()
-
-    return state
-
+#City CRUD functions
 def create_city(city_name):
-    """Create and return a new city object"""
+    """Create a new city, add to database, and return it"""
 
-    city = model.City(city_name=city_name)
+    new_city = model.City(city_name=city_name)
 
-    model.db.session.add(city)
+    model.db.session.add(new_city)
     model.db.session.commit()
+    
+    return new_city
 
-    return city
+def show_cities():
+    """"Return a list of all cities in database"""
 
-def get_city_by_city_name(city_name):
-    """Return the first city with a given first name"""
+    return model.City.query.all()
+
+def get_city_by_name(city_name):
+    """Query and return the first city with a given name"""
 
     city = model.City.query.filter(model.City.city_name == city_name).first()
     return city
 
 
-def create_tip(tip_text):
-    """Create and return a new tip object"""
+#Tip CRUD functions
+def create_tip(tip_text, user_id=None):
+    """Create a new tip, add to database, and return it"""
 
-    tip = model.Tip(tip_text=tip_text)
+    new_tip = model.Tip(tip_text=tip_text, user_id=user_id)
 
-    model.db.session.add(tip)
+    model.db.session.add(new_tip)
+    model.db.session.commit()
+    
+    return new_tip
+
+def show_tips():
+    """"Return a list of all tips in database"""
+
+    return model.Tip.query.all()
+
+#TipTag CRUD functions:
+def create_tip_tag(tag_id, tip_id):
+    """Create a new tip_tag, add it to the database, and return it"""
+
+    new_tip_tag = model.TipTag(tag_id=tag_id, tip_id=tip_id)
+
+    model.db.session.add(new_tip_tag)
     model.db.session.commit()
 
-    return tip
+    return new_tip_tag
 
-def get_all_tips():
-    """"Return a list of all tips in the database"""
-    tips = model.Tip.query.all()
-    return tips
+def show_tip_tags():
+    """Return a list of all tip_tags"""
 
-def create_tip_w_user_id(tip_text, user_id):
-    """Create and return a new tip object"""
+    return model.TipTag.query.all()
 
-    tip = model.Tip(tip_text=tip_text, user_id=user_id)
+#Tag CRUD functions
+def create_tag(tag_name, tag_state, tag_city):
+    """Create a new tag, add it to the database, and return it"""
 
-    model.db.session.add(tip)
+    new_tag = model.Tag(tag_name=tag_name, tag_state=tag_state, tag_city=tag_city)
+
+    model.db.session.add(new_tag)
     model.db.session.commit()
 
-    return tip
-
-
-def create_tip_tag():
-    """Create and return a new tip_tag object"""
-
-    tip_tag = model.TipTag()
-
-    model.db.session.add(tip_tag)
-    model.db.session.commit()
-
-    return tip_tag
-
-def create_tip_tag_w_tip_id(tip_id):
-    """Create and return a new tip_tag object with tip_id"""
-
-    tip_tag = model.TipTag(tip_id=tip_id)
-
-    model.db.session.add(tip_tag)
-    model.db.session.commit()
-
-    return tip_tag
-
-def create_tip_tag_w_tag_id(tag_id):
-    """Create and return a new tip_tag object with tag_id"""
-
-    tip_tag = model.TipTag(tag_id=tag_id)
-
-    model.db.session.add(tip_tag)
-    model.db.session.commit()
-
-    return tip_tag
-
-def create_tip_tag_w_tip_and_tag_id(tip_id, tag_id):
-    """Create and return a new tip_tag object with tip and tag ids"""
-
-    tip_tag = model.TipTag(tip_id=tip_id, tag_id=tag_id)
-
-    model.db.session.add(tip_tag)
-    model.db.session.commit()
-
-    return tip_tag
-
-def create_tag(tag_name):
-    """Create and return a new tag object"""
-
-    tag = model.Tag(tag_name=tag_name)
-
-    model.db.session.add(tag)
-    model.db.session.commit()
-
-    return tag
-
+    return new_tag
 
 
 if __name__ == "__main__":
     from server import app
     model.connect_to_db(app)
+    model.db.create_all()

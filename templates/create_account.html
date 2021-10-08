@@ -1,0 +1,65 @@
+{% extends 'base.html' %} 
+{% block title %}Create Account{% endblock %} 
+
+{% block content %}
+
+<h1>Create a New Account</h1>
+
+<h2>Enter your contact information:</h2>
+<form id="new-user-information" action="/new-user" method="POST">
+    <div id="new-user-names">
+        <label>Your name:</label>
+        <label>First name</label>
+        <input type="text" name="fname">
+        <label>Last name</label>
+        <input type="text" name="lname">
+    </div>
+    <div id="new-user-username">
+        <label>Username:</label>
+        <input type="text" name="username">
+    </div>
+    <div id="new-user-email">
+        <label>Email:</label>
+        <input type="text" name="email">
+    </div>
+    <div id="new-user-password">
+        <label>Password:</label>
+        <input type="password" name="password">
+    </div>
+
+<h2>Your Travel Information:</h2>
+    <label>Dates of Travel</label>
+    <div id="new-user-travel-dates">
+        <label>From:</label>
+        <input type="date" id="new-user-departure-date" name="departure-date" min="2021-01-01" max="2022-12-31">
+        <label>To:</label>
+        <input type="date" id="new-user-arrival-date" name="arrival-date" min="2021-01-01" max="2022-12-31">
+    </div>
+
+    <label>Destination:</label>
+    <div id="new-user-desination">
+        <label>State:</label>
+        <input type="text" name="state">
+        <label>City:</label>
+        <input type="text" name="city">
+    </div>
+
+    <!-- <div id="new-user-method-of-travel">
+        <label>Method of Travel</label>
+        <input type="radio" name="method-of-travel" value="flight"><label>Flight</label>
+        <input type="radio" name="method-of-travel" value="roadtrip"><label>Roadtrip</label>
+        <input type="radio" name="method-of-travel" value="train"><label>Train</label>
+        <input type="radio" name="method-of-travel" value="backpacking"><label>Backpacking</label>
+    </div>
+
+    <div id="new-user-travelling-with">
+        <label>Who Are You Travelling With?</label>
+        <input type="radio" name="travelling-with" value="solo"><label>Solo</label>
+        <input type="radio" name="travelling-with" value="friends"><label>Friends</label>
+        <input type="radio" name="travelling-with" value="significant-other"><label>Significant Other</label>
+    </div> -->
+
+    <input type="submit">
+</form>
+
+{% endblock %}
