@@ -13,13 +13,14 @@
         <th>Destination State:</th>
         <th>Destination City:</th>
     </tr>
-
+    {% for vacation in vacations %}
     <tr>
-        <td>{{ user.vacation.vacation_label.departure_date }}</td>
-        <td>{{ user.vacation.vacation_label.arrival_date }}</td>
-        <td>{{ user.vacation.vacation_label.state.state_name }}</td>
-        <td>{{ user.vacation.vacation_label.state.city.city_name }}</td>
+        <td>{{ vacation.vacation_label.departure_date }}</td>
+        <td>{{ vacation.vacation_label.arrival_date }}</td>
+        <td>{{ vacation.vacation_label.state.state_name }}</td>
+        <td>{{ vacation.vacation_label.state.city.city_name }}</td>
     </tr>
+    {% endfor %}
 
 </table>
 

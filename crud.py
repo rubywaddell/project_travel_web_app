@@ -45,14 +45,7 @@ def get_user_by_username(username):
     user = model.User.query.filter(model.User.username == username).first()
     return user
 
-def add_new_vacation_to_user(user_id, vacation_id):
-    """Adds a new vacation to an existing user profile"""
 
-    user = get_user_by_id(user_id=user_id)
-    new_user = create_user(username=user.username, fname=user.fname, lname=user.lname, email=user.email,
-                password=user.password, vacation_id=vacation_id)
-
-    return new_user
 
 #Vacation CRUD functions:
 def create_vacation(vacation_label_id, user_id):
@@ -76,6 +69,7 @@ def get_vacation_by_id(vacation_id):
 
     vacation = model.Vacation.query.filter(model.Vacation.vacation_id == vacation_id).first()
     return vacation
+
 
 #VacationLabel CRUD Functions:
 def create_vacation_label(departure_date, arrival_date, state_id=None):

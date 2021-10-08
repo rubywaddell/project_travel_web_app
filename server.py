@@ -54,7 +54,7 @@ def check_user_in_database():
 
     elif (username == user.username) and (password == user.password):
         flash("Logged in!")
-        session["logged_in_user"] = user
+        session["logged_in_username"] = user.username
         return redirect(f"/profile/{username}")
 
     else:
@@ -67,14 +67,18 @@ def show_user_profile(username):
     """Renders the user's profile page once they have logged in"""
 
     user = crud.get_user_by_username(username)
+
+    user_vacations = model.Vacation.query.filter(model.Vacation.user_id == user.user_id)
     
-    return render_template("profile.html", user=user)
+    return render_template("profile.html", user=user, vacations=user_vacations)
+
 
 @app.route("/create_account")
 def show_create_account():
     """Renders the create_account page to allow a user to create a new account"""
 
     return render_template("create_account.html")
+
 
 @app.route("/new-user", methods=["POST"])
 def add_new_user():
@@ -100,15 +104,17 @@ def add_new_user():
     new_user = crud.create_user(username=username, fname=fname, lname=lname, email=email, password=password,
                                     vacation_id=new_vacation.vacation_id)
     
-    session["logged_in_user"] = new_user
+    session["logged_in_username"] = new_user.username
 
     return redirect(f"/profile/{new_user.username}")
+
 
 @app.route("/create_tip")
 def show_new_tip():
     """Renders the new_tip page to allow a user to create a new travel tip"""
 
     return render_template("new_tip.html")
+
 
 @app.route("/add_new_tip", methods=["POST"])
 def add_new_tip():
@@ -138,12 +144,34 @@ def add_new_tip():
         flash(f"Thank you for adding your tip about {city_name}, {state_name}")
         return redirect("/view_travel_tips")
 
+
 @app.route("/create_vacation")
 def show_new_vacation():
     """Renders for that allows users to create a new vacation for their profile"""
 
     return render_template("new_vacation.html")
 
+
+@app.route("/add_new_vacation")
+def add_new_vacation():
+    """Adds new vacation to the database once user submits form"""
+
+    username = session["logged_in_username"]
+    user = crud.get_user_by_username(username=username)
+
+    state = request.args.get("state")
+    city = request.args.get("city")
+    departure_date = request.args.get("departure-date")
+    arrival_date = request.args.get("arrival-date")
+
+    db_city = crud.create_city(city_name=city)
+    db_state = crud.create_state(state_name=state, city_id=db_city.city_id)
+    vacation_label = crud.create_vacation_label(departure_date=departure_date, arrival_date=arrival_date,
+                        state_id=db_state.state_id)
+
+    new_vacation = crud.create_vacation(vacation_label_id=vacation_label.vacation_label_id, user_id=user.user_id)
+
+    return redirect(f"/profile/{user.username}")
 
 if __name__ == "__main__":
     # DebugToolbarExtension(app)
