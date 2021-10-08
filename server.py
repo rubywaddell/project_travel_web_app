@@ -42,7 +42,6 @@ def check_user_in_database():
     username = request.form.get("username")
     password = request.form.get("password")
 
-    users_in_db = crud.show_users()
     user = crud.get_user_by_username(username=username)
 
     if user == None:
@@ -55,6 +54,7 @@ def check_user_in_database():
 
     elif (username == user.username) and (password == user.password):
         flash("Logged in!")
+        session["logged_in_user"] = user
         return redirect(f"/profile/{username}")
 
     else:
@@ -100,6 +100,8 @@ def add_new_user():
     new_user = crud.create_user(username=username, fname=fname, lname=lname, email=email, password=password,
                                     vacation_id=new_vacation.vacation_id)
     
+    session["logged_in_user"] = new_user
+
     return redirect(f"/profile/{new_user.username}")
 
 @app.route("/create_tip")
@@ -136,7 +138,7 @@ def add_new_tip():
         flash(f"Thank you for adding your tip about {city_name}, {state_name}")
         return redirect("/view_travel_tips")
 
-@app.route("/add_vacation")
+@app.route("/create_vacation")
 def show_new_vacation():
     """Renders for that allows users to create a new vacation for their profile"""
 
