@@ -146,3 +146,6 @@ seed_user_table()
 seed_tip_table()
 seed_tag_table()
 seed_tip_tag_table()
+
+# if __name__ == "__main__":
+#     import server

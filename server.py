@@ -3,10 +3,7 @@
 from flask import Flask, render_template, request, flash, session, redirect
 
 import model
-
 import crud
-
-from seed_mock_data import seed_tip_table
 
 from jinja2 import StrictUndefined
 
@@ -27,7 +24,7 @@ def show_homepage():
 def show_travel_tips():
     """Renders the travel_tips page to show all tips in the database"""
 
-    tips = seed_tip_table()
+    tips = model.Tip.query.all()
 
     return render_template("travel_tips.html", tips=tips)
 

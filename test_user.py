@@ -3,21 +3,18 @@
 import unittest
 import os
 
-from server import app
 import crud
 import model
 
-os.system('dropdb travel_project')
-os.system('createdb travel_project')
 
 
 class UserTestCase(unittest.TestCase):
     """Tests for User table in model"""
 
-    def setUp(self):
-        print("********* User setUp function is running **************")
-        model.connect_to_db(app)
-        model.db.create_all()
+    # def setUp(self):
+    #     print("********* User setUp function is running **************")
+    #     # model.connect_to_db(app)
+    #     model.db.create_all()
 
     def test_user_exists(self):
         """Test that a user is in users table after adding to db.session"""
@@ -67,4 +64,10 @@ class UserTestCase(unittest.TestCase):
         self.assertFalse(test_user.travel.arrival_date == None)
 
 if __name__ == "__main__":
+    from server import app
+    model.connect_to_db(app)
+    model.db.create_all()
+
     unittest.main()
+    os.system('dropdb travel_app')
+    os.system('createdb travel_app')
