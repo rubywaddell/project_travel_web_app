@@ -16,7 +16,6 @@ class User(db.Model):
     email = db.Column(db.String, unique=True)
     password = db.Column(db.String(15))
 
-    vacation_id = db.Column(db.Integer, db.ForeignKey("vacations.vacation_id"), nullable=True)
     vacation = db.relationship("Vacation", back_populates="user")
 
     tip = db.relationship("Tip", back_populates="user")
@@ -34,6 +33,7 @@ class Vacation(db.Model):
     vacation_label_id = db.Column(db.Integer, db.ForeignKey("vacation_labels.vacation_label_id"))
     vacation_label = db.relationship("VacationLabel", back_populates="vacation")
 
+    user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"), nullable=True)
     user = db.relationship("User", back_populates="vacation")
 
     def __repr__(self):

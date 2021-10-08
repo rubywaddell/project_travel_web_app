@@ -65,8 +65,9 @@ def seed_vacation_label_table():
 def seed_vacation_table():
     """Seed the vacations table with mock data"""
 
-    for vacation_label in vacation_labels_in_db:
-        new_vacation = crud.create_vacation(vacation_label_id=vacation_label.vacation_label_id)
+    for i, vacation_label in enumerate(vacation_labels_in_db):
+        user_id = users_in_db[i].user_id
+        new_vacation = crud.create_vacation(vacation_label_id=vacation_label.vacation_label_id, user_id=user_id)
         vacations_in_db.append(new_vacation)
 
     return vacations_in_db
@@ -85,10 +86,10 @@ def seed_user_table():
         email = user["email"]
         password = user["password"]
 
-        vacation_id = vacations_in_db[i].vacation_id        
+        # vacation_id = vacations_in_db[i].vacation_id        
 
         new_user = crud.create_user(username=username, fname=fname, lname=lname, email=email, 
-                password=password, vacation_id=vacation_id)
+                password=password)
         
         users_in_db.append(new_user)
 
@@ -141,8 +142,9 @@ def seed_tip_tag_table():
 seed_cities_table()
 seed_states_table()
 seed_vacation_label_table()
-seed_vacation_table()
 seed_user_table()
+seed_vacation_table()
+
 seed_tip_table()
 seed_tag_table()
 seed_tip_tag_table()

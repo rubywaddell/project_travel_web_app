@@ -4,11 +4,12 @@
 import model
 
 #User CRUD functions:
-def create_user(username, fname, lname, email, password, vacation_id=None):
+# def create_user(username, fname, lname, email, password, vacation_id=None):
+def create_user(username, fname, lname, email, password):
     """Create a return a new user"""
 
     user = model.User(username=username, fname=fname, lname=lname, email=email, 
-            password=password, vacation_id=vacation_id)
+            password=password)
 
     model.db.session.add(user)
     model.db.session.commit()
@@ -44,12 +45,20 @@ def get_user_by_username(username):
     user = model.User.query.filter(model.User.username == username).first()
     return user
 
+def add_new_vacation_to_user(user_id, vacation_id):
+    """Adds a new vacation to an existing user profile"""
+
+    user = get_user_by_id(user_id=user_id)
+    new_user = create_user(username=user.username, fname=user.fname, lname=user.lname, email=user.email,
+                password=user.password, vacation_id=vacation_id)
+
+    return new_user
 
 #Vacation CRUD functions:
-def create_vacation(vacation_label_id=None):
+def create_vacation(vacation_label_id, user_id):
     """Create and return a vacation object"""
 
-    vacation = model.Vacation(vacation_label_id=vacation_label_id)
+    vacation = model.Vacation(vacation_label_id=vacation_label_id, user_id=user_id)
 
     model.db.session.add(vacation)
     model.db.session.commit()
