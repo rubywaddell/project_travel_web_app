@@ -1,5 +1,6 @@
 """Server for travel safety app."""
 
+# from re import U
 from flask import Flask, render_template, request, flash, session, redirect
 
 import model
@@ -24,9 +25,10 @@ def show_homepage():
 def show_travel_tips():
     """Renders the travel_tips page to show all tips in the database"""
 
-    tips = model.Tip.query.all()
+    tips = crud.show_tips()
+    tags = crud.show_tags()
 
-    return render_template("travel_tips.html", tips=tips)
+    return render_template("travel_tips.html", tips=tips, tags=tags)
 
 @app.route("/login")
 def show_login_page():
@@ -39,8 +41,7 @@ def check_user_in_database():
 
     username = request.form.get("username")
 
-    users_in_db = model.User.query.all()
-
+    users_in_db = crud.show_users()
     if username in users_in_db:
         flash("Logged in!")
         return redirect(f"/profile/{username}")
@@ -79,12 +80,14 @@ def add_new_user():
     city= request.form.get("city")
 
     new_city = crud.create_city(city_name=city)
-    new_state = crud.create_state_with_city_id(state_name=state, city_id=new_city.city_id)
-    new_travel = crud.create_travel_with_state_id(departure_date=departure_date, arrival_date=arrival_date, state_id=new_state.state_id)
-    new_user = crud.create_user_with_travel_id(username=username, fname=fname, lname=lname, email=email, 
-                                                    password=password, travel_id=new_travel.travel_id)
+    new_state = crud.create_state(state_name=state, city_id=new_city.city_id)
+    new_vacation_label = crud.create_vacation_label(departure_date=departure_date, arrival_date=arrival_date,
+                        state_id=new_state.state_id)
+    new_vacation = crud.create_vacation(vacation_label_id=new_vacation_label.vacation_label_id)
+    new_user = crud.create_user(username=username, fname=fname, lname=lname, email=email, password=password,
+                                    vacation_id=new_vacation.vacation_id)
     
-    return redirect(f"/profile/{username}")
+    return redirect(f"/profile/{new_user.username}")
 
 @app.route("/create_tip")
 def show_new_tip():
@@ -95,7 +98,8 @@ def show_new_tip():
 @app.route("/add_new_tip", methods=["POST"])
 def add_new_tip():
     """Adds new tip to the database after they submit the add new tip form"""
-
+#Need to look more into how to get the value of checkbox and radio button inputs
+#currently just returning None, can't save None to the database
     username= request.form.get("username")
 
     state_name= request.form.get("state")
@@ -103,20 +107,21 @@ def add_new_tip():
 
     tip_text = request.form.get("tip-text")
 
+    tag_name = request.form.get("tags")
+
     user = model.User.query.filter(model.User.username == username).first()
-    # state = model.State.query.filter(model.State.state_name == state_name).first()
-    # city = model.City.query.filter(model.City.city_name == city_name).first()
 
     if user == None:
-        new_tip = crud.create_tip(tip_text=tip_text)
+        flash("Please login before adding a travel tip")
+        return redirect("/login")
+    
     else:
-        new_tip = crud.create_tip_w_user_id(tip_text=tip_text, user_id=user.user_id)
-#Need to look more into how to get the value of checkbox and radio button inputs
-#currently just returning None, can't save None to the database
-    
-    flash(f"Thank you for adding your tip about {city_name}, {state_name}")
-    
-    return redirect("/view_travel_tips")
+        new_tip = crud.create_tip(tip_text=tip_text, user_id=user.user_id)
+        new_tag = crud.create_tag(tag_name=tag_name, tag_state=state_name, tag_city=city_name)
+        new_tip_tag = crud.create_tip_tag(tag_id=new_tag.tag_id, tip_id=new_tip.tip_id)
+
+        flash(f"Thank you for adding your tip about {city_name}, {state_name}")
+        return redirect("/view_travel_tips")
 
 
 if __name__ == "__main__":

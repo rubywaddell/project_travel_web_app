@@ -13,11 +13,11 @@
         <th>City:</th>
         <th>Tip:</th>
     </tr>
-{% for tip in tips%}
+{% for i in range(tips|length) %}
     <tr>
-        <!-- <td>{{ tip.user.travel.city.state.state_name }}</td>
-        <td>{{  tip.user.travel.city.city_name }}</td> -->
-        <td>{{ tip.tip_text }}</td>
+        <td>{{ tags[i].tag_state }}</td>
+        <td>{{ tags[i].tag_city }}</td>
+        <td>{{ tips[i].tip_text }}</td>
     </tr>
 
 {% endfor %}

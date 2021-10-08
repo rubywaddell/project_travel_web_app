@@ -179,6 +179,11 @@ def create_tag(tag_name, tag_state, tag_city):
 
     return new_tag
 
+def show_tags():
+    """REturn a list of all tag objects in the database"""
+
+    return model.Tag.query.all()
+
 
 if __name__ == "__main__":
     from server import app
