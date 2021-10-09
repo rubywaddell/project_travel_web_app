@@ -61,6 +61,12 @@ def check_user_in_database():
         flash("Something else is happening")
         return redirect("/login")
         
+@app.route("/logout")
+def log_user_out():
+    """Logs the user out of their profile and removes them from session"""
+
+    session.pop("logged_in_username")
+    return redirect("/")
 
 @app.route("/profile/<username>")
 def show_user_profile(username):
@@ -149,6 +155,10 @@ def add_new_tip():
 def show_new_vacation():
     """Renders for that allows users to create a new vacation for their profile"""
 
+    if session.get("logged_in_username") == None:
+        flash("Please log in first!")
+        return redirect("/login")
+
     return render_template("new_vacation.html")
 
 
@@ -172,6 +182,11 @@ def add_new_vacation():
     new_vacation = crud.create_vacation(vacation_label_id=vacation_label.vacation_label_id, user_id=user.user_id)
 
     return redirect(f"/profile/{user.username}")
+
+@app.route("/search_destination")
+def show_search_destination_page():
+    """Renders the search page where user can select a destination to search"""
+    return render_template("search_destination_page.html")
 
 if __name__ == "__main__":
     # DebugToolbarExtension(app)
