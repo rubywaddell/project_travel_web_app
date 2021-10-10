@@ -3,10 +3,13 @@
 const showCities = (evt) => {
     evt.preventDefault();
 
-    console.log($('#states-dropdown').value)
+    const url = '/search_destination/cities.json'
+    const formData = {state : $('#states-dropdown').val()};
+
+    $.get(url, formData, response => {
+        alert('hi');
+    });
     
 };
 
-$('#search-destination-form').on('submit',() =>{
-    showCities();
-});
+$('#sumbit-state-btn').on('click', showCities);

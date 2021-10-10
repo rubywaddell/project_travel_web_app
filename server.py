@@ -106,9 +106,9 @@ def add_new_user():
     new_state = crud.create_state(state_name=state, city_id=new_city.city_id)
     new_vacation_label = crud.create_vacation_label(departure_date=departure_date, arrival_date=arrival_date,
                         state_id=new_state.state_id)
-    new_vacation = crud.create_vacation(vacation_label_id=new_vacation_label.vacation_label_id)
-    new_user = crud.create_user(username=username, fname=fname, lname=lname, email=email, password=password,
-                                    vacation_id=new_vacation.vacation_id)
+    
+    new_user = crud.create_user(username=username, fname=fname, lname=lname, email=email, password=password)
+    new_vacation = crud.create_vacation(vacation_label_id=new_vacation_label.vacation_label_id, user_id=new_user.user_id)
     
     session["logged_in_username"] = new_user.username
 
@@ -127,7 +127,8 @@ def add_new_tip():
     """Adds new tip to the database after they submit the add new tip form"""
 #Need to look more into how to get the value of checkbox and radio button inputs
 #currently just returning None, can't save None to the database
-    username= request.form.get("username")
+    # username= request.form.get("username")
+    username = session["logged_in_username"]
 
     state_name= request.form.get("state")
     city_name= request.form.get("city")
@@ -136,7 +137,7 @@ def add_new_tip():
 
     tag_name = request.form.get("tags")
 
-    user = model.User.query.filter(model.User.username == username).first()
+    user = crud.get_user_by_username(username=username)
 
     if user == None:
         flash("Please login before adding a travel tip")
@@ -198,7 +199,7 @@ def show_search_destination_page_w_cities():
 
     city = crud.get_city_by_state(state_id=state.state_id)    
 
-    return city
+    return city.city_name
 
 if __name__ == "__main__":
     # DebugToolbarExtension(app)
