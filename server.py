@@ -1,7 +1,7 @@
 """Server for travel safety app."""
 
 # from re import U
-from flask import Flask, render_template, request, flash, session, redirect
+from flask import Flask, render_template, request, flash, session, redirect, jsonify
 
 import model
 import crud
@@ -186,7 +186,19 @@ def add_new_vacation():
 @app.route("/search_destination")
 def show_search_destination_page():
     """Renders the search page where user can select a destination to search"""
-    return render_template("search_destination_page.html")
+    states = crud.show_states()
+    return render_template("search_destination_page.html", states=states)
+
+@app.route("/search_destination/cities.json")
+def show_search_destination_page_w_cities():
+    """Using AJAX, shows the cities associated with the chosen state"""
+
+    state_name = request.args.get("states")
+    state = crud.get_state_by_name(state_name=state_name)
+
+    city = crud.get_city_by_state(state_id=state.state_id)    
+
+    return city
 
 if __name__ == "__main__":
     # DebugToolbarExtension(app)

@@ -93,6 +93,7 @@ def get_vacation_label_by_id(vacation_label_id):
     vacation_label = model.VacationLabel.query.filter(model.VacationLabel.vacation_label_id == vacation_label_id).first()
     return vacation_label
 
+
 #State CRUD functions:
 def create_state(state_name, city_id=None):
     """Create a new state, add to database, and return it"""
@@ -113,6 +114,13 @@ def get_state_by_name(state_name):
     """Query and return the first state with a given name"""
 
     state = model.State.query.filter(model.State.state_name == state_name).first()
+    return state
+
+def get_state_by_id(state_id):
+    """Query and return the first state with a given id number"""
+
+    state = model.State.query.filter(model.State.state_id == state_id).first()
+
     return state
 
 
@@ -138,6 +146,14 @@ def get_city_by_name(city_name):
     city = model.City.query.filter(model.City.city_name == city_name).first()
     return city
 
+def get_city_by_state(state_id):
+    """Query and return the cities tied to a given state id number"""
+
+    state = get_state_by_id(state_id=state_id)
+
+    cities = state.city
+    
+    return cities
 
 #Tip CRUD functions
 def create_tip(tip_text, user_id=None):
