@@ -1,0 +1,29 @@
+{% extends 'base.html' %} 
+{% block title %}Add a Trip{% endblock %} 
+
+{% block content %}
+
+<h1>Add a New Trip to Your Profile</h1>
+
+<form id="new-vacation-information" action="/add_new_vacation">
+
+    <div id="new-vacation-location">
+        <label>Please enter the city and state</label>
+        <label>State:</label><input type="text" name="state">
+        <label>City:</label><input type="text" name="city">
+    </div>
+
+    <p></p>
+
+    <div id="new-vacation-dates">
+        <label>From:</label>
+        <input type="date" id="new-vacation-departure-date" name="departure-date" min="2021-01-01" max="2022-12-31">
+        <label>To:</label>
+        <input type="date" id="new-vacation-arrival-date" name="arrival-date" min="2021-01-01" max="2022-12-31">
+    </div>
+    <p></p>
+ 
+    <input type="submit">
+</form>
+
+{% endblock %}

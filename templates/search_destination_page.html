@@ -1,0 +1,31 @@
+{% extends 'base.html' %} 
+{% block title %}Search Destination{% endblock %} 
+<script
+      src="http://code.jquery.com/jquery-3.5.1.js"
+      integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+      crossorigin="anonymous"></script>
+{% block content %}
+
+<h1>Search Tips and Events for Your Destination</h1>
+
+<div id="search-destination">
+<form id="search-destination-form" action="/search_destination/cities.json">
+
+    <div id="search-states">
+        <label for="state">Choose a state:</label>
+        <select id="states-dropdown" name="states">
+            {% for state in states %}
+            <option value="{{ state.state_name }}">{{ state.state_name }}</option>
+            {% endfor %}
+        </select>
+        <button class="btn btn-primary" type="submit">See Cities</button>
+    </div>
+    <p></p>
+    <div id="search-cities"></div>
+
+</form>
+</div>
+{% endblock %}
+
+<script src="http://code.jquery.com/jquery.js"></script>
+<script src="/static/js/search_destination.js"></script>
