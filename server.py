@@ -186,12 +186,9 @@ def add_new_vacation():
     db_city = crud.get_city_by_name(city_name=form_city)
     db_state = crud.get_state_by_name(state_name=form_state)
 
-    if db_city == None:
-        new_city = crud.create_city(city_name=form_city)
-
-    elif db_state == None:
-        new_city = crud.get_city_by_name(city_name=form_city)
-        new_state = crud.create_state(state_name=form_state, city_id=new_city.city_id)
+    if db_state == None:
+        new_state = crud.create_state(state_name=form_state)
+        new_city = crud.create_city(city_name=form_city, state_id=new_state.state_id)
 
     city = crud.get_city_by_name(city_name=form_city)
     state = crud.get_state_by_name(state_name=form_state)

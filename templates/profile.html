@@ -18,7 +18,9 @@
         <td>{{ vacation.vacation_label.departure_date }}</td>
         <td>{{ vacation.vacation_label.arrival_date }}</td>
         <td>{{ vacation.vacation_label.state.state_name }}</td>
-        <td>{{ vacation.vacation_label.state.city.city_name }}</td>
+        {% for city in vacation.vacation_label.state.city%} 
+        <td>{{city.city_name}}</td>
+        {% endfor %}
     </tr>
     {% endfor %}
 

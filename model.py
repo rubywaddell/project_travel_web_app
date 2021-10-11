@@ -84,6 +84,9 @@ class City(db.Model):
     state_id = db.Column(db.Integer, db.ForeignKey("states.state_id"))
     state = db.relationship("State", back_populates="city")
 
+    def __repr__(self):
+        return f"<City Object: city_id={self.city_id}, city_name={self.city_name}>"
+
 class Tip(db.Model):
     """Tip object, connected to the User, so users can generate travel tips"""
 
