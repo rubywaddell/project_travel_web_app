@@ -11,8 +11,8 @@ const showCities = (evt) => {
 
     $.get(url, formData, response => {
         console.log(response)
-        for (const city in response){
-            console.log(response[city])
+        for (const city_id in response){
+            console.log(response[city_id])
         }
     });  
 };

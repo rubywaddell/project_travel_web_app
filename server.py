@@ -104,7 +104,7 @@ def add_new_user():
     state= request.form.get("state")
     city= request.form.get("city")
 
-    db_city = crud.get_city_by_name(city_name=city)
+    db_city = crud.check_if_city_in_db(city_name=city)
     db_state = crud.get_state_by_name(state_name=state)
 
     if (db_city == None) and (db_state == None):
@@ -209,19 +209,20 @@ def show_search_destination_page():
     states = crud.show_states()
     return render_template("search_destination_page.html", states=states)
 
+
 @app.route("/search_destination/cities.json")
 def show_search_destination_page_w_cities():
     """Using AJAX, shows the cities associated with the chosen state"""
 
     state_name = request.args.get("state")
 
-    state_joined_city = crud.get_city_by_state(state_name=state_name)    
+    cities = crud.get_city_by_state(state_name=state_name)    
     #can't jsonify state_joined_city, won't jsonify the data model objects
-    cities = {}
-    for state in state_joined_city:
-        cities[state.city.city_id] = state.city.city_name
+    cities_dict = {}
+    for city in cities:
+        cities_dict[city.city_id] = city.city_name
 
-    return jsonify(cities)
+    return jsonify(cities_dict)
     
 
 if __name__ == "__main__":
