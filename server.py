@@ -101,23 +101,32 @@ def add_new_user():
     departure_date= request.form.get("departure-date")
     arrival_date= request.form.get("arrival-date")
 
-    state= request.form.get("state")
-    city= request.form.get("city")
+    state= request.form.get("state").title()
+    city= request.form.get("city").title()
 
-    db_city = crud.check_if_city_in_db(city_name=city)
-    db_state = crud.get_state_by_name(state_name=state)
+    check_state = crud.check_if_state_in_db(state_name=state)
+    check_city = crud.check_if_city_in_db(city_name=city)
 
-    if (db_city == None) and (db_state == None):
-        new_city = crud.create_city(city_name=city)
-        new_state = crud.create_state(state_name=state, city_id=new_city.city_id)
-        vacation_label = crud.create_vacation_label(departure_date=departure_date, arrival_date=arrival_date,
+    if check_state == False:
+        new_state = crud.create_state(state_name=state)
+        if check_city == False:
+            new_city = crud.create_city(city_name=city, state_id=new_state.state_id)
+        
+        new_vacation_label = crud.create_vacation_label(departure_date=departure_date, arrival_date=arrival_date,
                         state_id=new_state.state_id)
-        crud.create_vacation(vacation_label_id=vacation_label.vacation_label_id, user_id=new_user.user_id)
+        
+        new_vacation = crud.create_vacation(vacation_label_id=new_vacation_label.vacation_label_id, user_id=new_user.user_id)
+
     else:
-        vacation_label = crud.create_vacation_label(departure_date=departure_date, arrival_date=arrival_date,
+        db_state = crud.get_state_by_name(state_name=state)
+
+        if check_city == False:
+            new_city = crud.create_city(city_name=city, state_id=db_state.state_id)
+
+        new_vacation_label = crud.create_vacation_label(departure_date=departure_date, arrival_date=arrival_date,
                         state_id=db_state.state_id)
-        crud.create_vacation(vacation_label_id=vacation_label.vacation_label_id, user_id=new_user.user_id)
-    
+        
+        new_vacation = crud.create_vacation(vacation_label_id=new_vacation_label.vacation_label_id, user_id=new_user.user_id)
     
     session["logged_in_username"] = new_user.username
 
