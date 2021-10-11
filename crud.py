@@ -123,6 +123,34 @@ def get_state_by_id(state_id):
 
     return state
 
+def check_if_state_in_db(state_name):
+    """Checks if the given state name is already stored in the database, returns True or False"""
+
+    state = get_state_by_name(state_name=state_name)
+    if state == None:
+        return False
+    else:
+        return True
+
+def check_if_state_has_city(state_name, city_name):
+    """Checks if a given city is already in the database and connected to the given state, returns a boolean"""
+
+    # state = get_state_by_name(state_name=state_name)
+
+    city_state_join = model.db.session.query(model.City).join(model.City.state)
+    state_filter = city_state_join.filter(model.State.state_name == state_name)
+    cities = state_filter.all()
+
+    city_names = []
+
+    for city in cities:
+        city_names.append(city.city_name)
+
+    if city_name in city_names:
+        return True
+    else:
+        return False
+
 
 #City CRUD functions
 def create_city(city_name):
@@ -146,14 +174,25 @@ def get_city_by_name(city_name):
     city = model.City.query.filter(model.City.city_name == city_name).first()
     return city
 
-def get_city_by_state(state_id):
+def get_city_by_state(state_name):
     """Query and return the cities tied to a given state id number"""
 
-    state = get_state_by_id(state_id=state_id)
+    state = get_state_by_name(state_name=state_name)
 
-    cities = state.city
-    
+    city_state_join = model.db.session.query(model.City).join(model.City.state)
+    state_filter = city_state_join.filter(model.State.state_name == state_name)
+    cities = state_filter.all()
+
     return cities
+
+def check_if_city_in_db(city_name):
+    """Checks if the given city name is already stored in the database, returns True or False"""
+
+    city = get_city_by_name(city_name=city_name)
+    if city == None:
+        return False
+    else:
+        return True
 
 #Tip CRUD functions
 def create_tip(tip_text, user_id=None):
