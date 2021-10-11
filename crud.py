@@ -95,10 +95,10 @@ def get_vacation_label_by_id(vacation_label_id):
 
 
 #State CRUD functions:
-def create_state(state_name, city_id=None):
+def create_state(state_name):
     """Create a new state, add to database, and return it"""
 
-    new_state = model.State(state_name=state_name, city_id=city_id)
+    new_state = model.State(state_name=state_name)
 
     model.db.session.add(new_state)
     model.db.session.commit()
@@ -153,10 +153,10 @@ def check_if_state_has_city(state_name, city_name):
 
 
 #City CRUD functions
-def create_city(city_name):
+def create_city(city_name, state_id):
     """Create a new city, add to database, and return it"""
 
-    new_city = model.City(city_name=city_name)
+    new_city = model.City(city_name=city_name, state_id=state_id)
 
     model.db.session.add(new_city)
     model.db.session.commit()
@@ -193,6 +193,13 @@ def check_if_city_in_db(city_name):
         return False
     else:
         return True
+
+def add_new_city_to_existing_state(state_name, city_name):
+    """Adds a new city to an existing state object"""
+
+    state = get_state_by_name(state_name=state_name)
+
+
 
 #Tip CRUD functions
 def create_tip(tip_text, user_id=None):

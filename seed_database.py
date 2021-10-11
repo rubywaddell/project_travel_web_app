@@ -26,8 +26,8 @@ def seed_cities_table():
     with open("data/mock_city_data.json") as city_data:
             cities = json.loads(city_data.read())
     
-    for city in cities:
-        new_city = crud.create_city(city_name=city["city_name"])
+    for i, city in enumerate(cities):
+        new_city = crud.create_city(city_name=city["city_name"], state_id=states_in_db[i].state_id)
         cities_in_db.append(new_city)
 
     return cities_in_db
@@ -39,8 +39,8 @@ def seed_states_table():
     with open("data/mock_state_data.json") as state_data:
         states = json.loads(state_data.read())
     
-    for i, state in enumerate(states):
-        new_state = crud.create_state(state_name=state["state_name"], city_id=cities_in_db[i].city_id)
+    for state in states:
+        new_state = crud.create_state(state_name=state["state_name"])
         states_in_db.append(new_state)
     
     return states_in_db
@@ -139,8 +139,9 @@ def seed_tip_tag_table():
     
     return tip_tags_in_db
 
-seed_cities_table()
 seed_states_table()
+seed_cities_table()
+
 seed_vacation_label_table()
 seed_user_table()
 seed_vacation_table()

@@ -65,7 +65,7 @@ class State(db.Model):
     state_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     state_name = db.Column(db.String)
 
-    city_id = db.Column(db.Integer, db.ForeignKey("cities.city_id"))
+    # city_id = db.Column(db.Integer, db.ForeignKey("cities.city_id"))
     city = db.relationship("City", back_populates="state")
 
     vacation_label = db.relationship("VacationLabel", back_populates="state")
@@ -81,6 +81,7 @@ class City(db.Model):
     city_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     city_name = db.Column(db.String)
 
+    state_id = db.Column(db.Integer, db.ForeignKey("states.state_id"))
     state = db.relationship("State", back_populates="city")
 
 class Tip(db.Model):

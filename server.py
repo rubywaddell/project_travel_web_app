@@ -178,7 +178,7 @@ def add_new_vacation():
     username = session["logged_in_username"]
     user = crud.get_user_by_username(username=username)
 
-    form_state = request.args.get("sform_tate")
+    form_state = request.args.get("state")
     form_city = request.args.get("city")
     departure_date = request.args.get("departure-date")
     arrival_date = request.args.get("arrival-date")
