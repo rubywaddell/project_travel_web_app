@@ -13,6 +13,7 @@ const showCities = (evt) => {
         console.log(response)
         for (const city_id in response){
             console.log(response[city_id])
+            $('#cities-dropdown').html(`<option value="${response[city_id]}">${response[city_id]}</option>`)
         }
     });  
 };
