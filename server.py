@@ -91,8 +91,8 @@ def add_new_user():
     """Adds new user to the database after they submit """
 
     username= request.form.get("username")
-    fname= request.form.get("fname")
-    lname= request.form.get("lname")
+    fname= request.form.get("fname").title()
+    lname= request.form.get("lname").title()
     email= request.form.get("email")
     password= request.form.get("password")
 
@@ -133,8 +133,8 @@ def add_new_tip():
 
     username = session["logged_in_username"]
 
-    state_name= request.form.get("state")
-    city_name= request.form.get("city")
+    state_name= request.form.get("state").title()
+    city_name= request.form.get("city").title()
 
     tip_text = request.form.get("tip-text")
 
@@ -192,7 +192,7 @@ def show_search_destination_page():
 def show_search_destination_page_w_cities():
     """Using AJAX, shows the cities associated with the chosen state"""
 
-    state_name = request.args.get("state")
+    state_name = request.args.get("state").title()
 
     cities = crud.get_city_by_state(state_name=state_name)    
     #can't jsonify state_joined_city, won't jsonify the data model objects
