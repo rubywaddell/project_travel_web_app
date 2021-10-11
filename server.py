@@ -104,29 +104,10 @@ def add_new_user():
     state= request.form.get("state").title()
     city= request.form.get("city").title()
 
-    check_state = crud.check_if_state_in_db(state_name=state)
-    check_city = crud.check_if_city_in_db(city_name=city)
-
-    if check_state == False:
-        new_state = crud.create_state(state_name=state)
-        if check_city == False:
-            new_city = crud.create_city(city_name=city, state_id=new_state.state_id)
-        
-        new_vacation_label = crud.create_vacation_label(departure_date=departure_date, arrival_date=arrival_date,
-                        state_id=new_state.state_id)
-        
-        new_vacation = crud.create_vacation(vacation_label_id=new_vacation_label.vacation_label_id, user_id=new_user.user_id)
-
-    else:
-        db_state = crud.get_state_by_name(state_name=state)
-
-        if check_city == False:
-            new_city = crud.create_city(city_name=city, state_id=db_state.state_id)
-
-        new_vacation_label = crud.create_vacation_label(departure_date=departure_date, arrival_date=arrival_date,
-                        state_id=db_state.state_id)
-        
-        new_vacation = crud.create_vacation(vacation_label_id=new_vacation_label.vacation_label_id, user_id=new_user.user_id)
+    check_state, check_city = crud.check_if_city_state_in_db_create_if_not(state=state, city=city)
+    
+    new_vacation_label = crud.create_vacation_label(departure_date=departure_date, arrival_date=arrival_date, state_id=check_state.state_id)
+    new_vacation = crud.create_vacation(vacation_label_id=new_vacation_label.vacation_label_id, user_id=new_user.user_id)
     
     session["logged_in_username"] = new_user.username
 
@@ -187,24 +168,15 @@ def add_new_vacation():
     username = session["logged_in_username"]
     user = crud.get_user_by_username(username=username)
 
-    form_state = request.args.get("state")
-    form_city = request.args.get("city")
+    state = request.args.get("state").title()
+    city = request.args.get("city").title()
     departure_date = request.args.get("departure-date")
     arrival_date = request.args.get("arrival-date")
 
-    db_city = crud.get_city_by_name(city_name=form_city)
-    db_state = crud.get_state_by_name(state_name=form_state)
-
-    if db_state == None:
-        new_state = crud.create_state(state_name=form_state)
-        new_city = crud.create_city(city_name=form_city, state_id=new_state.state_id)
-
-    city = crud.get_city_by_name(city_name=form_city)
-    state = crud.get_state_by_name(state_name=form_state)
-
-    vacation_label = crud.create_vacation_label(departure_date=departure_date, arrival_date=arrival_date,
-                        state_id=state.state_id)
-    crud.create_vacation(vacation_label_id=vacation_label.vacation_label_id, user_id=user.user_id)
+    check_state, check_city = crud.check_if_city_state_in_db_create_if_not(state=state, city=city)
+    
+    new_vacation_label = crud.create_vacation_label(departure_date=departure_date, arrival_date=arrival_date, state_id=check_state.state_id)
+    new_vacation = crud.create_vacation(vacation_label_id=new_vacation_label.vacation_label_id, user_id=user.user_id)
 
     return redirect(f"/profile/{user.username}")
 

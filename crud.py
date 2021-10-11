@@ -200,6 +200,31 @@ def add_new_city_to_existing_state(state_name, city_name):
     state = get_state_by_name(state_name=state_name)
 
 
+def check_if_city_state_in_db_create_if_not(state, city):
+    """Checks if a given state and city are already stored in the database
+        If they are not, they will be created"""
+
+    check_state = check_if_state_in_db(state_name=state)
+    check_city = check_if_city_in_db(city_name=city)
+
+    if check_state == False:
+        new_state = create_state(state_name=state)
+        if check_city == False:
+            new_city = create_city(city_name=city, state_id=new_state.state_id)
+            return new_state, new_city
+        
+        db_city = get_city_by_name(city_name=city)
+        return new_state, db_city
+
+    else:
+        db_state = get_state_by_name(state_name=state)
+        if check_city == False:
+            new_city = create_city(city_name=city, state_id=db_state.state_id)
+            return db_state, new_city
+
+        db_city = get_city_by_name(city_name=city)
+        return db_state, db_city
+
 
 #Tip CRUD functions
 def create_tip(tip_text, user_id=None):
