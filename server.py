@@ -184,7 +184,10 @@ def add_new_vacation():
 @app.route("/search_destination")
 def show_search_destination_page():
     """Renders the search page where user can select a destination to search"""
-    states = crud.show_states()
+    states = crud.show_tag_states()
+    states = set(states)
+    states = list(states)
+    states.sort()
     return render_template("search_destination_page.html", states=states)
 
 
@@ -194,11 +197,19 @@ def show_search_destination_page_w_cities():
 
     state_name = request.args.get("state").title()
 
-    cities = crud.get_city_by_state(state_name=state_name)    
-    #can't jsonify state_joined_city, won't jsonify the data model objects
+    state_tags = crud.get_tags_by_tag_state(state=state_name)
+    #crud.get_tags_by_tag_state returns a list of tag objects
+    #will return duplicates, need to get rid of them for the dropdown list
+    cities_list = []
     cities_dict = {}
-    for city in cities:
-        cities_dict[city.city_id] = city.city_name
+    
+    for tag in state_tags:
+        cities_list.append(tag.tag_city)
+
+    cities_set = set(cities_list)
+
+    for i, city in enumerate(cities_set):
+        cities_dict[i] = city
 
     return jsonify(cities_dict)
     

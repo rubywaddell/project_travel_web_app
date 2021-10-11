@@ -194,10 +194,10 @@ def check_if_city_in_db(city_name):
     else:
         return True
 
-def add_new_city_to_existing_state(state_name, city_name):
-    """Adds a new city to an existing state object"""
+# def add_new_city_to_existing_state(state_name, city_name):
+#     """Adds a new city to an existing state object"""
 
-    state = get_state_by_name(state_name=state_name)
+#     state = get_state_by_name(state_name=state_name)
 
 
 def check_if_city_state_in_db_create_if_not(state, city):
@@ -273,6 +273,28 @@ def show_tags():
     """REturn a list of all tag objects in the database"""
 
     return model.Tag.query.all()
+
+def show_tag_states():
+    """Return a list of all tag_states in the database"""
+
+    return model.db.session.query(model.Tag.tag_state).all()
+
+def show_tag_cities():
+    """Return a list of all tag_cities in the database"""
+
+    return model.db.session.query(model.Tag.tag_city).all()
+
+def get_tags_by_tag_state(state):
+    """Return a list of all tags with a given tag_state"""
+
+    state_tags = model.Tag.query.filter(model.Tag.tag_state == state).all()
+    return state_tags
+
+def get_tags_by_tag_city(city):
+    """Return a list of all tags with a given tag_city"""
+
+    city_tags = model.Tag.query.filter(model.Tag.tag_city == city).all()
+    return city_tags
 
 
 if __name__ == "__main__":

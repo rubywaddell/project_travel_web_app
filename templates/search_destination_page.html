@@ -15,7 +15,7 @@
         <label for="states">Choose a state:</label>
         <select id="states-dropdown" name="states">
             {% for state in states %}
-            <option value="{{ state.state_name }}">{{ state.state_name }}</option>
+            <option value="{{ state[0] }}">{{ state[0] }}</option>
             {% endfor %}
         </select>
         <button class="btn btn-primary" type="submit" id="submit-state-btn">See Cities</button>
