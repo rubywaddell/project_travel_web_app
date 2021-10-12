@@ -74,53 +74,27 @@ def show_user_profile(username):
 
     user = crud.get_user_by_username(username)
 
-    user_vacation_query = model.db.session.query(model.User).options(
-        model.db.joinedload(model.User.vacation, innerjoin=True).
-            joinedload(model.Vacation.vacation_label, innerjoin=True).
-                joinedload(model.VacationLabel.state, innerjoin=True)
-                    ).filter(model.User.user_id == user.user_id)
-
-    user_vacations = model.Vacation.query.filter(model.Vacation.user_id == user.user_id).all()
-
-    vacation_labels = []
-
-    test = []
-    #Is not iterating correctly, when looking at type of user_vacations it's a list
-    #But, doing for vacation in user_vacations
-    #and for i in range(len(user_vacations))
-    #just return the same object each time, it doesn't seem to actually be getting to the first index
-    #just returns the 0 index
+    user_vacation_query = model.db.session.query(model.Vacation).options(
+        model.db.joinedload(model.Vacation.vacation_label).
+            joinedload(model.VacationLabel.state).
+                joinedload(model.State.city)
+                    ).filter(model.Vacation.user_id == user.user_id)
     
-    for i in range(len(user_vacations)):
-        vacation_id = user_vacations[i].vacation_id
-        vacation_label = model.db.session.query(model.VacationLabel).options(
-            model.db.joinedload(model.VacationLabel.vacation)
-        ).filter(model.Vacation.vacation_id == vacation_id).first()
-        vacation_labels.append(vacation_label)
-    
+    vacations = user_vacation_query.all()
     states = []
+    cities = {}
 
-    for vacation_label in vacation_labels:
-        vacation_label_id = vacation_label.vacation_label_id
-        state = model.db.session.query(model.State).options(
-            model.db.joinedload(model.State.vacation_label)
-        ).filter(model.VacationLabel.vacation_label_id == vacation_label_id).first()
-        states.append(state)
+    for vacation in vacations:
+        state_name = vacation.vacation_label.state.state_name
+        states.append(state_name)
+        city = vacation.vacation_label.state.city
+        cities[state_name] = cities.get(state_name, city)
 
-    print("\n"*5)
-    print("="*40)
-    print(user_vacations)
-    print(type(user_vacations))
-    # print(user_vacations.vacation.vacation_id)
-    # print(user_vacation_labels)
-    # print(user_vacation_query)
-    # print(user_vacation_query.all())
-    print(vacation_labels)
-    print(states)
-    print("="*40)
-    print("\n"*5)
-    
-    return render_template("profile.html", user=user)
+    print("\n"*2)
+    print(cities)
+    print("\n"*2)
+
+    return render_template("profile.html", user=user, vacations=vacations)
 
 
 @app.route("/create_account")
