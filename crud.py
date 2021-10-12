@@ -70,6 +70,12 @@ def get_vacation_by_id(vacation_id):
     vacation = model.Vacation.query.filter(model.Vacation.vacation_id == vacation_id).first()
     return vacation
 
+def get_vacation_by_user_id(user_id):
+    """Get and return all vacation objects associated iwth a given user_id numbers"""
+
+    user_vacations = model.Vacation.query.filter(model.Vacation.user_id == user_id).all()
+    return user_vacations
+
 
 #VacationLabel CRUD Functions:
 def create_vacation_label(departure_date, arrival_date, state_id=None):
@@ -93,6 +99,12 @@ def get_vacation_label_by_id(vacation_label_id):
     vacation_label = model.VacationLabel.query.filter(model.VacationLabel.vacation_label_id == vacation_label_id).first()
     return vacation_label
 
+def join_vacation_w_vacation_label():
+    """Join the vacation and vacation_label tables, return the BaseQuery for further querying in other functions"""
+
+    vacation_vacation_label_join = model.db.session.query(model.VacationLabel).join(model.VacationLabel.vacation)
+    
+    return vacation_vacation_label_join
 
 #State CRUD functions:
 def create_state(state_name):
@@ -122,6 +134,17 @@ def get_state_by_id(state_id):
     state = model.State.query.filter(model.State.state_id == state_id).first()
 
     return state
+
+def get_state_by_city(city_name):
+    """Query and return the cities tied to a given state id number"""
+
+    city = get_city_by_name(city_name=city_name)
+
+    state_city_join = model.db.session.query(model.State).join(model.State.city)
+    city_filter = state_city_join.filter(model.City.city_name == city_name)
+    cities = city_filter.all()
+
+    return cities
 
 def check_if_state_in_db(state_name):
     """Checks if the given state name is already stored in the database, returns True or False"""

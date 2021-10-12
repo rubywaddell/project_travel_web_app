@@ -55,7 +55,7 @@ class VacationLabel(db.Model):
     vacation = db.relationship("Vacation", back_populates="vacation_label")
 
     def __repr__(self):
-        return f"<VacationLabel object: vacation_label_id]{self.vacation_label_id} departure_date={self.departure_date}>"
+        return f"<VacationLabel object: vacation_label_id={self.vacation_label_id} departure_date={self.departure_date}>"
 
 class State(db.Model):
     """State object to tag vacations with location data"""

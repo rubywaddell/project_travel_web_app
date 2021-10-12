@@ -6,7 +6,6 @@ const showCities = (evt) => {
 
     const url = '/search_destination/cities.json';
     const formData = {state : $('#states-dropdown').val()};
-    // alert(`FormData.state looks like this:\n${formData.state}`)
 
     $.get(url, formData, response => {
         console.log(response)
