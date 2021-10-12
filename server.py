@@ -15,6 +15,18 @@ app.jinja_env.undefined = StrictUndefined
 model.connect_to_db(app)
 model.db.create_all()
 
+def add_vacation_to_session(vacation_id, vacation_label, city_name):
+    """Adds a vacation to the Server's session once created"""
+
+    session[vacation_id] = {
+        "vacation_label_id": vacation_label.vacation_label_id,
+        "departure_date" : vacation_label.departure_date,
+        "arrival_date" : vacation_label.arrival_date,
+        "destination_state" : vacation_label.state.state_name,
+        "destination_city" : city_name
+    }
+    return session[vacation_id]
+
 @app.route("/")
 def show_homepage():
     """Renders the homepage html to bring users to the homepage of app"""
@@ -55,6 +67,7 @@ def check_user_in_database():
     elif (username == user.username) and (password == user.password):
         flash("Logged in!")
         session["logged_in_username"] = user.username
+
         return redirect(f"/profile/{username}")
 
     else:
@@ -65,7 +78,7 @@ def check_user_in_database():
 def log_user_out():
     """Logs the user out of their profile and removes them from session"""
 
-    session.pop("logged_in_username")
+    session.clear()
     return redirect("/")
 
 @app.route("/profile/<username>")
@@ -74,26 +87,8 @@ def show_user_profile(username):
 
     user = crud.get_user_by_username(username)
 
-    user_vacation_query = model.db.session.query(model.Vacation).options(
-        model.db.joinedload(model.Vacation.vacation_label).
-            joinedload(model.VacationLabel.state).
-                joinedload(model.State.city)
-                    ).filter(model.Vacation.user_id == user.user_id)
-    
-    vacations = user_vacation_query.all()
-    states = []
-    cities = {}
-
-    for vacation in vacations:
-        state_name = vacation.vacation_label.state.state_name
-        states.append(state_name)
-        city = vacation.vacation_label.state.city
-        cities[state_name] = cities.get(state_name, city)
-
-    print("\n"*2)
-    print(cities)
-    print("\n"*2)
-
+    vacations = user.vacation
+ 
     return render_template("profile.html", user=user, vacations=vacations)
 
 
@@ -191,7 +186,7 @@ def add_new_vacation():
     departure_date = request.args.get("departure-date")
     arrival_date = request.args.get("arrival-date")
 
-    check_state, check_city = crud.check_if_city_state_in_db_create_if_not(state=state, city=city)
+    check_city, check_state = crud.check_if_city_state_in_db_create_if_not(city=city, state=state)
     
     new_vacation_label = crud.create_vacation_label(departure_date=departure_date, arrival_date=arrival_date, state_id=check_state.state_id)
     new_vacation = crud.create_vacation(vacation_label_id=new_vacation_label.vacation_label_id, user_id=user.user_id)

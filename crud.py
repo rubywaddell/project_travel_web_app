@@ -58,6 +58,7 @@ def create_vacation(vacation_label_id, user_id):
 
     return vacation
 
+
 def show_vacations():
     """Return a list of all vacation objects in the database"""
 
@@ -107,10 +108,10 @@ def join_vacation_w_vacation_label():
     return vacation_vacation_label_join
 
 #State CRUD functions:
-def create_state(state_name):
+def create_state(state_name, city_id):
     """Create a new state, add to database, and return it"""
 
-    new_state = model.State(state_name=state_name)
+    new_state = model.State(state_name=state_name, city_id=city_id)
 
     model.db.session.add(new_state)
     model.db.session.commit()
@@ -135,16 +136,20 @@ def get_state_by_id(state_id):
 
     return state
 
+def get_state_by_city_id(city_id):
+    """Query and return the first state tied to a given city id number"""
+
+    state = model.db.session.query(model.State).filter(model.State.city_id == city_id)
+    return state
+
 def get_state_by_city(city_name):
-    """Query and return the cities tied to a given state id number"""
+    """Query and return the state tied to a given city name"""
 
     city = get_city_by_name(city_name=city_name)
 
-    state_city_join = model.db.session.query(model.State).join(model.State.city)
-    city_filter = state_city_join.filter(model.City.city_name == city_name)
-    cities = city_filter.all()
+    state = model.db.session.query(model.State).filter(model.State.city_id == city.city_id)
 
-    return cities
+    return state
 
 def check_if_state_in_db(state_name):
     """Checks if the given state name is already stored in the database, returns True or False"""
@@ -176,10 +181,10 @@ def check_if_state_has_city(state_name, city_name):
 
 
 #City CRUD functions
-def create_city(city_name, state_id):
+def create_city(city_name):
     """Create a new city, add to database, and return it"""
 
-    new_city = model.City(city_name=city_name, state_id=state_id)
+    new_city = model.City(city_name=city_name)
 
     model.db.session.add(new_city)
     model.db.session.commit()
@@ -217,36 +222,35 @@ def check_if_city_in_db(city_name):
     else:
         return True
 
-# def add_new_city_to_existing_state(state_name, city_name):
-#     """Adds a new city to an existing state object"""
-
-#     state = get_state_by_name(state_name=state_name)
-
-
-def check_if_city_state_in_db_create_if_not(state, city):
+def check_if_city_state_in_db_create_if_not(city, state):
     """Checks if a given state and city are already stored in the database
         If they are not, they will be created"""
 
-    check_state = check_if_state_in_db(state_name=state)
     check_city = check_if_city_in_db(city_name=city)
+    # check_state = check_if_state_in_db(state_name=state)
 
-    if check_state == False:
-        new_state = create_state(state_name=state)
-        if check_city == False:
-            new_city = create_city(city_name=city, state_id=new_state.state_id)
-            return new_state, new_city
+    if check_city == False:
+        new_city = create_city(city_name=city)
+        new_state = create_state(state_name=state, city_id=new_city.city_id)
+        return new_city, new_state
         
-        db_city = get_city_by_name(city_name=city)
-        return new_state, db_city
+        # if check_state == False:
+        #     new_state = create_state(state_name=state, city_id=new_city.city_id)
+        #     return new_city, new_state
+        
+        # db_state = get_state_by_name(state_name=state)
+        # return new_city, db_state
 
     else:
-        db_state = get_state_by_name(state_name=state)
-        if check_city == False:
-            new_city = create_city(city_name=city, state_id=db_state.state_id)
-            return db_state, new_city
-
         db_city = get_city_by_name(city_name=city)
-        return db_state, db_city
+        db_state = get_state_by_city_id(city_id=db_city.city_id)
+
+        # if check_city == False:
+        #     new_state = create_state(state_name=state, city_id=db_city.city_id)
+        #     return db_city, new_state
+
+        # db_state = get_state_by_name(state_name=state)
+        return db_city, db_state
 
 
 #Tip CRUD functions
@@ -321,6 +325,6 @@ def get_tags_by_tag_city(city):
 
 
 if __name__ == "__main__":
-    from server import app
+    from server import app, session
     model.connect_to_db(app)
     model.db.create_all()
