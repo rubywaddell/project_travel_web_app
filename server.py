@@ -253,7 +253,7 @@ def show_destination_details(city):
     print("Tip_Tags:", tip_tags)
     print("\n"*2)
 
-    return render_template("destination_details.html", tip_tags=tip_tags)
+    return render_template("destination_details.html", tip_tags=tip_tags, city=city)
 
 if __name__ == "__main__":
     # DebugToolbarExtension(app)
