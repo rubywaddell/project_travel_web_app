@@ -191,34 +191,35 @@ def show_search_destination_page():
     return render_template("search_destination_page.html", states=states)
 
 
-@app.route("/search_destination/cities.json")
-def show_search_destination_page_w_cities():
-    """Using AJAX, shows the cities associated with the chosen state"""
+#Refactoring search destination, this route is currently obsolete
+# @app.route("/search_destination/cities.json")
+# def show_search_destination_page_w_cities():
+#     """Using AJAX, shows the cities associated with the chosen state"""
 
-    state_name = request.args.get("state").title()
+#     state_name = request.args.get("state").title()
 
-    state_tags = crud.get_tags_by_tag_state(state=state_name)
-    #crud.get_tags_by_tag_state returns a list of tag objects
-    #will return duplicates, need to get rid of them for the dropdown list
-    cities_list = []
-    cities_dict = {}
+#     state_tags = crud.get_tags_by_tag_state(state=state_name)
+#     #crud.get_tags_by_tag_state returns a list of tag objects
+#     #will return duplicates, need to get rid of them for the dropdown list
+#     cities_list = []
+#     cities_dict = {}
     
-    for tag in state_tags:
-        cities_list.append(tag.tag_city)
+#     for tag in state_tags:
+#         cities_list.append(tag.tag_city)
 
-    cities_set = set(cities_list)
+#     cities_set = set(cities_list)
 
-    for i, city in enumerate(cities_set):
-        cities_dict[i] = city
+#     for i, city in enumerate(cities_set):
+#         cities_dict[i] = city
 
-    return jsonify(cities_dict)
+#     return jsonify(cities_dict)
 
 @app.route("/destination_details")
 def show_destination_details():
     """Shows user a page with travel tips (limited to 5 per page) and events (limited to 5 per page) for given destination"""
 
-    state = request.args.get("states")
-    city = request.args.get("cities")
+    state = request.args.get("states").title()
+    city = request.args.get("cities").title()
     departure_date = request.args.get("departure-date")
     arrival_date = request.args.get("arrival-date")
     city_tags = crud.get_tags_by_tag_city(city=city)
