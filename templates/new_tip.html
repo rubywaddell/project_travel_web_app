@@ -8,12 +8,12 @@
 <form id="new-tip-information" action="/add_new_tip" method="POST">
     <div id="tags">
         <label>Select tags:</label>
-        <input type="checkbox" name="tags" value="money"><label>Money/Theft</label>
-        <input type="checkbox" name="tags" value="food"><label>Food</label>
-        <input type="checkbox" name="tags" value="health"><label>Health</label>
-        <input type="checkbox" name="tags" value="lgbt"><label>LGBTQIA+</label>
-        <input type="checkbox" name="tags" value="solo-travel"><label>Solo Travel</label>
-        <input type="checkbox" name="tags" value="other"><label>Other</label>
+        <input type="radio" name="tags" id="money-tag" value="money"><label>Money/Theft</label>
+        <input type="radio" name="tags" id="food-tag" value="food"><label>Food</label>
+        <input type="radio" name="tags" id="health-tag" value="health"><label>Health</label>
+        <input type="radio" name="tags" id="lgbt-tag" value="lgbt"><label>LGBTQIA+</label>
+        <input type="radio" name="tags" id="solo-travel-tag" value="solo-travel"><label>Solo Travel</label>
+        <input type="radio" name="tags" id="other-tag" value="other"><label>Other</label>
     </div>
     <p></p>
     <div id="location">
@@ -27,17 +27,7 @@
         <textarea name="tip-text"></textarea>
     </div>
     <p></p>
-    <h4>Enter your information (this will not be made public):</h4>
 
-    <div id="new-tip-user-information">
-        <label>Your name:</label>
-        <label>First name</label>
-        <input type="text" name="fname">
-        <label>Last name</label>
-        <input type="text" name="lname">
-        <label>Username:</label>
-        <input type="text" name="username">
-    </div>
     <input type="submit">
 </form>
 
