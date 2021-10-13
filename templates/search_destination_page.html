@@ -10,7 +10,7 @@
 
 <div id="search-destination">
 
-<form id="search-destination-form">
+<form id="search-destination-form" action="/destination_form">
     <div id="search-states">
         <label for="states">Choose a state:</label>
         <select id="states-dropdown" name="states">
@@ -18,7 +18,7 @@
             <option value="{{ state[0] }}">{{ state[0] }}</option>
             {% endfor %}
         </select>
-        <button class="btn btn-primary" type="submit" id="submit-state-btn">See Cities</button>
+        <button class="btn btn-primary" type="button" id="submit-state-btn">See Cities</button>
     </div>
     <p></p>
     <div id="search-cities">
@@ -26,6 +26,10 @@
         <select id="cities-dropdown" name="cities">
             <option value="default">~Choose a State First~</option>
         </select>
+    </div>
+    <p></p>
+    <div id="submit-form-button-div">
+        <button class="btn btn-primary" type="submit" id="submit-state-city-btn" disabled>Please Select Destination First</button>
     </div>
 </form>
 </div>
