@@ -1,0 +1,53 @@
+{% extends 'base.html' %} 
+{% block title %}Destination Details{% endblock %}
+
+{% block content %}
+
+<h2>View Travel Tips for {{ city }}, {{ state }}</h2>
+<table>
+    <tr>
+        <th>State:</th>
+        <th>City:</th>
+        <th>Tip:</th>
+    </tr>
+{% for tip_tag in tip_tags %}
+    <tr>
+        <td>{{ tip_tag.tag.tag_state }}</td>
+        <td>{{ tip_tag.tag.tag_city }}</td>
+        <td>{{ tip_tag.tip.tip_text }}</td>
+    </tr>
+
+{% endfor %}
+</table>
+
+<p><a href="/create_tip">Add a New Tip</a></p>
+
+<h2>Events in {{ city }}, {{ state }} Between {{ departure_date }} and {{ arrival_date }}</h2>
+
+<table>
+    <tr>
+        <th>Date:</th>
+        <th>Time:</th>
+        <th>Event:</th>
+        <!-- If the event is sports, venue is under ['venue'] 
+            If it's music, then it's ['venues']
+            TBD: separate sport and music events to separate tables/lists-->
+    </tr>
+
+    {% for event in events %}
+    <tr>
+        <td>
+            {{ event['dates']['start']['localDate'] }}
+        </td>
+        <td>
+            {{ event['dates']['start']['localTime'] }}
+        </td>
+        <td>
+            <a href="{{ event['url'] }}">{{ event['name'] }}</a>
+        </td>
+    </tr>
+    {% endfor %}
+
+</table>
+
+{% endblock %}
