@@ -17,18 +17,6 @@ MY_API_KEY = "NdMgdlGGSobRosfxcoA3WH8r8ifKMjOX"
 model.connect_to_db(app)
 model.db.create_all()
 
-def add_vacation_to_session(vacation_id, vacation_label, city_name):
-    """Adds a vacation to the Server's session once created"""
-
-    session[vacation_id] = {
-        "vacation_label_id": vacation_label.vacation_label_id,
-        "departure_date" : vacation_label.departure_date,
-        "arrival_date" : vacation_label.arrival_date,
-        "destination_state" : vacation_label.state.state_name,
-        "destination_city" : city_name
-    }
-    return session[vacation_id]
-
 @app.route("/")
 def show_homepage():
     """Renders the homepage html to bring users to the homepage of app"""
@@ -72,9 +60,6 @@ def check_user_in_database():
 
         return redirect(f"/profile/{username}")
 
-    else:
-        flash("Something else is happening")
-        return redirect("/login")
         
 @app.route("/logout")
 def log_user_out():
@@ -227,17 +212,6 @@ def show_search_destination_page_w_cities():
         cities_dict[i] = city
 
     return jsonify(cities_dict)
-
-# @app.route("/destination_form")
-# def get_destination_form_details():
-#     """Gets form details from search_destination route and redirects user based on form inputs"""
-
-#     state = request.args.get("states")
-#     city = request.args.get("cities")
-#     departure_date = request.args.get("departure-date")
-#     arrival_date = request.args.get("arrival-date")
-
-#     return redirect(f"/destination_details/{city}%From:{departure_date}%To:{arrival_date}")
 
 @app.route("/destination_details")
 def show_destination_details():

@@ -24,17 +24,39 @@
 
 <h2>Events in {{ city }}, {{ state }} Between {{ departure_date }} and {{ arrival_date }}</h2>
 
-<table>
+
+
+{% for event in events%}
+<div id="destination-details-event-container-div">
+    <div id="destination-details-event-image">
+        <img src="{{ event['images'][0]['url'] }}">
+    </div>
+    <div id="destination_details-event-date-time">
+        {{ event['dates']['start']['localDate'] }}
+        {{ event['dates']['start']['localTime'] }}
+    </div>
+    <div id="destination-details-event-name">
+        {{ event['name'] }}
+    </div>
+    <div id="destination-details-event-link-to-ticketmaster">
+        <button class="btn btn-primary" type="button" id="destination-details-link-to-ticketmaster">
+            <a href="{{ event['url'] }}">Purchase Tickets on Ticketmaster</a>
+        </button>
+    </div>
+</div>
+{% endfor %}
+
+<!-- <table>
     <tr>
         <th>Date:</th>
         <th>Time:</th>
         <th>Event:</th>
-        <!-- If the event is sports, venue is under ['venue'] 
+        If the event is sports, venue is under ['venue'] 
             If it's music, then it's ['venues']
-            TBD: separate sport and music events to separate tables/lists-->
-    </tr>
+            TBD: separate sport and music events to separate tables/lists
+    </tr> -->
 
-    {% for event in events %}
+    <!-- {% for event in events %}
     <tr>
         <td>
             {{ event['dates']['start']['localDate'] }}
@@ -46,8 +68,8 @@
             <a href="{{ event['url'] }}">{{ event['name'] }}</a>
         </td>
     </tr>
-    {% endfor %}
+    {% endfor %} -->
 
-</table>
+<!-- </table> -->
 
 {% endblock %}
