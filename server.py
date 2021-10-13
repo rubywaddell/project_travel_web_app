@@ -12,6 +12,8 @@ app = Flask(__name__)
 app.secret_key = "@#%()#HRTN$#OT#%ons!"
 app.jinja_env.undefined = StrictUndefined
 
+MY_API_KEY = "PASS"
+
 model.connect_to_db(app)
 model.db.create_all()
 
@@ -226,20 +228,25 @@ def show_search_destination_page_w_cities():
 
     return jsonify(cities_dict)
 
-@app.route("/destination_form")
-def get_destination_form_details():
-    """Gets form details from search_destination route and redirects user based on form inputs"""
+# @app.route("/destination_form")
+# def get_destination_form_details():
+#     """Gets form details from search_destination route and redirects user based on form inputs"""
+
+#     state = request.args.get("states")
+#     city = request.args.get("cities")
+#     departure_date = request.args.get("departure-date")
+#     arrival_date = request.args.get("arrival-date")
+
+#     return redirect(f"/destination_details/{city}%From:{departure_date}%To:{arrival_date}")
+
+@app.route("/destination_details")
+def show_destination_details():
+    """Shows user a page with travel tips (limited to 5 per page) and events (limited to 5 per page) for given destination"""
 
     state = request.args.get("states")
     city = request.args.get("cities")
-
-    return redirect(f"/destination_details/{city}")
-
-@app.route("/destination_details/<city>")
-def show_destination_details(city):
-    """Shows user a page with travel tips (limited to 5 per page) and events (limited to 5 per page) for given destination"""
-
-    # state_name = state
+    departure_date = request.args.get("departure-date")
+    arrival_date = request.args.get("arrival-date")
     city_tags = crud.get_tags_by_tag_city(city=city)
     tip_tags = []
     for tag in city_tags:
@@ -247,13 +254,11 @@ def show_destination_details(city):
         tip_tag_list = tag.tip_tag
         for tip_tag in tip_tag_list:
             tip_tags.append(tip_tag)
+    
+    events = crud.search_events_by_city_and_dates(api_key=MY_API_KEY, city=city, start_date=departure_date, end_date=arrival_date)
 
-    print("\n"*2)
-    print("City_Tags", city_tags)
-    print("Tip_Tags:", tip_tags)
-    print("\n"*2)
-
-    return render_template("destination_details.html", tip_tags=tip_tags, city=city)
+    return render_template("destination_details.html", tip_tags=tip_tags, city=city, state=state, 
+        departure_date=departure_date, arrival_date=arrival_date, events=events)
 
 if __name__ == "__main__":
     # DebugToolbarExtension(app)

@@ -2,6 +2,7 @@
 
 # from os import stat
 import model
+import requests
 
 #User CRUD functions:
 # def create_user(username, fname, lname, email, password, vacation_id=None):
@@ -324,7 +325,100 @@ def get_tags_by_tag_city(city):
     return city_tags
 
 
+#Functions for TicketMaster API:
+def reformat_city_names(city_name):
+    """Reformats the city name so that it can be passed in API url"""
+
+    formatted_city = ""
+
+    for char in city_name:
+        if char == " ":
+            formatted_city += "%20"
+        else:
+            formatted_city += char
+    
+    return formatted_city
+
+def reformat_date(date):
+    """Reformats the given date so that it can be passed through an API request"""
+    #TicketMaster dates are YYYY-MM-DD
+    #My date inputs are currently YYYY-MM-DD
+    time = "T00:00:00Z"
+    formatted_date = date+time
+    return formatted_date
+
+def search_events_by_city(api_key, city):
+    """Searches for events in Ticketmaster in a given city area. Returns the results as JSON object"""
+
+    formatted_city = reformat_city_names(city_name=city)
+
+    # payload = {
+    #     "apikey" : api_key,
+    #     "locale" : "*",
+    #     "city" : formatted_city
+    # }
+
+    url = f"https://app.ticketmaster.com/discovery/v2/events?apikey={api_key}&locale=*&city={formatted_city}"
+
+    # url = "https://app.ticketmaster.com/discovery/v2/events"
+
+    response = requests.get(url)
+
+    results = response.json()
+
+    all_events = results["_embedded"]["events"]
+
+    return all_events
+
+def search_events_by_dates(api_key, start_date, end_date):
+    """Searches for events in the TicketMaster API for a given date range. Returns JSON"""
+
+    formatted_start_date = reformat_date(date=start_date)
+    formatted_end_date = reformat_date(date=end_date)
+
+    url = f"""https://app.ticketmaster.com/discovery/v2/events?apikey={api_key}&locale=*
+        &startDateTime={formatted_start_date}&endDateTime={formatted_end_date}"""
+    
+    response = requests.get(url)
+
+    results = response.json()
+
+    all_events = results["_embedded"]["events"]
+
+    return all_events
+
+def search_events_by_city_and_dates(api_key, city, start_date, end_date):
+    """Searches for events in TicketMaster in a given city area from a given date to a given end date
+    Returns the results as JSON"""
+
+    formatted_city = reformat_city_names(city_name=city)
+    formatted_start_date = reformat_date(date=start_date)
+    formatted_end_date = reformat_date(date=end_date)
+
+    # payload = {
+    #     "apikey" : api_key,
+    #     "locale" : "*",
+    #     "startDateTime" : formatted_start_date,
+    #     "endDateTime" : formatted_end_date,
+    #     "city" : formatted_city
+    # }
+    # url = f"https://app.ticketmaster.com/discovery/v2/events"
+
+    # response = requests.get(url, params=payload)
+
+    url = f"""https://app.ticketmaster.com/discovery/v2/events?apikey={api_key}&locale=*
+        &startDateTime={formatted_start_date}&endDateTime={formatted_end_date}&city={formatted_city}"""
+    
+    response = requests.get(url)
+
+    results = response.json()
+
+    all_events = results["_embedded"]["events"]
+
+    return all_events
+
+
 if __name__ == "__main__":
-    from server import app, session
+    from server import app
     model.connect_to_db(app)
     model.db.create_all()

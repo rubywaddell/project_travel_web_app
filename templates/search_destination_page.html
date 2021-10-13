@@ -10,7 +10,7 @@
 
 <div id="search-destination">
 
-<form id="search-destination-form" action="/destination_form">
+<form id="search-destination-form" action="/destination_details">
     <div id="search-states">
         <label for="states">Choose a state:</label>
         <select id="states-dropdown" name="states">
@@ -26,6 +26,13 @@
         <select id="cities-dropdown" name="cities">
             <option value="default">~Choose a State First~</option>
         </select>
+    </div>
+    <p></p>
+    <div id="date-inputs-div">
+        <label>From:</label>
+        <input type="date" id="search-destination-departure-date" name="departure-date" min="2021-01-01" max="2022-12-31">
+        <label>To:</label>
+        <input type="date" id="search-destination-arrival-date" name="arrival-date" min="2021-01-01" max="2022-12-31">
     </div>
     <p></p>
     <div id="submit-form-button-div">
