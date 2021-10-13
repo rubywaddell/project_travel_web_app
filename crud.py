@@ -376,8 +376,7 @@ def search_events_by_dates(api_key, start_date, end_date):
     formatted_start_date = reformat_date(date=start_date)
     formatted_end_date = reformat_date(date=end_date)
 
-    url = f"""https://app.ticketmaster.com/discovery/v2/events?apikey={api_key}&locale=*
-        &startDateTime={formatted_start_date}&endDateTime={formatted_end_date}"""
+    url = f"""https://app.ticketmaster.com/discovery/v2/events?apikey={api_key}&locale=*&startDateTime={formatted_start_date}&endDateTime={formatted_end_date}"""
     
     response = requests.get(url)
 
@@ -392,8 +391,11 @@ def search_events_by_city_and_dates(api_key, city, start_date, end_date):
     Returns the results as JSON"""
 
     formatted_city = reformat_city_names(city_name=city)
+    print(formatted_city)
     formatted_start_date = reformat_date(date=start_date)
+    print(formatted_start_date)
     formatted_end_date = reformat_date(date=end_date)
+    print(formatted_end_date)
 
     # payload = {
     #     "apikey" : api_key,
@@ -406,8 +408,9 @@ def search_events_by_city_and_dates(api_key, city, start_date, end_date):
 
     # response = requests.get(url, params=payload)
 
-    url = f"""https://app.ticketmaster.com/discovery/v2/events?apikey={api_key}&locale=*
-        &startDateTime={formatted_start_date}&endDateTime={formatted_end_date}&city={formatted_city}"""
+    url = f"""https://app.ticketmaster.com/discovery/v2/events?apikey={api_key}&locale=*&startDateTime={formatted_start_date}&endDateTime={formatted_end_date}&city={formatted_city}"""
+    
+    print(url)
     
     response = requests.get(url)
 
