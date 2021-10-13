@@ -3,28 +3,33 @@
 
 {% block content %}
 
-<h2>View Travel Tips for {{ city }}, {{ state }}</h2>
-<table>
-    <tr>
-        <th>State:</th>
-        <th>City:</th>
-        <th>Tip:</th>
-    </tr>
-{% for tip_tag in tip_tags %}
-    <tr>
-        <td>{{ tip_tag.tag.tag_state }}</td>
-        <td>{{ tip_tag.tag.tag_city }}</td>
-        <td>{{ tip_tag.tip.tip_text }}</td>
-    </tr>
+{% if tip_tags %}
+    <h2>View Travel Tips for {{ city }}, {{ state }}</h2>
+    <table>
+        <tr>
+            <th>State:</th>
+            <th>City:</th>
+            <th>Tip:</th>
+        </tr>
+    {% for tip_tag in tip_tags %}
+        <tr>
+            <td>{{ tip_tag.tag.tag_state }}</td>
+            <td>{{ tip_tag.tag.tag_city }}</td>
+            <td>{{ tip_tag.tip.tip_text }}</td>
+        </tr>
 
-{% endfor %}
-</table>
+    {% endfor %}
+    </table>
+    <p><a href="/create_tip">Add a New Tip</a></p>
 
-<p><a href="/create_tip">Add a New Tip</a></p>
+{% else %}  
+    <h2>Sorry, there are no tips for {{ city }} or {{ state }} yet.</h2>
+    <h4>You can add one<a href="/add_new_tip">here</a></h4>
+
+{% endif %}
+
 
 <h2>Events in {{ city }}, {{ state }} Between {{ departure_date }} and {{ arrival_date }}</h2>
-
-
 
 {% for event in events%}
 <div id="destination-details-event-container-div">
@@ -33,7 +38,7 @@
     </div>
     <div id="destination_details-event-date-time">
         {{ event['dates']['start']['localDate'] }}
-        {{ event['dates']['start']['localTime'] }}
+        <!-- {#{{ event['dates']['start']['localTime'] }}#} -->
     </div>
     <div id="destination-details-event-name">
         {{ event['name'] }}
@@ -62,7 +67,7 @@
             {{ event['dates']['start']['localDate'] }}
         </td>
         <td>
-            {{ event['dates']['start']['localTime'] }}
+           {# {{ event['dates']['start']['localTime'] }} #}
         </td>
         <td>
             <a href="{{ event['url'] }}">{{ event['name'] }}</a>
