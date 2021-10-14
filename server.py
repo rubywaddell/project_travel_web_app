@@ -12,7 +12,7 @@ app = Flask(__name__)
 app.secret_key = "@#%()#HRTN$#OT#%ons!"
 app.jinja_env.undefined = StrictUndefined
 
-MY_API_KEY = "NdMgdlGGSobRosfxcoA3WH8r8ifKMjOX"
+MY_API_KEY = "PASS"
 
 model.connect_to_db(app)
 model.db.create_all()
@@ -31,6 +31,7 @@ def show_travel_tips():
     tags = crud.show_tags()
 
     return render_template("travel_tips.html", tips=tips, tags=tags)
+
 
 @app.route("/login")
 def show_login_page():

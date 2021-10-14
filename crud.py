@@ -286,6 +286,26 @@ def show_tip_tags():
 
     return model.TipTag.query.all()
 
+def get_tip_tag_by_tag_id(tag_id):
+    """Query and return the first tip_tag with the given tag_id"""
+
+    return model.TipTag.query.filter(model.TipTag.tag_id == tag_id).first()
+
+def get_tip_tag_by_tip_id(tip_id):
+    """Query and return the first tip_tag with the given tip_id"""
+
+    return model.TipTag.query.filter(model.TipTag.tip_id == tip_id).first()
+
+def get_tip_tag_by_tag(tag):
+    """Query and return the first tip_tag with the given tag"""
+
+    return model.TipTag.query.filter(model.TipTag.tag == tag).first()
+
+def get_tip_tag_by_tip(tip):
+    """Query and return the first tip_tag with the given tip"""
+
+    return model.TipTag.query.filter(model.TipTag.tip == tip).first()
+
 #Tag CRUD functions
 def create_tag(tag_name, tag_state, tag_city):
     """Create a new tag, add it to the database, and return it"""
@@ -302,6 +322,11 @@ def show_tags():
 
     return model.Tag.query.all()
 
+def show_tag_names():
+    """Return a list of all tag_names in the database"""
+
+    return model.db.session.query(model.Tag.tag_name).all()
+
 def show_tag_states():
     """Return a list of all tag_states in the database"""
 
@@ -311,6 +336,11 @@ def show_tag_cities():
     """Return a list of all tag_cities in the database"""
 
     return model.db.session.query(model.Tag.tag_city).all()
+
+def get_tags_by_tag_name(tag_name):
+    """Return a list of all tags with a given tag_name"""
+
+    return model.Tag.query.filter(model.Tag.tag_name == tag_name).all()
 
 def get_tags_by_tag_state(state):
     """Return a list of all tags with a given tag_state"""

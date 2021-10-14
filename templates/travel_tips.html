@@ -7,7 +7,24 @@
 
 <p><a href="/create_tip">Add a New Tip</a></p>
 
-<table>
+<div id="travel-tips-filter-div">
+    <!-- <form id="travel-tips-filter-form" action="filter_tips"> -->
+        <form id="travel-tips-filter-form">
+        <div id="travel-tips-filter-tags">
+            <label>Filter Tips By:</label>
+            <input type="radio" name="tags" id="money-tag" value="money"><label>Money/Theft</label>
+            <input type="radio" name="tags" id="food-tag" value="food"><label>Food</label>
+            <input type="radio" name="tags" id="health-tag" value="health"><label>Health</label>
+            <input type="radio" name="tags" id="lgbt-tag" value="lgbt"><label>LGBTQIA+</label>
+            <input type="radio" name="tags" id="solo-travel-tag" value="solo-travel"><label>Solo Travel</label>
+            <input type="radio" name="tags" id="other-tag" value="other"><label>Other</label>
+
+            <button type="submit" class="btn btn-primary" id="travel-tips-filter-btn">Filter</button>
+        </div>
+    </form>
+</div>
+
+<table id="view-travel-tips-table">
     <tr>
         <th>Tag:</th>
         <th>State:</th>
@@ -24,5 +41,8 @@
 
 {% endfor %}
 </table>
+
+<script src="http://code.jquery.com/jquery.js"></script>
+<script src="static/js/filter_travel_tips.js"></script>
 
 {% endblock %}
