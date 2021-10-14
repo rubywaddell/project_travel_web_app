@@ -24,57 +24,47 @@
 
 {% else %}  
     <h2>Sorry, there are no tips for {{ city }} or {{ state }} yet.</h2>
-    <h4>You can add one<a href="/add_new_tip">here</a></h4>
+    <h4>You can add one <a href="/add_new_tip">here</a></h4>
 
 {% endif %}
 
-
 <h2>Events in {{ city }}, {{ state }} Between {{ departure_date }} and {{ arrival_date }}</h2>
 
-{% for event in events%}
 <div id="destination-details-event-container-div">
+    
+{% for i in range(event_names|length) %}
     <div id="destination-details-event-image">
-        <img src="{{ event['images'][0]['url'] }}">
+        <img src="{{ img_urls[i] }}">
     </div>
-    <div id="destination_details-event-date-time">
-        {{ event['dates']['start']['localDate'] }}
-        <!-- {#{{ event['dates']['start']['localTime'] }}#} -->
+
+    <div id="destination_details-event-date">
+        {{ start_dates[i] }} 
     </div>
+
+        {% if start_times[i] %}
+            <div id="destination-details-event-time">
+                {{ start_times[i] }}
+            </div>
+        {% endif %}
+
+        {% if venues[i] %}
+            <div id="destination-details-event-venue">
+                {{ venues[i] }}
+            </div>
+        {% endif %}
+
     <div id="destination-details-event-name">
-        {{ event['name'] }}
+        {{ event_names[i] }}
     </div>
+
     <div id="destination-details-event-link-to-ticketmaster">
         <button class="btn btn-primary" type="button" id="destination-details-link-to-ticketmaster">
-            <a href="{{ event['url'] }}">Purchase Tickets on Ticketmaster</a>
+            <a href="{{ event_urls[i] }}">Get Tickets on Ticketmaster</a>
         </button>
     </div>
+    <p></p>
+    {% endfor %}
+
 </div>
-{% endfor %}
-
-<!-- <table>
-    <tr>
-        <th>Date:</th>
-        <th>Time:</th>
-        <th>Event:</th>
-        If the event is sports, venue is under ['venue'] 
-            If it's music, then it's ['venues']
-            TBD: separate sport and music events to separate tables/lists
-    </tr> -->
-
-    <!-- {% for event in events %}
-    <tr>
-        <td>
-            {{ event['dates']['start']['localDate'] }}
-        </td>
-        <td>
-           {# {{ event['dates']['start']['localTime'] }} #}
-        </td>
-        <td>
-            <a href="{{ event['url'] }}">{{ event['name'] }}</a>
-        </td>
-    </tr>
-    {% endfor %} -->
-
-<!-- </table> -->
 
 {% endblock %}

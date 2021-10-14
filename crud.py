@@ -347,7 +347,11 @@ def check_if_city_in_tag_cities(city):
             return False
 
 
-#Functions for TicketMaster API:
+#==========================Functions for TicketMaster API:====================================#
+#Notes on Ticketmaster Discovery API:
+    #The results are not entirely consistent, some events have data for the event time and date, others just the date
+        #some events have data for the venue, others don't, included in these functions are helper functions to parse through
+
 def reformat_city_names(city_name):
     """Reformats the city name so that it can be passed in API url"""
 
@@ -442,6 +446,37 @@ def search_events_by_city_and_dates(api_key, city, start_date, end_date):
 
     return all_events
 
+def clean_up_event_results(all_events):
+    """Loop through all_events returned from API request and return data needed for webapp functions"""
+    event_names = []
+    event_urls = []
+    img_urls = []
+    start_dates = []
+    start_times = []
+    venues = []
+    for event in all_events:
+        #all events have a name, stored under 'name' key
+        event_names.append(event["name"])
+        #all events have a url that links to a page to buy tickets, stored under 'url' key
+        event_urls.append(event['url'])
+        #all events have a list of images, stored under the 'images' key
+        #I will take the image at the first index and maintain format consistency using CSS styling
+        img_urls.append(event['images'][0]['url'])
+        #all events have a start date, stored under the 'dates' key, then 'start key
+        start_dates.append(event['dates']['start']['localDate'])
+        #NOT all events have a start time, need to check if it is there first:
+        if 'localTime' in event['dates']['start'].keys():
+            start_times.append(event['dates']['start']['localTime'])
+        else:
+            #Need to append a value to start_times so that start_times[index] matches the event at even_names[index]
+            start_times.append(False)
+        #NOT all events have a venue, need to check if it is there first:
+        if 'venues' in event['_embedded'].keys():
+            venues.append(event['_embedded']['venues'][0]['name'])
+        else:
+            venues.append(False)
+
+    return event_names, event_urls, img_urls, start_dates, start_times, venues
 
 if __name__ == "__main__":
     from server import app

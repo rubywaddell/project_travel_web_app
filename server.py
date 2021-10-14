@@ -184,35 +184,23 @@ def add_new_vacation():
 @app.route("/search_destination")
 def show_search_destination_page():
     """Renders the search page where user can select a destination to search"""
-    # states = crud.show_tag_states()
-    # states = set(states)
-    # states = list(states)
-    # states.sort()
+
     return render_template("search_destination_page.html")
 
 
-#Refactoring search destination, this route is currently obsolete
-# @app.route("/search_destination/cities.json")
-# def show_search_destination_page_w_cities():
-#     """Using AJAX, shows the cities associated with the chosen state"""
+def parse_through_tags(tags):
+    """Helper function for show_destination_details view function
+        Parses through the result of querying for a list of all tags to return a list of tip_tags"""
+    tip_tags = []
+    for tag in tags:
+        #tag.tip_tag returns a list (even if there's only one)
+        #Want to go through and append the individual object, to return a list not a list of lists
+        tip_tag_list = tag.tip_tag
+        for tip_tag in tip_tag_list:
+            tip_tags.append(tip_tag)
 
-#     state_name = request.args.get("state").title()
+    return tip_tags
 
-#     state_tags = crud.get_tags_by_tag_state(state=state_name)
-#     #crud.get_tags_by_tag_state returns a list of tag objects
-#     #will return duplicates, need to get rid of them for the dropdown list
-#     cities_list = []
-#     cities_dict = {}
-    
-#     for tag in state_tags:
-#         cities_list.append(tag.tag_city)
-
-#     cities_set = set(cities_list)
-
-#     for i, city in enumerate(cities_set):
-#         cities_dict[i] = city
-
-#     return jsonify(cities_dict)
 
 @app.route("/destination_details")
 def show_destination_details():
@@ -225,36 +213,33 @@ def show_destination_details():
 
     events = crud.search_events_by_city_and_dates(api_key=MY_API_KEY, city=city, start_date=departure_date, end_date=arrival_date)
 
+    event_names, event_urls, img_urls, start_dates, start_times, venues = crud.clean_up_event_results(all_events=events)
+
     state_in_tags = crud.check_if_state_in_tag_states(state=state)
     city_in_tags = crud.check_if_city_in_tag_cities(city=city)
     #both CRUD functions return a Boolean
 
     if state_in_tags and city_in_tags:
         city_tags = crud.get_tags_by_tag_city(city=city)
-        city_tip_tags = []
-        for tag in city_tags:
-            #tag.tip_tag returns a list (even if there's only one)
-            tip_tag_list = tag.tip_tag
-            for tip_tag in tip_tag_list:
-                city_tip_tags.append(tip_tag)
+        city_tip_tags = parse_through_tags(tags=city_tags)
         
         return render_template("destination_details.html", tip_tags=city_tip_tags, city=city, state=state, 
-        departure_date=departure_date, arrival_date=arrival_date, events=events)
+        departure_date=departure_date, arrival_date=arrival_date, event_names=event_names, event_urls=event_urls, img_urls=img_urls, start_dates=start_dates,
+        start_times=start_times, venues=venues)
     
     elif state_in_tags:
         state_tags = crud.get_tags_by_tag_state(state=state)
-        state_tip_tags = []
-        for tag in state_tags:
-            tip_tag_list = tag.tip_tag
-            for tip_tag in tip_tag_list:
-                state_tip_tags.append(tip_tag)
+        state_tip_tags = parse_through_tags(tags=state_tags)
 
         return render_template("destination_details.html", tip_tags=state_tip_tags, city=city, state=state, 
-        departure_date=departure_date, arrival_date=arrival_date, events=events)
+        departure_date=departure_date, arrival_date=arrival_date, event_names=event_names, event_urls=event_urls, img_urls=img_urls, start_dates=start_dates,
+        start_times=start_times, venues=venues)
     
     else:
         return render_template("destination_details.html", tip_tags=[], city=city, state=state, 
-        departure_date=departure_date, arrival_date=arrival_date, events=events)
+        departure_date=departure_date, arrival_date=arrival_date, event_names=event_names, event_urls=event_urls, img_urls=img_urls, start_dates=start_dates,
+        start_times=start_times, venues=venues)
+
 
 if __name__ == "__main__":
     # DebugToolbarExtension(app)
