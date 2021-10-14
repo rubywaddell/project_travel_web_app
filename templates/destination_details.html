@@ -32,8 +32,10 @@
 
 <div id="destination-details-event-container-div">
     <table id="destination-details-event-table">
+        
         {% for i in range(event_names|length) %}
-        <tr>
+        <tr class="destination-details-event-table-rows">
+
             <td id="destination-details-event-image">
                 <img class="destination-details-image" src="{{ img_urls[i] }}">
             </td>
@@ -54,7 +56,7 @@
                     <p>At the {{ venues[i] }}</p>
                     <p>
                         <button class="btn btn-primary" type="button" id="destination-details-event-link-to-ticketmaster">
-                        <a href="{ {event_urls[i] }}">Get Tickets Here</a>
+                        <a href="{{ event_urls[i] }}">Get Tickets Here</a>
                     </button>
                 </p>
                 {% endif %}

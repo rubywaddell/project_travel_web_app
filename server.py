@@ -219,7 +219,7 @@ def show_destination_details():
     city_in_tags = crud.check_if_city_in_tag_cities(city=city)
     #both CRUD functions return a Boolean
 
-    if state_in_tags and city_in_tags:
+    if city_in_tags == True:
         city_tags = crud.get_tags_by_tag_city(city=city)
         city_tip_tags = parse_through_tags(tags=city_tags)
         
@@ -227,7 +227,7 @@ def show_destination_details():
         departure_date=departure_date, arrival_date=arrival_date, event_names=event_names, event_urls=event_urls, img_urls=img_urls, start_dates=start_dates,
         start_times=start_times, venues=venues)
     
-    elif state_in_tags:
+    elif state_in_tags == True:
         state_tags = crud.get_tags_by_tag_state(state=state)
         state_tip_tags = parse_through_tags(tags=state_tags)
 
