@@ -12,7 +12,7 @@ app = Flask(__name__)
 app.secret_key = "@#%()#HRTN$#OT#%ons!"
 app.jinja_env.undefined = StrictUndefined
 
-MY_API_KEY = ""
+MY_API_KEY = "NdMgdlGGSobRosfxcoA3WH8r8ifKMjOX"
 
 model.connect_to_db(app)
 model.db.create_all()
