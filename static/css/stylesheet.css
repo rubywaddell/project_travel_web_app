@@ -1,0 +1,53 @@
+/* Style for Travel Safety App */
+* {
+    font-family: sans-serif;
+}
+
+/* Test to make sure CSS is connected */
+h2 {
+    color: rgb(235, 4, 165);
+}
+/* Styling for images displayed on destination_details page */
+img.destination-details-image {
+    height: 100px;
+    width: 150px;
+}
+
+/* Styling for destinatoin_details event table */
+table#destination-details-event-table{
+    padding: 15px;
+    width: 1000px;
+}
+
+tr.destination-details-event-table-rows{
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Styling for destination_details tips table */
+table#destination-details-tip-table{
+    padding: 15px;
+    width: 450px;
+}
+
+table#destination-details-tip-table th{
+    font-size: larger;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+}
+
+table#destination-details-tip-table tr{
+    padding: 15px;
+    /* text-align: center; */
+}
+
+/* Styling for the view travel tips page */
+table#view-travel-tips-table{
+    padding: 15px;
+    width: 1000px;
+}
+
+table#view-travel-tips-table tr{
+    padding-bottom: 30px;
+    border-bottom: 1px solid #ddd;
+}
