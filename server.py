@@ -12,7 +12,7 @@ app = Flask(__name__)
 app.secret_key = "@#%()#HRTN$#OT#%ons!"
 app.jinja_env.undefined = StrictUndefined
 
-MY_API_KEY = "NdMgdlGGSobRosfxcoA3WH8r8ifKMjOX"
+MY_API_KEY = ""
 
 model.connect_to_db(app)
 model.db.create_all()
@@ -203,7 +203,7 @@ def parse_through_tags(tags):
 
 @app.route("/destination_details")
 def show_destination_details():
-    """Shows user a page with travel tips (limited to 5 per page) and events (limited to 5 per page) for given destination"""
+    """Shows user a page with travel tips and events for given destination"""
 
     state = request.args.get("state").title()
     city = request.args.get("city").title()

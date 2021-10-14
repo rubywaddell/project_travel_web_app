@@ -332,8 +332,7 @@ def check_if_state_in_tag_states(state):
     for tag_state in tag_states:
         if state in tag_state:
             return True
-        else:
-            return False
+    return False
 
 def check_if_city_in_tag_cities(city):
     """Queries a list of all tag_cities in database and searches for the given city, returns Boolean"""
@@ -341,10 +340,10 @@ def check_if_city_in_tag_cities(city):
     tag_cities = show_tag_cities()
     #Show_tag_cities returns a list of Tuples, need to iterate through that list to check for inclusion
     for tag_city in tag_cities:
+        print(tag_city)
         if city in tag_city:
             return True
-        else:
-            return False
+    return False
 
 
 #==========================Functions for TicketMaster API:====================================#
