@@ -124,8 +124,7 @@ def show_new_tip():
 @app.route("/add_new_tip", methods=["POST"])
 def add_new_tip():
     """Adds new tip to the database after they submit the add new tip form"""
-#Need to look more into how to get the value of checkbox and radio button inputs
-#currently just returning None, can't save None to the database
+
     # username= request.form.get("username")
     if session == {}:
         flash("Please log in first")

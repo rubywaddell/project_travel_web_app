@@ -20,6 +20,7 @@ const enableSubmissionButton = (evt) => {
 }
 
 $('#submit-state-btn').on('click', showCities);
+
 $('#search-destination-arrival-date').on('click', enableSubmissionButton)
 // Need to find a better method of enabling button - should prevent user from submitting until all form inputs are completed
 // Right now, they could click on arrival date first, then hit submit
