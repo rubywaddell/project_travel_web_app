@@ -13,7 +13,7 @@ const showTagFilteredTips = (evt) => {
     const formData = {tag_name: tag_val};
 
     $.get(url, formData, response => {
-        // console.log(response);
+        console.log(response);
         $('#travel-tips-header').html(`<h2>Travel Tips About ${tag_val}</h2>`);
         $('#travel-tips-filter-div').html('');
 
@@ -29,12 +29,12 @@ const showTagFilteredTips = (evt) => {
                 <div class="grid-item"><h4>Tip: </h4></div>
             </div>
             `)
-            for (const i in response){
-                $('#view-filtered-tips-div').html(`
+            for (let i in response){
+                $('#view-filtered-tips-div').append(`
                 <div class="grid-container">
-                    <div class="grid-item">${response["tag_state"]}</div>
-                    <div class="grid-item">${response["tag_city"]}</div>
-                    <div class="grid-item">${response["tip_text"]}</div>
+                    <div class="grid-item">${response[i]["tag_state"]}</div>
+                    <div class="grid-item">${response[i]["tag_city"]}</div>
+                    <div class="grid-item">${response[i]["tip_text"]}</div>
                 </div>
                 `);
             };
@@ -58,6 +58,7 @@ const showLocationFilteredTips = (evt) => {
 
     $.get(url, formData, response => {
         $('#travel-tips-filter-div').html('')
+        console.log(response)
         if (response === ""){
             $('#view-travel-tips-table-div').html(`<h2>Sorry, there are no tips for ${city} or ${state} yet.</h2>
                 <h4>You can add one <a href="/add_new_tip">here</a></h4>`)
@@ -70,18 +71,19 @@ const showLocationFilteredTips = (evt) => {
                 <div class="grid-item"><h4>City: </h4></div>
                 <div class="grid-item"><h4>Tip: </h4></div>
             </div>
-            `)
-            for (const i in response){
-            $('#view-filtered-tips-div').html(`
+            `);
+            for (let i in response){
+                console.log(response[i])
+            $('#view-filtered-tips-div').append(`
                 <div class="grid-container-four-columns">
-                    <div class="grid-item">${response["tag_name"]}</div>
-                    <div class="grid-item">${response["tag_state"]}</div>
-                    <div class="grid-item">${response["tag_city"]}</div>
-                    <div class="grid-item">${response["tip_text"]}</div>
+                    <div class="grid-item">${response[i]["tag_name"]}</div>
+                    <div class="grid-item">${response[i]["tag_state"]}</div>
+                    <div class="grid-item">${response[i]["tag_city"]}</div>
+                    <div class="grid-item">${response[i]["tip_text"]}</div>
                 </div>
-            `)}
+            `)};
     }});
-}
+};
 
 $('#tags-filter-submit').on('click', showTagFilteredTips);
 $('#city-state-filter-submit').on('click', showLocationFilteredTips);

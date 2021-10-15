@@ -126,14 +126,13 @@ def make_dict_of_tip_tags(tip_tags):
         Dictionary will hold data for the tip_tag as well as its corresponding tip and tag objects"""
 
     tip_tag_dict = {}
-    for tip_tag in tip_tags:
-        tip_tag_dict["tip_tag_id"] = tip_tag.tip_tag_id
-        tip_tag_dict["tip_id"] = tip_tag.tip.tip_id
-        tip_tag_dict["tip_text"] = tip_tag.tip.tip_text
-        tip_tag_dict["tag_id"] = tip_tag.tag.tag_id
-        tip_tag_dict["tag_name"] = tip_tag.tag.tag_name.title()
-        tip_tag_dict["tag_state"] = tip_tag.tag.tag_state
-        tip_tag_dict["tag_city"] = tip_tag.tag.tag_city
+    for i, tip_tag in enumerate(tip_tags):
+        tip_tag_dict[i] = {
+            "tip_text" : tip_tag.tip.tip_text,
+            "tag_name" : tip_tag.tag.tag_name,
+            "tag_state" : tip_tag.tag.tag_state,
+            "tag_city" : tip_tag.tag.tag_city
+        }
     
     return tip_tag_dict
 
