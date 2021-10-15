@@ -8,18 +8,18 @@
 <p><a href="/create_tip">Add a New Tip</a></p>
 
 <div id="travel-tips-filter-div">
-    <!-- <form id="travel-tips-filter-form" action="filter_tips"> -->
         <form id="travel-tips-filter-form">
         <div id="travel-tips-filter-tags">
             <label>Filter Tips By:</label>
-            <input type="radio" name="tags" id="money-tag" value="money"><label>Money/Theft</label>
-            <input type="radio" name="tags" id="food-tag" value="food"><label>Food</label>
-            <input type="radio" name="tags" id="health-tag" value="health"><label>Health</label>
-            <input type="radio" name="tags" id="lgbt-tag" value="lgbt"><label>LGBTQIA+</label>
-            <input type="radio" name="tags" id="solo-travel-tag" value="solo-travel"><label>Solo Travel</label>
-            <input type="radio" name="tags" id="other-tag" value="other"><label>Other</label>
-
-            <button type="submit" class="btn btn-primary" id="travel-tips-filter-btn">Filter</button>
+            <!-- <select name="filter-tags" id="filter-tag-dropdown"> -->
+                <input type="radio" name="filter-tags"  value="money"><label>Money/Theft</label>
+                <input type="radio" name="filter-tags" value="food"><label>Food</label>
+                <input type="radio" name="filter-tags" value="health"><label>Health</label>
+                <input type="radio" name="filter-tags" value="lgbt"><label>LGBTQIA+</label>
+                <input type="radio" name="filter-tags" value="solo-travel"><label>Solo Travel</label>
+                <input type="radio" name="filter-tags" value="location"><label>Location</label>
+            <!-- </select> -->
+            <input type="submit" id="travel-tips-filter-submit">
         </div>
     </form>
 </div>
