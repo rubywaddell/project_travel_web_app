@@ -2,12 +2,20 @@
 
 console.log('connected to js');
 
-const filterTipsByTags = (evt) => {
+const showTagFilteredTips = (evt) => {
     evt.preventDefault();
     alert("Prevent default is working");
 
     const tag_val = $('input[name="filter-tags"]:checked').val();
     console.log(tag_val)
+
+    const url = '/view_travel_tips/filtered_by_tag.json';
+    const formData = {tag_name: tag_val};
+
+    $.get(url, formData, response => {
+        console.log(response)
+    })
+
 };
 
 
@@ -31,18 +39,15 @@ const showLocationFilteredTips = (evt) => {
             $('#travel-tips-header').html(`<h2>Tips for ${state}`)
             for (const i in response){
             $('#view-travel-tips-table-div').html(`
-                <div>
-                <p></p>
-                <p>
-                    ${response["tag_name"]}
-                    ${response["tag_state"]}
-                    ${response["tag_city"]}
-                    ${response["tip_text"]}
-                </p>
-                </div>`
-            )}
+                <div class="grid-container">
+                    <div class="grid-item">${response["tag_name"]}</div>
+                    <div class="grid-item">${response["tag_state"]}</div>
+                    <div class="grid-item">${response["tag_city"]}</div>
+                    <div class="grid-item">${response["tip_text"]}</div>
+                </div>
+            `)}
     }});
 }
 
-$('#tags-filter-submit').on('click', filterTipsByTags);
+$('#tags-filter-submit').on('click', showTagFilteredTips);
 $('#city-state-filter-submit').on('click', showLocationFilteredTips);

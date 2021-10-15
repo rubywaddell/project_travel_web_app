@@ -133,6 +133,8 @@ def show_travel_tips():
 
     return render_template("travel_tips.html", tips=tips, tags=tags)
 
+
+#=======================================FILTER TRAVEL TIPS FUNCTIONS================================================
 def make_dict_of_tip_tags(tip_tags):
     """Helper function for view_travel_tips filtering, to return a dictionary to then jsonify
         Dictionary will hold data for the tip_tag as well as its corresponding tip and tag objects"""
@@ -151,7 +153,7 @@ def make_dict_of_tip_tags(tip_tags):
 
 @app.route("/view_travel_tips/filtered_by_location.json")
 def show_travel_tips_filtered_by_location():
-    """Filters travel tips by the state and city inputted by user and returns them"""
+    """Filters travel tips by the state and city inputted by user and returns them in JSON"""
 
     state = request.args.get("state")
     city = request.args.get("city")
@@ -176,7 +178,11 @@ def show_travel_tips_filtered_by_location():
     else:
         return ""
 
+@app.route("/view_travel_tips/filtered_by_tag.json")
+def show_travel_tips_filtered_by_tag():
+    """"Filters tips by tag name and returns them in JSON"""
 
+    pass
 #================================CREATE TRAVEL TIP ROUTE FUNCTIONS================================
 @app.route("/create_tip")
 def show_new_tip():

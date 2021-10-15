@@ -51,3 +51,14 @@ table#view-travel-tips-table tr{
     padding-bottom: 30px;
     border-bottom: 1px solid #ddd;
 }
+
+.grid-container{
+    font-style: italic;
+    display: inline-grid;
+    grid-template-columns: auto auto auto auto;
+    padding: 15px;
+}
+
+.grid-item{
+    padding: 15px
+}
