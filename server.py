@@ -17,22 +17,30 @@ MY_API_KEY = "PASS"
 model.connect_to_db(app)
 model.db.create_all()
 
+
+#===========================HELPER FUNCTION FOR SEARCH DESTINATION AND VIEW TIPS ROUTES==================
+def parse_through_tags(tags):
+    """Helper function for show_destination_details view function
+        Parses through the result of querying for a list of all tags to return a list of tip_tags"""
+    tip_tags = []
+    for tag in tags:
+        #tag.tip_tag returns a list (even if there's only one)
+        #Want to go through and append the individual object, to return a list not a list of lists
+        tip_tag_list = tag.tip_tag
+        for tip_tag in tip_tag_list:
+            tip_tags.append(tip_tag)
+
+    return tip_tags
+
+#========================HOMEPAGE ROUTE================================
 @app.route("/")
 def show_homepage():
     """Renders the homepage html to bring users to the homepage of app"""
 
     return render_template("homepage.html")
 
-@app.route("/view_travel_tips")
-def show_travel_tips():
-    """Renders the travel_tips page to show all tips in the database"""
 
-    tips = crud.show_tips()
-    tags = crud.show_tags()
-
-    return render_template("travel_tips.html", tips=tips, tags=tags)
-
-
+#========================LOGIN ROUTE FUNCTIONS================================
 @app.route("/login")
 def show_login_page():
     """Renders the login page to allow users to log in to their account"""
@@ -61,7 +69,7 @@ def check_user_in_database():
 
         return redirect(f"/profile/{username}")
 
-        
+#========================LOGOUT ROUTE================================     
 @app.route("/logout")
 def log_user_out():
     """Logs the user out of their profile and removes them from session"""
@@ -69,6 +77,7 @@ def log_user_out():
     session.clear()
     return redirect("/")
 
+#========================PROFILE ROUTE================================
 @app.route("/profile/<username>")
 def show_user_profile(username):
     """Renders the user's profile page once they have logged in"""
@@ -79,7 +88,7 @@ def show_user_profile(username):
  
     return render_template("profile.html", user=user, vacations=vacations)
 
-
+#========================CREATE ACCOUNT ROUTE FUNCTIONS================================
 @app.route("/create_account")
 def show_create_account():
     """Renders the create_account page to allow a user to create a new account"""
@@ -114,7 +123,53 @@ def add_new_user():
 
     return redirect(f"/profile/{new_user.username}")
 
+#================================VIEW TRAVEL TIPS ROUTE FUNCTIONS================================
+@app.route("/view_travel_tips")
+def show_travel_tips():
+    """Renders the travel_tips page to show all tips in the database"""
 
+    tips = crud.show_tips()
+    tags = crud.show_tags()
+
+    return render_template("travel_tips.html", tips=tips, tags=tags)
+
+@app.route("/view_travel_tips/filtered_by_location")
+def show_travel_tips_filtered_by_location():
+    """Filters travel tips by the state and city inputted by user and returns them"""
+
+    state = request.args.get("state")
+    city = request.args.get("city")
+
+    state_in_tags = crud.check_if_state_in_tag_states(state=state)
+    city_in_tags = crud.check_if_city_in_tag_cities(city=city)
+    #both CRUD functions return a Boolean
+
+    if city_in_tags == True:
+        city_tags = crud.get_tags_by_tag_city(city=city)
+        print("\n"*3)
+        print("City_Tags:", city_tags)
+        
+        city_tip_tags = parse_through_tags(tags=city_tags)
+        print("\n")
+        print("city_tip_tags:", city_tip_tags)
+        print("\n"*3)
+        
+        return render_template("travel_tips_filtered_by_location.html", tip_tags=city_tip_tags, city=city, state=state)
+    
+    elif state_in_tags == True:
+        state_tags = crud.get_tags_by_tag_state(state=state)
+        print("\n"*3)
+        print("State_tags:", state_tags)
+        print("\n"*3)
+        state_tip_tags = parse_through_tags(tags=state_tags)
+
+        return render_template("travel_tips_filtered_by_location.html", tip_tags=state_tip_tags, city=city, state=state)
+    
+    else:
+        return render_template("travel_tips_filtered_by_location.html", tip_tags=[], city=city, state=state)
+
+
+#================================CREATE TRAVEL TIP ROUTE FUNCTIONS================================
 @app.route("/create_tip")
 def show_new_tip():
     """Renders the new_tip page to allow a user to create a new travel tip"""
@@ -150,6 +205,7 @@ def add_new_tip():
     return redirect("/view_travel_tips")
 
 
+#================================CREATE VACATION ROUTE FUNCTIONS================================
 @app.route("/create_vacation")
 def show_new_vacation():
     """Renders for that allows users to create a new vacation for their profile"""
@@ -180,26 +236,12 @@ def add_new_vacation():
 
     return redirect(f"/profile/{user.username}")
 
-
+#================================SEARCH DESTINATION ROUTE FUNCTIONS================================
 @app.route("/search_destination")
 def show_search_destination_page():
     """Renders the search page where user can select a destination to search"""
 
     return render_template("search_destination_page.html")
-
-
-def parse_through_tags(tags):
-    """Helper function for show_destination_details view function
-        Parses through the result of querying for a list of all tags to return a list of tip_tags"""
-    tip_tags = []
-    for tag in tags:
-        #tag.tip_tag returns a list (even if there's only one)
-        #Want to go through and append the individual object, to return a list not a list of lists
-        tip_tag_list = tag.tip_tag
-        for tip_tag in tip_tag_list:
-            tip_tags.append(tip_tag)
-
-    return tip_tags
 
 
 @app.route("/destination_details")
