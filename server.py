@@ -143,7 +143,7 @@ def make_dict_of_tip_tags(tip_tags):
         tip_tag_dict["tip_id"] = tip_tag.tip.tip_id
         tip_tag_dict["tip_text"] = tip_tag.tip.tip_text
         tip_tag_dict["tag_id"] = tip_tag.tag.tag_id
-        tip_tag_dict["tag_name"] = tip_tag.tag.tag_name
+        tip_tag_dict["tag_name"] = tip_tag.tag.tag_name.title()
         tip_tag_dict["tag_state"] = tip_tag.tag.tag_state
         tip_tag_dict["tag_city"] = tip_tag.tag.tag_city
     
@@ -164,17 +164,17 @@ def show_travel_tips_filtered_by_location():
         city_tags = crud.get_tags_by_tag_city(city=city)
         city_tip_tags = parse_through_tags(tags=city_tags)
         tip_tag_dict = make_dict_of_tip_tags(tip_tags=city_tip_tags)
-
         return jsonify(tip_tag_dict)
     
     elif state_in_tags == True:
         state_tags = crud.get_tags_by_tag_state(state=state)
         state_tip_tags = parse_through_tags(tags=state_tags)
 
-        return render_template("travel_tips_filtered_by_location.html", tip_tags=state_tip_tags, city=city, state=state)
+        tip_tag_dict = make_dict_of_tip_tags(tip_tags=state_tip_tags)
+        return jsonify(tip_tag_dict)
     
     else:
-        return render_template("travel_tips_filtered_by_location.html", tip_tags=[], city=city, state=state)
+        return ""
 
 
 #================================CREATE TRAVEL TIP ROUTE FUNCTIONS================================
@@ -185,7 +185,7 @@ def show_new_tip():
     return render_template("new_tip.html")
 
 
-@app.route("/add_new_tip", methods=["POST"])
+@app.route("/add_new_tip")
 def add_new_tip():
     """Adds new tip to the database after they submit the add new tip form"""
 
@@ -196,12 +196,12 @@ def add_new_tip():
 
     username = session["logged_in_username"]
 
-    state_name= request.form.get("state").title()
-    city_name= request.form.get("city").title()
+    state_name= request.args.get("state").title()
+    city_name= request.args.get("city").title()
 
-    tip_text = request.form.get("tip-text")
+    tip_text = request.args.get("tip-text")
 
-    tag_name = request.form.get("tags")
+    tag_name = request.args.get("tags")
 
     user = crud.get_user_by_username(username=username)
 

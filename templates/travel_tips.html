@@ -3,7 +3,7 @@
 
 {% block content %}
 
-<h2>All Travel Tips:</h2>
+<h2 id="travel-tips-header">All Travel Tips:</h2>
 
 <p><a href="/create_tip">Add a New Tip</a></p>
 
@@ -31,6 +31,7 @@
     
 </div>
 
+<div id="view-travel-tips-table-div">
 <table id="view-travel-tips-table">
     <tr>
         <th>Tag:</th>
@@ -39,7 +40,7 @@
         <th>Tip:</th>
     </tr>
 {% for i in range(tips|length) %}
-    <tr>
+    <tr id="view-travel-tips-table-data-rows">
         <td> {{ tags[i].tag_name.title() }}</td>
         <td>{{ tags[i].tag_state }}</td>
         <td>{{ tags[i].tag_city }}</td>
@@ -47,6 +48,7 @@
     </tr>
 {% endfor %}
 </table>
+</div>
 
 <script src="http://code.jquery.com/jquery.js"></script>
 <script src="static/js/filter_travel_tips.js"></script>
