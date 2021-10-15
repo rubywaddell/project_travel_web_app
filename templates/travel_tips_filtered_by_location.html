@@ -1,0 +1,32 @@
+{% extends 'base.html' %} 
+{% block title %}Destination Details{% endblock %}
+
+{% block content %}
+
+{% if tip_tags %}
+<div>
+    <h2>View Travel Tips for {{ city }}, {{ state }}</h2>
+    <table id="destination-details-tip-table">
+        <tr>
+            <th>State:</th>
+            <th>City:</th>
+            <th>Tip:</th>
+        </tr>
+    {% for tip_tag in tip_tags %}
+        <tr>
+            <td>{{ tip_tag.tag.tag_state }}</td>
+            <td>{{ tip_tag.tag.tag_city }}</td>
+            <td>{{ tip_tag.tip.tip_text }}</td>
+        </tr>
+
+    {% endfor %}
+    </table>
+    <p><a href="/create_tip">Add a New Tip</a></p>
+</div>
+{% else %}  
+    <h2>Sorry, there are no tips for {{ city }} or {{ state }} yet.</h2>
+    <h4>You can add one <a href="/add_new_tip">here</a></h4>
+
+{% endif %}
+
+{% endblock %}

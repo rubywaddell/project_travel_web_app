@@ -10,16 +10,25 @@
 <div id="travel-tips-filter-div">
         <form id="travel-tips-filter-form">
         <div id="travel-tips-filter-tags">
-            <label>Filter Tips By:</label>
+            <label>Filter Tips By Tags:</label>
                 <input type="radio" name="filter-tags"  value="money"><label>Money/Theft</label>
                 <input type="radio" name="filter-tags" value="food"><label>Food</label>
                 <input type="radio" name="filter-tags" value="health"><label>Health</label>
                 <input type="radio" name="filter-tags" value="lgbt"><label>LGBTQIA+</label>
                 <input type="radio" name="filter-tags" value="solo-travel"><label>Solo Travel</label>
-                <input type="radio" name="filter-tags" value="location"><label>Location</label>
-            <input type="submit" id="travel-tips-filter-submit">
+            <input type="submit" id="tags-filter-submit">
+        </form>
+        <p></p>
+        <form action="/view_travel_tips/filtered_by_location.json">
+            <label>Or, Filter By Location:</label>
+            <label for="state">State: </label>
+            <input id="travel-tips-filter-state-input" type="text" name="state">
+            <label for="city"> City: </label>
+            <input id="travel-tips-filter-city-input" type="text" name="city">
+            <input id="city-state-filter-submit" type="submit">
+        </form>
         </div>
-    </form>
+    
 </div>
 
 <table id="view-travel-tips-table">

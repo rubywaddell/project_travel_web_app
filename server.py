@@ -123,7 +123,7 @@ def add_new_user():
 
     return redirect(f"/profile/{new_user.username}")
 
-#================================VIEW TRAVEL TIPS ROUTE FUNCTIONS================================
+#========================================VIEW TRAVEL TIPS ROUTE FUNCTIONS===========================================
 @app.route("/view_travel_tips")
 def show_travel_tips():
     """Renders the travel_tips page to show all tips in the database"""
@@ -133,7 +133,23 @@ def show_travel_tips():
 
     return render_template("travel_tips.html", tips=tips, tags=tags)
 
-@app.route("/view_travel_tips/filtered_by_location")
+def make_dict_of_tip_tags(tip_tags):
+    """Helper function for view_travel_tips filtering, to return a dictionary to then jsonify
+        Dictionary will hold data for the tip_tag as well as its corresponding tip and tag objects"""
+
+    tip_tag_dict = {}
+    for tip_tag in tip_tags:
+        tip_tag_dict["tip_tag_id"] = tip_tag.tip_tag_id
+        tip_tag_dict["tip_id"] = tip_tag.tip.tip_id
+        tip_tag_dict["tip_text"] = tip_tag.tip.tip_text
+        tip_tag_dict["tag_id"] = tip_tag.tag.tag_id
+        tip_tag_dict["tag_name"] = tip_tag.tag.tag_name
+        tip_tag_dict["tag_state"] = tip_tag.tag.tag_state
+        tip_tag_dict["tag_city"] = tip_tag.tag.tag_city
+    
+    return tip_tag_dict
+
+@app.route("/view_travel_tips/filtered_by_location.json")
 def show_travel_tips_filtered_by_location():
     """Filters travel tips by the state and city inputted by user and returns them"""
 
@@ -146,21 +162,13 @@ def show_travel_tips_filtered_by_location():
 
     if city_in_tags == True:
         city_tags = crud.get_tags_by_tag_city(city=city)
-        print("\n"*3)
-        print("City_Tags:", city_tags)
-        
         city_tip_tags = parse_through_tags(tags=city_tags)
-        print("\n")
-        print("city_tip_tags:", city_tip_tags)
-        print("\n"*3)
-        
-        return render_template("travel_tips_filtered_by_location.html", tip_tags=city_tip_tags, city=city, state=state)
+        tip_tag_dict = make_dict_of_tip_tags(tip_tags=city_tip_tags)
+
+        return jsonify(tip_tag_dict)
     
     elif state_in_tags == True:
         state_tags = crud.get_tags_by_tag_state(state=state)
-        print("\n"*3)
-        print("State_tags:", state_tags)
-        print("\n"*3)
         state_tip_tags = parse_through_tags(tags=state_tags)
 
         return render_template("travel_tips_filtered_by_location.html", tip_tags=state_tip_tags, city=city, state=state)

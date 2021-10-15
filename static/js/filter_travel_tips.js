@@ -1,35 +1,33 @@
 "use strict";
 console.log('connected to js')
 
-const filterTips = (evt) => {
+const filterTipsByTags = (evt) => {
     evt.preventDefault();
-    // alert("Prevent default is working")
+    alert("Prevent default is working")
     const tag_val = $('input[name="filter-tags"]:checked').val();
 
-    if (tag_val === 'location'){
-        addCityStateInputs()
-    }else{
-        console.log(tag_val)
-    };
+    console.log(tag_val)
 };
 
-const addCityStateInputs = () => {
-    $('#travel-tips-filter-div').html(
-        `<form action="/view_travel_tips/filtered_by_location">
-        <label>Select the Location You'd Like to Filter For:</label><p></p>
-        <label for="state">State: </label>
-        <input id="search-destination-state-input" type="text" name="state">
-        <label for="city"> City: </label>
-        <input id="search-destination-city-input" type="text" name="city">
-        <input id="city-state-filter-submit" type="submit"></form>`
-    );
+
+const showLocationFilteredTips = (evt) => {
+
+    evt.preventDefault();
+
+    alert("Prevent default is working")
+    
+    const url = '/view_travel_tips/filtered_by_location.json';
+    const formData = {state: $('#travel-tips-filter-state-input').val(), city: $('#travel-tips-filter-city-input').val()};
+
+    $.get(url, formData, response => {
+        console.log(response);
+    });
 };
 
-const filterCityState = (evt) => {
-    evt.preventDefault()
-    alert('Prevent default is working')
-}
 
+// const filterByTagNames = (tag_val) => {
+//     console.log(tag_val);
+// }
 
-$('#travel-tips-filter-submit').on('click', filterTips);
-$('#city-state-filter-submit').on('click', filterCityState);
+$('#tags-filter-submit').on('click', filterTipsByTags);
+$('#city-state-filter-submit').on('click', showLocationFilteredTips);
