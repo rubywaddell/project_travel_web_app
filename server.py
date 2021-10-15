@@ -18,20 +18,6 @@ model.connect_to_db(app)
 model.db.create_all()
 
 
-#===========================HELPER FUNCTION FOR SEARCH DESTINATION AND VIEW TIPS ROUTES==================
-def parse_through_tags(tags):
-    """Helper function for show_destination_details view function
-        Parses through the result of querying for a list of all tags to return a list of tip_tags"""
-    tip_tags = []
-    for tag in tags:
-        #tag.tip_tag returns a list (even if there's only one)
-        #Want to go through and append the individual object, to return a list not a list of lists
-        tip_tag_list = tag.tip_tag
-        for tip_tag in tip_tag_list:
-            tip_tags.append(tip_tag)
-
-    return tip_tags
-
 #========================HOMEPAGE ROUTE================================
 @app.route("/")
 def show_homepage():
@@ -164,13 +150,13 @@ def show_travel_tips_filtered_by_location():
 
     if city_in_tags == True:
         city_tags = crud.get_tags_by_tag_city(city=city)
-        city_tip_tags = parse_through_tags(tags=city_tags)
+        city_tip_tags = crud.parse_through_tags(tags=city_tags)
         tip_tag_dict = make_dict_of_tip_tags(tip_tags=city_tip_tags)
         return jsonify(tip_tag_dict)
     
     elif state_in_tags == True:
         state_tags = crud.get_tags_by_tag_state(state=state)
-        state_tip_tags = parse_through_tags(tags=state_tags)
+        state_tip_tags = crud.parse_through_tags(tags=state_tags)
 
         tip_tag_dict = make_dict_of_tip_tags(tip_tags=state_tip_tags)
         return jsonify(tip_tag_dict)
@@ -182,7 +168,17 @@ def show_travel_tips_filtered_by_location():
 def show_travel_tips_filtered_by_tag():
     """"Filters tips by tag name and returns them in JSON"""
 
-    pass
+    tag_name = request.args.get("tag_name")
+
+    all_tags = crud.get_tags_by_tag_name(tag_name=tag_name)
+    tip_tags = crud.parse_through_tags(tags=all_tags)
+
+    tip_tags_dict = make_dict_of_tip_tags(tip_tags=tip_tags)
+    if tip_tags_dict == {}:
+        return ""
+    else:
+        return jsonify(tip_tags_dict)
+
 #================================CREATE TRAVEL TIP ROUTE FUNCTIONS================================
 @app.route("/create_tip")
 def show_new_tip():
@@ -277,7 +273,7 @@ def show_destination_details():
 
     if city_in_tags == True:
         city_tags = crud.get_tags_by_tag_city(city=city)
-        city_tip_tags = parse_through_tags(tags=city_tags)
+        city_tip_tags = crud.parse_through_tags(tags=city_tags)
         
         return render_template("destination_details.html", tip_tags=city_tip_tags, city=city, state=state, 
         departure_date=departure_date, arrival_date=arrival_date, event_names=event_names, event_urls=event_urls, img_urls=img_urls, start_dates=start_dates,
@@ -285,7 +281,7 @@ def show_destination_details():
     
     elif state_in_tags == True:
         state_tags = crud.get_tags_by_tag_state(state=state)
-        state_tip_tags = parse_through_tags(tags=state_tags)
+        state_tip_tags = crud.parse_through_tags(tags=state_tags)
 
         return render_template("destination_details.html", tip_tags=state_tip_tags, city=city, state=state, 
         departure_date=departure_date, arrival_date=arrival_date, event_names=event_names, event_urls=event_urls, img_urls=img_urls, start_dates=start_dates,

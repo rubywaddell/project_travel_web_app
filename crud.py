@@ -375,6 +375,20 @@ def check_if_city_in_tag_cities(city):
             return True
     return False
 
+def parse_through_tags(tags):
+    """Helper function for show_destination_details view function
+        Parses through the result of querying for a list of all tags to return a list of tip_tags"""
+        
+    tip_tags = []
+    for tag in tags:
+        #tag.tip_tag returns a list (even if there's only one)
+        #Want to go through and append the individual object, to return a list not a list of lists
+        tip_tag_list = tag.tip_tag
+        for tip_tag in tip_tag_list:
+            tip_tags.append(tip_tag)
+
+    return tip_tags
+
 
 #==========================Functions for TicketMaster API:====================================#
 #Notes on Ticketmaster Discovery API:

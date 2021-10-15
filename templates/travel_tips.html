@@ -33,22 +33,27 @@
 
 <div id="view-travel-tips-table-div">
 <table id="view-travel-tips-table">
+    <div id="view-travel-tips-header-row-div">
     <tr id="view-travel-tips-header-row">
         <th>Tag:</th>
         <th>State:</th>
         <th>City:</th>
         <th>Tip:</th>
     </tr>
-{% for i in range(tips|length) %}
-    <tr id="view-travel-tips-table-data-rows">
-        <td> {{ tags[i].tag_name.title() }}</td>
-        <td>{{ tags[i].tag_state }}</td>
-        <td>{{ tags[i].tag_city }}</td>
-        <td>{{ tips[i].tip_text }}</td>
-    </tr>
-{% endfor %}
+    </div>
+    <div id="view-travel-tips-data-row-div">
+    {% for i in range(tips|length) %}
+        <tr id="view-travel-tips-table-data-rows">
+            <td> {{ tags[i].tag_name.title() }}</td>
+            <td>{{ tags[i].tag_state }}</td>
+            <td>{{ tags[i].tag_city }}</td>
+            <td>{{ tips[i].tip_text }}</td>
+        </tr>
+    {% endfor %}
+    </div>
 </table>
 </div>
+<div id="view-filtered-tips-div"></div>
 
 <script src="http://code.jquery.com/jquery.js"></script>
 <script src="static/js/filter_travel_tips.js"></script>
