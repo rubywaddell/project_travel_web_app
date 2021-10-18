@@ -68,9 +68,9 @@ def check_user_in_database():
         flash("Logged in!")
         session["logged_in_username"] = user.username
         # return "Correct username and password"
-        return redirect(f"/profile/{username}")
+        return redirect(f"/profile_{username}")
 
-#========================LOGOUT ROUTE================================     
+#=================================================LOGOUT ROUTE=================================================     
 @app.route("/logout")
 def log_user_out():
     """Logs the user out of their profile and removes them from session"""
@@ -78,8 +78,8 @@ def log_user_out():
     session.clear()
     return redirect("/login")
 
-#========================PROFILE ROUTE================================
-@app.route("/profile/<username>")
+#=================================================PROFILE ROUTE=================================================
+@app.route("/profile_<username>")
 def show_user_profile(username):
     """Renders the user's profile page once they have logged in"""
 
@@ -89,7 +89,7 @@ def show_user_profile(username):
  
     return render_template("profile.html", user=user, vacations=vacations)
 
-#========================CREATE ACCOUNT ROUTE FUNCTIONS================================
+#=================================================CREATE ACCOUNT ROUTE FUNCTIONS=================================================
 @app.route("/create_account")
 def show_create_account():
     """Renders the create_account page to allow a user to create a new account"""
@@ -122,9 +122,9 @@ def add_new_user():
     
     session["logged_in_username"] = new_user.username
 
-    return redirect(f"/profile/{new_user.username}")
+    return redirect(f"/profile_{new_user.username}")
 
-#========================================VIEW TRAVEL TIPS ROUTE FUNCTIONS===========================================
+#=================================================VIEW TRAVEL TIPS ROUTE FUNCTIONS===========================================
 @app.route("/view_travel_tips")
 def show_travel_tips():
     """Renders the travel_tips page to show all tips in the database"""
@@ -135,7 +135,7 @@ def show_travel_tips():
     return render_template("travel_tips.html", tips=tips, tags=tags)
 
 
-#=======================================FILTER TRAVEL TIPS FUNCTIONS================================================
+#=================================================FILTER TRAVEL TIPS FUNCTIONS================================================
 def make_dict_of_tip_tags(tip_tags):
     """Helper function for view_travel_tips filtering, to return a dictionary to then jsonify
         Dictionary will hold data for the tip_tag as well as its corresponding tip and tag objects"""
@@ -193,7 +193,7 @@ def show_travel_tips_filtered_by_tag():
     else:
         return jsonify(tip_tags_dict)
 
-#================================CREATE TRAVEL TIP ROUTE FUNCTIONS================================
+#=================================================CREATE TRAVEL TIP ROUTE FUNCTIONS================================
 @app.route("/create_tip")
 def show_new_tip():
     """Renders the new_tip page to allow a user to create a new travel tip"""
@@ -229,7 +229,7 @@ def add_new_tip():
     return redirect("/view_travel_tips")
 
 
-#================================CREATE VACATION ROUTE FUNCTIONS================================
+#=================================================CREATE VACATION ROUTE FUNCTIONS================================
 @app.route("/create_vacation")
 def show_new_vacation():
     """Renders for that allows users to create a new vacation for their profile"""
@@ -258,9 +258,9 @@ def add_new_vacation():
     new_vacation_label = crud.create_vacation_label(departure_date=departure_date, arrival_date=arrival_date, state_id=check_state.state_id)
     new_vacation = crud.create_vacation(vacation_label_id=new_vacation_label.vacation_label_id, user_id=user.user_id)
 
-    return redirect(f"/profile/{user.username}")
+    return redirect(f"/profile_{user.username}")
 
-#================================SEARCH DESTINATION ROUTE FUNCTIONS================================
+#=================================================SEARCH DESTINATION ROUTE FUNCTIONS================================
 @app.route("/search_destination")
 def show_search_destination_page():
     """Renders the search page where user can select a destination to search"""
