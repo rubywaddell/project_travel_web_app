@@ -33,7 +33,11 @@ def check_session_for_user():
     if session == {}:
         return "False"
     else:
-        return "True"
+        username = session["logged_in_username"]
+        print("\n"*2)
+        print("Username hopefully from session\n", username)
+        print("\n"*2)
+        return username
 
 #=================================================LOGIN ROUTE FUNCTIONS=================================================
 @app.route("/login")

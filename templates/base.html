@@ -4,18 +4,25 @@
         <title>{% block title %}TITLE GOES HERE{% endblock %}</title>
         <link rel="stylesheet" type="text/css" href="static/css/stylesheet.css">
         <!-- Script tags will go here when complete -->
+        <script src="http://code.jquery.com/jquery.js"></script>
+        <script src="static/js/navigation_bar.js"></script>
     </head>
+
     <body>
         
-        <h2><ul>Navigation:</ul></h2>
-            <li><a href="/">Home</a></li>
-            <li><a href="/login">Log In</a></li>
-            <li><a href="/logout">Log Out</a></li>
-            <li><a href="/create_account">Create a New Account</a></li>
-            <li><a href="/view_travel_tips">View Travel Tips</a></li>
-            <li><a href="/create_tip">Add a New Travel Tip</a></li>
-            <li><a href="/create_vacation">Add a New Vacation to Profile</a></li>
-            <li><a href="/search_destination">Search Destination</a></li>
+        <h2>Navigation:</h2>
+        <ul id="navigation-links-list">
+            <li id="homepage-link"><a href="/">Home</a></li>
+            <li id="login-link"><a href="/login">Log In</a></li>
+            <!-- When user is logged in, login link becomes log out -->
+            <!-- <li id="logout-link"><a href="/logout">Log Out</a></li> -->
+            <li id="create-account-link"><a href="/create_account">Create a New Account</a></li>
+            <li id="search=destination=link"><a href="/search_destination">Search Destination</a></li>
+            <li id="view-tips-link"><a href="/view_travel_tips">View Travel Tips</a></li>
+            <!-- When user is logged in, links to add tips and vacations are added to navigation -->
+            <!-- <li id="add-tip-link"><a href="/create_tip">Add a New Travel Tip</a></li> -->
+            <!-- <li id="add-vacation-link"><a href="/create_vacation">Add a New Vacation to Profile</a></li> -->
+        </ul>
         <p></p>
         {% for msg in get_flashed_messages() %} 
             <div class="flashed-messages">{{ msg }}</div>
@@ -23,8 +30,5 @@
 
         {% block content %}CONTENT GOES HERE{% endblock %}
     </body>
-
-    <script src="http://code.jquery.com/jquery.js"></script>
-    <script src="static/js/navigation_bar.js"></script>
 
 </html>

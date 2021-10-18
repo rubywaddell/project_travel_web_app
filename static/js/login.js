@@ -16,13 +16,15 @@ const checkPassword = (evt) => {
         if (response === "Username not recognized, please create an account"){
             $('#login-msg-div').html(
                 `<p>Username not recognized, please check the spelling or create an account</p>
-                <p><button href='/create_account' class='btn btn-primary'>Create Account</button></p>`
+                <p><button type="button" class='btn btn-primary'><a href="/create_account">Create Account</a></button></p>`
                 );
 
         }else if (response === "Incorrect password"){
             $('#login-msg-div').text('Incorrect password, please try again');
+        }else{
+            $('#login-submit-input').unbind("click")
         }
     });
 };
 
-$('#login-submit-input').on('click', checkPassword);
+$('#login-submit-input').bind('click', checkPassword);
