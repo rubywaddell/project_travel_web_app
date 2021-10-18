@@ -18,7 +18,7 @@ model.connect_to_db(app)
 model.db.create_all()
 
 
-#========================HOMEPAGE ROUTE================================
+#=================================================HOMEPAGE ROUTE========================================================
 @app.route("/")
 def show_homepage():
     """Renders the homepage html to bring users to the homepage of app"""
@@ -26,7 +26,16 @@ def show_homepage():
     return render_template("homepage.html")
 
 
-#========================LOGIN ROUTE FUNCTIONS================================
+#=================================================SESSION ROUTE=================================================
+@app.route("/check_session")
+def check_session_for_user():
+    """Checks the session to see if user is logged in, and returns True or False as strings for AJAX functions in navigation_bar"""
+    if session == {}:
+        return "False"
+    else:
+        return "True"
+
+#=================================================LOGIN ROUTE FUNCTIONS=================================================
 @app.route("/login")
 def show_login_page():
     """Renders the login page to allow users to log in to their account"""
@@ -63,7 +72,7 @@ def log_user_out():
     """Logs the user out of their profile and removes them from session"""
 
     session.clear()
-    return redirect("/")
+    return redirect("/login")
 
 #========================PROFILE ROUTE================================
 @app.route("/profile/<username>")
