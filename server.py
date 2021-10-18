@@ -12,7 +12,7 @@ app = Flask(__name__)
 app.secret_key = "@#%()#HRTN$#OT#%ons!"
 app.jinja_env.undefined = StrictUndefined
 
-MY_API_KEY = "PASS"
+MY_API_KEY = "NdMgdlGGSobRosfxcoA3WH8r8ifKMjOX"
 
 model.connect_to_db(app)
 model.db.create_all()
@@ -100,7 +100,7 @@ def add_new_user():
     state= request.form.get("state").title()
     city= request.form.get("city").title()
 
-    check_state, check_city = crud.check_if_city_state_in_db_create_if_not(state=state, city=city)
+    check_city, check_state = crud.check_if_city_state_in_db_create_if_not(state=state, city=city)
     
     new_vacation_label = crud.create_vacation_label(departure_date=departure_date, arrival_date=arrival_date, state_id=check_state.state_id)
     new_vacation = crud.create_vacation(vacation_label_id=new_vacation_label.vacation_label_id, user_id=new_user.user_id)

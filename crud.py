@@ -140,7 +140,7 @@ def get_state_by_id(state_id):
 def get_state_by_city_id(city_id):
     """Query and return the first state tied to a given city id number"""
 
-    state = model.db.session.query(model.State).filter(model.State.city_id == city_id)
+    state = model.db.session.query(model.State).filter(model.State.city_id == city_id).first()
     return state
 
 def get_state_by_city(city_name):
@@ -148,7 +148,7 @@ def get_state_by_city(city_name):
 
     city = get_city_by_name(city_name=city_name)
 
-    state = model.db.session.query(model.State).filter(model.State.city_id == city.city_id)
+    state = model.db.session.query(model.State).filter(model.State.city_id == city.city_id).first()
 
     return state
 
@@ -378,7 +378,7 @@ def check_if_city_in_tag_cities(city):
 def parse_through_tags(tags):
     """Helper function for show_destination_details view function
         Parses through the result of querying for a list of all tags to return a list of tip_tags"""
-        
+
     tip_tags = []
     for tag in tags:
         #tag.tip_tag returns a list (even if there's only one)

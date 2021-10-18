@@ -20,7 +20,7 @@ const showTagFilteredTips = (evt) => {
         if (response === ""){
             $('#view-travel-tips-table-div').html(`
             <h2>Sorry, there are no tips about ${tag_val} yet.</h2>
-            <p>You can add one <a href="/add_new_tip">here</a></p>`);
+            <p>You can add one <a href="/create_tip">here</a></p>`);
         }else{
             $('#view-travel-tips-table-div').html(`
             <div class="grid-container">
@@ -61,7 +61,7 @@ const showLocationFilteredTips = (evt) => {
         console.log(response)
         if (response === ""){
             $('#view-travel-tips-table-div').html(`<h2>Sorry, there are no tips for ${city} or ${state} yet.</h2>
-                <h4>You can add one <a href="/add_new_tip">here</a></h4>`)
+                <h4>You can add one <a href="/create_tip">here</a></h4>`)
         }else{
             $('#travel-tips-header').html(`<h2>Tips for ${state}`)
             $('#view-travel-tips-table-div').html(`

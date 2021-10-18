@@ -10,11 +10,11 @@ class User(db.Model):
     __tablename__ = "users"
 
     user_id = db.Column(db.Integer, autoincrement = True, primary_key = True)
-    username = db.Column(db.String(15), unique=True)
-    fname = db.Column(db.String(25))
-    lname = db.Column(db.String(25))
+    username = db.Column(db.String(), unique=True)
+    fname = db.Column(db.String())
+    lname = db.Column(db.String())
     email = db.Column(db.String, unique=True)
-    password = db.Column(db.String(15))
+    password = db.Column(db.String())
 
     vacation = db.relationship("Vacation", back_populates="user")
 

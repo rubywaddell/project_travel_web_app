@@ -4,9 +4,9 @@
 }
 
 /* Test to make sure CSS is connected */
-h2 {
+/* h2 {
     color: rgb(235, 4, 165);
-}
+} */
 /* Styling for images displayed on destination_details page */
 img.destination-details-image {
     height: 100px;
@@ -53,14 +53,15 @@ table#view-travel-tips-table tr{
 }
 
 .grid-container{
-    font-style: italic;
-    display: inline-grid;
-    grid-template-columns: auto auto auto;
+    display: grid;
+    grid-template-columns: 110px 110px 1000px;
 }
 
 .grid-container-four-columns{
-    grid-template-columns: auto auto auto auto;
-    display: inline-grid;
+    grid-template-columns: 90px 110px 110px 1000px;
+    display: grid;
+    column-gap: 10px;
+    row-gap: 10px;
 }
 
 .grid-item{

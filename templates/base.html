@@ -6,10 +6,7 @@
         <!-- Script tags will go here when complete -->
     </head>
     <body>
-        {% for msg in get_flashed_messages() %} 
-            <div class="flashed-messages">{{ msg }}</div>
-        {% endfor %} 
-
+        
         <h2><ul>Navigation:</ul></h2>
             <li><a href="/">Home</a></li>
             <li><a href="/login">Log In</a></li>
@@ -19,6 +16,10 @@
             <li><a href="/create_tip">Add a New Travel Tip</a></li>
             <li><a href="/create_vacation">Add a New Vacation to Profile</a></li>
             <li><a href="/search_destination">Search Destination</a></li>
+        <p></p>
+        {% for msg in get_flashed_messages() %} 
+            <div class="flashed-messages">{{ msg }}</div>
+        {% endfor %} 
 
         {% block content %}CONTENT GOES HERE{% endblock %}
     </body>
