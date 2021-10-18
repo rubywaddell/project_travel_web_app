@@ -42,17 +42,19 @@ def check_user_in_database():
     user = crud.get_user_by_username(username=username)
 
     if user == None:
-        flash("Username not recognized, please create an account")
-        return redirect("/create_account")
+        # flash("Username not recognized, please create an account")
+        return "Username not recognized, please create an account"
+        # return redirect("/create_account")
 
     elif (username == user.username) and (password != user.password):
-        flash("Incorrect password, please try again")
-        return redirect("/login")
+        # flash("Incorrect password, please try again")
+        return "Incorrect password"
+        # return redirect("/login")
 
     elif (username == user.username) and (password == user.password):
         flash("Logged in!")
         session["logged_in_username"] = user.username
-
+        # return "Correct username and password"
         return redirect(f"/profile/{username}")
 
 #========================LOGOUT ROUTE================================     
