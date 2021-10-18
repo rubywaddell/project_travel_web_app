@@ -2,17 +2,21 @@
 {% block title %}Log In{% endblock %} 
 
 {% block content %}
+
 <h1>Log In:</h1>
 
 <form action="/login" method="POST">
 
     <label>Username:</label>
-    <input type="text" name="username">
+    <input id="login-username-input" type="text" name="username">
 
     <label>Password:</label>
-    <input type="password" name="password">
+    <input id="login-password-input" type="password" name="password">
 
-    <input type="submit">
+    <input id="login-submit-input" type="submit">
 </form>
+
+<script src="http://code.jquery.com/jquery.js"></script>
+<script src="static/js/login.js"></script>
 
 {% endblock %}
