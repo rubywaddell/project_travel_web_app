@@ -1,7 +1,7 @@
 "use strict";
 
 console.log('connected to js');
-
+// ************************* Functions for Tip Filtering: ************************************
 const showTagFilteredTips = (evt) => {
     evt.preventDefault();
     // alert("Prevent default is working");
@@ -36,9 +36,7 @@ const showTagFilteredTips = (evt) => {
                     <div class="grid-item">${response[i]["tag_city"]}</div>
                     <div class="grid-item">${response[i]["tip_text"]}</div>
                 </div>
-                `);
-            };
-        };
+                `)}};
     });
 };
 
@@ -87,3 +85,11 @@ const showLocationFilteredTips = (evt) => {
 
 $('#tags-filter-submit').on('click', showTagFilteredTips);
 $('#city-state-filter-submit').on('click', showLocationFilteredTips);
+
+// ************************* Functions for Pagination: ************************************
+
+const showNextPageTips = () => {
+    console.log("Click is working")
+}
+
+$('#view-tips-next-page-btn').on('click', showNextPageTips)
