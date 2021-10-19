@@ -122,11 +122,19 @@ def add_new_user():
 def show_travel_tips():
     """Renders the travel_tips page to show all tips in the database"""
 
-    tips = crud.show_tips()
-    tags = crud.show_tags()
     tip_tag_pagination = crud.get_paginated_tip_tags()
+    tip_tag_pages = crud.get_dict_of_tip_tag_pages(pagination_obj=tip_tag_pagination)
 
-    return render_template("travel_tips.html", tip_tag_page=tip_tag_pagination)
+    return render_template("travel_tips.html", tip_tag_pages=tip_tag_pages)
+
+@app.route("/page_results")
+def get_page_results():
+    """Returns a dictionary of paginated results to display when user clicks next/prev page"""
+
+    paginated_obj = crud.get_paginated_tip_tags()
+    pages = crud.get_dict_of_tip_tag_pages(pagination_obj=paginated_obj)
+
+    return jsonify(pages)
 
 
 #=================================================FILTER TRAVEL TIPS FUNCTIONS================================================

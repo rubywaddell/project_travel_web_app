@@ -45,9 +45,9 @@
         <th>Tip:</th>
     </tr>
     </div>
-    <div id="view-travel-tips-data-row-div">
+    <div id="view-travel-tips-page-one-items">
         
-        {% for item in tip_tag_page.items %}
+        {% for item in tip_tag_pages[1] %}
         <tr>
             <td>{{ item.tag.tag_name }}</td>
             <td>{{ item.tag.tag_state }}</td>

@@ -4,8 +4,8 @@
 import model
 import requests
 
-#User CRUD functions:
-# def create_user(username, fname, lname, email, password, vacation_id=None):
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~User CRUD functions:~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 def create_user(username, fname, lname, email, password):
     """Create a return a new user"""
 
@@ -48,7 +48,7 @@ def get_user_by_username(username):
 
 
 
-#Vacation CRUD functions:
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Vacation CRUD functions:~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def create_vacation(vacation_label_id, user_id):
     """Create and return a vacation object"""
 
@@ -79,7 +79,7 @@ def get_vacation_by_user_id(user_id):
     return user_vacations
 
 
-#VacationLabel CRUD Functions:
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~VacationLabel CRUD Functions:~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def create_vacation_label(departure_date, arrival_date, state_id=None):
     """Create and return a vacation_label object"""
 
@@ -108,7 +108,7 @@ def join_vacation_w_vacation_label():
     
     return vacation_vacation_label_join
 
-#State CRUD functions:
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~State CRUD functions:~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def create_state(state_name, city_id):
     """Create a new state, add to database, and return it"""
 
@@ -164,8 +164,6 @@ def check_if_state_in_db(state_name):
 def check_if_state_has_city(state_name, city_name):
     """Checks if a given city is already in the database and connected to the given state, returns a boolean"""
 
-    # state = get_state_by_name(state_name=state_name)
-
     city_state_join = model.db.session.query(model.City).join(model.City.state)
     state_filter = city_state_join.filter(model.State.state_name == state_name)
     cities = state_filter.all()
@@ -181,7 +179,7 @@ def check_if_state_has_city(state_name, city_name):
         return False
 
 
-#City CRUD functions
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~City CRUD functions: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def create_city(city_name):
     """Create a new city, add to database, and return it"""
 
@@ -228,33 +226,20 @@ def check_if_city_state_in_db_create_if_not(city, state):
         If they are not, they will be created"""
 
     check_city = check_if_city_in_db(city_name=city)
-    # check_state = check_if_state_in_db(state_name=state)
 
     if check_city == False:
         new_city = create_city(city_name=city)
         new_state = create_state(state_name=state, city_id=new_city.city_id)
         return new_city, new_state
-        
-        # if check_state == False:
-        #     new_state = create_state(state_name=state, city_id=new_city.city_id)
-        #     return new_city, new_state
-        
-        # db_state = get_state_by_name(state_name=state)
-        # return new_city, db_state
 
     else:
         db_city = get_city_by_name(city_name=city)
         db_state = get_state_by_city_id(city_id=db_city.city_id)
 
-        # if check_city == False:
-        #     new_state = create_state(state_name=state, city_id=db_city.city_id)
-        #     return db_city, new_state
-
-        # db_state = get_state_by_name(state_name=state)
         return db_city, db_state
 
 
-#Tip CRUD functions
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Tip CRUD functions: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def create_tip(tip_text, user_id=None):
     """Create a new tip, add to database, and return it"""
 
@@ -275,7 +260,7 @@ def show_tips_with_user_id(user_id):
 
     return model.db.session.query(model.Tip).filter(model.Tip.user_id == user_id).all()
 
-#TipTag CRUD functions:
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~TipTag CRUD functions: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def create_tip_tag(tag_id, tip_id):
     """Create a new tip_tag, add it to the database, and return it"""
 
@@ -328,7 +313,7 @@ def get_tip_tag_by_tip(tip):
 
     return model.TipTag.query.filter(model.TipTag.tip == tip).first()
 
-#Tag CRUD functions
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Tag CRUD functions: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def create_tag(tag_name, tag_state, tag_city):
     """Create a new tag, add it to the database, and return it"""
 
@@ -417,7 +402,7 @@ def parse_through_tags(tags):
     return tip_tags
 
 
-#==========================Functions for TicketMaster API:====================================#
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Functions for TicketMaster API: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #Notes on Ticketmaster Discovery API:
     #The results are not entirely consistent, some events have data for the event time and date, others just the date
         #some events have data for the venue, others don't, included in these functions are helper functions to parse through
@@ -448,15 +433,7 @@ def search_events_by_city(api_key, city):
 
     formatted_city = reformat_city_names(city_name=city)
 
-    # payload = {
-    #     "apikey" : api_key,
-    #     "locale" : "*",
-    #     "city" : formatted_city
-    # }
-
     url = f"https://app.ticketmaster.com/discovery/v2/events?apikey={api_key}&locale=*&city={formatted_city}"
-
-    # url = "https://app.ticketmaster.com/discovery/v2/events"
 
     response = requests.get(url)
 
@@ -487,27 +464,11 @@ def search_events_by_city_and_dates(api_key, city, start_date, end_date):
     Returns the results as JSON"""
 
     formatted_city = reformat_city_names(city_name=city)
-    print(formatted_city)
     formatted_start_date = reformat_date(date=start_date)
-    print(formatted_start_date)
     formatted_end_date = reformat_date(date=end_date)
-    print(formatted_end_date)
-
-    # payload = {
-    #     "apikey" : api_key,
-    #     "locale" : "*",
-    #     "startDateTime" : formatted_start_date,
-    #     "endDateTime" : formatted_end_date,
-    #     "city" : formatted_city
-    # }
-    # url = f"https://app.ticketmaster.com/discovery/v2/events"
-
-    # response = requests.get(url, params=payload)
 
     url = f"""https://app.ticketmaster.com/discovery/v2/events?apikey={api_key}&locale=*&startDateTime={formatted_start_date}&endDateTime={formatted_end_date}&city={formatted_city}"""
-    
-    print(url)
-    
+        
     response = requests.get(url)
 
     results = response.json()

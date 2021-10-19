@@ -89,7 +89,10 @@ $('#city-state-filter-submit').on('click', showLocationFilteredTips);
 // ************************* Functions for Pagination: ************************************
 
 const showNextPageTips = () => {
-    console.log("Click is working")
+    console.log("Click is working");
+    $.get("/page_results", response => {
+        console.log(response)
+    })
 }
 
-$('#view-tips-next-page-btn').on('click', showNextPageTips)
+$('#view-tips-next-page-btn').on('click', showNextPageTips);
