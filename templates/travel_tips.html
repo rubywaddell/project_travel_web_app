@@ -46,7 +46,7 @@
     </tr>
     </div>
     <div id="view-travel-tips-data-row-div">
-    {% for i in range(tips|length) %}
+    {% for i in range(tags|length) %}
         <tr id="view-travel-tips-table-data-rows">
             <td> {{ tags[i].tag_name.title() }}</td>
             <td>{{ tags[i].tag_state }}</td>

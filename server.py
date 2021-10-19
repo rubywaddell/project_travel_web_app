@@ -34,9 +34,7 @@ def check_session_for_user():
         return "False"
     else:
         username = session["logged_in_username"]
-        print("\n"*2)
-        print("Username hopefully from session\n", username)
-        print("\n"*2)
+ 
         return username
 
 #=================================================LOGIN ROUTE FUNCTIONS=================================================
@@ -55,19 +53,14 @@ def check_user_in_database():
     user = crud.get_user_by_username(username=username)
 
     if user == None:
-        # flash("Username not recognized, please create an account")
         return "Username not recognized, please create an account"
-        # return redirect("/create_account")
 
     elif (username == user.username) and (password != user.password):
-        # flash("Incorrect password, please try again")
         return "Incorrect password"
-        # return redirect("/login")
 
     elif (username == user.username) and (password == user.password):
         flash("Logged in!")
         session["logged_in_username"] = user.username
-        # return "Correct username and password"
         return redirect(f"/profile_{username}")
 
 #=================================================LOGOUT ROUTE=================================================     
@@ -78,7 +71,7 @@ def log_user_out():
     session.clear()
     return redirect("/login")
 
-#=================================================PROFILE ROUTE=================================================
+#======================================================PROFILE ROUTE========================================================
 @app.route("/profile_<username>")
 def show_user_profile(username):
     """Renders the user's profile page once they have logged in"""
@@ -131,6 +124,7 @@ def show_travel_tips():
 
     tips = crud.show_tips()
     tags = crud.show_tags()
+    tip_tag_pagination = crud.get_paginated_tip_tags()
 
     return render_template("travel_tips.html", tips=tips, tags=tags)
 

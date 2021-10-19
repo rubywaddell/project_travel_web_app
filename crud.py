@@ -292,6 +292,7 @@ def get_paginated_tip_tags():
     tip_tag_base_query = model.db.session.query(model.TipTag)
     return tip_tag_base_query.paginate()
 
+
 def get_tip_tag_by_tag_id(tag_id):
     """Query and return the first tip_tag with the given tag_id"""
 
@@ -337,6 +338,11 @@ def show_tag_states():
     """Return a list of all tag_states in the database"""
 
     return model.db.session.query(model.Tag.tag_state).all()
+
+def order_tags_by_tag_state():
+    """Returns all tags ordered by the given tag state"""
+
+    return model.db.session.query(model.Tag).order_by(model.Tag.tag_state).all()
 
 def show_tag_cities():
     """Return a list of all tag_cities in the database"""
