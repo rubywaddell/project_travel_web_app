@@ -7,8 +7,7 @@ const checkPassword = (evt) => {
     // alert('Prevent default is working');
     const username = $('#login-username-input').val();
     const password = $('#login-password-input').val();
-    // console.log(username);
-    // console.log(password);
+
     const formData = {username: username, password: password};
     console.log(formData)
     $.post('/login', formData, response => {

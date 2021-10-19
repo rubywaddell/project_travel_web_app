@@ -3,10 +3,13 @@
     font-family: sans-serif;
 }
 
-/* Test to make sure CSS is connected */
-/* h2 {
-    color: rgb(235, 4, 165);
-} */
+/* Styling for image on homepage */
+img#homepage-image{
+    width: 50%;
+    align-self: center;
+}
+
+
 /* Styling for images displayed on destination_details page */
 img.destination-details-image {
     height: 100px;
