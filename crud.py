@@ -282,16 +282,34 @@ def get_paginated_tip_tags():
     tip_tag_base_query = model.db.session.query(model.TipTag)
     return tip_tag_base_query.paginate(per_page=10)
 
-def get_dict_of_tip_tag_pages(pagination_obj):
+def get_dict_of_tip_tag_pages():
     """Returns a dictionary of pagination items, where keys are page numbers and values are a list of items displayed per page"""
 
+    pagination_obj = model.db.session.query(model.TipTag).paginate(per_page=10)
     pages_iter = pagination_obj.iter_pages()
     pages_dict = {}
     for page in pages_iter:
-        pages_dict[page] = pagination_obj.items
+        tip_tags = pagination_obj.items
+        tip_tag_dict = make_dict_of_tip_tags(tip_tags)
+        pages_dict[page] = tip_tag_dict
         pagination_obj = pagination_obj.next()
     
     return pages_dict
+
+def make_dict_of_tip_tags(tip_tags):
+    """Helper function for view_travel_tips filtering, to return a dictionary to then jsonify
+        Dictionary will hold data for the tip_tag as well as its corresponding tip and tag objects"""
+
+    tip_tag_dict = {}
+    for i, tip_tag in enumerate(tip_tags):
+        tip_tag_dict[i] = {
+            "tip_text" : tip_tag.tip.tip_text,
+            "tag_name" : tip_tag.tag.tag_name,
+            "tag_state" : tip_tag.tag.tag_state,
+            "tag_city" : tip_tag.tag.tag_city
+        }
+    
+    return tip_tag_dict
 
 def get_tip_tag_by_tag_id(tag_id):
     """Query and return the first tip_tag with the given tag_id"""
