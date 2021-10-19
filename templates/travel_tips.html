@@ -47,12 +47,12 @@
     </div>
     <div id="view-travel-tips-page-one-items">
         
-        {% for item in tip_tag_pages[1] %}
+        {% for item in tip_tag_pages[1].values() %}
         <tr>
-            <td>{{ item.tag.tag_name }}</td>
-            <td>{{ item.tag.tag_state }}</td>
-            <td>{{ item.tag.tag_city }}</td>
-            <td>{{ item.tip.tip_text }}</td>
+            <td>{{ item["tag_name"] }}</td>
+            <td>{{ item["tag_state"] }}</td>
+            <td>{{ item["tag_city"] }}</td>
+            <td>{{ item["tip_text"] }}</td>
         </tr>
         {% endfor %}
 

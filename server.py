@@ -123,7 +123,7 @@ def show_travel_tips():
     """Renders the travel_tips page to show all tips in the database"""
 
     tip_tag_pagination = crud.get_paginated_tip_tags()
-    tip_tag_pages = crud.get_dict_of_tip_tag_pages(pagination_obj=tip_tag_pagination)
+    tip_tag_pages = crud.get_dict_of_tip_tag_pages()
 
     return render_template("travel_tips.html", tip_tag_pages=tip_tag_pages)
 
@@ -132,7 +132,7 @@ def get_page_results():
     """Returns a dictionary of paginated results to display when user clicks next/prev page"""
 
     paginated_obj = crud.get_paginated_tip_tags()
-    pages = crud.get_dict_of_tip_tag_pages(pagination_obj=paginated_obj)
+    pages = crud.get_dict_of_tip_tag_pages()
 
     return jsonify(pages)
 
