@@ -297,6 +297,16 @@ def get_paginated_tip_tags():
     tip_tag_base_query = model.db.session.query(model.TipTag)
     return tip_tag_base_query.paginate(per_page=10)
 
+def get_dict_of_tip_tag_pages(pagination_obj):
+    """Returns a dictionary of pagination items, where keys are page numbers and values are a list of items displayed per page"""
+
+    pages_iter = pagination_obj.iter_pages()
+    pages_dict = {}
+    for page in pages_iter:
+        pages_dict[page] = pagination_obj.items
+        pagination_obj = pagination_obj.next()
+    
+    return pages_dict
 
 def get_tip_tag_by_tag_id(tag_id):
     """Query and return the first tip_tag with the given tag_id"""
