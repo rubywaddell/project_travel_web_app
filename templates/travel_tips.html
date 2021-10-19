@@ -46,16 +46,19 @@
     </tr>
     </div>
     <div id="view-travel-tips-data-row-div">
-    {% for i in range(tags|length) %}
-        <tr id="view-travel-tips-table-data-rows">
-            <td> {{ tags[i].tag_name.title() }}</td>
-            <td>{{ tags[i].tag_state }}</td>
-            <td>{{ tags[i].tag_city }}</td>
-            <td>{{ tips[i].tip_text }}</td>
+        
+        {% for item in tip_tag_page.items %}
+        <tr>
+            <td>{{ item.tag.tag_name }}</td>
+            <td>{{ item.tag.tag_state }}</td>
+            <td>{{ item.tag.tag_city }}</td>
+            <td>{{ item.tip.tip_text }}</td>
         </tr>
-    {% endfor %}
+        {% endfor %}
+
     </div>
 </table>
+<button class="btn btn-primary" type="button">Next Page</button>
 </div>
 <div id="view-filtered-tips-div"></div>
 

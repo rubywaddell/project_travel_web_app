@@ -126,7 +126,7 @@ def show_travel_tips():
     tags = crud.show_tags()
     tip_tag_pagination = crud.get_paginated_tip_tags()
 
-    return render_template("travel_tips.html", tips=tips, tags=tags)
+    return render_template("travel_tips.html", tip_tag_page=tip_tag_pagination)
 
 
 #=================================================FILTER TRAVEL TIPS FUNCTIONS================================================

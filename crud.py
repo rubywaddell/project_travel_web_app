@@ -295,7 +295,7 @@ def get_paginated_tip_tags():
     """Returns a pagination of all tip_tags in the database"""
 
     tip_tag_base_query = model.db.session.query(model.TipTag)
-    return tip_tag_base_query.paginate()
+    return tip_tag_base_query.paginate(per_page=10)
 
 
 def get_tip_tag_by_tag_id(tag_id):
