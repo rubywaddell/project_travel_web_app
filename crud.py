@@ -270,6 +270,11 @@ def show_tips():
 
     return model.Tip.query.all()
 
+def show_tips_with_user_id(user_id):
+    """Return a list of all tips with the given user_id"""
+
+    return model.db.session.query(model.Tip).filter(model.Tip.user_id == user_id).all()
+
 #TipTag CRUD functions:
 def create_tip_tag(tag_id, tip_id):
     """Create a new tip_tag, add it to the database, and return it"""
