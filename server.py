@@ -120,16 +120,6 @@ def add_new_user():
     return redirect(f"/profile_{new_user.username}")
 
 #=================================================VIEW TRAVEL TIPS ROUTE FUNCTIONS===========================================
-# @app.route("/view_travel_tips")
-# def show_travel_tips():
-#     """Renders the travel_tips page to show all tips in the database"""
-
-#     tip_tag_pagination = crud.get_paginated_tip_tags()
-#     tip_tag_pages = crud.get_dict_of_tip_tag_pages()
-#     page_num = 1
-
-#     return render_template("travel_tips.html", tip_tag_pages=tip_tag_pages, pagination_obj=tip_tag_pagination, page_num=page_num)
-
 
 @app.route("/view_travel_tips_page_<page_num>")
 def show_next_page_results(page_num):

@@ -282,10 +282,33 @@ def get_paginated_tip_tags():
     tip_tag_base_query = model.db.session.query(model.TipTag)
     return tip_tag_base_query.paginate(per_page=10)
 
-def get_dict_of_tip_tag_pages():
+def get_paginated_tag_filtered_tip_tags(filter_tag):
+    """Returns a pagination object of all tip_tags filtered by the given tag name"""
+
+    tip_tag_join_tags = model.db.session.query(model.TipTag).join(model.TipTag.tag)
+    join_filter = tip_tag_join_tags.filter(model.Tag.tag_name == filter_tag)
+
+    return join_filter.paginate(per_page=10)
+
+def get_paginated_state_filtered_tip_tags(state):
+    """Returns a pagination object of all tip_tags filtered by the given state"""
+
+    tip_tag_join_tags = model.db.session.query(model.TipTag).join(model.TipTag.tag)
+    join_filter = tip_tag_join_tags.filter(model.Tag.tag_state == state)
+
+    return join_filter.paginate(per_page=10)
+
+def get_paginated_city_filtered_tip_tags(city):
+    """Returns a pagination object of all tip_tags filtered by the given city"""
+
+    tip_tag_join_tags = model.db.session.query(model.TipTag).join(model.TipTag.tag)
+    join_filter = tip_tag_join_tags.filter(model.Tag.tag_city == city)
+
+    return join_filter.paginate(per_page=10)
+
+def get_dict_of_tip_tag_pages(pagination_obj):
     """Returns a dictionary of pagination items, where keys are page numbers and values are a list of items displayed per page"""
 
-    pagination_obj = model.db.session.query(model.TipTag).paginate(per_page=10)
     pages_iter = pagination_obj.iter_pages()
     pages_dict = {}
     for page in pages_iter:
