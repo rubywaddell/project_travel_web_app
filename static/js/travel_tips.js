@@ -102,4 +102,4 @@ const showNextPageTips = () => {
     });
 };
 
-$('#view-tips-next-page-btn').on('click', showNextPageTips);
+// $('#view-tips-next-page-btn').on('click', showNextPageTips);
