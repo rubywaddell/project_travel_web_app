@@ -75,31 +75,3 @@ const showLocationFilteredTips = (evt) => {
 
 $('#tags-filter-submit').on('click', showTagFilteredTips);
 $('#city-state-filter-submit').on('click', showLocationFilteredTips);
-
-
-// ************************* Functions for Pagination: ************************************
-
-let page_num = 1;
-
-const showNextPageTips = () => {
-    
-    page_num += 1;
-
-    $.get("/page_results", response => {
-        
-        const current_page = response[page_num];
-        $('#view-travel-tips-tip-data-div').html('');
-        for (const tip in current_page){
-            $('#view-travel-tips-tip-data-div').append(`
-                <div class="grid-container-four-columns">
-                    <div class="grid-item">${current_page[tip]["tag_name"]}</div>
-                    <div class="grid-item">${current_page[tip]["tag_state"]}</div>
-                    <div class="grid-item">${current_page[tip]["tag_city"]}</div>
-                    <div class="grid-item">${current_page[tip]["tip_text"]}</div>
-                </div>
-            `);
-        };
-    });
-};
-
-// $('#view-tips-next-page-btn').on('click', showNextPageTips);
