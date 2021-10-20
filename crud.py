@@ -388,13 +388,18 @@ def show_tag_names():
 
     return model.db.session.query(model.Tag.tag_name).all()
 
+def order_tags_by_tag_name():
+    """Returns all tags ordered by the tag_name"""
+
+    return model.db.session.query(model.Tag).order_by(model.Tag.tag_name).all()
+
 def show_tag_states():
     """Return a list of all tag_states in the database"""
 
     return model.db.session.query(model.Tag.tag_state).all()
 
 def order_tags_by_tag_state():
-    """Returns all tags ordered by the given tag state"""
+    """Returns all tags ordered by tag state"""
 
     return model.db.session.query(model.Tag).order_by(model.Tag.tag_state).all()
 
@@ -402,6 +407,11 @@ def show_tag_cities():
     """Return a list of all tag_cities in the database"""
 
     return model.db.session.query(model.Tag.tag_city).all()
+
+def order_tags_by_tag_city():
+    """Returns a list of all tags ordered by the tag_city"""
+
+    return model.db.session.query(model.Tag).order_by(model.Tag.tag_city).all()
 
 def get_tags_by_tag_name(tag_name):
     """Return a list of all tags with a given tag_name"""

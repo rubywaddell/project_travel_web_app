@@ -1,5 +1,5 @@
 [{"tag_id":1,"tag_name":"hiking","tag_state":"Texas","tag_city":"Amarillo"},
-{"tag_id":2,"tag_name":"solo-traveller","tag_state":"Texas","tag_city":"San Antonio"},
+{"tag_id":2,"tag_name":"solo-travel","tag_state":"Texas","tag_city":"San Antonio"},
 {"tag_id":3,"tag_name":"food","tag_state":"Florida","tag_city":"Miami"},
 {"tag_id":4,"tag_name":"food","tag_state":"New Jersey","tag_city":"Camden"},
 {"tag_id":5,"tag_name":"other","tag_state":"New Mexico","tag_city":"Santa Fe"},
