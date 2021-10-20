@@ -511,6 +511,7 @@ def reformat_date(date):
     #TicketMaster dates are YYYY-MM-DD
     #My date inputs are currently YYYY-MM-DD
     time = "T00:00:00Z"
+    date = str(date)
     formatted_date = date+time
     return formatted_date
 

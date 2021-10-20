@@ -80,14 +80,28 @@ def show_user_profile(username):
 
     user = crud.get_user_by_username(username)
 
-    vacations = user.vacation
     tips = user.tip
     tip_tags = []
     for tip in tips:
         tip_tag = crud.get_tip_tag_by_tip(tip=tip)
         tip_tags.append(tip_tag)
- 
-    return render_template("profile.html", user=user, vacations=vacations, tip_tags=tip_tags)
+
+    vacations = user.vacation
+
+    if len(vacations) == 1:
+        city = vacations[0].vacation_label.state.city.city_name
+        departure_date = vacations[0].vacation_label.departure_date
+        arrival_date = vacations[0].vacation_label.arrival_date
+
+        events = crud.search_events_by_city_and_dates(api_key=MY_API_KEY, city=city, start_date=departure_date, end_date=arrival_date)
+
+        event_names, event_urls, img_urls, start_dates, start_times, venues = crud.clean_up_event_results(all_events=events)
+
+        return render_template("profile_w_events.html", user=user, vacations=vacations, tip_tags=tip_tags, event_names=event_names, 
+            event_urls=event_urls, img_urls=img_urls, start_dates=start_dates, start_times=start_times, venues=venues)
+
+    else:   
+        return render_template("profile.html", user=user, vacations=vacations, tip_tags=tip_tags)
 
 #=================================================CREATE ACCOUNT ROUTE FUNCTIONS=================================================
 @app.route("/create_account")
@@ -127,7 +141,7 @@ def add_new_user():
 #=================================================VIEW TRAVEL TIPS ROUTE FUNCTIONS===========================================
 
 @app.route("/view_travel_tips_page_<page_num>")
-def show_next_page_results(page_num):
+def show_travel_tips(page_num):
     """Returns the pagination results for the next items in pagination object"""
 
     page_one = crud.get_paginated_tip_tags()
