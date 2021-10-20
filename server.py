@@ -197,31 +197,47 @@ def show_paginated_travel_tips_filtered_by_location(page_num):
         city_pag_obj = crud.get_paginated_city_filtered_tip_tags(city=city)
         city_pages = crud.get_dict_of_tip_tag_pages(pagination_obj=city_pag_obj)
         page_num = int(page_num)
-        page_items = crud.navigate_through_pages(page_num=page_num, pagination_obj=city_pages)
+
+        if city_pag_obj.page == 1:
+            return render_template("travel_tips.html", tip_tag_pages=city_pages, pagination_obj=city_pag_obj, page_num=page_num)
+        else:
+            page_items = crud.navigate_through_pages(page_num=page_num, pagination_obj=city_pages)
+            return render_template("travel_tips.html", tip_tag_pages=city_pages, pagination_obj=page_items, page_num=page_num)
     
     elif state_in_tags == True:
         state_pag_obj = crud.get_paginated_state_filtered_tip_tags(state=state)
         state_pages = crud.get_dict_of_tip_tag_pages(pagination_obj=state_pag_obj)
         page_num = int(page_num)
-        page_items = crud.navigate_through_pages(page_num=page_num, pagination_obj=state_pages)
+        if state_pag_obj.page == 1:
+            return render_template("travel_tips.html", tip_tag_pages=state_pages, pagination_obj=state_pag_obj, page_num=page_num)
+        else:
+            page_items = crud.navigate_through_pages(page_num=page_num, pagination_obj=state_pages)
+            return render_template("travel_tips.html", tip_tag_pages=state_pages, pagination_obj=page_items, page_num=page_num)
     
     else:
-        return ""
+        return render_template("travel_tips.html", tip_tag_pages=False, pagination_obj=False, page_num=page_num)
 
-# @app.route("/view_travel_tips/filtered_by_tag.json")
-# def show_travel_tips_filtered_by_tag():
-#     """"Filters tips by tag name and returns them in JSON"""
+@app.route("/view_travel_tips_filtered_by_tag_page_<page_num>")
+def show_pageinated_travel_tips_filtered_by_tag(page_num):
+    """"Filters tips by tag name and returns pagination object"""
 
-#     tag_name = request.args.get("tag_name")
+    tag_name = request.args.get("filter-tags").lower()
 
-#     all_tags = crud.get_tags_by_tag_name(tag_name=tag_name)
-#     tip_tags = crud.parse_through_tags(tags=all_tags)
+    all_tags = crud.get_tags_by_tag_name(tag_name=tag_name)
+    tip_tags = crud.parse_through_tags(tags=all_tags)
 
-#     tip_tags_dict = crud.make_dict_of_tip_tags(tip_tags=tip_tags)
-#     if tip_tags_dict == {}:
-#         return ""
-#     else:
-#         return jsonify(tip_tags_dict)
+    tip_tags_dict = crud.make_dict_of_tip_tags(tip_tags=tip_tags)
+    if tip_tags_dict == {}:
+        return render_template("travel_tips.html", tip_tag_pages=False, pagination_obj=False, page_num=page_num)
+    else:
+        tag_pag_obj = crud.get_paginated_tag_filtered_tip_tags(filter_tag=tag_name)
+        tag_pages = crud.get_dict_of_tip_tag_pages(pagination_obj=tag_pag_obj)
+        page_num = int(page_num)
+        if tag_pag_obj.page == 1:
+            return render_template("travel_tips.html", tip_tag_pages=tag_pages, pagination_obj=tag_pag_obj, page_num=page_num)
+        else:
+            page_items = crud.navigate_through_pages(page_num=page_num, pagination_obj=tag_pages)
+            return render_template("travel_tips.html", tip_tag_pages=tag_pages, pagination_obj=page_items, page_num=page_num)
 
 #=================================================CREATE TRAVEL TIP ROUTE FUNCTIONS==========================================
 @app.route("/create_tip")

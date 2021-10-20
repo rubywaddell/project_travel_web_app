@@ -73,5 +73,5 @@ const showLocationFilteredTips = (evt) => {
     }});
 };
 
-$('#tags-filter-submit').on('click', showTagFilteredTips);
-$('#city-state-filter-submit').on('click', showLocationFilteredTips);
+// $('#tags-filter-submit').on('click', showTagFilteredTips);
+// $('#city-state-filter-submit').on('click', showLocationFilteredTips);
