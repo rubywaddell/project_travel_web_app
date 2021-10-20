@@ -6,6 +6,11 @@
 
 <h1>{{user.fname}}'s Profile</h1>
 
+<!-- <p></p>
+<button class="btn btn-primary" type="button"><a href="/create_vacation">Add a new trip</a></button>
+<p></p>
+<button class="btn btn-primary" type="button"><a href="/view_travel_tips_page_1">View travel tips</a></button> -->
+
 <h2>Your Trips:</h2>
 <table>
     <tr>
@@ -23,12 +28,28 @@
         <td>{{ vacation.vacation_label.state.city.city_name }}</td>
     </tr>
     {% endfor %}
-
 </table>
 
-<p></p>
-<button class="btn btn-primary" type="button"><a href="/create_vacation">Add a new trip</a></button>
-<p></p>
-<button class="btn btn-primary" type="button"><a href="/view_travel_tips_page_1">View travel tips</a></button>
+<div id="user-travel-tips">
+    {% if tip_tags %}
+    <h2>Your Travel Tips:</h2>
+    <table>
+        <tr>
+            <th>Tag:</th>
+            <th>State:</th>
+            <th>City:</th>
+            <th>Tip:</th>
+        </tr>
+
+        {% for tip_tag in tip_tags%}
+        <tr>
+            <td>{{ tip_tag.tag.tag_name }}</td>
+            <td>{{ tip_tag.tag.tag_state }}</td>
+            <td>{{ tip_tag.tag.tag_city }}</td>
+            <td>{{ tip_tag.tip.tip_text }}</td>
+        </tr>
+        {% endfor %}
+    {% endif %}
+</div>
 
 {% endblock %}

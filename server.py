@@ -81,8 +81,13 @@ def show_user_profile(username):
     user = crud.get_user_by_username(username)
 
     vacations = user.vacation
+    tips = user.tip
+    tip_tags = []
+    for tip in tips:
+        tip_tag = crud.get_tip_tag_by_tip(tip=tip)
+        tip_tags.append(tip_tag)
  
-    return render_template("profile.html", user=user, vacations=vacations)
+    return render_template("profile.html", user=user, vacations=vacations, tip_tags=tip_tags)
 
 #=================================================CREATE ACCOUNT ROUTE FUNCTIONS=================================================
 @app.route("/create_account")
