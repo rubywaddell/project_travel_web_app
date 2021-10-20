@@ -1,10 +1,8 @@
 "use strict";
 
-console.log('connected to js');
 // ************************* Functions for Tip Filtering: ************************************
 const showTagFilteredTips = (evt) => {
     evt.preventDefault();
-    // alert("Prevent default is working");
 
     const tag_val = $('input[name="filter-tags"]:checked').val();
     console.log(tag_val)
@@ -13,16 +11,17 @@ const showTagFilteredTips = (evt) => {
     const formData = {tag_name: tag_val};
 
     $.get(url, formData, response => {
-        console.log(response);
+        
         $('#travel-tips-header').html(`<h2>Travel Tips About ${tag_val}</h2>`);
         $('#travel-tips-filter-div').html('');
+        $('#view-travel-tips-tip-data-div').html('');
 
         if (response === ""){
-            $('#view-travel-tips-table-div').html(`
+            $('#view-tips-div').html(`
             <h2>Sorry, there are no tips about ${tag_val} yet.</h2>
             <p>You can add one <a href="/create_tip">here</a></p>`);
         }else{
-            $('#view-travel-tips-table-div').html(`
+            $('#view-travel-tips-headers').html(`
             <div class="grid-container">
                 <div class="grid-item"><h4>State: </h4></div>
                 <div class="grid-item"><h4>City: </h4></div>
@@ -30,7 +29,7 @@ const showTagFilteredTips = (evt) => {
             </div>
             `)
             for (let i in response){
-                $('#view-filtered-tips-div').append(`
+                $('#view-travel-tips-tip-data-div').append(`
                 <div class="grid-container">
                     <div class="grid-item">${response[i]["tag_state"]}</div>
                     <div class="grid-item">${response[i]["tag_city"]}</div>
@@ -44,7 +43,6 @@ const showTagFilteredTips = (evt) => {
 const showLocationFilteredTips = (evt) => {
     
     evt.preventDefault();
-    // alert("Prevent default is working")
     
     const url = '/view_travel_tips/filtered_by_location.json';
     const formData = {state: $('#travel-tips-filter-state-input').val(), city: $('#travel-tips-filter-city-input').val()};
@@ -58,21 +56,13 @@ const showLocationFilteredTips = (evt) => {
         $('#travel-tips-filter-div').html('')
         console.log(response)
         if (response === ""){
-            $('#view-travel-tips-table-div').html(`<h2>Sorry, there are no tips for ${city} or ${state} yet.</h2>
+            $('#view-tips-div').html(`<h2>Sorry, there are no tips for ${city} or ${state} yet.</h2>
                 <h4>You can add one <a href="/create_tip">here</a></h4>`)
         }else{
             $('#travel-tips-header').html(`<h2>Tips for ${state}`)
-            $('#view-travel-tips-table-div').html(`
-            <div class="grid-container-four-columns">
-                <div class="grid-item"><h4>Tag: </h4></div>
-                <div class="grid-item"><h4>State: </h4></div>
-                <div class="grid-item"><h4>City: </h4></div>
-                <div class="grid-item"><h4>Tip: </h4></div>
-            </div>
-            `);
+            $('#view-travel-tips-tip-data-div').html('');
             for (let i in response){
-                console.log(response[i])
-            $('#view-filtered-tips-div').append(`
+            $('#view-travel-tips-tip-data-div').append(`
                 <div class="grid-container-four-columns">
                     <div class="grid-item">${response[i]["tag_name"]}</div>
                     <div class="grid-item">${response[i]["tag_state"]}</div>
@@ -86,13 +76,30 @@ const showLocationFilteredTips = (evt) => {
 $('#tags-filter-submit').on('click', showTagFilteredTips);
 $('#city-state-filter-submit').on('click', showLocationFilteredTips);
 
+
 // ************************* Functions for Pagination: ************************************
 
+let page_num = 1;
+
 const showNextPageTips = () => {
-    console.log("Click is working");
+    
+    page_num += 1;
+
     $.get("/page_results", response => {
-        console.log(response)
-    })
-}
+        
+        const current_page = response[page_num];
+        $('#view-travel-tips-tip-data-div').html('');
+        for (const tip in current_page){
+            $('#view-travel-tips-tip-data-div').append(`
+                <div class="grid-container-four-columns">
+                    <div class="grid-item">${current_page[tip]["tag_name"]}</div>
+                    <div class="grid-item">${current_page[tip]["tag_state"]}</div>
+                    <div class="grid-item">${current_page[tip]["tag_city"]}</div>
+                    <div class="grid-item">${current_page[tip]["tip_text"]}</div>
+                </div>
+            `);
+        };
+    });
+};
 
 $('#view-tips-next-page-btn').on('click', showNextPageTips);

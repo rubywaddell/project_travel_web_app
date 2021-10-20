@@ -32,35 +32,35 @@
             <input id="city-state-filter-submit" type="submit">
         </form>
         </div>
+</div>
+
+<div id="view-tips-div">
+    <div class="grid-container-four-columns" id="view-travel-tips-headers">
+        <div class="grid-item"><h4>Tag: </h4></div>
+        <div class="grid-item"><h4>State: </h4></div>
+        <div class="grid-item"><h4>City: </h4></div>
+        <div class="grid-item"><h4>Tip: </h4></div>
+    </div>
     
-</div>
-
-<div id="view-travel-tips-table-div">
-<table id="view-travel-tips-table">
-    <div id="view-travel-tips-header-row-div">
-    <tr id="view-travel-tips-header-row">
-        <th>Tag:</th>
-        <th>State:</th>
-        <th>City:</th>
-        <th>Tip:</th>
-    </tr>
+    <div id="view-travel-tips-tip-data-div">
+    {% for item in tip_tag_pages[1].values() %}
+    <div class="grid-container-four-columns" id="view-travel-tips-tip-data">
+        <div class="grid-item">{{ item["tag_name"] }}</div>
+        <div class="grid-item">{{ item["tag_state"] }}</div>
+        <div class="grid-item">{{ item["tag_city"] }}</div>
+        <div class="grid-item">{{ item["tip_text"] }}</div>
     </div>
-    <div id="view-travel-tips-page-one-items">
-        
-        {% for item in tip_tag_pages[1].values() %}
-        <tr>
-            <td>{{ item["tag_name"] }}</td>
-            <td>{{ item["tag_state"] }}</td>
-            <td>{{ item["tag_city"] }}</td>
-            <td>{{ item["tip_text"] }}</td>
-        </tr>
+    {% endfor %}
+    </div>
+
+    <div id="view-tips-page-number-div">
+        <button class="btn btn-primary" type="submit" id="view-tips-prev-page-btn" disabled>Previous Page</button>
+        {% for page_num in tip_tag_pages.keys() %}
+            {{ page_num }} . .
         {% endfor %}
-
+        <button class="btn btn-primary" type="submit" id="view-tips-next-page-btn">Next Page</button>
     </div>
-</table>
-<button class="btn btn-primary" type="submit" id="view-tips-next-page-btn">Next Page</button>
 </div>
-<div id="view-filtered-tips-div"></div>
 
 <script src="http://code.jquery.com/jquery.js"></script>
 <script src="static/js/travel_tips.js"></script>
