@@ -64,7 +64,7 @@
 
         {% for page in pagination_obj.iter_pages(left_edge=2, left_current=2, right_current=5, right_edge=2) %} 
             {% if page %}
-                {% if page != pagination_obj.page %}
+                {% if page != page_num %}
                     <strong><a href="/view_travel_tips_page_{{page}}">{{ page }}</a></strong>
                 {% else %}
                     <strong>{{ page }}</strong>

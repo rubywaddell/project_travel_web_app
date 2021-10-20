@@ -13,8 +13,6 @@ app = Flask(__name__)
 app.secret_key = "@#%()#HRTN$#OT#%ons!"
 app.jinja_env.undefined = StrictUndefined
 
-app.config['PAGE_SIZE'] = 20
-app.config['VISIBLE_PAGE_COUNT'] = 10
 
 MY_API_KEY = "NdMgdlGGSobRosfxcoA3WH8r8ifKMjOX"
 
@@ -122,24 +120,16 @@ def add_new_user():
     return redirect(f"/profile_{new_user.username}")
 
 #=================================================VIEW TRAVEL TIPS ROUTE FUNCTIONS===========================================
-@app.route("/view_travel_tips")
-def show_travel_tips():
-    """Renders the travel_tips page to show all tips in the database"""
+# @app.route("/view_travel_tips")
+# def show_travel_tips():
+#     """Renders the travel_tips page to show all tips in the database"""
 
-    tip_tag_pagination = crud.get_paginated_tip_tags()
-    tip_tag_pages = crud.get_dict_of_tip_tag_pages()
-    page_num = 1
+#     tip_tag_pagination = crud.get_paginated_tip_tags()
+#     tip_tag_pages = crud.get_dict_of_tip_tag_pages()
+#     page_num = 1
 
-    return render_template("travel_tips.html", tip_tag_pages=tip_tag_pages, pagination_obj=tip_tag_pagination, page_num=page_num)
+#     return render_template("travel_tips.html", tip_tag_pages=tip_tag_pages, pagination_obj=tip_tag_pagination, page_num=page_num)
 
-@app.route("/page_results")
-def get_page_results():
-    """Returns a dictionary of paginated results to display when user clicks next/prev page"""
-
-    paginated_obj = crud.get_paginated_tip_tags()
-    pages = crud.get_dict_of_tip_tag_pages()
-
-    return jsonify(pages)
 
 @app.route("/view_travel_tips_page_<page_num>")
 def show_next_page_results(page_num):
@@ -151,10 +141,14 @@ def show_next_page_results(page_num):
 
     page_num = int(page_num)
 
-    i = 0
-    while i < page_num:
-        tip_tag_pagination = page_one.next()
-        i += 1
+    if page_num != 1:
+        i = 0
+        while i < page_num:
+            tip_tag_pagination = page_one.next()
+            i += 1
+
+    else:
+        tip_tag_pagination = page_one
 
     return render_template("travel_tips.html", tip_tag_pages=pages, pagination_obj=tip_tag_pagination, page_num=page_num)
 
