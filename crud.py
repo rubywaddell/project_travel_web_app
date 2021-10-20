@@ -276,10 +276,32 @@ def show_tip_tags():
 
     return model.TipTag.query.all()
 
+def order_tip_tags_by_tip_tag_id_desc():
+    """Returns a list of all tip_tags in descending order"""
+
+    return model.db.session.query(model.TipTag).order_by(model.db.desc(model.TipTag.tip_tag_id)).all()
+
+def order_tip_tags_by_tip_id():
+    """Returns a list of all tip_tags ordered by tip_id"""
+
+    return model.db.session.query(model.TipTag).order_by(model.TipTag.tip_id).all()
+
+def order_tip_tags_by_tag_id():
+    """Returns a list of all tip_tags ordered by tag_id"""
+
+    return model.db.session.query(model.TipTag).order_by(model.TipTag.tag_id).all()
+
+def order_tip_tags_by_user_id():
+    """Returns a list of all tip_tags ordered by the user_id stored in tips"""
+
+    tip_tag_join_tips = model.db.session.query(model.TipTag).join(model.TipTag.tip)
+    return tip_tag_join_tips.order_by(model.Tip.user_id).all()
+
 def get_paginated_tip_tags():
     """Returns a pagination of all tip_tags in the database"""
 
-    tip_tag_base_query = model.db.session.query(model.TipTag)
+    # tip_tag_base_query = model.db.session.query(model.TipTag)
+    tip_tag_base_query = model.db.session.query(model.TipTag).order_by(model.db.desc(model.TipTag.tip_tag_id))
     return tip_tag_base_query.paginate(per_page=10)
 
 def get_paginated_tag_filtered_tip_tags(filter_tag):

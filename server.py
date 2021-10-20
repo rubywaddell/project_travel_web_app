@@ -138,50 +138,6 @@ def show_next_page_results(page_num):
 
 #=================================================FILTER TRAVEL TIPS FUNCTIONS================================================
 
-@app.route("/view_travel_tips/filtered_by_location.json")
-def show_travel_tips_filtered_by_location():
-    """Filters travel tips by the state and city inputted by user and returns them in JSON"""
-
-    state = request.args.get("state")
-    city = request.args.get("city")
-
-    state_in_tags = crud.check_if_state_in_tag_states(state=state)
-    city_in_tags = crud.check_if_city_in_tag_cities(city=city)
-    #both CRUD functions return a Boolean
-
-    if city_in_tags == True:
-        city_tags = crud.get_tags_by_tag_city(city=city)
-        city_tip_tags = crud.parse_through_tags(tags=city_tags)
-        tip_tag_dict = crud.make_dict_of_tip_tags(tip_tags=city_tip_tags)
-        return jsonify(tip_tag_dict)
-    
-    elif state_in_tags == True:
-        state_tags = crud.get_tags_by_tag_state(state=state)
-        state_tip_tags = crud.parse_through_tags(tags=state_tags)
-
-        tip_tag_dict = crud.make_dict_of_tip_tags(tip_tags=state_tip_tags)
-        return jsonify(tip_tag_dict)
-    
-    else:
-        return ""
-
-@app.route("/view_travel_tips/filtered_by_tag.json")
-def show_travel_tips_filtered_by_tag():
-    """"Filters tips by tag name and returns them in JSON"""
-
-    tag_name = request.args.get("tag_name")
-
-    all_tags = crud.get_tags_by_tag_name(tag_name=tag_name)
-    tip_tags = crud.parse_through_tags(tags=all_tags)
-
-    tip_tags_dict = crud.make_dict_of_tip_tags(tip_tags=tip_tags)
-    if tip_tags_dict == {}:
-        return ""
-    else:
-        return jsonify(tip_tags_dict)
-
-#================================================TEST FILTERED TAG PAGINATED RESULTS ========================================
-
 @app.route("/view_travel_tips_filtered_by_location_page_<page_num>")
 def show_paginated_travel_tips_filtered_by_location(page_num):
     """Filters travel tips by the state and city inputted by user and returns pagination object"""
@@ -272,7 +228,7 @@ def add_new_tip():
     new_tip_tag = crud.create_tip_tag(tag_id=new_tag.tag_id, tip_id=new_tip.tip_id)
 
     flash(f"Thank you for adding your tip about {city_name}, {state_name}")
-    return redirect("/view_travel_tips")
+    return redirect("/view_travel_tips_page_1")
 
 
 #=================================================CREATE VACATION ROUTE FUNCTIONS================================
