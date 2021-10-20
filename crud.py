@@ -334,6 +334,19 @@ def make_dict_of_tip_tags(tip_tags):
     
     return tip_tag_dict
 
+def navigate_through_pages(page_num, pagination_obj):
+    """Returns the pagination object for the given page number"""
+
+    if page_num != 1:
+        i = 0
+        while i < page_num:
+            tip_tag_pagination = pagination_obj.next()
+            i += 1
+    else:
+        tip_tag_pagination = pagination_obj
+
+    return tip_tag_pagination
+
 def get_tip_tag_by_tag_id(tag_id):
     """Query and return the first tip_tag with the given tag_id"""
 
