@@ -66,7 +66,6 @@
             {% if page %}
                 {% if page != pagination_obj.page %}
                     <strong><a href="/view_travel_tips_page_{{page}}">{{ page }}</a></strong>
-
                 {% else %}
                     <strong>{{ page }}</strong>
                 {% endif %}
@@ -75,10 +74,13 @@
             {% endif %}
             
         {% endfor %}
-        
-        <button class="btn btn-primary" type="submit" id="view-tips-next-page-btn">
-            <a href="/view_travel_tips_page_{{ page_num + 1}}">Next Page</a></button>
-    
+
+        {% if page_num+1 in tip_tag_pages.keys() %}
+            <button class="btn btn-primary" type="submit" id="view-tips-next-page-btn">
+                <a href="/view_travel_tips_page_{{ page_num + 1}}">Next Page</a></button>
+        {% else %}
+            <button class="btn btn-primary" type="submit" id="view-tips-next-page-btn" disabled>Next Page</button>
+        {% endif %}
     </div>
 </div>
 
