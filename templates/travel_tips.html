@@ -43,7 +43,7 @@
     </div>
     
     <div id="view-travel-tips-tip-data-div">
-    {% for item in tip_tag_pages[1].values() %}
+    {% for item in tip_tag_pages[page_num].values() %}
     <div class="grid-container-four-columns" id="view-travel-tips-tip-data">
         <div class="grid-item">{{ item["tag_name"] }}</div>
         <div class="grid-item">{{ item["tag_state"] }}</div>
@@ -54,13 +54,23 @@
     </div>
 
     <div id="view-tips-page-number-div">
-        <button class="btn btn-primary" type="submit" id="view-tips-prev-page-btn" disabled>Previous Page</button>
-        {% for page_num in tip_tag_pages.keys() %}
-            {{ page_num }} . .
+        <button class="btn btn-primary" type="submit" id="view-tips-prev-page-btn" >Previous Page</button>
+        {% for page in pagination_obj.iter_pages(left_edge=2, left_current=2, right_current=5, right_edge=2) %} 
+            {% if page %}
+                {% if page != pagination_obj.page %}
+                    <strong><a href="/view_travel_tips_page_{{page}}">{{ page }}</a></strong>
+                {% else %}
+                    <strong>{{ page }}</strong>
+                {% endif %}
+            {% else %}
+                <span class="ellipsis">...</span>
+            {% endif %}
         {% endfor %}
         <button class="btn btn-primary" type="submit" id="view-tips-next-page-btn">Next Page</button>
     </div>
 </div>
+
+<button class="btn btn-primary" id="test-page-btn" type="submit">TEST</button>
 
 <script src="http://code.jquery.com/jquery.js"></script>
 <script src="static/js/travel_tips.js"></script>

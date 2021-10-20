@@ -1,13 +1,10 @@
 "use strict";
 
-console.log("JS connected")
-
 $.get("/check_session", response => {
     if (response === "False"){
         console.log("Not logged in");
     }else{
         console.log("Logged in")
-        console.log(response);
         $('#login-link').html(`<li id="logout-link"><a href="/logout">Log Out</a></li>`);
         $('#create-account-link').html(`<li id="view-profile-link"><a href="/profile_${response}">Profile</a></li>`);
         $('#navigation-links-list').append(`

@@ -2,6 +2,7 @@
 
 # from re import U
 from flask import Flask, render_template, request, flash, session, redirect, jsonify
+from flask.helpers import _prepare_send_file_kwargs
 
 import model
 import crud
@@ -11,6 +12,9 @@ from jinja2 import StrictUndefined
 app = Flask(__name__)
 app.secret_key = "@#%()#HRTN$#OT#%ons!"
 app.jinja_env.undefined = StrictUndefined
+
+app.config['PAGE_SIZE'] = 20
+app.config['VISIBLE_PAGE_COUNT'] = 10
 
 MY_API_KEY = "NdMgdlGGSobRosfxcoA3WH8r8ifKMjOX"
 
@@ -29,7 +33,7 @@ def show_homepage():
 #=================================================SESSION ROUTE=================================================
 @app.route("/check_session")
 def check_session_for_user():
-    """Checks the session to see if user is logged in, and returns True or False as strings for AJAX functions in navigation_bar"""
+    """Checks the session to see if user is logged in, and returns username or False as strings for AJAX functions in navigation_bar"""
     if session == {}:
         return "False"
     else:
@@ -124,8 +128,9 @@ def show_travel_tips():
 
     tip_tag_pagination = crud.get_paginated_tip_tags()
     tip_tag_pages = crud.get_dict_of_tip_tag_pages()
+    page_num = 1
 
-    return render_template("travel_tips.html", tip_tag_pages=tip_tag_pages)
+    return render_template("travel_tips.html", tip_tag_pages=tip_tag_pages, pagination_obj=tip_tag_pagination, page_num=page_num)
 
 @app.route("/page_results")
 def get_page_results():
@@ -135,6 +140,23 @@ def get_page_results():
     pages = crud.get_dict_of_tip_tag_pages()
 
     return jsonify(pages)
+
+@app.route("/view_travel_tips_page_<page_num>")
+def show_next_page_results(page_num):
+    """Returns the pagination results for the next items in pagination object"""
+
+    pages = crud.get_dict_of_tip_tag_pages()
+
+    page_one = crud.get_paginated_tip_tags()
+
+    page_num = int(page_num)
+
+    i = 0
+    while i < page_num:
+        tip_tag_pagination = page_one.next()
+        i += 1
+
+    return render_template("travel_tips.html", tip_tag_pages=pages, pagination_obj=tip_tag_pagination, page_num=page_num)
 
 
 #=================================================FILTER TRAVEL TIPS FUNCTIONS================================================
