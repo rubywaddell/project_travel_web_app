@@ -513,6 +513,28 @@ def format_date_strings(date):
     format = "%Y-%m-%d"
     return datetime.strptime(date, format)
 
+def format_time_strings(time):
+    """Takes string in HH:MM:SS 24 hour time and returns a string in HH:MM format to display on destination_details page"""
+
+    time_split = time.split(":")
+    hour = time_split[0]
+    hour = int(hour)
+    minute = time_split[1]
+    if hour > 12:
+        hour = hour-12
+        time_split[2] = "PM"
+        time_split[0] = str(hour) + ':'
+        return ''.join(time_split)
+    elif hour == 12:
+        time_split[2] = "PM"
+        time_split[0] = str(hour) + ':'
+        return ''.join(time_split)
+    else:
+        time_split[2] = "AM"
+        time_split[0] = str(hour) + ':'
+        return ''.join(time_split)
+
+
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Functions for TicketMaster API: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #Notes on Ticketmaster Discovery API:
     #The results are not entirely consistent, some events have data for the event time and date, others just the date
@@ -618,10 +640,12 @@ def clean_up_event_results(all_events):
         #I will take the image at the first index and maintain format consistency using CSS styling
         img_urls.append(event['images'][0]['url'])
         #all events have a start date, stored under the 'dates' key, then 'start key
+
         start_dates.append(event['dates']['start']['localDate'])
         #NOT all events have a start time, need to check if it is there first:
         if 'localTime' in event['dates']['start'].keys():
-            start_times.append(event['dates']['start']['localTime'])
+            time = format_time_strings(event['dates']['start']['localTime'])
+            start_times.append(time)
         else:
             #Need to append a value to start_times so that start_times[index] matches the event at even_names[index]
             start_times.append(False)
