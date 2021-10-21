@@ -2,6 +2,9 @@
 <html>
     <head>
         <title>{% block title %}TITLE GOES HERE{% endblock %}</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" 
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
         <link rel="stylesheet" type="text/css" href="static/css/stylesheet.css">
 
         <script src="http://code.jquery.com/jquery.js"></script>
@@ -9,20 +12,41 @@
     </head>
 
     <body>
-        
-        <h2>Navigation:</h2>
-        <ul id="navigation-links-list">
-            <li id="homepage-link"><a href="/">Home</a></li>
-            <li id="login-link"><a href="/login">Log In</a></li>
-            <!-- When user is logged in, login link becomes log out -->
-            <!-- <li id="logout-link"><a href="/logout">Log Out</a></li> -->
-            <li id="create-account-link"><a href="/create_account">Create a New Account</a></li>
-            <li id="search=destination=link"><a href="/search_destination">Search Destination</a></li>
-            <li id="view-tips-link"><a href="/view_travel_tips_page_1">View Travel Tips</a></li>
-            <!-- When user is logged in, links to add tips and vacations are added to navigation -->
-            <!-- <li id="add-tip-link"><a href="/create_tip">Add a New Travel Tip</a></li> -->
-            <!-- <li id="add-vacation-link"><a href="/create_vacation">Add a New Vacation to Profile</a></li> -->
-        </ul>
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+              <a class="navbar-brand" href="#">TravelWise</a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                  <li class="nav-item" id="homepage-link">
+                    <a class="nav-link active" aria-current="page" href="/">Home</a>
+                  </li>
+                  <li class="nav-item" id="login-link">
+                    <a class="nav-link" href="/login">Log In</a>
+                  </li>
+                <!-- When user is logged in, login link becomes log out -->
+                  <li class="nav-item" id="create-account-link">
+                    <a class="nav-link" href="/create_account">Create Account</a>
+                  </li>
+                <!-- When user is logged in, create_account link becomes profile-->
+                  <li class="nav-item" id="search-destination-link">
+                    <a class="nav-link" href="/search_destination">Search Destination</a>
+                  </li>
+                  <li class="nav-item" id="view-tips-link">
+                      <a class="nav-link" href="/view_travel_tips_page_1">View Travel Tips</a>
+                  </li>
+                <!-- When user is logged in, links to add tips and vacations are added to navigation -->
+                <!-- <li id="add-tip-link"><a href="/create_tip">Add a New Travel Tip</a></li> -->
+                <!-- <li id="add-vacation-link"><a href="/create_vacation">Add a New Vacation to Profile</a></li> -->
+                </ul>
+              </div>
+            </div>
+          </nav>
+
         <p></p>
         {% for msg in get_flashed_messages() %} 
             <div class="flashed-messages">{{ msg }}</div>
@@ -30,5 +54,6 @@
 
         {% block content %}CONTENT GOES HERE{% endblock %}
     </body>
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" 
+    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </html>

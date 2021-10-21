@@ -291,6 +291,7 @@ def add_new_vacation():
 
     return redirect(f"/profile_{user.username}")
 
+
 #=================================================SEARCH DESTINATION ROUTE FUNCTIONS================================
 @app.route("/search_destination")
 def show_search_destination_page():

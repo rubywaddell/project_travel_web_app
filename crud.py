@@ -47,6 +47,12 @@ def get_user_by_username(username):
     user = model.User.query.filter(model.User.username == username).first()
     return user
 
+def change_user_email(new_email, old_email):
+    """Updates user's email address and returns the user"""
+
+    user = get_user_by_email(old_email)
+    user.email = new_email
+    return user
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Vacation CRUD functions:~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def create_vacation(vacation_label_id, user_id):
