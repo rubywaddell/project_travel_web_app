@@ -18,9 +18,13 @@
     {% for vacation in vacations %}
     <tr>
         <td>{{ vacation.vacation_label.departure_date }}</td>
-        <td> {{ vacation.vacation_label.arrival_date }}</td>
+        <td>{{ vacation.vacation_label.arrival_date }}</td>
         <td>{{ vacation.vacation_label.state.state_name }}</td>
         <td>{{ vacation.vacation_label.state.city.city_name }}</td>
+        <td>See events and tips for this destination
+            <a href="/destination_details?state={{vacation.vacation_label.state.state_name}}&city={{ vacation.vacation_label.state.city.city_name }}&departure-date={{ vacation.vacation_label.departure_date }}&arrival-date={{ vacation.vacation_label.arrival_date }}">
+                here</a>
+        </td>
     </tr>
     {% endfor %}
 </table>
@@ -44,6 +48,9 @@
             <td>{{ tip_tag.tip.tip_text }}</td>
         </tr>
         {% endfor %}
+    {% else %}
+    <h2>Your Travel Tips:</h2>
+    <h4>None added yet, add one <a href="/create_tip">here</a></h4>
     {% endif %}
 </div>
 
