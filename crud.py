@@ -59,7 +59,6 @@ def create_vacation(vacation_label_id, user_id):
 
     return vacation
 
-
 def show_vacations():
     """Return a list of all vacation objects in the database"""
 
@@ -78,6 +77,25 @@ def get_vacation_by_user_id(user_id):
     user_vacations = model.Vacation.query.filter(model.Vacation.user_id == user_id).all()
     return user_vacations
 
+def get_vacation_by_vacation_label_id(vacation_label_id):
+    """Queries and returns the first vacation object with the given vacation_label_id"""
+
+    vacation_vacation_label_join = model.db.session.query(model.Vacation).join(model.Vacation.vacation_label)
+    return vacation_vacation_label_join.filter(model.VacationLabel.vacation_label_id == vacation_label_id).first()
+
+def get_vacation_by_vacation_label(vacation_label):
+    """Queries and returns the first vacation object tied to the given vacation_label"""
+
+    vacation_vacation_label_join = model.db.session.query(model.Vacation).join(model.Vacation.vacation_label)
+    return vacation_vacation_label_join.filter(model.VacationLabel.vacation_label_id == vacation_label.vacation_label_id).first()
+
+def delete_vacation(vacation):
+    """Deletes the given vacation and its vacation_label from the database"""
+
+    vacation_label = get_vacation_label_by_vacation(vacation)
+    model.db.session.delete(vacation_label)
+    model.db.session.delete(vacation)
+    model.db.session.commit()
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~VacationLabel CRUD Functions:~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def create_vacation_label(departure_date, arrival_date, state_id=None):
@@ -101,12 +119,20 @@ def get_vacation_label_by_id(vacation_label_id):
     vacation_label = model.VacationLabel.query.filter(model.VacationLabel.vacation_label_id == vacation_label_id).first()
     return vacation_label
 
-def join_vacation_w_vacation_label():
-    """Join the vacation and vacation_label tables, return the BaseQuery for further querying in other functions"""
+def get_vacation_label_by_vacation(vacation):
+    """Query and returns the first vacation_label object with the given vacation relation"""
 
-    vacation_vacation_label_join = model.db.session.query(model.VacationLabel).join(model.VacationLabel.vacation)
+    vacation_label = model.db.session.query(model.VacationLabel).join(model.VacationLabel.vacation).filter(
+        model.Vacation.vacation_id == vacation.vacation_id).first()
     
-    return vacation_vacation_label_join
+    return vacation_label
+
+# def join_vacation_w_vacation_label():
+#     """Join the vacation and vacation_label tables, return the BaseQuery for further querying in other functions"""
+
+#     vacation_vacation_label_join = model.db.session.query(model.VacationLabel).join(model.VacationLabel.vacation)
+    
+#     return vacation_vacation_label_join
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~State CRUD functions:~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def create_state(state_name, city_id):
