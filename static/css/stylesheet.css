@@ -30,7 +30,7 @@ tr.destination-details-event-table-rows{
 /* Styling for destination_details tips table */
 table#destination-details-tip-table{
     padding: 15px;
-    width: 450px;
+    width: 800px;
 }
 
 table#destination-details-tip-table th{

@@ -3,6 +3,7 @@
 # from os import stat
 import model
 import requests
+from datetime import datetime
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~User CRUD functions:~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -45,7 +46,6 @@ def get_user_by_username(username):
 
     user = model.User.query.filter(model.User.username == username).first()
     return user
-
 
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Vacation CRUD functions:~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -126,13 +126,6 @@ def get_vacation_label_by_vacation(vacation):
         model.Vacation.vacation_id == vacation.vacation_id).first()
     
     return vacation_label
-
-# def join_vacation_w_vacation_label():
-#     """Join the vacation and vacation_label tables, return the BaseQuery for further querying in other functions"""
-
-#     vacation_vacation_label_join = model.db.session.query(model.VacationLabel).join(model.VacationLabel.vacation)
-    
-#     return vacation_vacation_label_join
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~State CRUD functions:~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def create_state(state_name, city_id):
@@ -513,6 +506,12 @@ def parse_through_tags(tags):
 
     return tip_tags
 
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Format dates inputted by HTML form~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+def format_date_strings(date):
+    """Takes string in yyyy-mm-dd format and returns datetime to display on desitnation_details page"""
+
+    format = "%Y-%m-%d"
+    return datetime.strptime(date, format)
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Functions for TicketMaster API: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #Notes on Ticketmaster Discovery API:

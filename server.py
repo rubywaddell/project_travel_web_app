@@ -103,6 +103,15 @@ def show_user_profile(username):
     else:   
         return render_template("profile.html", user=user, vacations=vacations, tip_tags=tip_tags)
 
+@app.route("/delete_vacation_<vacation_id>")
+def delete_vacation(vacation_id):
+    """Deletes a vacation from the database, called when user clicks delete button in profile"""
+
+    vacation = crud.get_vacation_by_id(vacation_id=vacation_id)
+    crud.delete_vacation(vacation=vacation)
+
+    return redirect(f"/profile_granger")
+
 #=================================================CREATE ACCOUNT ROUTE FUNCTIONS=================================================
 @app.route("/create_account")
 def show_create_account():
@@ -309,22 +318,28 @@ def show_destination_details():
     if city_in_tags == True:
         city_tags = crud.get_tags_by_tag_city(city=city)
         city_tip_tags = crud.parse_through_tags(tags=city_tags)
+        display_departure_date = crud.format_date_strings(departure_date)
+        display_arrival_date = crud.format_date_strings(arrival_date)
         
         return render_template("destination_details.html", tip_tags=city_tip_tags, city=city, state=state, 
-        departure_date=departure_date, arrival_date=arrival_date, event_names=event_names, event_urls=event_urls, img_urls=img_urls, start_dates=start_dates,
+        departure_date=display_departure_date, arrival_date=display_arrival_date, event_names=event_names, event_urls=event_urls, img_urls=img_urls, start_dates=start_dates,
         start_times=start_times, venues=venues)
     
     elif state_in_tags == True:
         state_tags = crud.get_tags_by_tag_state(state=state)
         state_tip_tags = crud.parse_through_tags(tags=state_tags)
+        display_departure_date = crud.format_date_strings(departure_date)
+        display_arrival_date = crud.format_date_strings(arrival_date)
 
         return render_template("destination_details.html", tip_tags=state_tip_tags, city=city, state=state, 
-        departure_date=departure_date, arrival_date=arrival_date, event_names=event_names, event_urls=event_urls, img_urls=img_urls, start_dates=start_dates,
+        departure_date=display_departure_date, arrival_date=display_arrival_date, event_names=event_names, event_urls=event_urls, img_urls=img_urls, start_dates=start_dates,
         start_times=start_times, venues=venues)
     
     else:
+        display_departure_date = crud.format_date_strings(departure_date)
+        display_arrival_date = crud.format_date_strings(arrival_date)
         return render_template("destination_details.html", tip_tags=[], city=city, state=state, 
-        departure_date=departure_date, arrival_date=arrival_date, event_names=event_names, event_urls=event_urls, img_urls=img_urls, start_dates=start_dates,
+        departure_date=display_departure_date, arrival_date=display_arrival_date, event_names=event_names, event_urls=event_urls, img_urls=img_urls, start_dates=start_dates,
         start_times=start_times, venues=venues)
 
 
