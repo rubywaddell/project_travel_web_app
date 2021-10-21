@@ -1,8 +1,7 @@
 """Server for travel safety app."""
 
-# from re import U
 from flask import Flask, render_template, request, flash, session, redirect, jsonify
-from flask.helpers import _prepare_send_file_kwargs
+# from flask.helpers import _prepare_send_file_kwargs
 
 import model
 import crud
@@ -28,7 +27,7 @@ def show_homepage():
     return render_template("homepage.html")
 
 
-#=================================================SESSION ROUTE=================================================
+#=====================================================SESSION ROUTE=======================================================
 @app.route("/check_session")
 def check_session_for_user():
     """Checks the session to see if user is logged in, and returns username or False as strings for AJAX functions in navigation_bar"""
@@ -109,8 +108,10 @@ def delete_vacation(vacation_id):
 
     vacation = crud.get_vacation_by_id(vacation_id=vacation_id)
     crud.delete_vacation(vacation=vacation)
+    user_id = vacation.user_id
+    user = crud.get_user_by_id(user_id)
 
-    return redirect(f"/profile_granger")
+    return redirect(f"/profile_{user.username}")
 
 #=================================================CREATE ACCOUNT ROUTE FUNCTIONS=================================================
 @app.route("/create_account")

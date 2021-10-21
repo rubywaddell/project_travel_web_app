@@ -7,14 +7,15 @@
 <h1>{{user.fname}}'s Profile</h1>
 
 <h2>Your Trips:</h2>
+{% if vacations %}
 <table>
     <tr>
         <th>Departure Date:</th>
         <th>Arrival Date:</th>
         <th>State:</th>
         <th>City:</th>
-        <th>See events and tips for your destination:</th>
-        <th>Delete this vacation:</th>
+        <th>See Events and Tips For Your Destination:</th>
+        <th>Delete This Vacation:</th>
     </tr>
     
     {% for vacation in vacations %}
@@ -32,7 +33,9 @@
     </tr>
     {% endfor %}
 </table>
-
+{% else %}
+<h3>No trips yet, add one <a href="/create_vacation">here</a></h3>
+{% endif %}
 <div id="user-travel-tips">
     {% if tip_tags %}
     <h2>Your Travel Tips:</h2>

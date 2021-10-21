@@ -13,6 +13,7 @@
         <th>Arrival Date:</th>
         <th>State:</th>
         <th>City:</th>
+        <th>Delete This Vacation:</th>
     </tr>
     
     {% for vacation in vacations %}
@@ -21,6 +22,8 @@
         <td> {{ vacation.vacation_label.arrival_date }}</td>
         <td>{{ vacation.vacation_label.state.state_name }}</td>
         <td>{{ vacation.vacation_label.state.city.city_name }}</td>
+        <td><button class="delete-vacation-button" type="button" id="profile-delete-vacation-btn">
+            <a href="delete_vacation_{{vacation.vacation_id}}">Delete</a></button></td>
     </tr>
     {% endfor %}
 </table>
@@ -84,6 +87,9 @@
             <td>{{ tip_tag.tip.tip_text }}</td>
         </tr>
         {% endfor %}
+    {% else %}
+        <h2>Your Travel Tips:</h2>
+        <h4>None added yet, add one <a href="/create_tip">here</a></h4>
     {% endif %}
 </div>
 
