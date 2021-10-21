@@ -307,41 +307,67 @@ def show_destination_details():
     departure_date = request.args.get("departure-date")
     arrival_date = request.args.get("arrival-date")
 
-    events = crud.search_events_by_city_and_dates(api_key=MY_API_KEY, city=city, start_date=departure_date, end_date=arrival_date)
-
-    event_names, event_urls, img_urls, start_dates, start_times, venues = crud.clean_up_event_results(all_events=events)
-
     state_in_tags = crud.check_if_state_in_tag_states(state=state)
     city_in_tags = crud.check_if_city_in_tag_cities(city=city)
     #both CRUD functions return a Boolean
 
-    if city_in_tags == True:
-        city_tags = crud.get_tags_by_tag_city(city=city)
-        city_tip_tags = crud.parse_through_tags(tags=city_tags)
-        display_departure_date = crud.format_date_strings(departure_date)
-        display_arrival_date = crud.format_date_strings(arrival_date)
+    events = crud.search_events_by_city_and_dates(api_key=MY_API_KEY, city=city, start_date=departure_date, end_date=arrival_date)
+    if events:
+        #If the query returns a list of events, then retrieve the necessary information to display
+        event_names, event_urls, img_urls, start_dates, start_times, venues = crud.clean_up_event_results(all_events=events)
+
+        if city_in_tags == True:
+            city_tags = crud.get_tags_by_tag_city(city=city)
+            city_tip_tags = crud.parse_through_tags(tags=city_tags)
+            display_departure_date = crud.format_date_strings(departure_date)
+            display_arrival_date = crud.format_date_strings(arrival_date)
+            
+            return render_template("destination_details.html", tip_tags=city_tip_tags, city=city, state=state, 
+            departure_date=display_departure_date, arrival_date=display_arrival_date, event_names=event_names, event_urls=event_urls, img_urls=img_urls, start_dates=start_dates,
+            start_times=start_times, venues=venues)
         
-        return render_template("destination_details.html", tip_tags=city_tip_tags, city=city, state=state, 
-        departure_date=display_departure_date, arrival_date=display_arrival_date, event_names=event_names, event_urls=event_urls, img_urls=img_urls, start_dates=start_dates,
-        start_times=start_times, venues=venues)
-    
-    elif state_in_tags == True:
-        state_tags = crud.get_tags_by_tag_state(state=state)
-        state_tip_tags = crud.parse_through_tags(tags=state_tags)
-        display_departure_date = crud.format_date_strings(departure_date)
-        display_arrival_date = crud.format_date_strings(arrival_date)
+        elif state_in_tags == True:
+            state_tags = crud.get_tags_by_tag_state(state=state)
+            state_tip_tags = crud.parse_through_tags(tags=state_tags)
+            display_departure_date = crud.format_date_strings(departure_date)
+            display_arrival_date = crud.format_date_strings(arrival_date)
 
-        return render_template("destination_details.html", tip_tags=state_tip_tags, city=city, state=state, 
-        departure_date=display_departure_date, arrival_date=display_arrival_date, event_names=event_names, event_urls=event_urls, img_urls=img_urls, start_dates=start_dates,
-        start_times=start_times, venues=venues)
-    
+            return render_template("destination_details.html", tip_tags=state_tip_tags, city=city, state=state, 
+            departure_date=display_departure_date, arrival_date=display_arrival_date, event_names=event_names, event_urls=event_urls, img_urls=img_urls, start_dates=start_dates,
+            start_times=start_times, venues=venues)
+        
+        else:
+            display_departure_date = crud.format_date_strings(departure_date)
+            display_arrival_date = crud.format_date_strings(arrival_date)
+            return render_template("destination_details.html", tip_tags=[], city=city, state=state, 
+            departure_date=display_departure_date, arrival_date=display_arrival_date, event_names=event_names, event_urls=event_urls, img_urls=img_urls, start_dates=start_dates,
+            start_times=start_times, venues=venues)
+
     else:
-        display_departure_date = crud.format_date_strings(departure_date)
-        display_arrival_date = crud.format_date_strings(arrival_date)
-        return render_template("destination_details.html", tip_tags=[], city=city, state=state, 
-        departure_date=display_departure_date, arrival_date=display_arrival_date, event_names=event_names, event_urls=event_urls, img_urls=img_urls, start_dates=start_dates,
-        start_times=start_times, venues=venues)
+        #If there are not events for the given search
+        if city_in_tags == True:
+            city_tags = crud.get_tags_by_tag_city(city=city)
+            city_tip_tags = crud.parse_through_tags(tags=city_tags)
+            display_departure_date = crud.format_date_strings(departure_date)
+            display_arrival_date = crud.format_date_strings(arrival_date)
+            
+            return render_template("destination_details.html", tip_tags=city_tip_tags, city=city, state=state, 
+            departure_date=display_departure_date, arrival_date=display_arrival_date, event_names=False)
+        
+        elif state_in_tags == True:
+            state_tags = crud.get_tags_by_tag_state(state=state)
+            state_tip_tags = crud.parse_through_tags(tags=state_tags)
+            display_departure_date = crud.format_date_strings(departure_date)
+            display_arrival_date = crud.format_date_strings(arrival_date)
 
+            return render_template("destination_details.html", tip_tags=state_tip_tags, city=city, state=state, 
+            departure_date=display_departure_date, arrival_date=display_arrival_date, event_names=False)
+        
+        else:
+            display_departure_date = crud.format_date_strings(departure_date)
+            display_arrival_date = crud.format_date_strings(arrival_date)
+            return render_template("destination_details.html", tip_tags=[], city=city, state=state, 
+            departure_date=display_departure_date, arrival_date=display_arrival_date, event_names=False)
 
 if __name__ == "__main__":
     # DebugToolbarExtension(app)

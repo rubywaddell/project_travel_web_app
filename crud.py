@@ -551,9 +551,13 @@ def search_events_by_city(api_key, city):
 
     results = response.json()
 
-    all_events = results["_embedded"]["events"]
-
-    return all_events
+    if results["_embedded"]:
+        #If the query returns results store them in a variable that is then returned
+        all_events = results["_embedded"]["events"]
+        return all_events
+    else:
+        #otherwiese, return False
+        return False
 
 def search_events_by_dates(api_key, start_date, end_date):
     """Searches for events in the TicketMaster API for a given date range. Returns JSON"""
@@ -567,9 +571,13 @@ def search_events_by_dates(api_key, start_date, end_date):
 
     results = response.json()
 
-    all_events = results["_embedded"]["events"]
-
-    return all_events
+    if results["_embedded"]:
+        #If the query returns results store them in a variable that is then returned
+        all_events = results["_embedded"]["events"]
+        return all_events
+    else:
+        #otherwiese, return False
+        return False
 
 def search_events_by_city_and_dates(api_key, city, start_date, end_date):
     """Searches for events in TicketMaster in a given city area from a given date to a given end date
@@ -585,9 +593,13 @@ def search_events_by_city_and_dates(api_key, city, start_date, end_date):
 
     results = response.json()
 
-    all_events = results["_embedded"]["events"]
-
-    return all_events
+    if "_embedded" in results.keys():
+        #If the query returns results store them in a variable that is then returned
+        all_events = results["_embedded"]["events"]
+        return all_events
+    else:
+        #otherwiese, return False
+        return False
 
 def clean_up_event_results(all_events):
     """Loop through all_events returned from API request and return data needed for webapp functions"""

@@ -33,8 +33,8 @@
     and {{ arrival_date.month }}/{{arrival_date.day}}/{{ arrival_date.year }}</h2>
 
 <div id="destination-details-event-container-div">
-    <table id="destination-details-event-table">
-        
+{% if event_names %}
+    <table id="destination-details-event-table">    
         {% for i in range(event_names|length) %}
         <tr class="destination-details-event-table-rows">
 
@@ -68,6 +68,9 @@
         {% endfor %}
         </tr>
     </table>
+{% else %}
+<h3>Sorry, there are no events scheduled for these dates</h3>
+{% endif %}
 </div>
 
 {% endblock %}
