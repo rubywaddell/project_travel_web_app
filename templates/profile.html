@@ -13,6 +13,8 @@
         <th>Arrival Date:</th>
         <th>State:</th>
         <th>City:</th>
+        <th>See events and tips for your destination:</th>
+        <th>Delete this vacation:</th>
     </tr>
     
     {% for vacation in vacations %}
@@ -21,10 +23,9 @@
         <td>{{ vacation.vacation_label.arrival_date }}</td>
         <td>{{ vacation.vacation_label.state.state_name }}</td>
         <td>{{ vacation.vacation_label.state.city.city_name }}</td>
-        <td>See events and tips for this destination
-            <a href="/destination_details?state={{vacation.vacation_label.state.state_name}}&city={{ vacation.vacation_label.state.city.city_name }}&departure-date={{ vacation.vacation_label.departure_date }}&arrival-date={{ vacation.vacation_label.arrival_date }}">
-                here</a>
-        </td>
+        <td><a href="/destination_details?state={{vacation.vacation_label.state.state_name}}&city={{ vacation.vacation_label.state.city.city_name }}&departure-date={{ vacation.vacation_label.departure_date }}&arrival-date={{ vacation.vacation_label.arrival_date }}">
+                Events and Tips</a></td>
+        <td><button class="button" type="button" id="profile-delete-vacation-btn">Delete</button></td>
     </tr>
     {% endfor %}
 </table>
