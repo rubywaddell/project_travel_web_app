@@ -7,7 +7,7 @@
 <h1>Edit {{user.fname}}'s Profile</h1>
 
 <h2>Edit your contact information:</h2>
-<form id="edit-user-information" action="/edit-user" method="POST">
+<form id="edit-user-information" action="/edit-use" method="POST">
 
     <div id="edit-user-username">
         <label><strong>Change Your Username:</strong></label>
@@ -16,7 +16,7 @@
         <input type="text" name="old-username">
         <label>New username:</label>
         <input type="text" name="new-username" pattern="\w{1, 15}" title="Username too long, please limit to 15 characters">
-        <input type="submit">
+        <input type="submit" id="change-username-submit">
     </div>
     <p></p>
     <div id="edit-user-email">
@@ -24,7 +24,7 @@
         <label>Old email address: </label><input type="email" name="old-email">
         <label>New email address:</label>
         <input type="email" name="new-email" pattern="\w*\@\w*\.\w{3}" title="Please enter a valid email address">
-        <input type="submit">
+        <input type="submit" id="change-email-submit">
     </div>
     <p></p>
     <div id="edit-user-password">
@@ -33,7 +33,7 @@
         <input type="password" name="old-password">
         <label>New Password:</label>
         <input type="password" name="new-password">
-        <input type="submit">
+        <input type="submit" id="change-password-submit">
     </div>
 
 {% endblock %}

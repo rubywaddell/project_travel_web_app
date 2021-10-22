@@ -30,8 +30,9 @@
         <td>{{ vacation.vacation_label.state.city.city_name }}</td>
         <td><a class="desination-links" href="/destination_details?state={{vacation.vacation_label.state.state_name}}&city={{ vacation.vacation_label.state.city.city_name }}&departure-date={{ vacation.vacation_label.departure_date }}&arrival-date={{ vacation.vacation_label.arrival_date }}">
                 Events and Tips</a></td>
-        <td><button class="btn btn-primary" id="profile-delete-vacation-btn">
+        <td><button class="btn btn-primary" id="profile-delete-vacation-btn" onClick="confirmDelete()">
             <a href="delete_vacation_{{vacation.vacation_id}}">Delete</a></button></td>
+            <script>function confirmDelete() { confirm("Are you sure you'd like to delete this? Action cannot be undon")}</script>
     </tr>
     {% endfor %}
 </table>
