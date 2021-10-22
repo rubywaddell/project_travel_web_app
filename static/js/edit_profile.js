@@ -9,12 +9,14 @@ const showEditEmailForm = () => {
         <label><strong>Update Email:</strong></label><p></p>
         <label>Old email address: </label><input type="email" name="old-email">
         <label>New email address:</label>
-        <input type="email" name="new-email" pattern="\w*\@\w*\.\w{3}" title="Please enter a valid email address">
+        <input type="email" name="new-email">
         <input type="submit" id="change-email-submit">
     </div>
     </form>
     <p></p>
     `);
+    // Regex pattern not working (pattern below) currently saying all email inputs are invalid (but title is not msg appearing)
+    // pattern="\w*\@\w*\.\w{3}" title="Please enter a valid email address"
 }
 
 const showEditUsernameForm = () => {
