@@ -1,0 +1,39 @@
+{% extends 'base.html' %} 
+
+{% block title %}Edit Profile{% endblock %} 
+
+{% block content %}
+
+<h1>Edit {{user.fname}}'s Profile</h1>
+
+<h2>Edit your contact information:</h2>
+<form id="edit-user-information" action="/edit-user" method="POST">
+
+    <div id="edit-user-username">
+        <label><strong>Change Your Username:</strong></label>
+        <p></p>
+        <label>Old username:</label>
+        <input type="text" name="old-username">
+        <label>New username:</label>
+        <input type="text" name="new-username" pattern="\w{1, 15}" title="Username too long, please limit to 15 characters">
+        <input type="submit">
+    </div>
+    <p></p>
+    <div id="edit-user-email">
+        <label><strong>Update Email:</strong></label><p></p>
+        <label>Old email address: </label><input type="email" name="old-email">
+        <label>New email address:</label>
+        <input type="email" name="new-email" pattern="\w*\@\w*\.\w{3}" title="Please enter a valid email address">
+        <input type="submit">
+    </div>
+    <p></p>
+    <div id="edit-user-password">
+        <label><strong>Change Password:</strong></label><p></p>
+        <label>Old Password:</label>
+        <input type="password" name="old-password">
+        <label>New Password:</label>
+        <input type="password" name="new-password">
+        <input type="submit">
+    </div>
+
+{% endblock %}
