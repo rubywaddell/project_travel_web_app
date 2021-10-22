@@ -79,6 +79,13 @@ def show_user_profile(username):
 
     user = crud.get_user_by_username(username)
 
+    print("\n"*3)
+    print("="*30)
+    print("username = ", username)
+    print("user = ", user)
+    print("="*30)
+    print("\n"*3)
+
     tips = user.tip
     tip_tags = []
     for tip in tips:
@@ -124,6 +131,19 @@ def show_edit_profile_template(user_id):
 
     user = crud.get_user_by_id(user_id=user_id)
     return render_template("edit_profile.html", user=user)
+
+@app.route("/edit_username")
+def edit_user_account():
+    """Changes user profile based upon user input in edit_profile form then redirects back to profile"""
+
+    old_username = request.args.get("old-username")
+    new_username = request.args.get("new-username")
+    
+    session["logged_in_username"] = new_username
+
+    user = crud.change_user_username(old_username=old_username, new_username=new_username)
+
+    return redirect(f"profile_{user.username}")
 
 #=================================================CREATE ACCOUNT ROUTE FUNCTIONS=================================================
 @app.route("/create_account")

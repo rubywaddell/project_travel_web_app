@@ -59,6 +59,7 @@ def change_user_username(old_username, new_username):
 
     user = get_user_by_username(old_username)
     user.username = new_username
+    model.db.session.commit()
     return user
 
 def change_user_password(user_id, new_password):
