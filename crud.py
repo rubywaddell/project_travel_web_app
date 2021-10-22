@@ -150,6 +150,15 @@ def get_vacation_label_by_vacation(vacation):
     
     return vacation_label
 
+def change_arrival_and_departure_dates(vacation_label_id, new_departure_date, new_arrival_date):
+    """Updates the departure and arrival dates and returns the vacation_label"""
+    
+    vacation_label = model.db.session.query(model.VacationLabel).get(vacation_label_id)
+    vacation_label.departure_date = new_departure_date
+    vacation_label.arrival_date = new_arrival_date
+    model.db.session.commit()
+    return vacation_label
+
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~State CRUD functions:~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def create_state(state_name, city_id):
     """Create a new state, add to database, and return it"""
