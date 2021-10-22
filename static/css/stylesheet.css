@@ -1,8 +1,16 @@
 /* Style for Travel Safety App */
 * {
     font-family: sans-serif;
+}
+
+h2 {
     text-align: center;
 }
+
+button a {
+    color: white
+}
+
 
 /* Styling for image on homepage */
 img#homepage-image{
@@ -21,44 +29,51 @@ img.destination-details-image {
 table#destination-details-event-table{
     padding: 15px;
     width: 1000px;
+    text-align: center;
 }
 
 tr.destination-details-event-table-rows{
     padding: 15px;
     border-bottom: 1px solid #ddd;
+    text-align: center;
 }
 
 /* Styling for destination_details tips table */
 table#destination-details-tip-table{
     padding: 15px;
     width: 800px;
+    text-align: center;
 }
 
 table#destination-details-tip-table th{
     font-size: larger;
     border-bottom: 1px solid #ddd;
     padding-bottom: 10px;
+    text-align: center;
 }
 
 table#destination-details-tip-table tr{
     padding: 15px;
-    /* text-align: center; */
+    text-align: center;
 }
 
 /* Styling for the view travel tips page */
 table#view-travel-tips-table{
     padding: 15px;
+    text-align: center;
     width: 1000px;
 }
 
 table#view-travel-tips-table tr{
     padding-bottom: 30px;
     border-bottom: 1px solid #ddd;
+    text-align: center;
 }
 
 .grid-container{
     display: grid;
     grid-template-columns: 110px 110px 1000px;
+    text-align: center;
 }
 
 .grid-container-four-columns{
@@ -66,8 +81,10 @@ table#view-travel-tips-table tr{
     display: grid;
     column-gap: 10px;
     row-gap: 10px;
+    text-align: center;
 }
 
 .grid-item{
-    padding: 15px
+    padding: 15px;
+    text-align: center;
 }

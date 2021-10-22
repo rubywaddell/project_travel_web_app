@@ -54,6 +54,20 @@ def change_user_email(new_email, old_email):
     user.email = new_email
     return user
 
+def change_user_username(old_username, new_username):
+    """Updates user's username and returns the user"""
+
+    user = get_user_by_username(old_username)
+    user.username = new_username
+    return user
+
+def change_user_password(user_id, new_password):
+    """Updates user's password and returns the user"""
+
+    user = get_user_by_id(user_id)
+    user.password = new_password
+    return user
+
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Vacation CRUD functions:~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def create_vacation(vacation_label_id, user_id):
     """Create and return a vacation object"""

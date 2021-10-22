@@ -93,14 +93,17 @@ def show_user_profile(username):
         arrival_date = vacations[0].vacation_label.arrival_date
 
         events = crud.search_events_by_city_and_dates(api_key=MY_API_KEY, city=city, start_date=departure_date, end_date=arrival_date)
+        if events:
+            event_names, event_urls, img_urls, start_dates, start_times, venues = crud.clean_up_event_results(all_events=events)
 
-        event_names, event_urls, img_urls, start_dates, start_times, venues = crud.clean_up_event_results(all_events=events)
-
-        return render_template("profile_w_events.html", user=user, vacations=vacations, tip_tags=tip_tags, event_names=event_names, 
-            event_urls=event_urls, img_urls=img_urls, start_dates=start_dates, start_times=start_times, venues=venues)
+            return render_template("profile.html", user=user, vacations=vacations, tip_tags=tip_tags, event_names=event_names, 
+                event_urls=event_urls, img_urls=img_urls, start_dates=start_dates, start_times=start_times, venues=venues)
+        
+        else:   
+            return render_template("profile.html", user=user, vacations=vacations, tip_tags=tip_tags, event_names=False)
 
     else:   
-        return render_template("profile.html", user=user, vacations=vacations, tip_tags=tip_tags)
+        return render_template("profile.html", user=user, vacations=vacations, tip_tags=tip_tags, event_names=False)
 
 @app.route("/delete_vacation_<vacation_id>")
 def delete_vacation(vacation_id):
@@ -112,6 +115,14 @@ def delete_vacation(vacation_id):
     user = crud.get_user_by_id(user_id)
 
     return redirect(f"/profile_{user.username}")
+
+
+#======================================================EDIT PROFILE ROUTE========================================================
+@app.route("/edit_profile")
+def show_edit_profile_template():
+    """Renders the edit profile template where user can select what they want to change"""
+
+    return render_template("edit_profile.html")
 
 #=================================================CREATE ACCOUNT ROUTE FUNCTIONS=================================================
 @app.route("/create_account")

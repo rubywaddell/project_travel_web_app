@@ -6,6 +6,8 @@
 
 <h1>{{user.fname}}'s Profile</h1>
 
+<button class="btn btn-primary"><a href="/edit_profile">Edit Profile</a></button>
+
 <h2>Your Trips:</h2>
 {% if vacations %}
 <table>
@@ -26,9 +28,9 @@
             {{vacation.vacation_label.arrival_date.year}}</td>
         <td>{{ vacation.vacation_label.state.state_name }}</td>
         <td>{{ vacation.vacation_label.state.city.city_name }}</td>
-        <td><a href="/destination_details?state={{vacation.vacation_label.state.state_name}}&city={{ vacation.vacation_label.state.city.city_name }}&departure-date={{ vacation.vacation_label.departure_date }}&arrival-date={{ vacation.vacation_label.arrival_date }}">
+        <td><a class="desination-links" href="/destination_details?state={{vacation.vacation_label.state.state_name}}&city={{ vacation.vacation_label.state.city.city_name }}&departure-date={{ vacation.vacation_label.departure_date }}&arrival-date={{ vacation.vacation_label.arrival_date }}">
                 Events and Tips</a></td>
-        <td><button class="delete-vacation-button" type="button" id="profile-delete-vacation-btn">
+        <td><button class="btn btn-primary" id="profile-delete-vacation-btn">
             <a href="delete_vacation_{{vacation.vacation_id}}">Delete</a></button></td>
     </tr>
     {% endfor %}
@@ -36,6 +38,49 @@
 {% else %}
 <h3>No trips yet, add one <a href="/create_vacation">here</a></h3>
 {% endif %}
+
+{% if event_names %}
+<h2>Events Scheduled During Your Vacation</h2>
+
+<div id="destination-details-event-container-div">
+    <table id="destination-details-event-table">
+        
+        {% for i in range(5) %}
+        <tr class="destination-details-event-table-rows">
+
+            <td id="destination-details-event-image">
+                <img class="destination-details-image" src="{{ img_urls[i] }}">
+            </td>
+
+            <td id="destination_details-event-date-time">
+                {{ start_dates[i] }} 
+
+                {% if start_times[i] %}
+                    <p>{{ start_times[i] }}</p>
+                    </td>
+                {% else %}
+                    </td>
+                {% endif %}
+
+            <td id="destination-details-event-name">
+                {{ event_names[i] }}
+                {% if venues[i] %}
+                    <p>At the {{ venues[i] }}</p>
+                    <p>
+                        <button class="btn btn-primary" type="button" id="destination-details-event-link-to-ticketmaster">
+                        <a href="{{ event_urls[i] }}">Get Tickets Here</a>
+                    </button>
+                </p>
+                {% endif %}
+            </td>
+
+            <p></p>
+        {% endfor %}
+        </tr>
+    </table>
+</div>
+{% endif %}
+
 <div id="user-travel-tips">
     {% if tip_tags %}
     <h2>Your Travel Tips:</h2>
