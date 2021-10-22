@@ -118,11 +118,12 @@ def delete_vacation(vacation_id):
 
 
 #======================================================EDIT PROFILE ROUTE========================================================
-@app.route("/edit_profile")
-def show_edit_profile_template():
+@app.route("/edit_profile_user_<user_id>")
+def show_edit_profile_template(user_id):
     """Renders the edit profile template where user can select what they want to change"""
 
-    return render_template("edit_profile.html")
+    user = crud.get_user_by_id(user_id=user_id)
+    return render_template("edit_profile.html", user=user)
 
 #=================================================CREATE ACCOUNT ROUTE FUNCTIONS=================================================
 @app.route("/create_account")
