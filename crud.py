@@ -47,6 +47,13 @@ def get_user_by_username(username):
     user = model.User.query.filter(model.User.username == username).first()
     return user
 
+def get_user_by_vacation_id(vacation_id):
+    """Return the first user with the given vacation_id"""
+
+    user_vacation_join = model.User.query.join(model.User.vacation)
+    user = user_vacation_join.filter(model.Vacation.vacation_id == vacation_id).first()
+    return user
+
 def change_user_email(new_email, old_email):
     """Updates user's email address and returns the user"""
 
