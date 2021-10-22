@@ -124,7 +124,7 @@ def delete_vacation(vacation_id):
     return redirect(f"/profile_{user.username}")
 
 
-#======================================================EDIT PROFILE ROUTE========================================================
+#======================================================EDIT PROFILE ROUTES========================================================
 @app.route("/edit_profile_user_<user_id>")
 def show_edit_profile_template(user_id):
     """Renders the edit profile template where user can select what they want to change"""
@@ -143,7 +143,29 @@ def edit_user_account():
 
     user = crud.change_user_username(old_username=old_username, new_username=new_username)
 
-    return redirect(f"profile_{user.username}")
+    return redirect(f"/profile_{user.username}")
+
+@app.route("/edit_email")
+def edit_user_email():
+    """Changes user's email stored in database based on user input in edit_profile form, redirects to profile"""
+
+    old_email = request.args.get("old-email")
+    new_email = request.args.get("new-email")
+
+    user = crud.change_user_email(new_email=new_email, old_email=old_email)
+
+    return redirect(f"/profile_{user.username}")
+
+@app.route("/edit_password_user_<user_id>", methods=["POST"])
+def edit_user_password(user_id):
+    """Changes user's password stored in database and redirects to their profile"""
+
+    new_password = request.form.get("new-password")
+    
+    user = crud.change_user_password(user_id=user_id, new_password=new_password)
+
+    return redirect(f"/profile_{user.username}")
+
 
 #=================================================CREATE ACCOUNT ROUTE FUNCTIONS=================================================
 @app.route("/create_account")
