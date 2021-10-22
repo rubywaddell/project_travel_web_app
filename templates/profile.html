@@ -8,13 +8,14 @@
 
 <h2>Your Trips:</h2>
 {% if vacations %}
-<table>
+<table id="user-vacations-profile-table">
     <tr>
         <th>Departure Date:</th>
         <th>Arrival Date:</th>
         <th>State:</th>
         <th>City:</th>
-        <th>See Events and Tips For Your Destination:</th>
+        <th>See Events and Tips:</th>
+        <th>Edit This Vacation:</th>
         <th>Delete This Vacation:</th>
     </tr>
     
@@ -26,13 +27,16 @@
             {{vacation.vacation_label.arrival_date.year}}</td>
         <td>{{ vacation.vacation_label.state.state_name }}</td>
         <td>{{ vacation.vacation_label.state.city.city_name }}</td>
-        <td><a class="desination-links" href="/destination_details?state={{vacation.vacation_label.state.state_name}}&city={{ vacation.vacation_label.state.city.city_name }}&departure-date={{ vacation.vacation_label.departure_date }}&arrival-date={{ vacation.vacation_label.arrival_date }}">
-                Events and Tips</a></td>
-        <td><button class="btn btn-primary" id="profile-delete-vacation-btn" onClick="confirmDelete()">
+        <td><button class="btn btn-outline-primary" id="profile-see-desintation-btn">
+            <a class="desination-links" href="/destination_details?state={{vacation.vacation_label.state.state_name}}&city={{ vacation.vacation_label.state.city.city_name }}&departure-date={{ vacation.vacation_label.departure_date }}&arrival-date={{ vacation.vacation_label.arrival_date }}">
+                Events and Tips</a></button></td>
+        <td>EDIT BUTTON WILL GO HERE</td>
+        <td><button class="btn btn-outline-danger" id="profile-delete-vacation-btn" onClick="confirmDelete()">
             <a href="delete_vacation_{{vacation.vacation_id}}">Delete</a></button></td>
-            <script>function confirmDelete() { confirm("Are you sure you'd like to delete this? Action cannot be undon")}</script>
+            <script>function confirmDelete() { confirm("Are you sure you'd like to delete this? Action cannot be undone")};</script>
     </tr>
     {% endfor %}
+<p></p>
 </table>
 {% else %}
 <h3>No trips yet, add one <a href="/create_vacation">here</a></h3>
@@ -80,6 +84,7 @@
 </div>
 {% endif %}
 
+<p></p>
 <div id="user-travel-tips">
     {% if tip_tags %}
     <h2>Your Travel Tips:</h2>
@@ -107,12 +112,12 @@
 
 <h2>{{ user.fname }} Contact Information</h2>
 
-<p id="edit-email-paragraph"><strong>Email: {{ user.email }}</strong><button class="btn" id="edit-email-button">Update Email Address</button></p>
+<p id="edit-email-paragraph"><strong>Email: {{ user.email }}</strong><button class="btn btn-light" id="edit-email-button">Update Email Address</button></p>
 
-<p id="edit-username-paragraph"><strong>Username: {{ user.username }}</strong><button class="btn" id="edit-username-button">Change Username</button></p>
+<p id="edit-username-paragraph"><strong>Username: {{ user.username }}</strong><button class="btn btn-light" id="edit-username-button">Change Username</button></p>
 
 <p id="edit-password-paragraph"><strong>Password: {% for char in user.password %}*{% endfor %}
-    </strong><button class="btn" id="edit-password-button">Change Password</button></p>
+    </strong><button class="btn btn-light" id="edit-password-button">Change Password</button></p>
 
 <script src="http://code.jquery.com/jquery.js"></script>
 <script src="static/js/edit_profile.js"></script>

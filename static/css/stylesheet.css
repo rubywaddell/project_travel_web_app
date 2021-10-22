@@ -7,10 +7,13 @@ h2 {
     text-align: center;
 }
 
-button a {
+button.btn-primary a {
     color: white
 }
 
+button.btn-outline-danger a {
+    color: red
+}
 
 /* Styling for image on homepage */
 img#homepage-image{
@@ -87,4 +90,9 @@ table#view-travel-tips-table tr{
 .grid-item{
     padding: 15px;
     text-align: center;
+}
+
+/* Profile styling  */
+#user-vacations-profile-table{
+    width: 1000px;
 }
