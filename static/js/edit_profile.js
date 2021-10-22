@@ -3,7 +3,18 @@
 console.log("edit-profile.js connected");
 
 const showEditEmailForm = () => {
-    alert('showEmailForm function on click is working');
+    $('#edit-email-paragraph').html(`
+    <form id="edit-user-email" action="/edit_email">
+    <div id="edit-user-email">
+        <label><strong>Update Email:</strong></label><p></p>
+        <label>Old email address: </label><input type="email" name="old-email">
+        <label>New email address:</label>
+        <input type="email" name="new-email" pattern="\w*\@\w*\.\w{3}" title="Please enter a valid email address">
+        <input type="submit" id="change-email-submit">
+    </div>
+    </form>
+    <p></p>
+    `);
 }
 
 const showEditUsernameForm = () => {
