@@ -27,11 +27,13 @@
             {{vacation.vacation_label.arrival_date.year}}</td>
         <td>{{ vacation.vacation_label.state.state_name }}</td>
         <td>{{ vacation.vacation_label.state.city.city_name }}</td>
-        <td><button class="btn btn-outline-primary" id="profile-see-desintation-btn">
+        <td><button class="btn btn-outline-primary btn-sm" id="profile-see-desintation-btn">
             <a class="desination-links" href="/destination_details?state={{vacation.vacation_label.state.state_name}}&city={{ vacation.vacation_label.state.city.city_name }}&departure-date={{ vacation.vacation_label.departure_date }}&arrival-date={{ vacation.vacation_label.arrival_date }}">
                 Events and Tips</a></button></td>
-        <td>EDIT BUTTON WILL GO HERE</td>
-        <td><button class="btn btn-outline-danger" id="profile-delete-vacation-btn" onClick="confirmDelete()">
+        <td><button class="btn btn-outline-primary btn-sm" id="profile-edit-vacation-btn">
+            <a href="/edit_vacation_{{vacation.vacation_id}}">Edit Vacation</a>
+        </button></td>
+        <td><button class="btn btn-outline-danger btn-sm" id="profile-delete-vacation-btn" onClick="confirmDelete()">
             <a href="delete_vacation_{{vacation.vacation_id}}">Delete</a></button></td>
             <script>function confirmDelete() { confirm("Are you sure you'd like to delete this? Action cannot be undone")};</script>
     </tr>
