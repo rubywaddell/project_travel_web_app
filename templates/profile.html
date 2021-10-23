@@ -17,7 +17,8 @@
     <div class="grid-item"><h6><strong>Edit Vacation</strong></h6></div>
     <div class="grid-item"><h6><strong>Delete Vacation</strong></h6></div>
 </div>
-    
+
+<div id="profile-vacations-for-loop-container">
     {% for vacation in vacations %}
     <div class="vacation-container-div grid-container" id="user-vacations-profile-data-grid-div">
         <div class="grid-item">{{ vacation.vacation_label.departure_date.month }} / {{ vacation.vacation_label.departure_date.day }}
@@ -27,17 +28,18 @@
         <div class="grid-item">{{ vacation.vacation_label.state.state_name }}</div>
         <div class="grid-item">{{ vacation.vacation_label.state.city.city_name }}</div>
         <div class="grid-item"><button class="btn btn-outline-primary btn-sm" id="profile-see-desintation-btn">
-            <a class="desination-links" href="/destination_details?state={{vacation.vacation_label.state.state_name}}&city={{ vacation.vacation_label.state.city.city_name }}&departure-date={{ vacation.vacation_label.departure_date }}&arrival-date={{ vacation.vacation_label.arrival_date }}">
+            <a class="destination-links" href="/destination_details?state={{vacation.vacation_label.state.state_name}}&city={{ vacation.vacation_label.state.city.city_name }}&departure-date={{ vacation.vacation_label.departure_date }}&arrival-date={{ vacation.vacation_label.arrival_date }}">
                 Events and Tips</a></button></div>
         <div class="grid-item"><button class="edit-vacation-btn btn btn-outline-primary btn-sm"
              id="{{vacation.vacation_id}}">Edit</button>
         </div>
         <div class="grid-item"><button class="delete-vacay-btn btn btn-outline-danger btn-sm" 
-            id="profile-delete-vacation-btn" name="{{vacation.vacation_label.vacation_label_id}}">
-            <a href="/delete_vacation_{{vacation.vacation_id}}">Delete</a></button>
+            id="{{vacation.vacation_label.vacation_label_id}}">Delete</button>
         </div>
     </div>
     {% endfor %}
+</div>
+<div id="user-vacations-after-delete-div"></div>
 
     <div id="add-new-vacation"><button class="btn btn-primary"><a href="/create_vacation">Add A New Vacation to Profile</a></button></div>
 
