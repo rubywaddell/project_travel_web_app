@@ -19,7 +19,7 @@ model.connect_to_db(app)
 model.db.create_all()
 
 
-#=================================================HOMEPAGE ROUTE========================================================
+#=====================================================HOMEPAGE ROUTE========================================================
 @app.route("/")
 def show_homepage():
     """Renders the homepage html to bring users to the homepage of app"""
@@ -304,7 +304,6 @@ def show_new_tip():
 def add_new_tip():
     """Adds new tip to the database after they submit the add new tip form"""
 
-    # username= request.form.get("username")
     if session == {}:
         flash("Please log in first")
         return redirect("/login")
@@ -328,7 +327,7 @@ def add_new_tip():
     return redirect("/view_travel_tips_page_1")
 
 
-#=================================================CREATE VACATION ROUTE FUNCTIONS================================
+#=================================================CREATE VACATION ROUTE FUNCTIONS===========================================
 @app.route("/create_vacation")
 def show_new_vacation():
     """Renders for that allows users to create a new vacation for their profile"""
@@ -360,7 +359,7 @@ def add_new_vacation():
     return redirect(f"/profile_{user.username}")
 
 
-#=================================================SEARCH DESTINATION ROUTE FUNCTIONS================================
+#=================================================SEARCH DESTINATION ROUTE FUNCTIONS==========================================
 @app.route("/search_destination")
 def show_search_destination_page():
     """Renders the search page where user can select a destination to search"""

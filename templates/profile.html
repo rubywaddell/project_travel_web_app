@@ -29,10 +29,13 @@
         <div class="grid-item"><button class="btn btn-outline-primary btn-sm" id="profile-see-desintation-btn">
             <a class="desination-links" href="/destination_details?state={{vacation.vacation_label.state.state_name}}&city={{ vacation.vacation_label.state.city.city_name }}&departure-date={{ vacation.vacation_label.departure_date }}&arrival-date={{ vacation.vacation_label.arrival_date }}">
                 Events and Tips</a></button></div>
-        <div class="grid-item"><button class="btn btn-outline-primary btn-sm" id="profile-edit-vacation-btn">
-            Edit Vacation</button></div>
-        <div class="grid-item"><button class="delete-vacay-btn btn btn-outline-danger btn-sm" id="profile-delete-vacation-btn" name="{{vacation.vacation_id}}">
-            <a href="/delete_vacation_{{vacation.vacation_id}}">Delete</a></button></div>
+        <div class="grid-item"><button class="edit-vacation-btn btn btn-outline-primary btn-sm"
+             id="{{vacation.vacation_id}}">Edit</button>
+        </div>
+        <div class="grid-item"><button class="delete-vacay-btn btn btn-outline-danger btn-sm" 
+            id="profile-delete-vacation-btn" name="{{vacation.vacation_label.vacation_label_id}}">
+            <a href="/delete_vacation_{{vacation.vacation_id}}">Delete</a></button>
+        </div>
     </div>
     {% endfor %}
 

@@ -3,9 +3,9 @@
 console.log("edit-profile.js connected");
 
 //----------------- DELETE VACATION FUNCTION -----------------------------
-// const deleteVacation = (evt) => {
-//     evt.preventDefault();
-//     // console.log('Prevent default on delete button is working');
+const deleteVacation = (evt) => {
+    evt.preventDefault();
+    console.log('Prevent default on delete button is working');
 //     const vacationId = $('.delete-vacay-btn').attr('name');
 //     console.log(vacationId);
     // const confirmation = confirm("Are you sure you'd like to delete this vacation? Action cannot be undone");
@@ -32,9 +32,9 @@ console.log("edit-profile.js connected");
     // }else{
     //     console.log("User chose NOT to delete");
     // };
-// };
+};
 
-// $('.delete-vacay-btn').on('click', deleteVacation);
+$('.delete-vacay-btn').on('click', deleteVacation);
 
 // ------------------ EDIT FUNCTIONS TO EDIT USER OBJECT ---------------------------
 const showEditEmailForm = () => {
@@ -92,7 +92,10 @@ $('#edit-password-button').on('click', showEditPasswordForm);
 
 //------------------------ EDIT FUNCTIONS TO EDIT VACATION_LABEL OBJECT -------------------
 const showEditVacationLabelForm = (evt) => {
-    evt.preventDefault();
-}
+    // evt.preventDefault();
+    // alert("Edit Vacation prevent default is working")
+    alert('You clicked edit');
+    console.log(evt.target.id);
+};
 
-$('#profile-edit-vacation-btn').on('click', showEditVacationLabelForm);
+$('.edit-vacation-btn').on('click', showEditVacationLabelForm);
