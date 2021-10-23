@@ -3,20 +3,38 @@
 console.log("edit-profile.js connected");
 
 //----------------- DELETE VACATION FUNCTION -----------------------------
-const deleteVacation = (evt) => {
-    evt.preventDefault();
-    console.log('Prevent default on delete button is working');
-    const vacationId = $('#profile-delete-vacation-btn').attr('name');
-    const confirmation = confirm("Are you sure you'd like to delete this vacation? Action cannot be undone");
-    if (confirmation === true){
-        console.log("User chose to delete");
-        evt.unbind() //---> i'm v hopeful this wil help, not sure
-    }else{
-        console.log("User chose NOT to delete");
-    };
-};
+// const deleteVacation = (evt) => {
+//     evt.preventDefault();
+//     // console.log('Prevent default on delete button is working');
+//     const vacationId = $('.delete-vacay-btn').attr('name');
+//     console.log(vacationId);
+    // const confirmation = confirm("Are you sure you'd like to delete this vacation? Action cannot be undone");
+    // if (confirmation === true){
+    //     $.get(`/delete_vacation_${vacationId}`, response => {
+    //         console.log(response);
+    //         for (let i in response){
+    //             console.log(response[i]);
+    //         //     $('.vacation-container-div').html(`
+    //         //     <div class="grid-item">${response[i]['departure_date']}</div>
+    //         //     <div class="grid-item">${response[i]['arrival_date']}</div>
+    //         //     <div class="grid-item">${response[i]['state_name']}</div>
+    //         //     <div class="grid-item">${response[i]['city_name']}</div>
+    //         //     <div class="grid-item"><button class="btn btn-outline-primary btn-sm" id="profile-see-desintation-btn">
+    //         //         <a class="desination-links" href="/destination_details?state=${response[i]['state_name']}&city=${response[i]['city_name']}&departure-date=${response[i]['departure_date']}&arrival-date=${response[i]['arrival_date']}">
+    //         //             Events and Tips</a></button></div>
+    //         //     <div class="grid-item"><button class="btn btn-outline-primary btn-sm" id="profile-edit-vacation-btn">
+    //         //         Edit Vacation</button></div>
+    //         //     <div class="grid-item"><button class="delete-vacay-btn btn btn-outline-danger btn-sm" id="profile-delete-vacation-btn" name="{{vacation.vacation_id}}">
+    //         //         Delete</button></div>
+    //         //     `);
+    //         };
+    //     });
+    // }else{
+    //     console.log("User chose NOT to delete");
+    // };
+// };
 
-$('#profile-delete-vacation-btn').on('click', deleteVacation);
+// $('.delete-vacay-btn').on('click', deleteVacation);
 
 // ------------------ EDIT FUNCTIONS TO EDIT USER OBJECT ---------------------------
 const showEditEmailForm = () => {

@@ -8,41 +8,40 @@
 
 <h2>Your Trips:</h2>
 {% if vacations %}
-<table id="user-vacations-profile-table">
-    <tr>
-        <th>Departure Date:</th>
-        <th>Arrival Date:</th>
-        <th>State:</th>
-        <th>City:</th>
-        <th>See Events and Tips:</th>
-        <th>Edit This Vacation:</th>
-        <th>Delete This Vacation:</th>
-    </tr>
+<div class="grid-container" id="user-vacations-profile-header-grid-div">
+    <div class="grid-item"><h6><strong>Departure Date</strong></h6></div>
+    <div class="grid-item"><h6><strong>Arrival Date</strong></h6></div>
+    <div class="grid-item"><h6><strong>State</strong></h6></div>
+    <div class="grid-item"><h6><strong>City</strong></h6></div>
+    <div class="grid-item"><h6><strong>See Events and Tips</strong></h6></div>
+    <div class="grid-item"><h6><strong>Edit Vacation</strong></h6></div>
+    <div class="grid-item"><h6><strong>Delete Vacation</strong></h6></div>
+</div>
     
     {% for vacation in vacations %}
-    <tr>
-        <td>{{ vacation.vacation_label.departure_date.month }} / {{ vacation.vacation_label.departure_date.day }}
-            / {{vacation.vacation_label.departure_date.year}}</td>
-        <td>{{ vacation.vacation_label.arrival_date.month }} / {{ vacation.vacation_label.arrival_date.day }} /
-            {{vacation.vacation_label.arrival_date.year}}</td>
-        <td>{{ vacation.vacation_label.state.state_name }}</td>
-        <td>{{ vacation.vacation_label.state.city.city_name }}</td>
-        <td><button class="btn btn-outline-primary btn-sm" id="profile-see-desintation-btn">
+    <div class="vacation-container-div grid-container" id="user-vacations-profile-data-grid-div">
+        <div class="grid-item">{{ vacation.vacation_label.departure_date.month }} / {{ vacation.vacation_label.departure_date.day }}
+            / {{vacation.vacation_label.departure_date.year}}</div>
+        <div class="grid-item">{{ vacation.vacation_label.arrival_date.month }} / {{ vacation.vacation_label.arrival_date.day }} /
+            {{vacation.vacation_label.arrival_date.year}}</div>
+        <div class="grid-item">{{ vacation.vacation_label.state.state_name }}</div>
+        <div class="grid-item">{{ vacation.vacation_label.state.city.city_name }}</div>
+        <div class="grid-item"><button class="btn btn-outline-primary btn-sm" id="profile-see-desintation-btn">
             <a class="desination-links" href="/destination_details?state={{vacation.vacation_label.state.state_name}}&city={{ vacation.vacation_label.state.city.city_name }}&departure-date={{ vacation.vacation_label.departure_date }}&arrival-date={{ vacation.vacation_label.arrival_date }}">
-                Events and Tips</a></button></td>
-        <td><button class="btn btn-outline-primary btn-sm" id="profile-edit-vacation-btn">
-            Edit Vacation
-        </button></td>
-        <td><button class="btn btn-outline-danger btn-sm" id="profile-delete-vacation-btn" 
-            name="{{vacation.vacation_id}}">Delete</button></td>
-    </tr>
+                Events and Tips</a></button></div>
+        <div class="grid-item"><button class="btn btn-outline-primary btn-sm" id="profile-edit-vacation-btn">
+            Edit Vacation</button></div>
+        <div class="grid-item"><button class="delete-vacay-btn btn btn-outline-danger btn-sm" id="profile-delete-vacation-btn" name="{{vacation.vacation_id}}">
+            <a href="/delete_vacation_{{vacation.vacation_id}}">Delete</a></button></div>
+    </div>
     {% endfor %}
-</table>
+
+    <div id="add-new-vacation"><button class="btn btn-primary"><a href="/create_vacation">Add A New Vacation to Profile</a></button></div>
 
 {% else %}
-<h3>No trips yet, add one <a href="/create_vacation">here</a></h3>
+    <h3>No trips yet, add one <a href="/create_vacation">here</a></h3>
 {% endif %}
-<div id="user-vacation-after-delete-div"></div>
+
 
 {% if event_names %}
 <h2>Events Scheduled During Your Vacation</h2>

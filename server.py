@@ -113,14 +113,15 @@ def delete_vacation(vacation_id):
     user = crud.get_user_by_id(vacation.user_id)
     crud.delete_vacation(vacation=vacation)
 
-    vacations = user.vacation
-    vacation_labels = []
-    for vacation in vacations:
-        vacation_labels.append(vacation.vacation_label)
+    # vacations = user.vacation
+    # vacation_labels = []
+    # for vacation in vacations:
+    #     vacation_labels.append(vacation.vacation_label)
 
-    vacation_label_dict = crud.make_vacation_label_dict(vacation_labels)
+    # vacation_label_dict = crud.make_vacation_label_dict(vacation_labels)
 
-    return vacation_label_dict
+    # return vacation_label_dict
+    return redirect(f"/profile_{user.username}")
 
 
 #======================================================EDIT PROFILE ROUTES========================================================

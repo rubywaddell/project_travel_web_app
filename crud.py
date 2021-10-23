@@ -179,8 +179,8 @@ def make_vacation_label_dict(vacation_labels):
     """Iterates through a list of vacations and returns a dictionary that is jsonifiable"""
 
     vacation_label_dict = {}
-    for vacation_label in vacation_labels:
-        vacation_label_dict[vacation_label.vacation_label_id] = {
+    for i, vacation_label in enumerate(vacation_labels):
+        vacation_label_dict[i] = {
             "departure_date" : vacation_label.departure_date,
             "arrival_date" : vacation_label.arrival_date,
             "state_name" : vacation_label.state.state_name,
