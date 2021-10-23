@@ -105,6 +105,9 @@ def show_user_profile(username):
     else:   
         return render_template("profile.html", user=user, vacations=vacations, tip_tags=tip_tags, event_names=False)
 
+
+#======================================================EDIT VACATION ROUTES========================================================
+
 @app.route("/delete_vacation_<vacation_id>")
 def delete_vacation(vacation_id):
     """Deletes a vacation from the database, called when user clicks delete button in profile"""
@@ -122,6 +125,22 @@ def delete_vacation(vacation_id):
 
     return jsonify(vacation_label_dict)
     # return redirect(f"/profile_{user.username}")
+
+@app.route("/edit_vacation_dates_id_<vacation_id>")
+def edit_vacation_dates(vacation_id):
+    """Edits the departure and arrival dates for the given vacation and redirects to profile"""
+
+    new_departure_date = request.args.get("departure-date")
+    new_arrival_date = request.args.get("arrival-date")
+
+    vacation = crud.get_vacation_by_id(vacation_id)
+    vacation_label_id = crud.get_vacation_label_by_vacation(vacation).vacation_label_id
+
+    crud.change_arrival_and_departure_dates(vacation_label_id, new_departure_date, new_arrival_date)
+
+    user = crud.get_user_by_vacation_id(vacation_id=vacation_id)
+
+    return redirect(f"/profile_{user.username}")
 
 
 #======================================================EDIT PROFILE ROUTES========================================================

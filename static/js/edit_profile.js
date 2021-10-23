@@ -99,9 +99,9 @@ const showEditVacationLabelForm = (evt) => {
     <form action="/edit_vacation_dates_id_${vacationId}">
     <div id="edit-vacation-dates">
         <label>From:</label>
-        <input type="date" id="new-vacation-departure-date" name="departure-date">
+        <input type="date" id="new-departure-date" name="departure-date">
         <label>To:</label>
-        <input type="date" id="new-vacation-arrival-date" name="arrival-date">
+        <input type="date" id="new-arrival-date" name="arrival-date">
         <input type="submit">
     </div>
     </form>
