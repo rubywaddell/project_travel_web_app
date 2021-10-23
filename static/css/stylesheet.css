@@ -73,11 +73,11 @@ table#view-travel-tips-table tr{
     text-align: center;
 }
 
-.grid-container{
+/* .grid-container{
     display: grid;
     grid-template-columns: 110px 110px 1000px;
     text-align: center;
-}
+} */
 
 .grid-container-four-columns{
     grid-template-columns: 90px 110px 110px 1000px;
@@ -90,6 +90,11 @@ table#view-travel-tips-table tr{
 .grid-item{
     padding: 15px;
     text-align: center;
+    display: inline-block
+}
+
+.grid-container #user-vacations-grid{
+    grid-template-columns: auto auto auto auto auto auto auto;
 }
 
 /* Profile styling  */

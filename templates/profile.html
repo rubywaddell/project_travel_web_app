@@ -31,18 +31,18 @@
             <a class="desination-links" href="/destination_details?state={{vacation.vacation_label.state.state_name}}&city={{ vacation.vacation_label.state.city.city_name }}&departure-date={{ vacation.vacation_label.departure_date }}&arrival-date={{ vacation.vacation_label.arrival_date }}">
                 Events and Tips</a></button></td>
         <td><button class="btn btn-outline-primary btn-sm" id="profile-edit-vacation-btn">
-            <a href="/edit_vacation_label_{{vacation.vacation_label.vacation_label_id}}">Edit Vacation</a>
+            Edit Vacation
         </button></td>
-        <td><button class="btn btn-outline-danger btn-sm" id="profile-delete-vacation-btn" onClick="confirmDelete()">
-            <a href="delete_vacation_{{vacation.vacation_id}}">Delete</a></button></td>
-            <script>function confirmDelete() { confirm("Are you sure you'd like to delete this? Action cannot be undone")};</script>
+        <td><button class="btn btn-outline-danger btn-sm" id="profile-delete-vacation-btn" 
+            name="{{vacation.vacation_id}}">Delete</button></td>
     </tr>
     {% endfor %}
-<p></p>
 </table>
+
 {% else %}
 <h3>No trips yet, add one <a href="/create_vacation">here</a></h3>
 {% endif %}
+<div id="user-vacation-after-delete-div"></div>
 
 {% if event_names %}
 <h2>Events Scheduled During Your Vacation</h2>

@@ -127,6 +127,7 @@ def delete_vacation(vacation):
     model.db.session.delete(vacation)
     model.db.session.commit()
 
+
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~VacationLabel CRUD Functions:~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def create_vacation_label(departure_date, arrival_date, state_id=None):
     """Create and return a vacation_label object"""
@@ -173,6 +174,20 @@ def change_vacation_label_location(vacation_label_id, new_state, new_city):
     vacation_label.state.state_name = new_state
     vacation_label.state.city.city_name = new_city
     return vacation_label
+
+def make_vacation_label_dict(vacation_labels):
+    """Iterates through a list of vacations and returns a dictionary that is jsonifiable"""
+
+    vacation_label_dict = {}
+    for vacation_label in vacation_labels:
+        vacation_label_dict[vacation_label.vacation_label_id] = {
+            "departure_date" : vacation_label.departure_date,
+            "arrival_date" : vacation_label.arrival_date,
+            "state_name" : vacation_label.state.state_name,
+            "city_name" : vacation_label.state.city.city_name
+        }
+
+    return vacation_label_dict
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~State CRUD functions:~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def create_state(state_name, city_id):

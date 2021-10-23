@@ -2,6 +2,23 @@
 
 console.log("edit-profile.js connected");
 
+//----------------- DELETE VACATION FUNCTION -----------------------------
+const deleteVacation = (evt) => {
+    evt.preventDefault();
+    console.log('Prevent default on delete button is working');
+    const vacationId = $('#profile-delete-vacation-btn').attr('name');
+    const confirmation = confirm("Are you sure you'd like to delete this vacation? Action cannot be undone");
+    if (confirmation === true){
+        console.log("User chose to delete");
+        evt.unbind() //---> i'm v hopeful this wil help, not sure
+    }else{
+        console.log("User chose NOT to delete");
+    };
+};
+
+$('#profile-delete-vacation-btn').on('click', deleteVacation);
+
+// ------------------ EDIT FUNCTIONS TO EDIT USER OBJECT ---------------------------
 const showEditEmailForm = () => {
     $('#edit-email-paragraph').html(`
     <form id="edit-user-email" action="/edit_email">
@@ -53,3 +70,11 @@ const showEditPasswordForm = () => {
 $('#edit-email-button').on('click', showEditEmailForm);
 $('#edit-username-button').on('click', showEditUsernameForm);
 $('#edit-password-button').on('click', showEditPasswordForm);
+
+
+//------------------------ EDIT FUNCTIONS TO EDIT VACATION_LABEL OBJECT -------------------
+const showEditVacationLabelForm = (evt) => {
+    evt.preventDefault();
+}
+
+$('#profile-edit-vacation-btn').on('click', showEditVacationLabelForm);

@@ -79,13 +79,6 @@ def show_user_profile(username):
 
     user = crud.get_user_by_username(username)
 
-    print("\n"*3)
-    print("="*30)
-    print("username = ", username)
-    print("user = ", user)
-    print("="*30)
-    print("\n"*3)
-
     tips = user.tip
     tip_tags = []
     for tip in tips:
@@ -117,11 +110,17 @@ def delete_vacation(vacation_id):
     """Deletes a vacation from the database, called when user clicks delete button in profile"""
 
     vacation = crud.get_vacation_by_id(vacation_id=vacation_id)
+    user = crud.get_user_by_id(vacation.user_id)
     crud.delete_vacation(vacation=vacation)
-    user_id = vacation.user_id
-    user = crud.get_user_by_id(user_id)
 
-    return redirect(f"/profile_{user.username}")
+    vacations = user.vacation
+    vacation_labels = []
+    for vacation in vacations:
+        vacation_labels.append(vacation.vacation_label)
+
+    vacation_label_dict = crud.make_vacation_label_dict(vacation_labels)
+
+    return vacation_label_dict
 
 
 #======================================================EDIT PROFILE ROUTES========================================================
@@ -163,6 +162,20 @@ def edit_user_password(user_id):
     new_password = request.form.get("new-password")
     
     user = crud.change_user_password(user_id=user_id, new_password=new_password)
+
+    return redirect(f"/profile_{user.username}")
+
+@app.route("/edit_vacation_label_<vacation_label_id>")
+def edit_vacation_label(vacation_label_id):
+    """Edits vacation_label information based on user inputs"""
+
+    new_departure_date = request.args.get("new-departure-date")
+    new_arrival_date = request.args.get("new-arrival-date")
+    new_state = request.args.get("new-state")
+    new_city = request.args.get("new-city")
+
+    vacation = crud.get_vacation_by_vacation_label_id(vacation_label_id=vacation_label_id)
+    user = crud.get_user_by_vacation_id(vacation_id=vacation.vacation_id)
 
     return redirect(f"/profile_{user.username}")
 
