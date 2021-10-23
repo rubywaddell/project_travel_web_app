@@ -120,7 +120,7 @@ def delete_vacation(vacation_id):
 
     vacation_label_dict = crud.make_vacation_label_dict(vacation_labels)
 
-    return vacation_label_dict
+    return jsonify(vacation_label_dict)
     # return redirect(f"/profile_{user.username}")
 
 

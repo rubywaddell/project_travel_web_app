@@ -1,6 +1,5 @@
 "use strict";
 
-console.log("edit-profile.js connected");
 
 //----------------- DELETE VACATION FUNCTION -----------------------------
 const deleteVacation = (evt) => {
@@ -15,17 +14,17 @@ const deleteVacation = (evt) => {
             for (let i in response){
                 console.log(response[i]);
                 $('#user-vacations-after-delete-div').append(`
-                <div class="grid-item">${response[i]['departure_date']}</div>
-                <div class="grid-item">${response[i]['arrival_date']}</div>
+                <div class="grid-item">${response[i]['departure_month']}/${response[i]['departure_day']}/${response[i]['departure_year']}</div>
+                <div class="grid-item">${response[i]['arrival_month']}/${response[i]['arrival_day']}/${response[i]['arrival_year']}</div>
                 <div class="grid-item">${response[i]['state_name']}</div>
                 <div class="grid-item">${response[i]['city_name']}</div>
                 <div class="grid-item"><button class="btn btn-outline-primary btn-sm" id="profile-see-desintation-btn">
-                    <a class="desination-links" href="/destination_details?state=${response[i]['state_name']}&city=${response[i]['city_name']}&departure-date=${response[i]['departure_date']}&arrival-date=${response[i]['arrival_date']}">
+                    <a class="desination-links" href="/destination_details?state=${response[i]['state_name']}&city=${response[i]['city_name']}&departure-date=${response[i]['departure_year']}-${response[i]['departure_month']}-${response[i]['departure_day']}&arrival-date=${response[i]['arrival_year']}-${response[i]['arrival_month']}-${response[i]['arrival_day']}">
                         Events and Tips</a></button></div>
                 <div class="grid-item"><button class="btn btn-outline-primary btn-sm" id="profile-edit-vacation-btn">
                     Edit Vacation</button></div>
-                <div class="grid-item"><button class="delete-vacay-btn btn btn-outline-danger btn-sm" id="profile-delete-vacation-btn" name="{{vacation.vacation_id}}">
-                    Delete</button></div>
+                <div class="grid-item"><button class="delete-vacay-btn btn btn-outline-danger btn-sm" 
+                id="profile-delete-vacation-btn" name="{{vacation.vacation_id}}">Delete</button></div>
                 `);
             };
         });

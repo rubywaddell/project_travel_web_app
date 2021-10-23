@@ -180,9 +180,20 @@ def make_vacation_label_dict(vacation_labels):
 
     vacation_label_dict = {}
     for i, vacation_label in enumerate(vacation_labels):
+        departure_month = vacation_label.departure_date.month
+        departure_day = vacation_label.departure_date.day
+        departure_year = vacation_label.departure_date.year
+        arrival_month = vacation_label.arrival_date.month
+        arrival_day = vacation_label.arrival_date.day
+        arrival_year = vacation_label.arrival_date.year
+
         vacation_label_dict[i] = {
-            "departure_date" : vacation_label.departure_date,
-            "arrival_date" : vacation_label.arrival_date,
+            "departure_month" : departure_month,
+            "departure_day" : departure_day,
+            "departure_year" : departure_year,
+            "arrival_month" : arrival_month,
+            "arrival_day" : arrival_day,
+            "arrival_year" : arrival_year,
             "state_name" : vacation_label.state.state_name,
             "city_name" : vacation_label.state.city.city_name
         }
