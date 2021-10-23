@@ -142,6 +142,22 @@ def edit_vacation_dates(vacation_id):
 
     return redirect(f"/profile_{user.username}")
 
+@app.route("/edit_vacation_location_id_<vacation_id>")
+def edit_vacation_location(vacation_id):
+    """Edits the location for the given location and redirects to profile"""
+
+    new_state = request.args.get("state")
+    new_city = request.args.get("city")
+
+    vacation = crud.get_vacation_by_id(vacation_id)
+    vacation_label_id = crud.get_vacation_label_by_vacation(vacation).vacation_label_id
+
+    crud.change_vacation_label_location(vacation_label_id, new_state, new_city)
+
+    user = crud.get_user_by_vacation_id(vacation_id)
+
+    return redirect(f"/profile_{user.username}")
+
 
 #======================================================EDIT PROFILE ROUTES========================================================
 @app.route("/edit_profile_user_<user_id>")
