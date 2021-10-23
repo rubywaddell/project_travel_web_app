@@ -91,10 +91,31 @@ $('#edit-password-button').on('click', showEditPasswordForm);
 
 //------------------------ EDIT FUNCTIONS TO EDIT VACATION_LABEL OBJECT -------------------
 const showEditVacationLabelForm = (evt) => {
-    // evt.preventDefault();
-    // alert("Edit Vacation prevent default is working")
-    alert('You clicked edit');
+    
     console.log(evt.target.id);
+    const vacationId = evt.target.id
+    $('#profile-vacations-for-loop-container').append(`
+    <strong>Enter new vacation information here:</strong>
+    <form action="/edit_vacation_dates_id_${vacationId}">
+    <div id="edit-vacation-dates">
+        <label>From:</label>
+        <input type="date" id="new-vacation-departure-date" name="departure-date">
+        <label>To:</label>
+        <input type="date" id="new-vacation-arrival-date" name="arrival-date">
+        <input type="submit">
+    </div>
+    </form>
+
+    <form action="/edit_vacation_location_id_${vacationId}">
+    <div id="edit-vacation-location">
+        <label>Please enter the city and state</label>
+        <label>State:</label><input type="text" name="state">
+        <label>City:</label><input type="text" name="city">
+    <input type="submit">    
+    </div>
+    </form>
+    <p></p>
+    `);
 };
 
 $('.edit-vacation-btn').on('click', showEditVacationLabelForm);
