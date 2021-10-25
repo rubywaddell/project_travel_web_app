@@ -46,8 +46,18 @@
         {% for item in tip_tag_pages[page_num].values() %}
         <div class="grid-container-four-columns" id="view-travel-tips-tip-data">
             <div class="grid-item">{{ item["tag_name"] }}</div>
-            <div class="grid-item">{{ item["tag_state"] }}</div>
-            <div class="grid-item">{{ item["tag_city"] }}</div>
+            <!-- If the state is None, don't want to actually display None on page -->
+            {% if item["tag_state"] %}
+                <div class="grid-item">{{ item["tag_state"] }}</div>
+            {% else %}
+                <div class="grid-item">     </div>
+            {% endif %}
+            <!-- If the city is None, don't want to actually display None on the page -->
+            {% if item["tag_city"] %}
+                <div class="grid-item">{{ item["tag_city"] }}</div>
+            {% else %}
+                <div class="grid-item">     </div>
+            {% endif %}
             <div class="grid-item">{{ item["tip_text"] }}</div>
         </div>
         {% endfor %}

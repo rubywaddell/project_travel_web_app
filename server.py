@@ -342,6 +342,17 @@ def add_new_tip():
     state_name= request.args.get("state").title()
     city_name= request.args.get("city").title()
 
+    #If user leaves location inputs blank, add None value to database
+    #so that, if later user filters by State and leave City blank, empty string
+    #tips won't appear
+    if state_name == "" and city_name == "":
+        state_name = None
+        city_name = None
+    elif state_name == "":
+        state_name = None
+    elif city_name == "":
+        city_name = None
+    
     tip_text = request.args.get("tip-text")
 
     tag_name = request.args.get("tags")
