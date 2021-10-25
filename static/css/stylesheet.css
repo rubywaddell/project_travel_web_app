@@ -7,6 +7,7 @@ h2 {
     text-align: center;
 }
 
+/* Styling for buttons */
 button.btn-primary a {
     color: white
 }
@@ -28,51 +29,36 @@ img.destination-details-image {
     width: 150px;
 }
 
-/* Styling for destinatoin_details event table */
-table#destination-details-event-table{
+/* Styling for events displayed from Ticketmaster API */
+img.event-image {
+    height: 100px;
+    width: 150px
+}
+
+table.event-display-table{
     padding: 15px;
     width: 1000px;
     text-align: center;
 }
 
-tr.destination-details-event-table-rows{
+tr.event-table-rows{
     padding: 15px;
     border-bottom: 1px solid #ddd;
     text-align: center;
 }
 
 /* Styling for destination_details tips table */
-table#destination-details-tip-table{
-    padding: 15px;
-    width: 800px;
-    text-align: center;
-}
-
-table#destination-details-tip-table th{
-    font-size: larger;
+#destination-details-travel-tips-headers{
     border-bottom: 1px solid #ddd;
-    padding-bottom: 10px;
-    text-align: center;
+    padding-top: 5px;
+    text-align: center
 }
 
-table#destination-details-tip-table tr{
-    padding: 15px;
-    text-align: center;
+#destination-details-tip-text{
+    text-align: left;
 }
 
 /* Styling for the view travel tips page */
-table#view-travel-tips-table{
-    padding: 15px;
-    text-align: center;
-    width: 1000px;
-}
-
-table#view-travel-tips-table tr{
-    padding-bottom: 30px;
-    border-bottom: 1px solid #ddd;
-    text-align: center;
-}
-
 
 .grid-container-four-columns{
     grid-template-columns: 90px 110px 110px 1000px;
@@ -88,18 +74,11 @@ table#view-travel-tips-table tr{
     display: inline-block
 }
 
-.grid-container #user-vacations-grid{
-    grid-template-columns: auto auto auto auto auto auto auto;
-}
-
 /* Profile styling  */
-#user-vacations-profile-table{
-    width: 1000px;
-}
 
 .profile-contact-container{
     grid-template-columns: auto auto auto;
-    padding-bottom: 0px
+    padding-bottom: 20px
 }
 
 .profile-contact{
@@ -107,4 +86,8 @@ table#view-travel-tips-table tr{
     padding-top: 0px;
     padding-bottom: 0px;
     display: inline-block;
+}
+
+.profile-vacation-grid{
+    grid-template-columns: auto auto auto auto auto auto auto
 }

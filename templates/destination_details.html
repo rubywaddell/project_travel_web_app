@@ -6,21 +6,21 @@
 {% if tip_tags %}
 <div>
     <h2>View Travel Tips for {{ city }}, {{ state }}</h2>
-    <table id="destination-details-tip-table">
-        <tr>
-            <th>State:</th>
-            <th>City:</th>
-            <th>Tip:</th>
-        </tr>
+    <div class="grid-container-four-columns" id="destination-details-travel-tips-headers">
+        <div class="grid-item"><strong>Tag: </strong></div>
+        <div class="grid-item"><strong>State: </strong></div>
+        <div class="grid-item"><strong>City: </strong></div>
+        <div class="grid-item"><strong>Tip: </strong></div>
+    </div>
+    <div class="grid-container-four-columns" id="destination-details-travel-tips-tips">
     {% for tip_tag in tip_tags %}
-        <tr>
-            <td>{{ tip_tag.tag.tag_state }}</td>
-            <td>{{ tip_tag.tag.tag_city }}</td>
-            <td>{{ tip_tag.tip.tip_text }}</td>
-        </tr>
+        <div class="grid-item">{{ tip_tag.tag.tag_name }}</div>
+        <div class="grid-item">{{ tip_tag.tag.tag_state }}</div>
+        <div class="grid-item">{{ tip_tag.tag.tag_city }}</div>
+        <div class="grid-item" id="destination-details-tip-text">{{ tip_tag.tip.tip_text }}</div>
 
     {% endfor %}
-    </table>
+    </div>
     <p><a href="/create_tip">Add a New Tip</a></p>
 </div>
 {% else %}  
@@ -34,12 +34,12 @@
 
 <div id="destination-details-event-container-div">
 {% if event_names %}
-    <table id="destination-details-event-table">    
+    <table class="event-display-table" id="destination-details-event-table">    
         {% for i in range(event_names|length) %}
-        <tr class="destination-details-event-table-rows">
+        <tr class="event-table-rows">
 
             <td id="destination-details-event-image">
-                <img class="destination-details-image" src="{{ img_urls[i] }}">
+                <img class="event-image" src="{{ img_urls[i] }}">
             </td>
 
             <td id="destination_details-event-date-time">
