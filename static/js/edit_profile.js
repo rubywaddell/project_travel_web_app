@@ -36,14 +36,17 @@ const deleteVacation = (evt) => {
 $('.delete-vacay-btn').on('click', deleteVacation);
 
 // ------------------ EDIT FUNCTIONS TO EDIT USER OBJECT ---------------------------
+const emailPattern = /\w*\@\w*\.\w{3}/
+
 const showEditEmailForm = () => {
     $('#edit-email-paragraph').html(`
     <form id="edit-user-email" action="/edit_email">
     <div id="edit-user-email">
         <label><strong>Update Email:</strong></label><p></p>
-        <label>Old email address: </label><input type="email" name="old-email">
-        <label>New email address:</label>
-        <input type="email" name="new-email">
+        <label>Old email address: </label>
+        <input type="email" name="old-email">
+        <label>New email address: </label>
+        <input type="email" name="new-email" pattern=${emailPattern} title="Please enter a valid email address">
         <input type="submit" id="change-email-submit">
     </div>
     </form>
