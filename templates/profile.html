@@ -92,8 +92,8 @@
 
 <p></p>
 <div id="user-travel-tips">
-    {% if tip_tags %}
     <h2>Your Travel Tips:</h2>
+    {% if tip_tags %}
     <table>
         <tr>
             <th>Tag:</th>
@@ -109,21 +109,24 @@
             <td>{{ tip_tag.tag.tag_city }}</td>
             <td>{{ tip_tag.tip.tip_text }}</td>
         </tr>
+    </table>
         {% endfor %}
     {% else %}
-    <h2>Your Travel Tips:</h2>
     <h4>None added yet, add one <a href="/create_tip">here</a></h4>
     {% endif %}
 </div>
 
+
 <h2>{{ user.fname }} Contact Information</h2>
-
-<p id="edit-email-paragraph"><strong>Email: {{ user.email }}</strong><button class="btn btn-light" id="edit-email-button">Update Email Address</button></p>
-
-<p id="edit-username-paragraph"><strong>Username: {{ user.username }}</strong><button class="btn btn-light" id="edit-username-button">Change Username</button></p>
-
-<p id="edit-password-paragraph"><strong>Password: {% for char in user.password %}*{% endfor %}
-    </strong><button class="btn btn-light" id="edit-password-button">Change Password</button></p>
+<div class="profile-contact-container grid-container" id="profile-user-contact-info-grid-container">
+    <div class="profile-contact grid-item" id="edit-email-div"><strong>Email: {{ user.email }}</strong></div>
+    <div class="profile-contact grid-item" id="edit-username-div"><strong>Username: {{ user.username }}</strong></div>
+    <div class="profile-contact grid-item" id="edit-password-div"><strong>Password: {% for char in user.password %}*{% endfor %}</strong></div>
+<p></p>
+    <div class="profile-contact grid-item"><button class="btn btn-outline-dark btn-sm" id="edit-email-button">Update Email Address</button></div>
+    <div class="profile-contact grid-item"><button class="btn btn-outline-dark btn-sm" id="edit-username-button">Change Username</button></div>
+    <div class="profile-contact grid-item"><button class="btn btn-outline-dark btn-sm" id="edit-password-button">Change Password</button></div>
+</div>
 
 <script src="http://code.jquery.com/jquery.js"></script>
 <script src="static/js/edit_profile.js"></script>

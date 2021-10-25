@@ -73,11 +73,6 @@ table#view-travel-tips-table tr{
     text-align: center;
 }
 
-/* .grid-container{
-    display: grid;
-    grid-template-columns: 110px 110px 1000px;
-    text-align: center;
-} */
 
 .grid-container-four-columns{
     grid-template-columns: 90px 110px 110px 1000px;
@@ -100,4 +95,16 @@ table#view-travel-tips-table tr{
 /* Profile styling  */
 #user-vacations-profile-table{
     width: 1000px;
+}
+
+.profile-contact-container{
+    grid-template-columns: auto auto auto;
+    padding-bottom: 0px
+}
+
+.profile-contact{
+    padding-right: 10px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    display: inline-block;
 }
