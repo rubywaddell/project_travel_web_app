@@ -160,12 +160,6 @@ def edit_vacation_location(vacation_id):
 
 
 #======================================================EDIT PROFILE ROUTES========================================================
-@app.route("/edit_profile_user_<user_id>")
-def show_edit_profile_template(user_id):
-    """Renders the edit profile template where user can select what they want to change"""
-
-    user = crud.get_user_by_id(user_id=user_id)
-    return render_template("edit_profile.html", user=user)
 
 @app.route("/edit_username")
 def edit_user_account():
