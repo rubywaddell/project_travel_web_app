@@ -1,8 +1,14 @@
 "use strict";
 
 //----------------------- DELETE PROFILE FUNCTION --------------------------
-const deleteUserAccount = () =>{
+const deleteUserAccount = (evt) =>{
+    const userId = evt.target.name;
     console.log("clicked delete account");
+    console.log(`User id = ${userId}`)
+    const confirmation = confirm("Are you sure you'd like to delete your account?\nCannot be undone");
+    if (confirmation == true){
+        console.log("true")
+    }
 }
 
 $('#delete-account-button').on('click', deleteUserAccount);

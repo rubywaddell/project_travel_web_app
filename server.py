@@ -1,7 +1,8 @@
 """Server for travel safety app."""
 
 from flask import Flask, render_template, request, flash, session, redirect, jsonify
-# from flask.helpers import _prepare_send_file_kwargs
+
+import secrets
 
 import model
 import crud
@@ -9,11 +10,17 @@ import crud
 from jinja2 import StrictUndefined
 
 app = Flask(__name__)
-app.secret_key = "@#%()#HRTN$#OT#%ons!"
 app.jinja_env.undefined = StrictUndefined
 
+lines = []
+with open("secrets.sh") as s:
+    for line in s:
+        line = line.strip()
+        line = line.split("=")
+        lines.append(line)
 
-MY_API_KEY = "NdMgdlGGSobRosfxcoA3WH8r8ifKMjOX"
+MY_API_KEY = lines[0][1]
+app.secret_key = lines[1][1]
 
 model.connect_to_db(app)
 model.db.create_all()
