@@ -1,9 +1,9 @@
 {% extends 'travel_tips_display.html' %} 
 {% block title %}Destination Details{% endblock %}
 
-{% block content %}
+{% block content %}<h2>Travel Tips for {{ city }}, {{ state }}</h2>{% endblock %}
 
-
+{% block more_content %}
 
 <h2>Events in {{ city }}, {{ state }} Between {{ departure_date.month }}/{{departure_date.day}}/{{ departure_date.year }}
     and {{ arrival_date.month }}/{{arrival_date.day}}/{{ arrival_date.year }}</h2>

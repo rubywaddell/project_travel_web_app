@@ -90,8 +90,9 @@
 {% endif %}
 
 <p></p>
+{% endblock %}
 
-
+{% block more_content %}
 <h2>{{ user.fname }} Contact Information</h2>
 <div class="profile-contact-container grid-container" id="profile-user-contact-info-grid-container">
     <div class="profile-contact grid-item" id="edit-email-div"><strong>Email: {{ user.email }}</strong></div>
