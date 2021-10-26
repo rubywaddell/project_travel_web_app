@@ -122,9 +122,16 @@
     <div class="profile-contact grid-item" id="edit-username-div"><strong>Username: {{ user.username }}</strong></div>
     <div class="profile-contact grid-item" id="edit-password-div"><strong>Password: {% for char in user.password %}*{% endfor %}</strong></div>
 <p></p>
-    <div class="profile-contact grid-item"><button class="btn btn-outline-dark btn-sm" id="edit-email-button">Update Email Address</button></div>
-    <div class="profile-contact grid-item"><button class="btn btn-outline-dark btn-sm" id="edit-username-button">Change Username</button></div>
-    <div class="profile-contact grid-item"><button class="btn btn-outline-dark btn-sm" id="edit-password-button">Change Password</button></div>
+    <div class="profile-contact grid-item">
+        <button class="btn btn-outline-dark btn-sm" id="edit-email-button">Update Email Address</button></div>
+    <div class="profile-contact grid-item">
+        <button class="btn btn-outline-dark btn-sm" id="edit-username-button">Change Username</button></div>
+    <div class="profile-contact grid-item">
+        <button class="btn btn-outline-dark btn-sm" id="edit-password-button">Change Password</button></div>
+<p></p>
+    <div class="delete-user-account" id="delete-account-div">
+        <button class="btn btn-outline-danger" id="delete-account-button">Delete Account</button>
+    </div>
 </div>
 
 <script src="http://code.jquery.com/jquery.js"></script>
