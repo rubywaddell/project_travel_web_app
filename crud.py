@@ -78,6 +78,17 @@ def change_user_password(user_id, new_password):
     model.db.session.commit()
     return user
 
+def delete_user(user_id):
+    """Deletes a user as well as their vacations from the database"""
+
+    user = model.User.query.get(user_id)
+    user_vacations = user.vacation
+    for vacation in user_vacations:
+        delete_vacation(vacation)
+
+    model.db.session.delete(user)
+    model.db.session.commit()
+
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Vacation CRUD functions:~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def create_vacation(vacation_label_id, user_id):
     """Create and return a vacation object"""
