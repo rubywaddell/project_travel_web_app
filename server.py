@@ -124,7 +124,6 @@ def delete_vacation(vacation_id):
     vacation_label_dict = crud.make_vacation_label_dict(vacation_labels)
 
     return jsonify(vacation_label_dict)
-    # return redirect(f"/profile_{user.username}")
 
 @app.route("/edit_vacation_dates_id_<vacation_id>")
 def edit_vacation_dates(vacation_id):
@@ -192,20 +191,6 @@ def edit_user_password(user_id):
     new_password = request.form.get("new-password")
     
     user = crud.change_user_password(user_id=user_id, new_password=new_password)
-
-    return redirect(f"/profile_{user.username}")
-
-@app.route("/edit_vacation_label_<vacation_label_id>")
-def edit_vacation_label(vacation_label_id):
-    """Edits vacation_label information based on user inputs"""
-
-    new_departure_date = request.args.get("new-departure-date")
-    new_arrival_date = request.args.get("new-arrival-date")
-    new_state = request.args.get("new-state")
-    new_city = request.args.get("new-city")
-
-    vacation = crud.get_vacation_by_vacation_label_id(vacation_label_id=vacation_label_id)
-    user = crud.get_user_by_vacation_id(vacation_id=vacation.vacation_id)
 
     return redirect(f"/profile_{user.username}")
 
@@ -477,6 +462,15 @@ def show_destination_details():
             display_arrival_date = crud.format_date_strings(arrival_date)
             return render_template("destination_details.html", tip_tags=[], city=city, state=state, 
             departure_date=display_departure_date, arrival_date=display_arrival_date, event_names=False)
+
+
+#=================================================TO DO LIST ROUTE FUNCTIONS===========================================
+@app.route("/travel_prep_checklist")
+def show_travel_prep_checklist():
+    """Renders the to-do-list template"""
+
+    return render_template("to_do_list.html")
+
 
 if __name__ == "__main__":
     # DebugToolbarExtension(app)
