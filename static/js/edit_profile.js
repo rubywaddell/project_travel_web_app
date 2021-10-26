@@ -1,6 +1,11 @@
 "use strict";
 
+//----------------------- DELETE PROFILE FUNCTION --------------------------
+const deleteUserAccount = () =>{
+    console.log("clicked delete account");
+}
 
+$('#delete-account-button').on('click', deleteUserAccount);
 //----------------- DELETE VACATION FUNCTION -----------------------------
 const deleteVacation = (evt) => {
 
