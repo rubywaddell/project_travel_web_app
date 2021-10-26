@@ -2,14 +2,17 @@
 
 //----------------------- DELETE PROFILE FUNCTION --------------------------
 const deleteUserAccount = (evt) =>{
+
     const userId = evt.target.name;
-    console.log("clicked delete account");
-    console.log(`User id = ${userId}`)
-    const confirmation = confirm("Are you sure you'd like to delete your account?\nCannot be undone");
+    
+    const confirmation = confirm("Are you sure you'd like to delete your account?\nAll data will be deleted forever");
     if (confirmation == true){
-        console.log("true")
-    }
-}
+        console.log(true);
+        $.get(`/delete_user_${userId}`, response => {
+            window.open("/", "_self");
+        });
+    };
+};
 
 $('#delete-account-button').on('click', deleteUserAccount);
 //----------------- DELETE VACATION FUNCTION -----------------------------

@@ -202,6 +202,15 @@ def edit_user_password(user_id):
     return redirect(f"/profile_{user.username}")
 
 
+#======================================================DELETE PROFILE ROUTES========================================================
+@app.route("/delete_user_<user_id>")
+def delete_user_account(user_id):
+    """Deletes user, clears session, and redirects to homepage"""
+
+    crud.delete_user(user_id)
+    session.clear()
+    return redirect("/")
+
 #=================================================CREATE ACCOUNT ROUTE FUNCTIONS=================================================
 @app.route("/create_account")
 def show_create_account():
