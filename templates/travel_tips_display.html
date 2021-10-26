@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block tips %}
+{% if tip_tag_pages %}
+    <div id="view-tips-div">
+        <div class="grid-container-four-columns" id="view-travel-tips-headers">
+            <div class="grid-item"><h4>Tag: </h4></div>
+            <div class="grid-item"><h4>State: </h4></div>
+            <div class="grid-item"><h4>City: </h4></div>
+            <div class="grid-item"><h4>Tip: </h4></div>
+        </div>
+        
+        <div id="view-travel-tips-tip-data-div">
+        {% for item in tip_tag_pages[page_num].values() %}
+        <div class="grid-container-four-columns" id="view-travel-tips-tip-data">
+            <div class="grid-item">{{ item["tag_name"] }}</div>
+            <!-- If the state is None, don't want to actually display None on page -->
+            {% if item["tag_state"] %}
+                <div class="grid-item">{{ item["tag_state"] }}</div>
+            {% else %}
+                <div class="grid-item">     </div>
+            {% endif %}
+            <!-- If the city is None, don't want to actually display None on the page -->
+            {% if item["tag_city"] %}
+                <div class="grid-item">{{ item["tag_city"] }}</div>
+            {% else %}
+                <div class="grid-item">     </div>
+            {% endif %}
+            <div class="grid-item">{{ item["tip_text"] }}</div>
+        </div>
+        {% endfor %}
+        </div>
+
+        <div id="view-tips-page-number-div">
+            {% if page_num > 1%}
+            <button class="btn btn-primary" type="submit" id="view-tips-prev-page-btn">
+                <a href="/view_travel_tips_page_{{ page_num-1 }}">&lt&lt</a></button>
+            {% else %}
+            <button class="btn btn-primary" type="button" id="view-tips-prev-page-btn" disabled>&lt&lt</button>
+            {% endif %}
+
+            {% for page in pagination_obj.iter_pages(left_edge=2, left_current=2, right_current=5, right_edge=2) %} 
+                {% if page %}
+                    {% if page != page_num %}
+                        <strong><a href="/view_travel_tips_page_{{page}}">{{ page }}</a></strong>
+                    {% else %}
+                        <strong>{{ page }}</strong>
+                    {% endif %}
+                {% else %}
+                    <span class="ellipsis">...</span>
+                {% endif %}
+                
+            {% endfor %}
+
+            {% if page_num+1 in tip_tag_pages.keys() %}
+                <button class="btn btn-primary" type="submit" id="view-tips-next-page-btn">
+                    <a href="/view_travel_tips_page_{{ page_num + 1}}">&gt&gt</a></button>
+            {% else %}
+                <button class="btn btn-primary" type="submit" id="view-tips-next-page-btn" disabled>&gt&gt</button>
+            {% endif %}
+        </div>
+    </div>
+{% else %}
+
+<div id="empty-tip-tags-result">
+    <h2>Sorry, there are no tips available for those search terms.</h2>
+    <p>You can add one <a href="/create_tip">here</a></p>
+</div>
+
+{% endif %}
+
+{% endblock %}
