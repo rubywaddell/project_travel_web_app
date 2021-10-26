@@ -1,4 +1,4 @@
-{% extends 'base.html' %} 
+{% extends 'travel_tips_display.html' %} 
 
 {% block title %}Profile{% endblock %} 
 
@@ -90,30 +90,7 @@
 {% endif %}
 
 <p></p>
-<div id="user-travel-tips">
-    <h2>Your Travel Tips:</h2>
-    {% if tip_tags %}
-    <table>
-        <tr>
-            <th>Tag:</th>
-            <th>State:</th>
-            <th>City:</th>
-            <th>Tip:</th>
-        </tr>
 
-        {% for tip_tag in tip_tags %}
-        <tr>
-            <td>{{ tip_tag.tag.tag_name }}</td>
-            <td>{{ tip_tag.tag.tag_state }}</td>
-            <td>{{ tip_tag.tag.tag_city }}</td>
-            <td>{{ tip_tag.tip.tip_text }}</td>
-        </tr>
-    </table>
-        {% endfor %}
-    {% else %}
-    <h4>None added yet, add one <a href="/create_tip">here</a></h4>
-    {% endif %}
-</div>
 
 <h2>{{ user.fname }} Contact Information</h2>
 <div class="profile-contact-container grid-container" id="profile-user-contact-info-grid-container">

@@ -424,6 +424,14 @@ def get_paginated_state_filtered_tip_tags(state):
 
     return join_filter.paginate(per_page=10)
 
+def get_paginated_user_filtered_tip_tags(user_id):
+    """Returns a pagination object of all tip_tags filtered by the given user"""
+
+    tip_tag_join_tips = model.db.session.query(model.TipTag).join(model.TipTag.tip)
+    join_filter = tip_tag_join_tips.filter(model.Tip.user_id == user_id)
+    
+    return join_filter.paginate(per_page=10)
+
 def get_paginated_city_filtered_tip_tags(city):
     """Returns a pagination object of all tip_tags filtered by the given city"""
 

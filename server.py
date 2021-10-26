@@ -86,11 +86,9 @@ def show_user_profile(username):
 
     user = crud.get_user_by_username(username)
 
-    tips = user.tip
-    tip_tags = []
-    for tip in tips:
-        tip_tag = crud.get_tip_tag_by_tip(tip=tip)
-        tip_tags.append(tip_tag)
+
+    pag_obj = crud.get_paginated_user_filtered_tip_tags(user_id=user.user_id)
+    tip_tag_pages = crud.get_dict_of_tip_tag_pages(pagination_obj=pag_obj)
 
     vacations = user.vacation
 
@@ -103,14 +101,17 @@ def show_user_profile(username):
         if events:
             event_names, event_urls, img_urls, start_dates, start_times, venues = crud.clean_up_event_results(all_events=events)
 
-            return render_template("profile.html", user=user, vacations=vacations, tip_tags=tip_tags, event_names=event_names, 
-                event_urls=event_urls, img_urls=img_urls, start_dates=start_dates, start_times=start_times, venues=venues)
+            return render_template("profile.html", user=user, vacations=vacations, tip_tag_pages=tip_tag_pages, pagination_obj=pag_obj,
+            page_num=1, event_names=event_names, event_urls=event_urls, img_urls=img_urls, start_dates=start_dates, 
+            start_times=start_times, venues=venues)
         
         else:   
-            return render_template("profile.html", user=user, vacations=vacations, tip_tags=tip_tags, event_names=False)
+            return render_template("profile.html", user=user, vacations=vacations, tip_tag_pages=tip_tag_pages, pagination_obj=pag_obj, 
+            page_num=1, event_names=False)
 
     else:   
-        return render_template("profile.html", user=user, vacations=vacations, tip_tags=tip_tags, event_names=False)
+        return render_template("profile.html", user=user, vacations=vacations, tip_tag_pages=tip_tag_pages, pagination_obj=pag_obj, 
+            page_num=1, event_names=False)
 
 
 #======================================================EDIT VACATION ROUTES========================================================
@@ -482,6 +483,7 @@ def show_destination_details():
             state_tip_tags = crud.parse_through_tags(tags=state_tags)
             display_departure_date = crud.format_date_strings(departure_date)
             display_arrival_date = crud.format_date_strings(arrival_date)
+
             state_pag_obj = crud.get_paginated_state_filtered_tip_tags(state=state)
             state_pages = crud.get_dict_of_tip_tag_pages(pagination_obj=state_pag_obj)
             page_num = 1
