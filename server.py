@@ -132,7 +132,6 @@ def delete_vacation(vacation_id):
 
     return user.username
 
-    # return jsonify(vacation_label_dict)
 
 @app.route("/edit_vacation_dates_id_<vacation_id>")
 def edit_vacation_dates(vacation_id):
@@ -429,14 +428,18 @@ def show_destination_details():
         event_names, event_urls, img_urls, start_dates, start_times, venues = crud.clean_up_event_results(all_events=events)
 
         if city_in_tags == True:
-            city_tags = crud.get_tags_by_tag_city(city=city)
-            city_tip_tags = crud.parse_through_tags(tags=city_tags)
+            # city_tags = crud.get_tags_by_tag_city(city=city)
+            # city_tip_tags = crud.parse_through_tags(tags=city_tags)
             display_departure_date = crud.format_date_strings(departure_date)
             display_arrival_date = crud.format_date_strings(arrival_date)
+
+            city_pag_obj = crud.get_paginated_city_filtered_tip_tags(city=city)
+            city_pages = crud.get_dict_of_tip_tag_pages(pagination_obj=city_pag_obj)
+            page_num = 1
             
-            return render_template("destination_details.html", tip_tags=city_tip_tags, city=city, state=state, 
-            departure_date=display_departure_date, arrival_date=display_arrival_date, event_names=event_names, event_urls=event_urls, img_urls=img_urls, start_dates=start_dates,
-            start_times=start_times, venues=venues)
+            return render_template("destination_details.html", tip_tag_pages=city_pages, pagination_obj=city_pag_obj,page_num=page_num, 
+            city=city, state=state, departure_date=display_departure_date, arrival_date=display_arrival_date, event_names=event_names,
+            event_urls=event_urls, img_urls=img_urls, start_dates=start_dates,start_times=start_times, venues=venues)
         
         elif state_in_tags == True:
             state_tags = crud.get_tags_by_tag_state(state=state)
@@ -444,16 +447,20 @@ def show_destination_details():
             display_departure_date = crud.format_date_strings(departure_date)
             display_arrival_date = crud.format_date_strings(arrival_date)
 
-            return render_template("destination_details.html", tip_tags=state_tip_tags, city=city, state=state, 
-            departure_date=display_departure_date, arrival_date=display_arrival_date, event_names=event_names, event_urls=event_urls, img_urls=img_urls, start_dates=start_dates,
-            start_times=start_times, venues=venues)
+            state_pag_obj = crud.get_paginated_state_filtered_tip_tags(state=state)
+            state_pages = crud.get_dict_of_tip_tag_pages(pagination_obj=state_pag_obj)
+            page_num = 1
+
+            return render_template("destination_details.html", tip_tag_pages=state_pages, pagination_obj=state_pag_obj,page_num=page_num,
+            city=city, state=state, departure_date=display_departure_date, arrival_date=display_arrival_date, event_names=event_names, 
+            event_urls=event_urls, img_urls=img_urls, start_dates=start_dates,start_times=start_times, venues=venues)
         
         else:
             display_departure_date = crud.format_date_strings(departure_date)
             display_arrival_date = crud.format_date_strings(arrival_date)
-            return render_template("destination_details.html", tip_tags=[], city=city, state=state, 
-            departure_date=display_departure_date, arrival_date=display_arrival_date, event_names=event_names, event_urls=event_urls, img_urls=img_urls, start_dates=start_dates,
-            start_times=start_times, venues=venues)
+            return render_template("destination_details.html", tip_tag_pages=[], city=city, state=state, 
+            departure_date=display_departure_date, arrival_date=display_arrival_date, event_names=event_names, 
+            event_urls=event_urls, img_urls=img_urls, start_dates=start_dates,start_times=start_times, venues=venues)
 
     else:
         #If there are not events for the given search
@@ -462,18 +469,25 @@ def show_destination_details():
             city_tip_tags = crud.parse_through_tags(tags=city_tags)
             display_departure_date = crud.format_date_strings(departure_date)
             display_arrival_date = crud.format_date_strings(arrival_date)
+
+            city_pag_obj = crud.get_paginated_city_filtered_tip_tags(city=city)
+            city_pages = crud.get_dict_of_tip_tag_pages(pagination_obj=city_pag_obj)
+            page_num = 1
             
-            return render_template("destination_details.html", tip_tags=city_tip_tags, city=city, state=state, 
-            departure_date=display_departure_date, arrival_date=display_arrival_date, event_names=False)
+            return render_template("destination_details.html", tip_tag_pages=city_pages, pagination_obj=city_pag_obj,page_num=page_num, 
+            city=city, state=state, departure_date=display_departure_date, arrival_date=display_arrival_date, event_names=False)
         
         elif state_in_tags == True:
             state_tags = crud.get_tags_by_tag_state(state=state)
             state_tip_tags = crud.parse_through_tags(tags=state_tags)
             display_departure_date = crud.format_date_strings(departure_date)
             display_arrival_date = crud.format_date_strings(arrival_date)
+            state_pag_obj = crud.get_paginated_state_filtered_tip_tags(state=state)
+            state_pages = crud.get_dict_of_tip_tag_pages(pagination_obj=state_pag_obj)
+            page_num = 1
 
-            return render_template("destination_details.html", tip_tags=state_tip_tags, city=city, state=state, 
-            departure_date=display_departure_date, arrival_date=display_arrival_date, event_names=False)
+            return render_template("destination_details.html", tip_tag_pages=state_pages, pagination_obj=state_pag_obj,page_num=page_num, 
+            city=city, state=state, departure_date=display_departure_date, arrival_date=display_arrival_date, event_names=False)
         
         else:
             display_departure_date = crud.format_date_strings(departure_date)

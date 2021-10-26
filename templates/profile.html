@@ -115,7 +115,6 @@
     {% endif %}
 </div>
 
-
 <h2>{{ user.fname }} Contact Information</h2>
 <div class="profile-contact-container grid-container" id="profile-user-contact-info-grid-container">
     <div class="profile-contact grid-item" id="edit-email-div"><strong>Email: {{ user.email }}</strong></div>
@@ -134,9 +133,7 @@
 <div class="delete-user-account" id="delete-account-div">
     <button class="btn btn-outline-danger" id="delete-account-button" name="{{user.user_id}}">Delete Account</button>
 </div>
-
+{% endblock %}
 
 <script src="http://code.jquery.com/jquery.js"></script>
 <script src="static/js/edit_profile.js"></script>
-
-{% endblock %}

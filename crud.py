@@ -473,6 +473,7 @@ def navigate_through_pages(page_num, pagination_obj):
 
     return tip_tag_pagination
 
+
 def get_tip_tag_by_tag_id(tag_id):
     """Query and return the first tip_tag with the given tag_id"""
 

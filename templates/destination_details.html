@@ -1,33 +1,9 @@
-{% extends 'base.html' %} 
+{% extends 'travel_tips_display.html' %} 
 {% block title %}Destination Details{% endblock %}
 
 {% block content %}
 
-{% if tip_tags %}
-<div>
-    <h2>View Travel Tips for {{ city }}, {{ state }}</h2>
-    <div class="grid-container-four-columns" id="destination-details-travel-tips-headers">
-        <div class="grid-item"><strong>Tag: </strong></div>
-        <div class="grid-item"><strong>State: </strong></div>
-        <div class="grid-item"><strong>City: </strong></div>
-        <div class="grid-item"><strong>Tip: </strong></div>
-    </div>
-    <div class="grid-container-four-columns" id="destination-details-travel-tips-tips">
-    {% for tip_tag in tip_tags %}
-        <div class="grid-item">{{ tip_tag.tag.tag_name }}</div>
-        <div class="grid-item">{{ tip_tag.tag.tag_state }}</div>
-        <div class="grid-item">{{ tip_tag.tag.tag_city }}</div>
-        <div class="grid-item" id="destination-details-tip-text">{{ tip_tag.tip.tip_text }}</div>
 
-    {% endfor %}
-    </div>
-    <p><a href="/create_tip">Add</a> a new tip <a href="/view_travel_tips_page_1">View</a> all tips</p>
-</div>
-{% else %}  
-    <h2>Sorry, there are no tips for {{ city }} or {{ state }} yet.</h2>
-    <h4>You can add one <a href="/create_tip">here</a></h4>
-
-{% endif %}
 
 <h2>Events in {{ city }}, {{ state }} Between {{ departure_date.month }}/{{departure_date.day}}/{{ departure_date.year }}
     and {{ arrival_date.month }}/{{arrival_date.day}}/{{ arrival_date.year }}</h2>
