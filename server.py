@@ -130,7 +130,9 @@ def delete_vacation(vacation_id):
 
     vacation_label_dict = crud.make_vacation_label_dict(vacation_labels)
 
-    return jsonify(vacation_label_dict)
+    return user.username
+
+    # return jsonify(vacation_label_dict)
 
 @app.route("/edit_vacation_dates_id_<vacation_id>")
 def edit_vacation_dates(vacation_id):
