@@ -4,40 +4,52 @@
 
 {% block content %}
 
-<div id="to-do-list-container-div" class="header">
+<div id="to-do-list-container-div">
     <h2>TO DO BEFORE YOU DEPART:</h2>
+<div id="to-do-list-list-div">
+<ul class="to-do-list" id="travel-to-do-list-ul">
+    <div id="to-do-list-prep-list">
+        <h4>Prepare For Your Trip: </h4>
+        <li class="checked">Notify your bank</li>
+        <li>Tell 1+ friend/family member about your trip.</li>
+        <li>Check the weather report for your destination</li>
+        <li>Verify check-in and check-out for your accommodation</li>
+        <li>Download map for your destination to access if you lose WiFi</li>
+        </div>
+
+    <div id="to-do-list-pack-bags-list">
+        <h4>Pack Your Bags:</h4>
+
+        <div class="pack-bags-list">
+            <strong>Clothes:</strong>
+            <li>Shirts</li>
+            <li>Pants</li>
+            <li>Socks and undewear</li>
+            <li>Comfortable walking shoes</li>
+            <li>Small soft bag for dirty laundry</li>
+        </div>
+
+        <div class="pack-bags-list">
+            <strong>Toiletries:</strong>
+            <li>Toothpaste and toothbrush</li>
+            <li>Shampoo and conditioner</li>
+            <li>Sunscreen</li>
+            <li>Cleanser</li>
+            <li>Moisturizer</li>
+            <li>Prescriptions</li>
+            <li>Bandaids/Small first-aid kit</li>
+            <li>Menstrual products</li>
+        </div>
+
+        <div class="pack-bags-list">
+            <strong>Technology:</strong>
+            <li>Phone and charger</li>
+            <li>Headphones</li>
+            <li>External charger</li>
+        </div>
+</ul>
 </div>
 
-<ul class="to-do-list" id="travel-to-do-list-ul">
-    <h5>Prepare For Your Trip: </h5>
-    <li>Notify your bank</li>
-    <li>Tell 1+ friend/family member about your trip.</li>
-    <li>Check the weather report for your destination</li>
-    <li>Verify check-in and check-out for your accommodation</li>
-    <li>Download map for your destination to access if you lose WiFi</li>
-
-    <h5>Pack Your Bags:</h5>
-    <strong>Clothes:</strong>
-    <li>Shirts</li>
-    <li>Pants</li>
-    <li>Socks and undewear</li>
-    <li>Comfortable walking shoes</li>
-    <li>Small soft bag for dirty laundry</li>
-
-    <strong>Toiletries:</strong>
-    <li>Toothpaste and toothbrush</li>
-    <li>Shampoo and conditioner</li>
-    <li>Sunscreen</li>
-    <li>Cleanser</li>
-    <li>Moisturizer</li>
-    <li>Prescriptions</li>
-    <li>Bandaids/Small first-aid kit</li>
-    <li>Menstrual products</li>
-
-    <strong>Technology:</strong>
-    <li>Phone</li>
-    <li>Charger</li>
-    <li>External charger</li>
-</ul>
-
+    </div>
+</div>
 {% endblock %}

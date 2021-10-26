@@ -1,6 +1,6 @@
 "use strict";
 
-//----------------------- DELETE PROFILE FUNCTION --------------------------
+//------------------------------------------------- DELETE PROFILE FUNCTION -------------------------------------------------
 const deleteUserAccount = (evt) =>{
 
     const userId = evt.target.name;
@@ -15,7 +15,8 @@ const deleteUserAccount = (evt) =>{
 };
 
 $('#delete-account-button').on('click', deleteUserAccount);
-//----------------- DELETE VACATION FUNCTION -----------------------------
+
+//-------------------------------------------- DELETE VACATION FUNCTION -------------------------------------------------
 const deleteVacation = (evt) => {
 
     const vacationId = evt.target.id;
@@ -35,7 +36,7 @@ const deleteVacation = (evt) => {
 
 $('.delete-vacay-btn').on('click', deleteVacation);
 
-// ------------------ EDIT FUNCTIONS TO EDIT USER OBJECT ---------------------------
+// --------------------------------------------- EDIT FUNCTIONS TO EDIT USER OBJECT ----------------------------------------------
 const emailPattern = /\w*\@\w*\.\w{3}/
 
 const showEditEmailForm = () => {
@@ -90,7 +91,7 @@ $('#edit-username-button').on('click', showEditUsernameForm);
 $('#edit-password-button').on('click', showEditPasswordForm);
 
 
-//------------------------ EDIT FUNCTIONS TO EDIT VACATION_LABEL OBJECT -------------------
+//------------------------------------------ EDIT FUNCTIONS TO EDIT VACATION_LABEL OBJECT -----------------------------------------
 const showEditVacationLabelForm = (evt) => {
     
     console.log(evt.target.id);

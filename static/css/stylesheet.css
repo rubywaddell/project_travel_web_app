@@ -96,3 +96,40 @@ tr.event-table-rows{
 .profile-vacation-grid{
     grid-template-columns: auto auto auto auto auto auto auto
 }
+
+/* Styling for to-do list */
+div#to-do-list-container-div{
+    margin: 100px;
+    
+}
+
+div.pack-bags-list{
+    display: inline-block;
+    padding: 15px;
+}
+
+ul li:hover {
+    /* make darker background of list items when hovered over */
+    background: #ddd;
+  }
+
+ul li.checked {
+    /* cross out and make darker items of list when checked */
+    background: #c4d6b8;
+    /* color: rgb(10, 10, 10); */
+    text-decoration: line-through;
+}
+
+ul li.checked::before {
+    /* adds check mark once item is clicked on/checked */
+    content: '';
+    position: absolute;
+    border-color: #fff;
+    border-style: solid;
+    border-width: 0 2px 2px 0;
+    top: 10px;
+    left: 16px;
+    transform: rotate(45deg);
+    height: 15px;
+    width: 7px;
+  }
