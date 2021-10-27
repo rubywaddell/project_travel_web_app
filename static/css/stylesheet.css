@@ -124,14 +124,14 @@ ul li.checked {
 
 .grid-item.trip-prep-list{
     text-align: left;
-    background-color: rgb(210, 245, 229);
+    background-color: rgb(222, 248, 236);
     border-radius: 15px;
 
 }
 
 .grid-item.pack-bags-list{
     text-align: left;
-    background-color: rgb(210, 245, 229);
+    background-color: rgb(222, 248, 236);
     border-radius: 15px;
     padding-left: 20px;
     padding-right: 20px
