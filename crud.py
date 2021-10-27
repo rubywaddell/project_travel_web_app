@@ -691,6 +691,17 @@ def create_default_toiletries_checklist(vacation_id):
 
     return checklist
 
+def create_default_misc_checklist(vacation_id):
+    """Creates and returns a default checklist of misc. items to pack for user's vacation"""
+
+    misc_items = ["face mask", "hand sanitizer", "phone and charger", "headphones", "external charger"]
+
+    checklist = create_vacation_checklist(vacation_id)
+    for item in misc_items:
+        create_checklist_item(item=item, checklist_id=checklist.checklist_id)
+    
+    return checklist
+
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Format dates inputted by HTML form~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def format_date_strings(date):
     """Takes string in yyyy-mm-dd format and returns datetime to display on desitnation_details page"""
