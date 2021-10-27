@@ -702,6 +702,18 @@ def create_default_misc_checklist(vacation_id):
     
     return checklist
 
+def create_default_todo_checklist(vacation_id):
+    """Creates and return a default checklist of tasks to do for user's vacation preparation"""
+
+    todo_items = ["notify your bank", "tell 1+ person your travel itinerary", "check the weather for your destination",
+    "verify check-in and check-out times for your accommodation", "download map for your destination (in case you lose WiFi)"]
+
+    checklist = create_vacation_checklist(vacation_id)
+    for item in todo_items:
+        create_checklist_item(item=item, checklist_id=checklist.checklist_id)
+
+    return checklist
+
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Format dates inputted by HTML form~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def format_date_strings(date):
     """Takes string in yyyy-mm-dd format and returns datetime to display on desitnation_details page"""
