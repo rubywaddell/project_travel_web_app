@@ -429,7 +429,7 @@ def get_paginated_user_filtered_tip_tags(user_id):
 
     tip_tag_join_tips = model.db.session.query(model.TipTag).join(model.TipTag.tip)
     join_filter = tip_tag_join_tips.filter(model.Tip.user_id == user_id)
-    
+
     return join_filter.paginate(per_page=10)
 
 def get_paginated_city_filtered_tip_tags(city):
@@ -514,7 +514,7 @@ def create_tag(tag_name, tag_state, tag_city):
     return new_tag
 
 def show_tags():
-    """REturn a list of all tag objects in the database"""
+    """Return a list of all tag objects in the database"""
 
     return model.Tag.query.all()
 
@@ -598,6 +598,20 @@ def parse_through_tags(tags):
             tip_tags.append(tip_tag)
 
     return tip_tags
+
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~VacationChecklist Functions~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+def create_vacation_checklist(vacation_id):
+    """Adds and returns new VacationChecklist object"""
+    
+    checklist = model.VacationChecklist(vacation_id=vacation_id)
+    model.db.session.add(checklist)
+    model.db.session.commit()
+
+    return checklist
+
+
+
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Format dates inputted by HTML form~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def format_date_strings(date):
