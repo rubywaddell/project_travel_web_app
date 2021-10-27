@@ -653,11 +653,32 @@ def create_default_clothes_checklist(vacation_id):
     """Creates and returns a default checklist of clothing items to pack for user's trip"""
 
     clothes = ["Shirts", "Pants", "Socks", "Underwear", "Pajamas", "Comfortable Walking Shoes", "Exercise Clothes"]
-    list = create_vacation_checklist(vacation_id)
+    checklist = create_vacation_checklist(vacation_id)
     for item in clothes:
-        create_checklist_item(item=item, checklist_id=list.checklist_id)
+        create_checklist_item(item=item, checklist_id=checklist.checklist_id)
 
-    return list
+    return checklist
+
+def create_default_summer_clothes_checklist(vacation_id):
+    """Creates and returns a default checklist of clothing items to pack if user's vacation is within summer months"""
+
+    summer_clothes = ["shorts", "dresses", "swimsuit", "sandals", "light jacket", "hat", "sunglasses"]
+    checklist = create_default_clothes_checklist(vacation_id)
+    for item in summer_clothes:
+        create_checklist_item(item=item, checklist_id=checklist.checklist_id)
+
+    return checklist
+
+def create_default_winter_clothes_checklist(vacation_id):
+    """Creates and returns a default checklist of clothing items to pack if user's vacation is within winter months"""
+
+    winter_clothes = ["coat", "long underwear", "long-sleeve shirts", "sweaters", "boots", "scarf", "gloves"]
+    checklist = create_default_clothes_checklist(vacation_id)
+    for item in winter_clothes:
+        create_checklist_item(item=item, checklist_id=checklist.checklist_id)
+
+    return checklist
+
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Format dates inputted by HTML form~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def format_date_strings(date):
