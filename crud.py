@@ -99,6 +99,18 @@ def create_vacation(vacation_label_id, user_id):
     model.db.session.add(vacation)
     model.db.session.commit()
 
+    departure_month = vacation.vacation_label.departure_date.month
+    if departure_month > 5 and departure_month < 9:
+        create_default_summer_clothes_checklist(vacation_id=vacation.vacation_id)
+    elif departure_month > 9 and departure_month < 3:
+        create_default_winter_clothes_checklist(vacation_id=vacation.vacation_id)
+    else:
+        create_default_clothes_checklist(vacation_id=vacation.vacation_id)
+
+    create_default_toiletries_checklist(vacation_id=vacation.vacation_id)
+    create_default_misc_checklist(vacation_id=vacation.vacation_id)
+    create_default_todo_checklist(vacation_id=vacation.vacation_id)
+
     return vacation
 
 def show_vacations():
@@ -633,7 +645,6 @@ def show_list_items(checklist_id):
 
     return model.ChecklistItem.query.filter(model.ChecklistItem.checklist_id==checklist_id).all()
 
-
 def complete_list_item(item_id):
     """Updates item completed status to True and returns item"""
 
@@ -648,7 +659,7 @@ def delete_checklist_item(item_id):
     model.db.session.delete(list_item)
     model.db.session.commit()
 
-#Create default lists so lists do not appear empty before user customizes them
+#----------------------Create default lists so lists do not appear empty before user customizes them----------------
 def create_default_clothes_checklist(vacation_id):
     """Creates and returns a default checklist of clothing items to pack for user's trip"""
 
