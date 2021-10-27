@@ -100,35 +100,39 @@ tr.event-table-rows{
 /* Styling for to-do list */
 div#to-do-list-container-div{
     margin: 100px;
-    
-}
-
-div.pack-bags-list{
-    display: inline-block;
-    padding: 15px;
-}
+    }
 
 ul li:hover {
     /* make darker background of list items when hovered over */
-    background: rgb(224, 243, 236);
+    background: rgb(172, 230, 204);
   }
 
 ul li.checked {
     /* cross out and make darker items of list when checked */
-    background: #b8d6cd;
+    /* background: #b8d6cd; */
     text-decoration: line-through;
 }
 
-/* ul li.checked::before {
-    /* adds check mark once item is clicked on/checked */
-    /* content: '';
-    position: absolute;
-    border-color: #fff;
-    border-style: solid;
-    border-width: 0 2px 2px 0;
-    top: 10px;
-    left: 16px;
-    transform: rotate(45deg);
-    height: 15px;
-    width: 7px;  */
-  /* } */
+.grid-container#to-do-list-pack-bags-list{
+    grid-template-columns: auto auto auto;
+}
+
+.grid-container#to-do-list-prep-list{
+    grid-template-columns: auto;
+    
+}
+
+.grid-item.trip-prep-list{
+    text-align: left;
+    background-color: rgb(210, 245, 229);
+    border-radius: 15px;
+
+}
+
+.grid-item.pack-bags-list{
+    text-align: left;
+    background-color: rgb(210, 245, 229);
+    border-radius: 15px;
+    padding-left: 20px;
+    padding-right: 20px
+}

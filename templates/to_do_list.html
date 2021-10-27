@@ -8,30 +8,33 @@
     <h2>TO DO BEFORE YOU DEPART:</h2>
 <div id="to-do-list-list-div">
 <ul class="to-do-list" id="travel-to-do-list-ul">
-    <div id="to-do-list-prep-list">
+    <div class="grid-container" id="to-do-list-prep-list">
         <h4>Prepare For Your Trip: </h4>
+    <div class="grid-item trip-prep-list">
         <li class="checked">Notify your bank</li>
         <li>Tell 1+ friend/family member about your trip.</li>
         <li>Check the weather report for your destination</li>
         <li>Verify check-in and check-out for your accommodation</li>
         <li>Download map for your destination to access if you lose WiFi</li>
         <input type="text" id="add-new-prep-list-item" name="new-prep-list-item" placeholder="Add new item">
-        </div>
+        <button class="btn btn-outline-success btn-sm" type="submit">Add</button>
+    </div>
+    </div>
 
-    <div id="to-do-list-pack-bags-list">
+    <div id="to-do-list-pack-bags-list" class="grid-container">
         <h4>Pack Your Bags:</h4>
-
-        <div class="pack-bags-list">
+        <div class="grid-item pack-bags-list">
             <strong>Clothes:</strong>
-            <li>Shirts</li>
+            <li class="checked">Shirts</li>
             <li>Pants</li>
             <li>Socks and undewear</li>
             <li>Comfortable walking shoes</li>
             <li>Small soft bag for dirty laundry</li>
             <input type="text" id="add-new-clothes-list-item" name="new-clothes-list-item" placeholder="Add new item">
+            <button class="btn btn-outline-success btn-sm" type="submit">Add</button>
         </div>
 
-        <div class="pack-bags-list">
+        <div class="grid-item pack-bags-list">
             <strong>Toiletries:</strong>
             <li>Toothpaste and toothbrush</li>
             <li>Shampoo and conditioner</li>
@@ -42,15 +45,19 @@
             <li>Bandaids/Small first-aid kit</li>
             <li>Menstrual products</li>
             <input type="text" id="add-new-toiletries-list-item" name="new-toiletries-list-item" placeholder="Add new item">
+            <button class="btn btn-outline-success btn-sm" type="submit">Add</button>
         </div>
 
-        <div class="pack-bags-list">
+        <div class="grid-item pack-bags-list">
             <strong>Misc.:</strong>
             <li>Phone and charger</li>
             <li>Headphones</li>
             <li>External charger</li>
             <li>Sunglasses</li>
+            <li>Face mask</li>
+            <li>Hand sanitizer</li>
             <input type="text" id="add-new-misc-list-item" name="new-misc-list-item" placeholder="Add new item">
+            <button class="btn btn-outline-success btn-sm" type="submit">Add</button>
         </div>
 </ul>
 </div>
