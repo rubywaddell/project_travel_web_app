@@ -610,7 +610,10 @@ def create_vacation_checklist(vacation_id):
 
     return checklist
 
+def show_vacation_checklists():
+    """Returns a list of all VacationChecklists in the database"""
 
+    return model.VacationChecklist.query.all()
 
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Format dates inputted by HTML form~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
