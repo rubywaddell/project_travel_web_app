@@ -1,6 +1,7 @@
 """CRUD operations for data in model.py"""
 
 # from os import stat
+from typing import List
 import model
 import requests
 from datetime import datetime
@@ -614,6 +615,23 @@ def show_vacation_checklists():
     """Returns a list of all VacationChecklists in the database"""
 
     return model.VacationChecklist.query.all()
+
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ChecklistItem functions ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+def create_checklist_item(item, checklist_id, completed=False):
+    """Adds and returns a new ChecklistItem object
+        completion status defaults to False"""
+
+    list_item = model.ChecklistItem(item_text=item, checklist_id=checklist_id, completed=completed)
+    model.db.session.add(list_item)
+    model.db.session.commit()
+
+    return list_item
+
+def show_list_items(checklist_id):
+    """Returns a list of all items for a given checklist"""
+
+    return model.ChecklistItem.query.filter(model.ChecklistItem.checklist_id==checklist_id).all()
 
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Format dates inputted by HTML form~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
