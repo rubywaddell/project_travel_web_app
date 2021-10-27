@@ -29,7 +29,9 @@ $('#toiletries-list-add-item-btn').on('click', addToiletriesListItem);
 
 // Misc. packing lsit functions
 const addMiscListItem = () => {
-    alert('You sure clicked that button');
+    const newItem = $('#add-new-misc-list-item').val()
+    
+    $('#misc-bag-list-ul').append(`<li>${newItem}</li>`);
 }
 
 $('#misc-list-add-item-btn').on('click', addMiscListItem)
