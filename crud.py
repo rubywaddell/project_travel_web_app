@@ -641,6 +641,14 @@ def complete_list_item(item_id):
     list_item.completed = True
     return list_item
 
+
+def delete_checklist_item(item_id):
+    """Deletes the given checklist_item from the list"""
+
+    list_item = model.ChecklistItem.query.get(item_id)
+    model.db.session.delete(list_item)
+    model.db.session.commit()
+
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Format dates inputted by HTML form~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def format_date_strings(date):
     """Takes string in yyyy-mm-dd format and returns datetime to display on desitnation_details page"""
