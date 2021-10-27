@@ -3,6 +3,9 @@
 // Prep list functions
 const addPrepListItem = () => {
     alert('You sure clicked that button');
+    const newItem = $('#add-new-prep-list-item').val()
+    
+    $('#travel-prep-list-ul').append(`<li>${newItem}</li>`);
 }
 
 $('#prep-list-add-item-btn').on('click', addPrepListItem);
