@@ -144,6 +144,7 @@ class VacationChecklist(db.Model):
     __tablename__ = "checklists"
 
     checklist_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    checklist_name = db.Column(db.String)
 
     vacation_id = db.Column(db.Integer, db.ForeignKey("vacations.vacation_id"))
     vacation = db.relationship("Vacation", back_populates="checklist")
@@ -151,7 +152,7 @@ class VacationChecklist(db.Model):
     checklist_item = db.relationship("ChecklistItem", back_populates="checklist")
 
     def __repr__(self):
-        return f"<VacationChecklist object checklist_id={self.checklist_id}>"
+        return f"<VacationChecklist object checklist_id={self.checklist_id} checklist_name={self.checklist_name}>"
 
 class ChecklistItem(db.Model):
     """Items on vacation checklists

@@ -496,11 +496,29 @@ def show_destination_details():
 
 
 #=================================================TO DO LIST ROUTE FUNCTIONS===========================================
-@app.route("/travel_prep_checklist")
-def show_travel_prep_checklist():
+@app.route("/travel_prep_checklist_vacation_<vacation_id>")
+def show_travel_prep_checklist(vacation_id):
     """Renders the to-do-list template"""
 
-    return render_template("to_do_list.html")
+    checklists = crud.get_vacation_checklists_by_vacation(vacation_id=vacation_id)
+
+    todo_list_items = []
+    clothes_list_items = []
+    toiletries_list_items = []
+    misc_list_items = []
+
+    for checklist in checklists:
+        if checklist.checklist_name == "todo items":
+            todo_list_items.extend(checklist.checklist_item)
+        elif checklist.checklist_name == "clothes":
+            clothes_list_items.extend(checklist.checklist_item)
+        elif checklist.checklist_name == "toiletries":
+            toiletries_list_items.extend(checklist.checklist_item)
+        elif checklist.checklist_name == "misc items":
+            misc_list_items.extend(checklist.checklist_item)
+
+    return render_template("to_do_list.html", todo_list_items=todo_list_items, clothes_list_items=clothes_list_items,
+    toiletries_list_items=toiletries_list_items, misc_list_items=misc_list_items)
 
 
 if __name__ == "__main__":

@@ -614,10 +614,10 @@ def parse_through_tags(tags):
 
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~VacationChecklist Functions~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-def create_vacation_checklist(vacation_id):
+def create_vacation_checklist(vacation_id, name):
     """Adds and returns new VacationChecklist object"""
     
-    checklist = model.VacationChecklist(vacation_id=vacation_id)
+    checklist = model.VacationChecklist(vacation_id=vacation_id, checklist_name=name)
     model.db.session.add(checklist)
     model.db.session.commit()
 
@@ -627,6 +627,11 @@ def show_vacation_checklists():
     """Returns a list of all VacationChecklists in the database"""
 
     return model.VacationChecklist.query.all()
+
+def get_vacation_checklists_by_vacation(vacation_id):
+    """Returns a list of all VacationChecklists for the given vacation_id"""
+
+    return model.VacationChecklist.query.filter(model.VacationChecklist.vacation_id==vacation_id).all()
 
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ChecklistItem functions ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -660,11 +665,11 @@ def delete_checklist_item(item_id):
     model.db.session.commit()
 
 #----------------------Create default lists so lists do not appear empty before user customizes them----------------
-def create_default_clothes_checklist(vacation_id):
+def create_default_clothes_checklist(vacation_id, name="clothes"):
     """Creates and returns a default checklist of clothing items to pack for user's trip"""
 
     clothes = ["Shirts", "Pants", "Socks", "Underwear", "Pajamas", "Comfortable Walking Shoes", "Exercise Clothes"]
-    checklist = create_vacation_checklist(vacation_id)
+    checklist = create_vacation_checklist(vacation_id=vacation_id, name=name)
     for item in clothes:
         create_checklist_item(item=item, checklist_id=checklist.checklist_id)
 
@@ -674,7 +679,7 @@ def create_default_summer_clothes_checklist(vacation_id):
     """Creates and returns a default checklist of clothing items to pack if user's vacation is within summer months"""
 
     summer_clothes = ["shorts", "dresses", "swimsuit", "sandals", "light jacket", "hat", "sunglasses"]
-    checklist = create_default_clothes_checklist(vacation_id)
+    checklist = create_default_clothes_checklist(vacation_id=vacation_id, name="summer clothes")
     for item in summer_clothes:
         create_checklist_item(item=item, checklist_id=checklist.checklist_id)
 
@@ -684,7 +689,7 @@ def create_default_winter_clothes_checklist(vacation_id):
     """Creates and returns a default checklist of clothing items to pack if user's vacation is within winter months"""
 
     winter_clothes = ["coat", "long underwear", "long-sleeve shirts", "sweaters", "boots", "scarf", "gloves"]
-    checklist = create_default_clothes_checklist(vacation_id)
+    checklist = create_default_clothes_checklist(vacation_id=vacation_id, name="winter clothes")
     for item in winter_clothes:
         create_checklist_item(item=item, checklist_id=checklist.checklist_id)
 
@@ -696,7 +701,7 @@ def create_default_toiletries_checklist(vacation_id):
     toiletries = ["toothpaste", "toothbrush", "shampoo and conditioner", "sunscreen", "body wash", "face wash", 
     "moisturizer", "prescriptions", "bandaids and/or first-aid-kit", "menstrual products"]
 
-    checklist = create_vacation_checklist(vacation_id)
+    checklist = create_vacation_checklist(vacation_id=vacation_id, name="toiletries")
     for toiletry in toiletries:
         create_checklist_item(item=toiletry, checklist_id=checklist.checklist_id)
 
@@ -707,7 +712,7 @@ def create_default_misc_checklist(vacation_id):
 
     misc_items = ["face mask", "hand sanitizer", "phone and charger", "headphones", "external charger"]
 
-    checklist = create_vacation_checklist(vacation_id)
+    checklist = create_vacation_checklist(vacation_id=vacation_id, name="misc items")
     for item in misc_items:
         create_checklist_item(item=item, checklist_id=checklist.checklist_id)
     
@@ -719,7 +724,7 @@ def create_default_todo_checklist(vacation_id):
     todo_items = ["notify your bank", "tell 1+ person your travel itinerary", "check the weather for your destination",
     "verify check-in and check-out times for your accommodation", "download map for your destination (in case you lose WiFi)"]
 
-    checklist = create_vacation_checklist(vacation_id)
+    checklist = create_vacation_checklist(vacation_id=vacation_id, name="todo items")
     for item in todo_items:
         create_checklist_item(item=item, checklist_id=checklist.checklist_id)
 
