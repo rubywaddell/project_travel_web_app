@@ -622,7 +622,7 @@ def create_checklist_item(item, checklist_id, completed=False):
     """Adds and returns a new ChecklistItem object
         completion status defaults to False"""
 
-    list_item = model.ChecklistItem(item_text=item, checklist_id=checklist_id, completed=completed)
+    list_item = model.ChecklistItem(item_text=item.title(), checklist_id=checklist_id, completed=completed)
     model.db.session.add(list_item)
     model.db.session.commit()
 
@@ -641,13 +641,23 @@ def complete_list_item(item_id):
     list_item.completed = True
     return list_item
 
-
 def delete_checklist_item(item_id):
     """Deletes the given checklist_item from the list"""
 
     list_item = model.ChecklistItem.query.get(item_id)
     model.db.session.delete(list_item)
     model.db.session.commit()
+
+#Create default lists so lists do not appear empty before user customizes them
+def create_default_clothes_checklist(vacation_id):
+    """Creates and returns a default checklist of clothing items to pack for user's trip"""
+
+    clothes = ["Shirts", "Pants", "Socks", "Underwear", "Pajamas", "Comfortable Walking Shoes", "Exercise Clothes"]
+    list = create_vacation_checklist(vacation_id)
+    for item in clothes:
+        create_checklist_item(item=item, checklist_id=list.checklist_id)
+
+    return list
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Format dates inputted by HTML form~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def format_date_strings(date):
