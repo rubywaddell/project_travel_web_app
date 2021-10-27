@@ -20,7 +20,9 @@ $('#clothes-list-add-item-btn').on('click', addClothesListItem);
 
 // Toiletries packing list functions
 const addToiletriesListItem = () => {
-    alert('You sure clicked that button');
+    const newItem = $('#add-new-toiletries-list-item').val()
+    
+    $('#toiletries-bag-list-ul').append(`<li>${newItem}</li>`);
 }
 
 $('#toiletries-list-add-item-btn').on('click', addToiletriesListItem);
