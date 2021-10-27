@@ -634,6 +634,13 @@ def show_list_items(checklist_id):
     return model.ChecklistItem.query.filter(model.ChecklistItem.checklist_id==checklist_id).all()
 
 
+def complete_list_item(item_id):
+    """Updates item completed status to True and returns item"""
+
+    list_item = model.ChecklistItem.query.get(item_id)
+    list_item.completed = True
+    return list_item
+
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Format dates inputted by HTML form~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def format_date_strings(date):
     """Takes string in yyyy-mm-dd format and returns datetime to display on desitnation_details page"""
