@@ -110,19 +110,18 @@ div.pack-bags-list{
 
 ul li:hover {
     /* make darker background of list items when hovered over */
-    background: #ddd;
+    background: rgb(224, 243, 236);
   }
 
 ul li.checked {
     /* cross out and make darker items of list when checked */
-    background: #c4d6b8;
-    /* color: rgb(10, 10, 10); */
+    background: #b8d6cd;
     text-decoration: line-through;
 }
 
-ul li.checked::before {
+/* ul li.checked::before {
     /* adds check mark once item is clicked on/checked */
-    content: '';
+    /* content: '';
     position: absolute;
     border-color: #fff;
     border-style: solid;
@@ -131,5 +130,5 @@ ul li.checked::before {
     left: 16px;
     transform: rotate(45deg);
     height: 15px;
-    width: 7px;
-  }
+    width: 7px;  */
+  /* } */

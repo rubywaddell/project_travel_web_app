@@ -2,8 +2,6 @@
 
 from flask import Flask, render_template, request, flash, session, redirect, jsonify
 
-import secrets
-
 import model
 import crud
 
