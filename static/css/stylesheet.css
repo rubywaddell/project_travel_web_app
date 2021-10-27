@@ -7,19 +7,60 @@ h2 {
     text-align: center;
 }
 
-/* Styling for navbar */
-nav{
-    background-color: rgb(195, 231, 217);
+/* Page number styling */
+.travel-tips-page-nums{
+    font-size: large;
 }
 
 /* Styling for buttons */
-button.btn-primary a {
+.btn-primary a {
+    color: white;
+    text-decoration: none;
+}
+
+.btn-outline-primary a {
+    text-decoration: none;
+    color: #0B674E
+}
+
+.btn-outline-primary a:hover{
+    color: white;
+}
+
+.btn-primary {
+    /* change buttons to green */
+    background-color: #0B674E;
+    /* background-color: #6ba788; */
+    border-color: #0B674E;
+}
+
+.btn-outline-primary {
+    border-color: #0B674E;
+}
+
+.btn-primary:hover{
+    /* background-color: rgba(77, 177, 122, 0.801); */
+    background-color: #0b674ea2;
+    border-color: rgba(77, 177, 122, 0.801);
     color: white
 }
 
-button.btn-outline-danger a {
+.btn-primary:disabled{
+    background-color: #0b674ea2;
+    border-color: #0b674e;
+    color: white
+}
+
+.btn-outline-primary:hover{
+    border-color: #0B674E;
+    background-color:#0B674E;
+    color: white
+}
+
+.btn-outline-danger a {
     color: red
 }
+
 
 /* Styling for image on homepage */
 img#homepage-image{
@@ -102,7 +143,7 @@ div#to-do-list-container-div{
     margin: 100px;
     }
 
-ul li:hover {
+#to-do-list-container-div li:hover {
     /* make darker background of list items when hovered over */
     background: rgb(172, 230, 204);
   }
