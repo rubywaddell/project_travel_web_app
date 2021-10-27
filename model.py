@@ -139,7 +139,7 @@ class Tag(db.Model):
 
 class VacationChecklist(db.Model):
     """Checklist, connected to user's vacation to store to-do/checklist items
-    Connected to vacation in a one-to-one relationship"""
+    Connected to vacation in a one-to-many relationship where one vacation can have many checklists"""
 
     __tablename__ = "checklists"
 

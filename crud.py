@@ -679,6 +679,17 @@ def create_default_winter_clothes_checklist(vacation_id):
 
     return checklist
 
+def create_default_toiletries_checklist(vacation_id):
+    """Creates and returns a default checklist of toiletry items to pack for user's vacation"""
+
+    toiletries = ["toothpaste", "toothbrush", "shampoo and conditioner", "sunscreen", "body wash", "face wash", 
+    "moisturizer", "prescriptions", "bandaids and/or first-aid-kit", "menstrual products"]
+
+    checklist = create_vacation_checklist(vacation_id)
+    for toiletry in toiletries:
+        create_checklist_item(item=toiletry, checklist_id=checklist.checklist_id)
+
+    return checklist
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Format dates inputted by HTML form~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def format_date_strings(date):
