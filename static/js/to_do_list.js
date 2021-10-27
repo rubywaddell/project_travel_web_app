@@ -2,7 +2,6 @@
 
 // Prep list functions
 const addPrepListItem = () => {
-    alert('You sure clicked that button');
     const newItem = $('#add-new-prep-list-item').val()
     
     $('#travel-prep-list-ul').append(`<li>${newItem}</li>`);
@@ -12,7 +11,9 @@ $('#prep-list-add-item-btn').on('click', addPrepListItem);
 
 // Clothing packing list functions
 const addClothesListItem = () => {
-    alert('You sure clicked that button');
+    const newItem = $('#add-new-clothes-list-item').val()
+    
+    $('#clothes-bag-list-ul').append(`<li>${newItem}</li>`);
 }
 
 $('#clothes-list-add-item-btn').on('click', addClothesListItem);
