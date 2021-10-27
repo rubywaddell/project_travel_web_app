@@ -3,13 +3,12 @@ import json
 
 import crud
 import model
-import server
+# import server
 
-os.system('dropdb travel_app')
-os.system('createdb travel_app')
+print(__name__)
+print(type(__name__))
+print(__name__ == "__main__")
 
-model.connect_to_db(server.app)
-model.db.create_all()
 
 cities_in_db = []
 states_in_db = []
@@ -140,15 +139,20 @@ def seed_tip_tag_table():
     return tip_tags_in_db
 
 
+if __name__ == "__main__":
+    import server
+
+    os.system('dropdb travel_app')
+    os.system('createdb travel_app')
+
+    model.connect_to_db(server.app)
+    model.db.create_all()
+
 seed_cities_table()
 seed_states_table()
 seed_vacation_label_table()
 seed_user_table()
 seed_vacation_table()
-
 seed_tip_table()
 seed_tag_table()
 seed_tip_tag_table()
-
-# if __name__ == "__main__":
-#     import server

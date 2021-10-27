@@ -36,6 +36,8 @@ class Vacation(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"), nullable=True)
     user = db.relationship("User", back_populates="vacation")
 
+    checklist = db.relationship("VacationChecklist", back_populates="vacation")
+
     def __repr__(self):
         return f"<Vacation Object: vacation_id={self.vacation_id}>"
 
@@ -135,6 +137,41 @@ class Tag(db.Model):
         return f"<Tag Object: tag_id= {self.tag_id} tag_name= {self.tag_name}>"
 
 
+class VacationChecklist(db.Model):
+    """Checklist, connected to user's vacation to store to-do/checklist items
+    Connected to vacation in a one-to-one relationship"""
+
+    __tablename__ = "checklists"
+
+    checklist_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+
+    vacation_id = db.Column(db.Integer, db.ForeignKey("vacations.vacation_id"))
+    vacation = db.relationship("Vacation", back_populates="checklist")
+
+    checklist_item = db.relationship("ChecklistItem", back_populates="checklist")
+
+    def __repr__(self):
+        return f"<VacationChecklist object checklist_id={self.checklist_id}>"
+
+class ChecklistItem(db.Model):
+    """Items on vacation checklists
+    Connected to Checklist in a one-to-many relationship where one checklist can have many items"""
+
+    __tablename__ = "checklist_items"
+
+    item_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    #db.Boolean defaults to false
+    completed = db.Column(db.Boolean)
+    item_text = db.Column(db.String)
+
+    checklist_id = db.Column(db.Integer, db.ForeignKey("checklists.checklist_id"))
+    checklist = db.relationship("VacationChecklist", back_populates="checklist_item")
+    
+    def __repr__(self):
+        return f"<ChecklistItem object: item_id={self.item_id}, item_text={self.item_text}>"
+
+
+#=========================== CONNECT TO DATABASE ==========================
 def connect_to_db(flask_app, db_uri="postgresql:///travel_app", echo=True):
     flask_app.config["SQLALCHEMY_DATABASE_URI"] = db_uri
     flask_app.config["SQLALCHEMY_ECHO"] = echo

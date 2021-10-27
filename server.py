@@ -23,7 +23,6 @@ app.secret_key = lines[1][1]
 model.connect_to_db(app)
 model.db.create_all()
 
-
 #=====================================================HOMEPAGE ROUTE========================================================
 @app.route("/")
 def show_homepage():
