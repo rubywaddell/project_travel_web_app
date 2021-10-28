@@ -4,7 +4,14 @@
 const addPrepListItem = (evt) => {
     const newItem = $('#add-new-prep-list-item').val()
     const listId = evt.target.name;
-    console.log(listId);
+
+    const formData = {"item" : newItem, "checklist_id" : listId};
+    console.log(formData);
+
+    $.get("/add_checklist_item", formData, response => {
+        console.log(response)
+    });
+
     $('#travel-prep-list-ul').append(`<li>${newItem}</li>`);
 }
 
