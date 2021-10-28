@@ -534,6 +534,16 @@ def add_item_to_checklist():
 
     return f"Successfully added {new_item.item_text} to db, id={new_item.item_id}"
 
+@app.route("/delete_checklist_item")
+def delete_checklist_item():
+    """Deletes checklist_item from the database when user clicks delete span"""
+
+    item_id = request.args.get("item_id")
+    crud.delete_checklist_item(item_id=item_id)
+    
+    return f"Successfully deleted from db"
+
+
 
 if __name__ == "__main__":
     # DebugToolbarExtension(app)
