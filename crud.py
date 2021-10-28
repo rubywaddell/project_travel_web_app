@@ -1,7 +1,5 @@
 """CRUD operations for data in model.py"""
 
-# from os import stat
-from typing import List
 import model
 import requests
 from datetime import datetime
@@ -19,10 +17,10 @@ def create_user(username, fname, lname, email, password):
 
     return user
 
-def show_users():
-    """Return a list of all users"""
+# def show_users():
+#     """Return a list of all users"""
 
-    return model.User.query.all()
+#     return model.User.query.all()
 
 def get_user_by_id(user_id):
     """Return the first user with a given id number"""
@@ -36,11 +34,11 @@ def get_user_by_email(email):
     user = model.User.query.filter(model.User.email == email).first()
     return user
 
-def get_user_by_fname(fname):
-    """Return the first user with a given first name"""
+# def get_user_by_fname(fname):
+#     """Return the first user with a given first name"""
 
-    user = model.User.query.filter(model.User.fname == fname).first()
-    return user
+#     user = model.User.query.filter(model.User.fname == fname).first()
+#     return user
 
 def get_user_by_username(username):
     """Return the first user with a give username"""
@@ -113,11 +111,11 @@ def create_vacation(vacation_label_id, user_id):
 
     return vacation
 
-def show_vacations():
-    """Return a list of all vacation objects in the database"""
+# def show_vacations():
+#     """Return a list of all vacation objects in the database"""
 
-    vacations = model.Vacation.query.all()
-    return vacations
+#     vacations = model.Vacation.query.all()
+#     return vacations
 
 def get_vacation_by_id(vacation_id):
     """Get and return the first vacation object with a given id number"""
@@ -163,16 +161,16 @@ def create_vacation_label(departure_date, arrival_date, state_id=None):
 
     return vacation_label
 
-def show_vacation_labels():
-    """Return a list of all vacation_labels in the database"""
+# def show_vacation_labels():
+#     """Return a list of all vacation_labels in the database"""
 
-    return model.VacationLabel.query.all()
+#     return model.VacationLabel.query.all()
 
-def get_vacation_label_by_id(vacation_label_id):
-    """Query and return the first vacation_label object with a given id number"""
+# def get_vacation_label_by_id(vacation_label_id):
+#     """Query and return the first vacation_label object with a given id number"""
 
-    vacation_label = model.VacationLabel.query.filter(model.VacationLabel.vacation_label_id == vacation_label_id).first()
-    return vacation_label
+#     vacation_label = model.VacationLabel.query.filter(model.VacationLabel.vacation_label_id == vacation_label_id).first()
+#     return vacation_label
 
 def get_vacation_label_by_vacation(vacation):
     """Query and returns the first vacation_label object with the given vacation relation"""
@@ -236,10 +234,10 @@ def create_state(state_name, city_id):
     
     return new_state
 
-def show_states():
-    """"Return a list of all states in database"""
+# def show_states():
+#     """"Return a list of all states in database"""
 
-    return model.State.query.all()
+#     return model.State.query.all()
 
 def get_state_by_name(state_name):
     """Query and return the first state with a given name"""
@@ -247,12 +245,12 @@ def get_state_by_name(state_name):
     state = model.State.query.filter(model.State.state_name == state_name).first()
     return state
 
-def get_state_by_id(state_id):
-    """Query and return the first state with a given id number"""
+# def get_state_by_id(state_id):
+#     """Query and return the first state with a given id number"""
 
-    state = model.State.query.filter(model.State.state_id == state_id).first()
+#     state = model.State.query.filter(model.State.state_id == state_id).first()
 
-    return state
+#     return state
 
 def get_state_by_city_id(city_id):
     """Query and return the first state tied to a given city id number"""
@@ -260,14 +258,14 @@ def get_state_by_city_id(city_id):
     state = model.db.session.query(model.State).filter(model.State.city_id == city_id).first()
     return state
 
-def get_state_by_city(city_name):
-    """Query and return the state tied to a given city name"""
+# def get_state_by_city(city_name):
+#     """Query and return the state tied to a given city name"""
 
-    city = get_city_by_name(city_name=city_name)
+#     city = get_city_by_name(city_name=city_name)
 
-    state = model.db.session.query(model.State).filter(model.State.city_id == city.city_id).first()
+#     state = model.db.session.query(model.State).filter(model.State.city_id == city.city_id).first()
 
-    return state
+#     return state
 
 def check_if_state_in_db(state_name):
     """Checks if the given state name is already stored in the database, returns True or False"""
@@ -278,22 +276,22 @@ def check_if_state_in_db(state_name):
     else:
         return True
 
-def check_if_state_has_city(state_name, city_name):
-    """Checks if a given city is already in the database and connected to the given state, returns a boolean"""
+# def check_if_state_has_city(state_name, city_name):
+#     """Checks if a given city is already in the database and connected to the given state, returns a boolean"""
 
-    city_state_join = model.db.session.query(model.City).join(model.City.state)
-    state_filter = city_state_join.filter(model.State.state_name == state_name)
-    cities = state_filter.all()
+#     city_state_join = model.db.session.query(model.City).join(model.City.state)
+#     state_filter = city_state_join.filter(model.State.state_name == state_name)
+#     cities = state_filter.all()
 
-    city_names = []
+#     city_names = []
 
-    for city in cities:
-        city_names.append(city.city_name)
+#     for city in cities:
+#         city_names.append(city.city_name)
 
-    if city_name in city_names:
-        return True
-    else:
-        return False
+#     if city_name in city_names:
+#         return True
+#     else:
+#         return False
 
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~City CRUD functions: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -307,10 +305,10 @@ def create_city(city_name):
     
     return new_city
 
-def show_cities():
-    """"Return a list of all cities in database"""
+# def show_cities():
+#     """"Return a list of all cities in database"""
 
-    return model.City.query.all()
+#     return model.City.query.all()
 
 def get_city_by_name(city_name):
     """Query and return the first city with a given name"""
@@ -318,16 +316,16 @@ def get_city_by_name(city_name):
     city = model.City.query.filter(model.City.city_name == city_name).first()
     return city
 
-def get_city_by_state(state_name):
-    """Query and return the cities tied to a given state id number"""
+# def get_city_by_state(state_name):
+#     """Query and return the cities tied to a given state id number"""
 
-    state = get_state_by_name(state_name=state_name)
+#     state = get_state_by_name(state_name=state_name)
 
-    city_state_join = model.db.session.query(model.City).join(model.City.state)
-    state_filter = city_state_join.filter(model.State.state_name == state_name)
-    cities = state_filter.all()
+#     city_state_join = model.db.session.query(model.City).join(model.City.state)
+#     state_filter = city_state_join.filter(model.State.state_name == state_name)
+#     cities = state_filter.all()
 
-    return cities
+#     return cities
 
 def check_if_city_in_db(city_name):
     """Checks if the given city name is already stored in the database, returns True or False"""
@@ -367,15 +365,15 @@ def create_tip(tip_text, user_id=None):
     
     return new_tip
 
-def show_tips():
-    """"Return a list of all tips in database"""
+# def show_tips():
+#     """"Return a list of all tips in database"""
 
-    return model.Tip.query.all()
+#     return model.Tip.query.all()
 
-def show_tips_with_user_id(user_id):
-    """Return a list of all tips with the given user_id"""
+# def show_tips_with_user_id(user_id):
+#     """Return a list of all tips with the given user_id"""
 
-    return model.db.session.query(model.Tip).filter(model.Tip.user_id == user_id).all()
+#     return model.db.session.query(model.Tip).filter(model.Tip.user_id == user_id).all()
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~TipTag CRUD functions: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def create_tip_tag(tag_id, tip_id):
@@ -388,36 +386,35 @@ def create_tip_tag(tag_id, tip_id):
 
     return new_tip_tag
 
-def show_tip_tags():
-    """Return a list of all tip_tags"""
+# def show_tip_tags():
+#     """Return a list of all tip_tags"""
 
-    return model.TipTag.query.all()
+#     return model.TipTag.query.all()
 
 def order_tip_tags_by_tip_tag_id_desc():
     """Returns a list of all tip_tags in descending order"""
 
     return model.db.session.query(model.TipTag).order_by(model.db.desc(model.TipTag.tip_tag_id)).all()
 
-def order_tip_tags_by_tip_id():
-    """Returns a list of all tip_tags ordered by tip_id"""
+# def order_tip_tags_by_tip_id():
+#     """Returns a list of all tip_tags ordered by tip_id"""
 
-    return model.db.session.query(model.TipTag).order_by(model.TipTag.tip_id).all()
+#     return model.db.session.query(model.TipTag).order_by(model.TipTag.tip_id).all()
 
-def order_tip_tags_by_tag_id():
-    """Returns a list of all tip_tags ordered by tag_id"""
+# def order_tip_tags_by_tag_id():
+#     """Returns a list of all tip_tags ordered by tag_id"""
 
-    return model.db.session.query(model.TipTag).order_by(model.TipTag.tag_id).all()
+#     return model.db.session.query(model.TipTag).order_by(model.TipTag.tag_id).all()
 
-def order_tip_tags_by_user_id():
-    """Returns a list of all tip_tags ordered by the user_id stored in tips"""
+# def order_tip_tags_by_user_id():
+#     """Returns a list of all tip_tags ordered by the user_id stored in tips"""
 
-    tip_tag_join_tips = model.db.session.query(model.TipTag).join(model.TipTag.tip)
-    return tip_tag_join_tips.order_by(model.Tip.user_id).all()
+#     tip_tag_join_tips = model.db.session.query(model.TipTag).join(model.TipTag.tip)
+#     return tip_tag_join_tips.order_by(model.Tip.user_id).all()
 
 def get_paginated_tip_tags():
     """Returns a pagination of all tip_tags in the database"""
 
-    # tip_tag_base_query = model.db.session.query(model.TipTag)
     tip_tag_base_query = model.db.session.query(model.TipTag).order_by(model.db.desc(model.TipTag.tip_tag_id))
     return tip_tag_base_query.paginate(per_page=10)
 
@@ -495,25 +492,25 @@ def navigate_through_pages(page_num, pagination_obj):
     return tip_tag_pagination
 
 
-def get_tip_tag_by_tag_id(tag_id):
-    """Query and return the first tip_tag with the given tag_id"""
+# def get_tip_tag_by_tag_id(tag_id):
+#     """Query and return the first tip_tag with the given tag_id"""
 
-    return model.TipTag.query.filter(model.TipTag.tag_id == tag_id).first()
+#     return model.TipTag.query.filter(model.TipTag.tag_id == tag_id).first()
 
-def get_tip_tag_by_tip_id(tip_id):
-    """Query and return the first tip_tag with the given tip_id"""
+# def get_tip_tag_by_tip_id(tip_id):
+#     """Query and return the first tip_tag with the given tip_id"""
 
-    return model.TipTag.query.filter(model.TipTag.tip_id == tip_id).first()
+#     return model.TipTag.query.filter(model.TipTag.tip_id == tip_id).first()
 
-def get_tip_tag_by_tag(tag):
-    """Query and return the first tip_tag with the given tag"""
+# def get_tip_tag_by_tag(tag):
+#     """Query and return the first tip_tag with the given tag"""
 
-    return model.TipTag.query.filter(model.TipTag.tag == tag).first()
+#     return model.TipTag.query.filter(model.TipTag.tag == tag).first()
 
-def get_tip_tag_by_tip(tip):
-    """Query and return the first tip_tag with the given tip"""
+# def get_tip_tag_by_tip(tip):
+#     """Query and return the first tip_tag with the given tip"""
 
-    return model.TipTag.query.filter(model.TipTag.tip == tip).first()
+#     return model.TipTag.query.filter(model.TipTag.tip == tip).first()
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Tag CRUD functions: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def create_tag(tag_name, tag_state, tag_city):
@@ -526,40 +523,40 @@ def create_tag(tag_name, tag_state, tag_city):
 
     return new_tag
 
-def show_tags():
-    """Return a list of all tag objects in the database"""
+# def show_tags():
+#     """Return a list of all tag objects in the database"""
 
-    return model.Tag.query.all()
+#     return model.Tag.query.all()
 
-def show_tag_names():
-    """Return a list of all tag_names in the database"""
+# def show_tag_names():
+#     """Return a list of all tag_names in the database"""
 
-    return model.db.session.query(model.Tag.tag_name).all()
+#     return model.db.session.query(model.Tag.tag_name).all()
 
-def order_tags_by_tag_name():
-    """Returns all tags ordered by the tag_name"""
+# def order_tags_by_tag_name():
+#     """Returns all tags ordered by the tag_name"""
 
-    return model.db.session.query(model.Tag).order_by(model.Tag.tag_name).all()
+#     return model.db.session.query(model.Tag).order_by(model.Tag.tag_name).all()
 
 def show_tag_states():
     """Return a list of all tag_states in the database"""
 
     return model.db.session.query(model.Tag.tag_state).all()
 
-def order_tags_by_tag_state():
-    """Returns all tags ordered by tag state"""
+# def order_tags_by_tag_state():
+#     """Returns all tags ordered by tag state"""
 
-    return model.db.session.query(model.Tag).order_by(model.Tag.tag_state).all()
+#     return model.db.session.query(model.Tag).order_by(model.Tag.tag_state).all()
 
 def show_tag_cities():
     """Return a list of all tag_cities in the database"""
 
     return model.db.session.query(model.Tag.tag_city).all()
 
-def order_tags_by_tag_city():
-    """Returns a list of all tags ordered by the tag_city"""
+# def order_tags_by_tag_city():
+#     """Returns a list of all tags ordered by the tag_city"""
 
-    return model.db.session.query(model.Tag).order_by(model.Tag.tag_city).all()
+#     return model.db.session.query(model.Tag).order_by(model.Tag.tag_city).all()
 
 def get_tags_by_tag_name(tag_name):
     """Return a list of all tags with a given tag_name"""
@@ -623,10 +620,10 @@ def create_vacation_checklist(vacation_id, name):
 
     return checklist
 
-def show_vacation_checklists():
-    """Returns a list of all VacationChecklists in the database"""
+# def show_vacation_checklists():
+#     """Returns a list of all VacationChecklists in the database"""
 
-    return model.VacationChecklist.query.all()
+#     return model.VacationChecklist.query.all()
 
 def get_vacation_checklists_by_vacation(vacation_id):
     """Returns a list of all VacationChecklists for the given vacation_id"""
@@ -652,10 +649,10 @@ def create_checklist_item(item, checklist_id, completed=False):
 
     return list_item
 
-def show_list_items(checklist_id):
-    """Returns a list of all items for a given checklist"""
+# def show_list_items(checklist_id):
+#     """Returns a list of all items for a given checklist"""
 
-    return model.ChecklistItem.query.filter(model.ChecklistItem.checklist_id==checklist_id).all()
+#     return model.ChecklistItem.query.filter(model.ChecklistItem.checklist_id==checklist_id).all()
 
 def complete_list_item(item_id):
     """Updates item completed status to True and returns item"""
@@ -795,44 +792,44 @@ def reformat_date(date):
     formatted_date = date+time
     return formatted_date
 
-def search_events_by_city(api_key, city):
-    """Searches for events in Ticketmaster in a given city area. Returns the results as JSON object"""
+# def search_events_by_city(api_key, city):
+#     """Searches for events in Ticketmaster in a given city area. Returns the results as JSON object"""
 
-    formatted_city = reformat_city_names(city_name=city)
+#     formatted_city = reformat_city_names(city_name=city)
 
-    url = f"https://app.ticketmaster.com/discovery/v2/events?apikey={api_key}&locale=*&city={formatted_city}"
+#     url = f"https://app.ticketmaster.com/discovery/v2/events?apikey={api_key}&locale=*&city={formatted_city}"
 
-    response = requests.get(url)
+#     response = requests.get(url)
 
-    results = response.json()
+#     results = response.json()
 
-    if results["_embedded"]:
-        #If the query returns results store them in a variable that is then returned
-        all_events = results["_embedded"]["events"]
-        return all_events
-    else:
-        #otherwiese, return False
-        return False
+#     if results["_embedded"]:
+#         #If the query returns results store them in a variable that is then returned
+#         all_events = results["_embedded"]["events"]
+#         return all_events
+#     else:
+#         #otherwiese, return False
+#         return False
 
-def search_events_by_dates(api_key, start_date, end_date):
-    """Searches for events in the TicketMaster API for a given date range. Returns JSON"""
+# def search_events_by_dates(api_key, start_date, end_date):
+#     """Searches for events in the TicketMaster API for a given date range. Returns JSON"""
 
-    formatted_start_date = reformat_date(date=start_date)
-    formatted_end_date = reformat_date(date=end_date)
+#     formatted_start_date = reformat_date(date=start_date)
+#     formatted_end_date = reformat_date(date=end_date)
 
-    url = f"""https://app.ticketmaster.com/discovery/v2/events?apikey={api_key}&locale=*&startDateTime={formatted_start_date}&endDateTime={formatted_end_date}"""
+#     url = f"""https://app.ticketmaster.com/discovery/v2/events?apikey={api_key}&locale=*&startDateTime={formatted_start_date}&endDateTime={formatted_end_date}"""
     
-    response = requests.get(url)
+#     response = requests.get(url)
 
-    results = response.json()
+#     results = response.json()
 
-    if results["_embedded"]:
-        #If the query returns results store them in a variable that is then returned
-        all_events = results["_embedded"]["events"]
-        return all_events
-    else:
-        #otherwiese, return False
-        return False
+#     if results["_embedded"]:
+#         #If the query returns results store them in a variable that is then returned
+#         all_events = results["_embedded"]["events"]
+#         return all_events
+#     else:
+#         #otherwise, return False
+#         return False
 
 def search_events_by_city_and_dates(api_key, city, start_date, end_date):
     """Searches for events in TicketMaster in a given city area from a given date to a given end date
@@ -853,7 +850,7 @@ def search_events_by_city_and_dates(api_key, city, start_date, end_date):
         all_events = results["_embedded"]["events"]
         return all_events
     else:
-        #otherwiese, return False
+        #otherwise, return False
         return False
 
 def clean_up_event_results(all_events):

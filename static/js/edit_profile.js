@@ -27,7 +27,8 @@ const deleteVacation = (evt) => {
 
         $.get(`/delete_vacation_${vacationId}`, response => {
             const username = response;
-            window.open(`/profile_${username}`, '_self');
+            // window.open(`/profile_${username}`, '_self');
+            location.reload();
         });
     }else{
         console.log("User chose NOT to delete");

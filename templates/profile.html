@@ -15,6 +15,7 @@
     <div class="grid-item"><h6><strong>City</strong></h6></div>
     <div class="grid-item"><h6><strong>See Events and Tips</strong></h6></div>
     <div class="grid-item"><h6><strong>Edit Vacation</strong></h6></div>
+    <div class="grid-item"><h6><strong>View Packing List</strong></h6></div>
     <div class="grid-item"><h6><strong>Delete Vacation</strong></h6></div>
 </div>
 
@@ -32,6 +33,9 @@
                 Events and Tips</a></button></div>
         <div class="grid-item"><button class="edit-vacation-btn btn btn-outline-primary btn-sm"
              id="{{vacation.vacation_id}}">Edit</button></div>
+        <div class="grid-item"><button class="view-checklist-btn btn btn-outline-primary btn-sm">
+            <a href="/travel_prep_checklist_vacation_{{vacation.vacation_id}}">View Checklist</a></button>
+        </div>
         <div class="grid-item"><button class="delete-vacay-btn btn btn-outline-danger btn-sm" 
             id="{{vacation.vacation_label.vacation_label_id}}">Delete</button></div>
     </div>
@@ -111,7 +115,8 @@
 <div class="delete-user-account" id="delete-account-div">
     <button class="btn btn-outline-danger" id="delete-account-button" name="{{user.user_id}}">Delete Account</button>
 </div>
-{% endblock %}
 
 <script src="http://code.jquery.com/jquery.js"></script>
 <script src="static/js/edit_profile.js"></script>
+
+{% endblock %}

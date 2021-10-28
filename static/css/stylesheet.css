@@ -135,7 +135,7 @@ tr.event-table-rows{
 }
 
 .profile-vacation-grid{
-    grid-template-columns: auto auto auto auto auto auto auto
+    grid-template-columns: auto auto auto auto auto auto auto auto
 }
 
 /* Styling for to-do list */
