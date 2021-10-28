@@ -532,7 +532,7 @@ def add_item_to_checklist():
     checklist_id = request.args.get("checklist_id")
     new_item = crud.create_checklist_item(item=item, checklist_id=checklist_id)
 
-    return f"Successfully added {new_item.item_text} to db, id={new_item.item_id}"
+    return f"{new_item.item_id}"
 
 @app.route("/delete_checklist_item")
 def delete_checklist_item():

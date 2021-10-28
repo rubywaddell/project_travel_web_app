@@ -140,7 +140,7 @@ tr.event-table-rows{
 
 /* Styling for to-do list */
 div#to-do-list-container-div{
-    margin: 100px;
+    margin: 50px;
     }
 
 #to-do-list-container-div li:hover {
