@@ -122,5 +122,3 @@ const showEditVacationLabelForm = (evt) => {
 
 $('.edit-vacation-btn').on('click', showEditVacationLabelForm);
 
-
-//------------------------------------------ FUNCTION TO ADD VACATION OBJECT -----------------------------------------
