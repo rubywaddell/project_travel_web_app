@@ -524,6 +524,15 @@ def show_travel_prep_checklist(vacation_id):
     return render_template("to_do_list.html", todo_list_items=todo_list_items, todo_id=todo_id, clothes_list_items=clothes_list_items,
     clothes_id=clothes_id, toiletries_list_items=toiletries_list_items, toiletries_id=toiletries_id, misc_list_items=misc_list_items, misc_id=misc_id)
 
+@app.route("/add_checklist_item_<checklist_id>")
+def add_item_to_checklist(checklist_id):
+    """Adds item to the given VacationChecklist"""
+
+    item = request.args.get("item")
+    new_item = crud.create_checklist_item(item=item, checklist_id=checklist_id)
+    
+    return f"Successfully added {new_item.item_text} to db, id={new_item.item_id}"
+
 
 if __name__ == "__main__":
     # DebugToolbarExtension(app)
