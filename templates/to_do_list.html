@@ -14,7 +14,9 @@
     <div class="grid-item trip-prep-list">
         <ul class="to-do-list" id="travel-prep-list-ul">
         {% for item in todo_list_items %}
-            <li id="{{ item.item_id }}">{{ item.item_text }}</li>
+            <li class="to-do-list-item" id="{{ item.item_id }}">{{ item.item_text }}
+               <span class="delete-list-item">X</span> 
+            </li>
         {% endfor %}
         </ul>
         <input type="text" id="add-new-prep-list-item" name="new-prep-list-item" placeholder="Add new item">
@@ -28,7 +30,9 @@
             <strong>Clothes:</strong>
             <ul class="to-do-list" id="clothes-bag-list-ul">
                 {% for item in clothes_list_items %}
-                <li>{{ item.item_text }}</li>
+                <li class="to-do-list-item" id="{{ item.item_id }}">{{ item.item_text }}
+                    <span class="delete-list-item">X</span>
+                </li>
                 {% endfor %}
             </ul>
             <input type="text" id="add-new-clothes-list-item" name="new-clothes-list-item" placeholder="Add new item">
@@ -39,7 +43,9 @@
             <strong>Toiletries:</strong>
             <ul class="to-do-list" id="toiletries-bag-list-ul">
                 {% for item in toiletries_list_items %}
-                <li>{{ item.item_text }}</li>
+                <li class="to-do-list-item" id="{{ item.item_id }}">{{ item.item_text }}
+                    <span class="delete-list-item">X</span>
+                </li>
                 {% endfor %}
             </ul>
             <input type="text" id="add-new-toiletries-list-item" name="new-toiletries-list-item" placeholder="Add new item">
@@ -50,7 +56,9 @@
             <strong>Misc.:</strong>
             <ul class="to-do-list" id="misc-bag-list-ul">
                 {% for item in misc_list_items %}
-                <li>{{ item.item_text }}</li>
+                <li class="to-do-list-item" id="{{ item.item_id }}">{{ item.item_text }}
+                    <span class="delete-list-item">X</span>
+                </li>
                 {% endfor %}
             </ul>
             <input type="text" id="add-new-misc-list-item" name="new-misc-list-item" placeholder="Add new item">

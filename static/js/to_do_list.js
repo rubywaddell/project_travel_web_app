@@ -51,7 +51,7 @@ const addToiletriesListItem = (evt) => {
 
 $('#toiletries-list-add-item-btn').on('click', addToiletriesListItem);
 
-// Misc. packing lsit functions
+// Misc. packing list functions
 const addMiscListItem = (evt) => {
     const newItem = $('#add-new-misc-list-item').val()
     const listId = evt.target.name;
