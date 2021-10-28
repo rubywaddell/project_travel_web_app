@@ -5,10 +5,10 @@ const addPrepListItem = (evt) => {
     const newItem = $('#add-new-prep-list-item').val()
     const listId = evt.target.name;
 
-    const formData = {"item" : newItem, "checklist_id" : listId};
+    const formData = {'item' : newItem, 'checklist_id' : listId};
     console.log(formData);
 
-    $.get("/add_checklist_item", formData, response => {
+    $.get('/add_checklist_item', formData, response => {
         console.log(response)
     });
 
@@ -22,10 +22,10 @@ const addClothesListItem = (evt) => {
     const newItem = $('#add-new-clothes-list-item').val()
     const listId = evt.target.name;
 
-    const formData = {"item" : newItem, "checklist_id" : listId};
+    const formData = {'item' : newItem, 'checklist_id' : listId};
     console.log(formData);
 
-    $.get("/add_checklist_item", formData, response => {
+    $.get('/add_checklist_item', formData, response => {
         console.log(response)
     });
 
@@ -39,10 +39,10 @@ const addToiletriesListItem = (evt) => {
     const newItem = $('#add-new-toiletries-list-item').val()
     const listId = evt.target.name;
 
-    const formData = {"item" : newItem, "checklist_id" : listId};
+    const formData = {'item' : newItem, 'checklist_id' : listId};
     console.log(formData);
 
-    $.get("/add_checklist_item", formData, response => {
+    $.get('/add_checklist_item', formData, response => {
         console.log(response)
     });
 
@@ -56,10 +56,10 @@ const addMiscListItem = (evt) => {
     const newItem = $('#add-new-misc-list-item').val()
     const listId = evt.target.name;
     
-    const formData = {"item" : newItem, "checklist_id" : listId};
+    const formData = {'item' : newItem, 'checklist_id' : listId};
     console.log(formData);
 
-    $.get("/add_checklist_item", formData, response => {
+    $.get('/add_checklist_item', formData, response => {
         console.log(response)
     });
 
@@ -73,12 +73,21 @@ $('#misc-list-add-item-btn').on('click', addMiscListItem);
 const deleteListItem = (evt) => {
 
     const itemId = evt.target.id;
-    const formData = {"item_id" : itemId};
+    const formData = {'item_id' : itemId};
 
-    $.get("/delete_checklist_item", formData, response => {
+    $.get('/delete_checklist_item', formData, response => {
         console.log(response);
         location.reload();
     });
 }
 
 $('.delete-list-item').on('click', deleteListItem);
+
+// Complete checklist item function
+const completeListItem = (evt) => {
+
+    const itemId = evt.target.id;
+    alert(`You clicked on ${itemId} the item`);
+}
+
+$('.to-do-list-item').on('click', completeListItem);
