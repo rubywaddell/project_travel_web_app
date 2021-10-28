@@ -326,7 +326,13 @@ def show_pageinated_travel_tips_filtered_by_tag(page_num):
 def show_new_tip():
     """Renders the new_tip page to allow a user to create a new travel tip"""
 
-    return render_template("new_tip.html")
+    page_one = crud.get_paginated_tip_tags()
+
+    pages = crud.get_dict_of_tip_tag_pages(pagination_obj=page_one)
+
+    tip_tag_pagination = crud.navigate_through_pages(pagination_obj=page_one, page_num=1)
+
+    return render_template("new_tip.html", tip_tag_pages=pages, pagination_obj=tip_tag_pagination, page_num=1)
 
 
 @app.route("/add_new_tip")
