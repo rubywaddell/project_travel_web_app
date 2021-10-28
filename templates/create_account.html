@@ -10,21 +10,23 @@
     <div id="new-user-names">
         <label>Your name:</label>
         <label>First name</label>
-        <input type="text" name="fname">
+        <input type="text" name="fname" aria-required="true" required>
         <label>Last name</label>
-        <input type="text" name="lname">
+        <input type="text" name="lname" required aria-required="true">
     </div>
     <div id="new-user-username">
         <label>Username:</label>
-        <input type="text" name="username" pattern="\w{1, 15}" title="Username too long, please limit to 15 characters">
+        <input type="text" name="username" pattern="\w{1, 15}" title="Username too long, please limit to 15 characters"
+        required aria-required="true">
     </div>
     <div id="new-user-email">
         <label>Email:</label>
-        <input type="email" name="email" pattern="\w*\@\w*\.\w{3}" title="Please enter a valid email address">
+        <input type="email" name="email" pattern="\w*\@\w*\.\w{3}" title="Please enter a valid email address" 
+        required aria-required="true">
     </div>
     <div id="new-user-password">
         <label>Password:</label>
-        <input type="password" name="password">
+        <input type="password" name="password" required aria-required="true">
     </div>
 
 <h2>Your Travel Information:</h2>
