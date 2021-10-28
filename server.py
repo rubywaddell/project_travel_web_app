@@ -541,8 +541,16 @@ def delete_checklist_item():
     item_id = request.args.get("item_id")
     crud.delete_checklist_item(item_id=item_id)
     
-    return f"Successfully deleted from db"
+    return "Successfully deleted from db"
 
+@app.route("/complete_checklist_item")
+def complete_checklist_item():
+    """Updates checklist_item completion status to True"""
+
+    item_id = request.args.get("item_id")
+    checklist_item = crud.complete_list_item(item_id=item_id)
+
+    return f"Completed {checklist_item}"
 
 
 if __name__ == "__main__":

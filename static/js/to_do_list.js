@@ -70,12 +70,9 @@ $('#misc-list-add-item-btn').on('click', addMiscListItem);
 
 
 // Delete list item function
-
 const deleteListItem = (evt) => {
 
     const itemId = evt.target.id;
-    alert(`You clicked the delete span\nitem id = ${itemId}`);
-
     const formData = {"item_id" : itemId};
 
     $.get("/delete_checklist_item", formData, response => {
