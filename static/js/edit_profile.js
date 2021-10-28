@@ -27,7 +27,6 @@ const deleteVacation = (evt) => {
 
         $.get(`/delete_vacation_${vacationId}`, response => {
             const username = response;
-            // window.open(`/profile_${username}`, '_self');
             location.reload();
         });
     }else{
@@ -122,3 +121,6 @@ const showEditVacationLabelForm = (evt) => {
 };
 
 $('.edit-vacation-btn').on('click', showEditVacationLabelForm);
+
+
+//------------------------------------------ FUNCTION TO ADD VACATION OBJECT -----------------------------------------
