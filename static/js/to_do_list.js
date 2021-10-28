@@ -21,7 +21,14 @@ $('#prep-list-add-item-btn').on('click', addPrepListItem);
 const addClothesListItem = (evt) => {
     const newItem = $('#add-new-clothes-list-item').val()
     const listId = evt.target.name;
-    console.log(listId);
+
+    const formData = {"item" : newItem, "checklist_id" : listId};
+    console.log(formData);
+
+    $.get("/add_checklist_item", formData, response => {
+        console.log(response)
+    });
+
     $('#clothes-bag-list-ul').append(`<li>${newItem}</li>`);
 }
 
@@ -31,7 +38,14 @@ $('#clothes-list-add-item-btn').on('click', addClothesListItem);
 const addToiletriesListItem = (evt) => {
     const newItem = $('#add-new-toiletries-list-item').val()
     const listId = evt.target.name;
-    console.log(listId);
+
+    const formData = {"item" : newItem, "checklist_id" : listId};
+    console.log(formData);
+
+    $.get("/add_checklist_item", formData, response => {
+        console.log(response)
+    });
+
     $('#toiletries-bag-list-ul').append(`<li>${newItem}</li>`);
 }
 
@@ -41,7 +55,14 @@ $('#toiletries-list-add-item-btn').on('click', addToiletriesListItem);
 const addMiscListItem = (evt) => {
     const newItem = $('#add-new-misc-list-item').val()
     const listId = evt.target.name;
-    console.log(listId);
+    
+    const formData = {"item" : newItem, "checklist_id" : listId};
+    console.log(formData);
+
+    $.get("/add_checklist_item", formData, response => {
+        console.log(response)
+    });
+
     $('#misc-bag-list-ul').append(`<li>${newItem}</li>`);
 }
 
