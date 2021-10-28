@@ -67,3 +67,13 @@ const addMiscListItem = (evt) => {
 }
 
 $('#misc-list-add-item-btn').on('click', addMiscListItem);
+
+
+// Delete list item function
+
+const deleteListItem = (evt) => {
+    const itemId = evt.target.id;
+    alert(`You clicked the delete span\nitem id = ${itemId}`)
+}
+
+$('.delete-list-item').on('click', deleteListItem);

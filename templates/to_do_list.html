@@ -15,7 +15,7 @@
         <ul class="to-do-list" id="travel-prep-list-ul">
         {% for item in todo_list_items %}
             <li class="to-do-list-item" id="{{ item.item_id }}">{{ item.item_text }}
-               <span class="delete-list-item">X</span> 
+               <span class="delete-list-item" id="{{ item.item_id }}">X</span> 
             </li>
         {% endfor %}
         </ul>
@@ -31,7 +31,7 @@
             <ul class="to-do-list" id="clothes-bag-list-ul">
                 {% for item in clothes_list_items %}
                 <li class="to-do-list-item" id="{{ item.item_id }}">{{ item.item_text }}
-                    <span class="delete-list-item">X</span>
+                    <span class="delete-list-item" id="{{ item.item_id }}">X</span>
                 </li>
                 {% endfor %}
             </ul>
@@ -44,7 +44,7 @@
             <ul class="to-do-list" id="toiletries-bag-list-ul">
                 {% for item in toiletries_list_items %}
                 <li class="to-do-list-item" id="{{ item.item_id }}">{{ item.item_text }}
-                    <span class="delete-list-item">X</span>
+                    <span class="delete-list-item" id="{{ item.item_id }}">X</span>
                 </li>
                 {% endfor %}
             </ul>
@@ -57,7 +57,7 @@
             <ul class="to-do-list" id="misc-bag-list-ul">
                 {% for item in misc_list_items %}
                 <li class="to-do-list-item" id="{{ item.item_id }}">{{ item.item_text }}
-                    <span class="delete-list-item">X</span>
+                    <span class="delete-list-item" id="{{ item.item_id }}">X</span>
                 </li>
                 {% endfor %}
             </ul>
@@ -65,8 +65,7 @@
             <button class="btn btn-outline-success btn-sm" name="{{misc_id}}" type="submit" id="misc-list-add-item-btn">Add</button>
         </div>
 
-</div>
-
+    </div>
     </div>
 </div>
 
