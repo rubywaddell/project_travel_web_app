@@ -662,6 +662,8 @@ def complete_list_item(item_id):
 
     list_item = model.ChecklistItem.query.get(item_id)
     list_item.completed = True
+    model.db.session.commit()
+
     return list_item
 
 def delete_checklist_item(item_id):

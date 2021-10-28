@@ -87,7 +87,11 @@ $('.delete-list-item').on('click', deleteListItem);
 const completeListItem = (evt) => {
 
     const itemId = evt.target.id;
-    alert(`You clicked on ${itemId} the item`);
+    const formData = {"item_id" : itemId};
+    $.get('/complete_checklist_item', formData, response => {
+        console.log(response);
+        location.reload();
+    });
 }
 
 $('.to-do-list-item').on('click', completeListItem);

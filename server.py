@@ -550,7 +550,7 @@ def complete_checklist_item():
     item_id = request.args.get("item_id")
     checklist_item = crud.complete_list_item(item_id=item_id)
 
-    return f"Completed {checklist_item}"
+    return f"Completed {checklist_item} status={checklist_item.completed}"
 
 
 if __name__ == "__main__":
