@@ -717,7 +717,7 @@ def create_default_toiletries_checklist(vacation_id):
 def create_default_misc_checklist(vacation_id):
     """Creates and returns a default checklist of misc. items to pack for user's vacation"""
 
-    misc_items = ["face mask", "hand sanitizer", "phone and charger", "headphones", "external charger"]
+    misc_items = ["face mask", "hand sanitizer", "phone and charger", "headphones", "external charger", "small bag for laundry"]
 
     checklist = create_vacation_checklist(vacation_id=vacation_id, name="misc items")
     for item in misc_items:

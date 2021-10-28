@@ -14,11 +14,11 @@
     <div class="grid-item trip-prep-list">
         <ul class="to-do-list" id="travel-prep-list-ul">
         {% for item in todo_list_items %}
-            <li>{{ item.item_text }}</li>
+            <li id="{{ item.item_id }}">{{ item.item_text }}</li>
         {% endfor %}
         </ul>
-        <input type="text" id="add-new-prep-list-item" name="new-prep-list-item" id="{{ item.item_id }}" placeholder="Add new item">
-        <button class="btn btn-outline-success btn-sm" type="submit" id="prep-list-add-item-btn">Add</button>
+        <input type="text" id="add-new-prep-list-item" name="new-prep-list-item" placeholder="Add new item">
+        <button class="btn btn-outline-success btn-sm" name="{{ todo_id }}" type="submit" id="prep-list-add-item-btn">Add</button>
     </div>
     </div>
 
@@ -32,7 +32,7 @@
                 {% endfor %}
             </ul>
             <input type="text" id="add-new-clothes-list-item" name="new-clothes-list-item" placeholder="Add new item">
-            <button class="btn btn-outline-success btn-sm" type="submit" id="clothes-list-add-item-btn">Add</button>
+            <button class="btn btn-outline-success btn-sm" name="{{clothes_id}}" type="submit" id="clothes-list-add-item-btn">Add</button>
         </div>
 
         <div class="grid-item pack-bags-list">
@@ -43,7 +43,7 @@
                 {% endfor %}
             </ul>
             <input type="text" id="add-new-toiletries-list-item" name="new-toiletries-list-item" placeholder="Add new item">
-            <button class="btn btn-outline-success btn-sm" type="submit" id="toiletries-list-add-item-btn">Add</button>
+            <button class="btn btn-outline-success btn-sm" name="{{toiletries_id}}" type="submit" id="toiletries-list-add-item-btn">Add</button>
         </div>
 
         <div class="grid-item pack-bags-list">
@@ -54,7 +54,7 @@
                 {% endfor %}
             </ul>
             <input type="text" id="add-new-misc-list-item" name="new-misc-list-item" placeholder="Add new item">
-            <button class="btn btn-outline-success btn-sm" type="submit" id="misc-list-add-item-btn">Add</button>
+            <button class="btn btn-outline-success btn-sm" name="{{misc_id}}" type="submit" id="misc-list-add-item-btn">Add</button>
         </div>
 
 </div>

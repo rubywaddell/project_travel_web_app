@@ -510,15 +510,19 @@ def show_travel_prep_checklist(vacation_id):
     for checklist in checklists:
         if checklist.checklist_name == "todo items":
             todo_list_items.extend(checklist.checklist_item)
+            todo_id = checklist.checklist_id
         elif checklist.checklist_name == "clothes":
             clothes_list_items.extend(checklist.checklist_item)
+            clothes_id = checklist.checklist_id
         elif checklist.checklist_name == "toiletries":
             toiletries_list_items.extend(checklist.checklist_item)
+            toiletries_id = checklist.checklist_id
         elif checklist.checklist_name == "misc items":
             misc_list_items.extend(checklist.checklist_item)
+            misc_id = checklist.checklist_id
 
-    return render_template("to_do_list.html", todo_list_items=todo_list_items, clothes_list_items=clothes_list_items,
-    toiletries_list_items=toiletries_list_items, misc_list_items=misc_list_items)
+    return render_template("to_do_list.html", todo_list_items=todo_list_items, todo_id=todo_id, clothes_list_items=clothes_list_items,
+    clothes_id=clothes_id, toiletries_list_items=toiletries_list_items, toiletries_id=toiletries_id, misc_list_items=misc_list_items, misc_id=misc_id)
 
 
 if __name__ == "__main__":
