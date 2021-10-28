@@ -634,6 +634,13 @@ def get_vacation_checklists_by_vacation(vacation_id):
     return model.VacationChecklist.query.filter(model.VacationChecklist.vacation_id==vacation_id).all()
 
 
+def get_vacation_checklist_by_list_item(item_id):
+    """Returns the first VacationChecklist with the given item_id relation"""
+
+    join = model.VacationChecklist.query.join(model.VacationChecklist.checklist_item)
+    item_filter = join.filter(model.ChecklistItem.item_id == item_id)
+    return item_filter.first()
+
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ChecklistItem functions ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def create_checklist_item(item, checklist_id, completed=False):
     """Adds and returns a new ChecklistItem object

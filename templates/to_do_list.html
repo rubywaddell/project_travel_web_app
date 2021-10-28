@@ -13,13 +13,11 @@
 
     <div class="grid-item trip-prep-list">
         <ul class="to-do-list" id="travel-prep-list-ul">
-            <li class="checked">Notify your bank</li>
-            <li>Tell 1+ friend/family member about your trip.</li>
-            <li>Check the weather report for your destination</li>
-            <li>Verify check-in and check-out for your accommodation</li>
-            <li>Download map for your destination to access if you lose WiFi</li>
+        {% for item in todo_list_items %}
+            <li>{{ item.item_text }}</li>
+        {% endfor %}
         </ul>
-        <input type="text" id="add-new-prep-list-item" name="new-prep-list-item" placeholder="Add new item">
+        <input type="text" id="add-new-prep-list-item" name="new-prep-list-item" id="{{ item.item_id }}" placeholder="Add new item">
         <button class="btn btn-outline-success btn-sm" type="submit" id="prep-list-add-item-btn">Add</button>
     </div>
     </div>
@@ -29,11 +27,9 @@
         <div class="grid-item pack-bags-list">
             <strong>Clothes:</strong>
             <ul class="to-do-list" id="clothes-bag-list-ul">
-                <li class="checked">Shirts</li>
-                <li>Pants</li>
-                <li>Socks and undewear</li>
-                <li>Comfortable walking shoes</li>
-                <li>Small soft bag for dirty laundry</li>
+                {% for item in clothes_list_items %}
+                <li>{{ item.item_text }}</li>
+                {% endfor %}
             </ul>
             <input type="text" id="add-new-clothes-list-item" name="new-clothes-list-item" placeholder="Add new item">
             <button class="btn btn-outline-success btn-sm" type="submit" id="clothes-list-add-item-btn">Add</button>
@@ -42,14 +38,9 @@
         <div class="grid-item pack-bags-list">
             <strong>Toiletries:</strong>
             <ul class="to-do-list" id="toiletries-bag-list-ul">
-                <li>Toothpaste and toothbrush</li>
-                <li>Shampoo and conditioner</li>
-                <li>Sunscreen</li>
-                <li>Cleanser</li>
-                <li>Moisturizer</li>
-                <li>Prescriptions</li>
-                <li>Bandaids/Small first-aid kit</li>
-                <li>Menstrual products</li>
+                {% for item in toiletries_list_items %}
+                <li>{{ item.item_text }}</li>
+                {% endfor %}
             </ul>
             <input type="text" id="add-new-toiletries-list-item" name="new-toiletries-list-item" placeholder="Add new item">
             <button class="btn btn-outline-success btn-sm" type="submit" id="toiletries-list-add-item-btn">Add</button>
@@ -58,12 +49,9 @@
         <div class="grid-item pack-bags-list">
             <strong>Misc.:</strong>
             <ul class="to-do-list" id="misc-bag-list-ul">
-                <li>Phone and charger</li>
-                <li>Headphones</li>
-                <li>External charger</li>
-                <li>Sunglasses</li>
-                <li>Face mask</li>
-                <li>Hand sanitizer</li>
+                {% for item in misc_list_items %}
+                <li>{{ item.item_text }}</li>
+                {% endfor %}
             </ul>
             <input type="text" id="add-new-misc-list-item" name="new-misc-list-item" placeholder="Add new item">
             <button class="btn btn-outline-success btn-sm" type="submit" id="misc-list-add-item-btn">Add</button>
