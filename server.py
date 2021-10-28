@@ -326,6 +326,10 @@ def show_pageinated_travel_tips_filtered_by_tag(page_num):
 def show_new_tip():
     """Renders the new_tip page to allow a user to create a new travel tip"""
 
+    if session == {}:
+        flash("Please log in first")
+        return redirect("/login")
+
     page_one = crud.get_paginated_tip_tags()
 
     pages = crud.get_dict_of_tip_tag_pages(pagination_obj=page_one)
@@ -338,10 +342,6 @@ def show_new_tip():
 @app.route("/add_new_tip")
 def add_new_tip():
     """Adds new tip to the database after they submit the add new tip form"""
-
-    if session == {}:
-        flash("Please log in first")
-        return redirect("/login")
 
     username = session["logged_in_username"]
 
