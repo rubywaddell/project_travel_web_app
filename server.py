@@ -2,7 +2,7 @@
 
 from flask import Flask, render_template, request, flash, session, redirect
 
-import model
+from model import connect_to_db
 import crud
 
 from jinja2 import StrictUndefined
@@ -20,8 +20,8 @@ with open("secrets.sh") as s:
 MY_API_KEY = lines[0][1]
 app.secret_key = lines[1][1]
 
-model.connect_to_db(app)
-model.db.create_all()
+connect_to_db(app)
+# model.db.create_all()
 
 #=====================================================HOMEPAGE ROUTE========================================================
 @app.route("/")
@@ -574,5 +574,6 @@ def complete_checklist_item():
 
 if __name__ == "__main__":
     # DebugToolbarExtension(app)
-
     app.run(host="0.0.0.0", debug=True)
+    # model.connect_to_db(app)
+    # model.db.create_all()
