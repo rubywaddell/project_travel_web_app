@@ -86,7 +86,8 @@ const showEditPasswordForm = (evt) => {
         <label>Old Password:</label>
         <input type="password" name="old-password" id="old-password-input">
         <label>New Password:</label>
-        <input type="password" name="new-password">
+        <input type="password" name="new-password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+        title="Password must be 8 characters, contain one number, and one uppercase letter.">
         <input type="submit" id="change-password-submit">
     </div>
     </form>
