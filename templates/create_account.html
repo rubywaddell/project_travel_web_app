@@ -16,17 +16,19 @@
     </div>
     <div id="new-user-username">
         <label>Username:</label>
-        <input type="text" name="username" pattern="\w{1, 15}" title="Username too long, please limit to 15 characters"
-        required aria-required="true">
+        <input type="text" name="username" required aria-required="true">
     </div>
     <div id="new-user-email">
         <label>Email:</label>
-        <input type="email" name="email" pattern="\w*\@\w*\.\w{3}" title="Please enter a valid email address" 
-        required aria-required="true">
+        <input type="email" name="email" required aria-required="true">
+        <!-- pattern="\w*\@\w*\.\w{3}" title="Please enter a valid email address" -->
     </div>
     <div id="new-user-password">
         <label>Password:</label>
-        <input type="password" name="password" required aria-required="true">
+        <input type="password" name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+        title="Password must be 8 characters, contain one number, and one uppercase letter."
+        required aria-required="true">
+        <p>Password must be at least 8 characters long, contain a number, and an uppercase letter.</p>
     </div>
 
 <h2>Your Travel Information:</h2>
