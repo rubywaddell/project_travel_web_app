@@ -128,7 +128,7 @@ tr.event-table-rows{
 
 .homepage-div {
     /* text-align: center; */
-    position: relative;
+    position: fixed;
     height: 100vh;
     width: 100%;
     display: flex;
@@ -137,9 +137,9 @@ tr.event-table-rows{
 }
 
 .homepage-div h1{
-    color: black;
+    color: rgb(10, 10, 10);
     position: relative;
-    font-size: 10rem;
+    font-size: 8rem;
 }
 
 .homepage-div p{
