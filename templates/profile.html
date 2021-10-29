@@ -106,11 +106,14 @@
     <div class="profile-contact grid-item" id="edit-password-div"><strong>Password: {% for char in user.password %}*{% endfor %}</strong></div>
 <p></p>
     <div class="profile-contact grid-item">
-        <button class="btn btn-outline-dark btn-sm" id="edit-email-button">Update Email Address</button></div>
+        <button class="btn btn-outline-dark btn-sm" id="edit-email-button" name="{{user.email}}">
+            Update Email Address</button></div>
     <div class="profile-contact grid-item">
-        <button class="btn btn-outline-dark btn-sm" id="edit-username-button">Change Username</button></div>
+        <button class="btn btn-outline-dark btn-sm" id="edit-username-button" name="{{user.username}}">
+            Change Username</button></div>
     <div class="profile-contact grid-item">
-        <button class="btn btn-outline-dark btn-sm" id="edit-password-button">Change Password</button></div>
+        <button class="btn btn-outline-dark btn-sm" id="edit-password-button" name="{{user.password}}">
+            Change Password</button></div>
 </div>
 <p></p>
 

@@ -386,12 +386,10 @@ def show_new_vacation():
     
     user = crud.get_user_by_username(username)
 
-
     pag_obj = crud.get_paginated_user_filtered_tip_tags(user_id=user.user_id)
     tip_tag_pages = crud.get_dict_of_tip_tag_pages(pagination_obj=pag_obj)
 
     vacations = user.vacation
-
 
     return render_template("new_vacation.html", user=user, vacations=vacations, tip_tag_pages=tip_tag_pages,
     pagination_obj=pag_obj, page_num=1)
