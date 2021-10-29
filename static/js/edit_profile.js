@@ -93,10 +93,12 @@ const showEditPasswordForm = (evt) => {
     `);
     const validatePassword = (evt) => {
         evt.preventDefault();
-        alert("Change password submit prevent default is working");
+        // alert("Change password submit prevent default is working");
         const inputPassword = $('#old-password-input').val();
         if (oldPassword !== inputPassword){
             alert('Incorrect password, please re-enter');
+        }else{
+            $('#change-password-submit').unbind('click');
         }
     }
     $('#change-password-submit').bind('click', validatePassword);
