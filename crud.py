@@ -89,9 +89,11 @@ def create_vacation(vacation_label_id, user_id):
     model.db.session.commit()
 
     departure_month = vacation.vacation_label.departure_date.month
+    print("departure_month = ", departure_month)
+
     if departure_month > 5 and departure_month < 9:
         create_default_summer_clothes_checklist(vacation_id=vacation.vacation_id)
-    elif departure_month > 9 and departure_month < 3:
+    elif departure_month > 9 or departure_month < 3:
         create_default_winter_clothes_checklist(vacation_id=vacation.vacation_id)
     else:
         create_default_clothes_checklist(vacation_id=vacation.vacation_id)

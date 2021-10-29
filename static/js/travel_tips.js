@@ -2,7 +2,6 @@
 
 // ************************* Function for Adding a New Tip Dynamically: ************************************
 const showDynamicAddTipForm = () => {
-    alert('You clicked a button! Congrats!');
     $('#travel-tips-filter-div').html(`
         <form id="new-tip-information" action="/add_new_tip">
         <h4>Add Your New Tip Here:</h4>

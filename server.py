@@ -529,7 +529,8 @@ def show_travel_prep_checklist(vacation_id):
         if checklist.checklist_name == "todo items":
             todo_list_items.extend(checklist.checklist_item)
             todo_id = checklist.checklist_id
-        elif checklist.checklist_name == "clothes":
+        elif (checklist.checklist_name == "clothes" or 
+        checklist.checklist_name == "summer clothes" or checklist.checklist_name == "winter clothes"):
             clothes_list_items.extend(checklist.checklist_item)
             clothes_id = checklist.checklist_id
         elif checklist.checklist_name == "toiletries":
