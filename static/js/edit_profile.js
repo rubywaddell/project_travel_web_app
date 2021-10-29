@@ -76,19 +76,21 @@ const showEditUsernameForm = (evt) => {
 
 const showEditPasswordForm = (evt) => {
     const oldPassword = evt.target.name;
+    const userId = $('.edit-password-div')[0]['id']
     console.log(oldPassword);
-    // $('#profile-user-contact-info-grid-container').append(`
-    // <form id="edit-user-password" action="/edit_password_user_{{user.user_id}}" method="POST">
-    // <div id="edit-user-password">
-    //     <label><strong>Change Password:</strong></label><p></p>
-    //     <label>Old Password:</label>
-    //     <input type="password" name="old-password">
-    //     <label>New Password:</label>
-    //     <input type="password" name="new-password">
-    //     <input type="submit" id="change-password-submit">
-    // </div>
-    // </form>
-    // `);
+    console.log(userId);
+    $('#profile-user-contact-info-grid-container').append(`
+    <form id="edit-user-password" action="/edit_password_user_${userId}" method="POST">
+    <div id="edit-user-password">
+        <label><strong>Change Password:</strong></label><p></p>
+        <label>Old Password:</label>
+        <input type="password" name="old-password" id="old-password-input">
+        <label>New Password:</label>
+        <input type="password" name="new-password">
+        <input type="submit" id="change-password-submit">
+    </div>
+    </form>
+    `);
 }
 
 $('#edit-email-button').on('click', showEditEmailForm);

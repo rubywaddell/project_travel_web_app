@@ -196,6 +196,8 @@ def edit_user_password(user_id):
 
     new_password = request.form.get("new-password")
     
+    user_id = int(user_id)
+    
     user = crud.change_user_password(user_id=user_id, new_password=new_password)
 
     return redirect(f"/profile_{user.username}")
