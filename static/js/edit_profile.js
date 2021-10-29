@@ -91,6 +91,15 @@ const showEditPasswordForm = (evt) => {
     </div>
     </form>
     `);
+    const validatePassword = (evt) => {
+        evt.preventDefault();
+        alert("Change password submit prevent default is working");
+        const inputPassword = $('#old-password-input').val();
+        if (oldPassword !== inputPassword){
+            alert('Incorrect password, please re-enter');
+        }
+    }
+    $('#change-password-submit').bind('click', validatePassword);
 }
 
 $('#edit-email-button').on('click', showEditEmailForm);
