@@ -1,6 +1,6 @@
 """Server for travel safety app."""
 
-from flask import Flask, render_template, request, flash, session, redirect, jsonify
+from flask import Flask, render_template, request, flash, session, redirect
 
 import model
 import crud
