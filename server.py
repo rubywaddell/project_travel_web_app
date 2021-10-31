@@ -219,6 +219,20 @@ def show_create_account():
 
     return render_template("create_account.html")
 
+@app.route("/check-new-username")
+def check_new_user_username():
+    """Checks the database to verify if a username already exits"""
+
+    input_username = request.args.get("input_username")
+    user = crud.get_user_by_username(input_username)
+    
+    if user == None:
+        #returns false if username does not exist
+        return False
+
+    else:
+        #returns True if username does exist
+        return True
 
 @app.route("/new-user", methods=["POST"])
 def add_new_user():

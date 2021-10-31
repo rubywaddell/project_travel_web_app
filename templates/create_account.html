@@ -16,11 +16,11 @@
     </div>
     <div id="new-user-username">
         <label>Username:</label>
-        <input type="text" name="username" required aria-required="true">
+        <input id="new-user-username-input" type="text" name="username" required aria-required="true">
     </div>
     <div id="new-user-email">
         <label>Email:</label>
-        <input type="email" name="email" required aria-required="true">
+        <input id="new-user-email-input" type="email" name="email" required aria-required="true">
         <!-- pattern="\w*\@\w*\.\w{3}" title="Please enter a valid email address" -->
     </div>
     <div id="new-user-password">
@@ -48,7 +48,11 @@
         <input type="text" name="city" required aria-required="true">
     </div>
 
-    <input type="submit">
+    <button class="btn btn-primary" id="new-user-form-submit" type="submit">
+        Create Account</button>
 </form>
+
+<script src="http://code.jquery.com/jquery.js"></script>
+<script src="static/js/create_account.js"></script>
 
 {% endblock %}

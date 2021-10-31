@@ -29,8 +29,6 @@ const deleteVacation = (evt) => {
             const username = response;
             location.reload();
         });
-    }else{
-        console.log("User chose NOT to delete");
     };
 };
 

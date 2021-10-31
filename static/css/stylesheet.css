@@ -130,10 +130,14 @@ img#homepage-image{
     color: rgb(10, 10, 10);
     position: relative;
     font-size: 8rem;
-    margin-top: -18px;
 }
 
 .login-page-div form {
+    color: black;
+    position: relative;
+}
+
+.login-page-div div {
     color: black;
     position: relative;
 }
