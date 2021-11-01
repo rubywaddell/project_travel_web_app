@@ -175,18 +175,19 @@ h2 {
 .search-destination-main-div h1 {
     position: relative;
     display: block;
-    background: radial-gradient(rgba(0, 0, 0, 0.8), rgba(0,0,0,0.3), rgba(0,0,0,0));
-    color: white;
+    color: #435058;
     justify-content: center;
-    /* margin: 100px */
+    text-align: center;
+    padding: 30px;
 }
 
 .search-destination-main-div form {
     position: relative;
     display: block;
-    color: white;
+    color: #435058;
     justify-content: center;
-    /* margin: 100px */
+    text-align: center;
+    padding: 30px;
 }
 
 /* Styling for images displayed on destination_details page */

@@ -4,29 +4,37 @@
 {% block content %}
 
 <div class="search-destination-main-div" id="search-destination">
-
-    <h1>Search Tips and Events for Your Destination</h1>
+    <div class="row">
+        <h1>Search Tips and Events for Your Destination</h1>
+    </div>
 
     <form id="search-destination-form" action="/destination_details">
     
-        <div id="state-city-input-div">
-            <label for="state">State: </label>
-            <input id="search-destination-state-input" type="text" name="state" required aria-required="true">
+        <div class="row">
+            <div class="col" id="state-city-input-div">
+                <label for="state">State: </label>
+                <input id="search-destination-state-input" type="text" name="state" required aria-required="true">
 
-            <label for="city">City: </label>
-            <input id="search-destination-city-input" type="text" name="city" required aria-required="true">
+                <label for="city">City: </label>
+                <input id="search-destination-city-input" type="text" name="city" required aria-required="true">
+            </div>
         </div>
         <p></p>
-        <div id="date-inputs-div">
-            <label>From:</label>
-            <input type="date" id="search-destination-departure-date" name="departure-date" required aria-required="true">
-            <label>To:</label>
-            <input type="date" id="search-destination-arrival-date" name="arrival-date" required aria-required="true">
+        <div class="row">
+            <div class="col" id="date-inputs-div">
+                <label>From:</label>
+                <input type="date" id="search-destination-departure-date" name="departure-date" required aria-required="true">
+                <label>To:</label>
+                <input type="date" id="search-destination-arrival-date" name="arrival-date" required aria-required="true">
+            </div>
         </div>
         <p></p>
-        <div id="submit-form-button-div">
-            <button class="btn btn-primary btn-sm" type="submit" id="submit-state-city-btn" >Search</button>
+        <div class="row">
+            <div class="col" id="submit-form-button-div">
+                <button class="btn btn-primary btn-sm" type="submit" id="submit-state-city-btn" >Search</button>
+            </div>
         </div>
+
     </form>
 </div>
 
