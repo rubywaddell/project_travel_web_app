@@ -83,9 +83,14 @@ def show_user_profile(username):
 
     user = crud.get_user_by_username(username)
 
+    # pag_obj = crud.get_paginated_user_filtered_tip_tags(user_id=user.user_id)
+    # tip_tag_pages = crud.get_dict_of_tip_tag_pages(pagination_obj=pag_obj)
 
-    pag_obj = crud.get_paginated_user_filtered_tip_tags(user_id=user.user_id)
-    tip_tag_pages = crud.get_dict_of_tip_tag_pages(pagination_obj=pag_obj)
+    user_tips = user.tip
+    tip_tags = []
+    for tip in user_tips:
+        tip_tags.extend(tip.tip_tag)
+    
 
     vacations = user.vacation
 
@@ -98,17 +103,14 @@ def show_user_profile(username):
         if events:
             event_names, event_urls, img_urls, start_dates, start_times, venues = crud.clean_up_event_results(all_events=events)
 
-            return render_template("profile.html", user=user, vacations=vacations, tip_tag_pages=tip_tag_pages, pagination_obj=pag_obj,
-            page_num=1, event_names=event_names, event_urls=event_urls, img_urls=img_urls, start_dates=start_dates, 
-            start_times=start_times, venues=venues)
+            return render_template("profile.html", user=user, vacations=vacations, tip_tags=tip_tags,event_names=event_names,
+            event_urls=event_urls, img_urls=img_urls, start_dates=start_dates, start_times=start_times, venues=venues)
         
         else:   
-            return render_template("profile.html", user=user, vacations=vacations, tip_tag_pages=tip_tag_pages, pagination_obj=pag_obj, 
-            page_num=1, event_names=False)
+            return render_template("profile.html", user=user, vacations=vacations, tip_tags=tip_tags, event_names=False)
 
     else:   
-        return render_template("profile.html", user=user, vacations=vacations, tip_tag_pages=tip_tag_pages, pagination_obj=pag_obj, 
-            page_num=1, event_names=False)
+        return render_template("profile.html", user=user, vacations=vacations, tip_tags=tip_tags, event_names=False)
 
 
 #======================================================EDIT VACATION ROUTES========================================================
@@ -163,6 +165,34 @@ def edit_vacation_location(vacation_id):
 
     return redirect(f"/profile_{user.username}")
 
+
+#======================================================EDIT VACATION ROUTES========================================================
+@app.route("/edit_tag_name_<tip_tag_id>")
+def edit_tag_name(tip_tag_id):
+    """Edits the tag_name for the given tag and redirects back to the user profile"""
+
+    new_tag_name = request.args.get("tags")
+    tag_id = crud.get_tag_by_tip_tag(tip_tag_id=tip_tag_id).tag_id
+
+    crud.edit_tag_name(new_tag_name=new_tag_name, tag_id=tag_id)
+
+    username = session["logged_in_username"]
+
+    return redirect(f"/profile_{username}")     
+
+
+@app.route("/edit_tip_text_<tip_tag_id>")
+def edit_tip_text(tip_tag_id):
+    """Edits the tip_text for the given tip and redirects back to the profile"""
+
+    new_tip_text = request.args.get("new-tip-text")
+    tip_id = crud.get_tip_by_tip_tag(tip_tag_id=tip_tag_id).tip_id
+
+    tip = crud.edit_tip_text(new_text=new_tip_text, tip_id=tip_id)
+
+    username = session["logged_in_username"]
+
+    return redirect(f"/profile_{username}")
 
 #======================================================EDIT PROFILE ROUTES========================================================
 

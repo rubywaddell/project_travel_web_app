@@ -110,7 +110,6 @@ $('#edit-password-button').on('click', showEditPasswordForm);
 //------------------------------------------ EDIT FUNCTIONS TO EDIT VACATION_LABEL OBJECT -----------------------------------------
 const showEditVacationLabelForm = (evt) => {
     
-    console.log(evt.target.id);
     const vacationId = evt.target.id
     $('#profile-vacations-for-loop-container').append(`
     <strong>Enter new vacation information here:</strong>
@@ -138,3 +137,40 @@ const showEditVacationLabelForm = (evt) => {
 
 $('.edit-vacation-btn').on('click', showEditVacationLabelForm);
 
+//------------------------------------------ EDIT FUNCTIONS TO EDIT USER TIP AND/OR TAG OBJECT -----------------------------------------
+
+const showEditUserTipTagFrom = () => {
+    const userTipDiv = $('.edit-user-tip-div');
+    console.log(userTipDiv);
+    // const tipId = $('.edit-user-tip-div').name();
+    const tipTagId = userTipDiv[0]['id'];
+    console.log(tipTagId);
+    $('#view-travel-tips-tip-data-div').append(`
+    <h3>New Tip Information:</h3>
+    <form action="/edit_tag_name_${tipTagId}">
+    <div id="new-tag">
+        <label>Select tags:</label>
+        <input type="radio" name="tags" id="money-tag" value="money"><label>Money/Theft</label>
+        <input type="radio" name="tags" id="food-tag" value="food"><label>Food</label>
+        <input type="radio" name="tags" id="health-tag" value="health"><label>Health</label>
+        <input type="radio" name="tags" id="lgbt-tag" value="lgbt"><label>LGBTQIA+</label>
+        <input type="radio" name="tags" id="solo-travel-tag" value="solo-travel"><label>Solo Travel</label>
+        <input type="radio" name="tags" id="roadtrip-tag" value="roadtrips"><label>Roadtrip</label>
+        <input type="radio" name="tags" id="hiking-tag" value="hiking"><label>Hiking/Backpacking</label>
+        <input type="radio" name="tags" id="camping-tag" value="camping"><label>Camping</label>
+        <input type="radio" name="tags" id="other-tag" value="other"><label>Other</label>
+        <input type="submit">
+    </div>
+    </form>
+    <p></p>
+    <form action="/edit_tip_text_${tipTagId}">
+    <div id="new-tip-text">
+        <label>Enter your tip here:</label>
+        <textarea name="new-tip-text"></textarea>
+        <input type="submit">
+    </div>
+    </form>
+    `);
+};
+
+$('#edit-user-tip-btn').on('click', showEditUserTipTagFrom);

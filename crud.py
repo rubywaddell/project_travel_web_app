@@ -292,6 +292,21 @@ def create_tip(tip_text, user_id=None):
     
     return new_tip
 
+def edit_tip_text(new_text, tip_id):
+    """Edits the text of a given tip and returns the new tip"""
+
+    tip = model.Tip.query.get(tip_id)
+    tip.tip_text = new_text
+    model.db.session.commit()
+
+    return tip
+
+def get_tip_by_tip_tag(tip_tag_id):
+    """Queries and returns the first tip conected to the given tip_tag"""
+
+    tip_tag_join_tips = model.db.session.query(model.Tip).join(model.Tip.tip_tag)
+    tip_filter = tip_tag_join_tips.filter(model.TipTag.tip_tag_id == tip_tag_id)
+    return tip_filter.first()
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~TipTag CRUD functions: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def create_tip_tag(tag_id, tip_id):
@@ -316,6 +331,7 @@ def get_paginated_tip_tags():
 
     tip_tag_base_query = model.db.session.query(model.TipTag).order_by(model.db.desc(model.TipTag.tip_tag_id))
     return tip_tag_base_query.paginate(per_page=10)
+
 
 def get_paginated_tag_filtered_tip_tags(filter_tag):
     """Returns a pagination object of all tip_tags filtered by the given tag name"""
@@ -419,6 +435,22 @@ def get_tags_by_tag_name(tag_name):
     """Return a list of all tags with a given tag_name"""
 
     return model.Tag.query.filter(model.Tag.tag_name == tag_name).all()
+
+def edit_tag_name(new_tag_name, tag_id):
+    """Edits the given tag tag_name and returns the tag"""
+
+    tag = model.Tag.query.get(tag_id)
+    tag.tag_name = new_tag_name
+    model.db.session.commit()
+
+    return tag
+
+def get_tag_by_tip_tag(tip_tag_id):
+    """Queries and returns the first tip conected to the given tip_tag"""
+
+    tip_tag_join_tags = model.db.session.query(model.Tag).join(model.Tag.tip_tag)
+    tag_filter = tip_tag_join_tags.filter(model.TipTag.tip_tag_id == tip_tag_id)
+    return tag_filter.first()
 
 def get_tags_by_tag_state(state):
     """Return a list of all tags with a given tag_state"""

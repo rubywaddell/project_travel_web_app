@@ -1,7 +1,5 @@
 "use strict";
 
-// alert("JS connected, congrats!");
-
 $.get("/check_session", response => {
     if (response === "False"){
         console.log("Not logged in");

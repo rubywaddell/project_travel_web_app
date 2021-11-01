@@ -1,4 +1,4 @@
-{% extends 'travel_tips_display.html' %} 
+{% extends 'base.html' %} 
 
 {% block title %}Profile{% endblock %} 
 
@@ -94,11 +94,45 @@
 {% endif %}
 
 <p></p>
-{% endblock %}
+
 
 <!-- User tips appear here -->
+{% if tip_tags %}
+    <div id="view-tips-div">
+        <div class="grid-container-five-columns" id="view-travel-tips-headers">
+            <div class="grid-item"><h4>Tag: </h4></div>
+            <div class="grid-item"><h4>State: </h4></div>
+            <div class="grid-item"><h4>City: </h4></div>
+            <div class="grid-item"><h4>Tip: </h4></div>
+            <div class="grid-item"><h4>Edit:</h4></div>
+        </div>
+        
+        <div id="view-travel-tips-tip-data-div">
+        {% for tip_tag in tip_tags %}
+        <div class="grid-container-five-columns" id="view-travel-tips-tip-data">
+            <div class="grid-item">{{ tip_tag.tag.tag_name }}</div>
+            <!-- If the state is None, don't want to actually display None on page -->
+            {% if tip_tag.tag.tag_state  %}
+                <div class="grid-item">{{ tip_tag.tag.tag_state }}</div>
+            {% else %}
+                <div class="grid-item">     </div>
+            {% endif %}
+            <!-- If the city is None, don't want to actually display None on the page -->
+            {% if tip_tag.tag.tag_city %}
+                <div class="grid-item">{{ tip_tag.tag.tag_city }}</div>
+            {% else %}
+                <div class="grid-item">     </div>
+            {% endif %}
+            <div class="grid-item">{{ tip_tag.tip.tip_text }}</div>
+            <div class="edit-user-tip-div grid-item" id="{{tip_tag.tip_tag_id}}">
+                <button class="btn btn-outline-primary" id="edit-user-tip-btn" type="button">Edit Tip</button>
+            </div>
+        </div>
+        {% endfor %}
+        </div>
+{% endif %}
 
-{% block more_content %}
+
 <h2>{{ user.fname }} Contact Information</h2>
 <div class="profile-contact-container grid-container" id="profile-user-contact-info-grid-container">
     <div class="profile-contact grid-item" id="edit-email-div"><strong>Email: {{ user.email }}</strong></div>
