@@ -82,24 +82,7 @@ h2 {
     margin-top: -18px;
 }
 
-/* .homepage-paragraph {
-    color: black;
-    position: relative;
-    font-weight: 200;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-} */
 
-/* .homepage-div::before {
-    background-image : url("/static/images/backpackers-on-map.jpeg");
-    background-size: cover;
-    position: absolute;
-    top: 0px;
-    right: 0px;
-    bottom: 0px;
-    left: 0px;
-    opacity: 0.75;
-    content: "";
-} */
 
 /* Login page styling */
 .login-page-div {
