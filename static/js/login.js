@@ -23,3 +23,27 @@ const checkPassword = (evt) => {
 };
 
 $('#login-submit-input').bind('click', checkPassword);
+
+
+// ----------------------- FUNCTIONS FOR LOGIN VIDEO -----------------------------
+const loginVideo = document.querySelector('.login-background-video video');
+
+const scaleVideo = () => {
+    const innderWidth = window.innerWidth;
+    const innerHeight = window.innerHeight;
+
+    if (innderWidth > innerHeight){
+        loginVideo.setAttribute('width', innerWidth);
+        loginVideo.setAttribute('height', '');
+    }else{
+        loginVideo.setAttribute('width', '');
+        loginVideo.setAttribute('height', innerHeight);
+    }
+
+    const videoHeight = getComputedStyle(loginVideo).height;
+    document.querySelector('header').style.height = videoHeight;
+}
+
+window.onload = scaleVideo;
+
+window.onresize = scaleVideo;

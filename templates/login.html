@@ -4,22 +4,30 @@
 {% block content %}
 
     <div class="login-page-div">
-    <h1 id="login-header">Log In:</h1>
+
+        <div class="login-background-video">
+            <video autoplay muted loop>
+                <source src="static/videos/two-ppl-hiking-stock-vid.mp4" type="video/webm">
+            </video>
+        </div>
+
+        <header class="login-video-header">
+            <h1 id="login-header">Log In:</h1>
 
 
-    <form id="login-form" action="/login" method="POST">
+            <form id="login-form" action="/login" method="POST">
 
-        <label>Username:</label>
-        <input id="login-username-input" type="text" name="username">
+                <label>Username:</label>
+                <input id="login-username-input" type="text" name="username">
 
-        <label>Password:</label>
-        <input id="login-password-input" type="password" name="password">
+                <label>Password:</label>
+                <input id="login-password-input" type="password" name="password">
 
-        <input id="login-submit-input" type="submit">
-    </form>
+                <input id="login-submit-input" type="submit">
+            </form>
 
-    <div id="login-msg-div"></div>
-
+            <div id="login-msg-div"></div>
+        </header>
     <!-- <img src="static/images/business-people-on-map.jpeg"> -->
     </div>
     <script src="http://code.jquery.com/jquery.js"></script>
