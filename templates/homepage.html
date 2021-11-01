@@ -6,7 +6,6 @@
     <div class="homepage-div">
         <h1>Welcome!</h1>        
     
-
     <p class="homepage-paragraph">We are dedicated to helping people have safe and fun travels throughout the US. </p>
         
     <p class="homepage-paragraph">View tips from fellow travellers to get advice and plan for your upcoming trips
@@ -15,10 +14,15 @@
     <p class="homepage-paragraph">Search destinations to see travel advice and events 
         <button class="btn btn-outline-primary"><a href="/search_destination">Search Destinations</a></button>
     </p>
-    <p class="homepage-paragraph">Create an account to add tips, save trips to your profile, and plan for your 
+    <p class="homepage-paragraph" id="homepage-account-paragraph">Create an account to add tips, save trips to your profile, and plan for your 
         trips with our personalizable packing lists
-        <button class="btn btn-outline-primary"><a href="/create_account">Create Account</a></button>
+        <button class="btn btn-outline-primary"><a id="homepage-account-link" href="/create_account">
+            Create Account</a></button>
     </p>
     <p class="homepage-paragraph">Thank you for visiting</p>
 </div>
+
+<script src="http://code.jquery.com/jquery.js"></script>
+<script src="static/js/homepage.js"></script>
+
 {% endblock %}

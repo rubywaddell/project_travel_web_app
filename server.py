@@ -526,7 +526,7 @@ def show_destination_details():
         else:
             display_departure_date = crud.format_date_strings(departure_date)
             display_arrival_date = crud.format_date_strings(arrival_date)
-            return render_template("destination_details.html", tip_tags=[], city=city, state=state, 
+            return render_template("destination_details.html", tip_tag_pages=[], city=city, state=state, 
             departure_date=display_departure_date, arrival_date=display_arrival_date, event_names=False)
 
 
