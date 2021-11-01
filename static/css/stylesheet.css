@@ -66,7 +66,7 @@ h2 {
 
 /* Styling for homepage */
 
-.homepage-div {
+.homepage-main-div {
     text-align: center;
     position: relative;
     height: 100vh;
@@ -76,13 +76,46 @@ h2 {
 }
 
 .homepage-div h1{
-    color: rgb(10, 10, 10);
+    /* color: rgb(229, 247, 225); */
+    /* color: #ffffff; */
+    color: #435058;
     position: relative;
-    font-size: 8rem;
+    font-size: 12rem;
     margin-top: -18px;
+    /* background: radial-gradient(rgba(0, 0, 0, 0.8), rgba(0,0,0,0.3), rgba(0,0,0,0)); */
 }
 
+.homepage-about p{
+    position: relative;
+    /* color: mintcream; */
+    color: #435058;
+    /* background: radial-gradient(rgba(0, 0, 0, 0.8), rgba(0,0,0,0.3), rgba(0,0,0,0)); */
+    /* width: 50%; */
+    text-align: center;
+    font-size: 1.5em;
+}
 
+.background-video {
+    position: relative;
+    margin-top: -18px
+}
+
+.background-video video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+  }
+
+
+  .card {
+      background-color: rgba(234, 245, 231, 0.75);
+      font-weight: 500;
+  }
+
+  #thank-you-homepage {
+      color: white;
+  }
 
 /* Login page styling */
 .login-page-div {

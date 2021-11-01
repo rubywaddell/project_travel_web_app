@@ -2,19 +2,31 @@
 {% block title %}Travel Wise Home{% endblock %} 
 
 {% block content %}
+<div class="homepage-main-div">
     <div class="background-video">
         <video autoplay muted loop>
-            <source src="static/videos/woman-hiking-stock-vid.mp4" type="video/webm">
+            <source src="static/videos/road-trip.mp4" type="video/webm">
         </video>
     </div>
-    
-    <main class="container homepage-div">
-        <h1>Welcome</h1>
+
+    <header
+      class="container-fluid d-flex justify-content-center align-items-center
+             text-light"
+    >
+        <div class="row homepage-div">
+          <div class="col">
+            <h1>TravelWise</h1>
+          </div>
+        </div>
+    </header>   
+
         <div class="col">
             <div class="homepage-about">
-                <p class="homepage-paragraph">We are dedicated to helping people have safe and fun travels throughout the US. </p>
+                <p class="homepage-paragraph">Dedicated to helping people have safe and fun travels throughout the US. </p>
             </div>
-        </div>  
+        </div> 
+    
+    <main class="container homepage-main"> 
 
         <div class="row homepage-cards">  
 
@@ -50,11 +62,11 @@
                 </div>
             </div>
             
-            <p class="homepage-paragraph">Thank you for visiting</p>
+        <p class="homepage-paragraph" id="thank-you-homepage">Thank you for visiting</p>
 
     </div>
 </main>
-
+</div>
 <script src="http://code.jquery.com/jquery.js"></script>
 <script src="static/js/homepage.js"></script>
 
