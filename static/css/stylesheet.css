@@ -22,29 +22,34 @@ h2 {
 
 .btn-outline-primary a {
     text-decoration: none;
-    color: #0B674E
+    color: #03312E
 }
 
 .btn-outline-primary a:hover{
     color: white;
 }
 
+.btn-primary a:hover{
+    color: #03312E
+}
+
 .btn-primary {
     /* change buttons to green */
-    background-color: #0B674E;
+    background-color: #037171;
     /* background-color: #6ba788; */
-    border-color: #0B674E;
+    border-color: #037171;
 }
 
 .btn-outline-primary {
-    border-color: #0B674E;
+    border-color: #03312E;
+    color: #03312E
 }
 
 .btn-primary:hover{
-    /* background-color: rgba(77, 177, 122, 0.801); */
-    background-color: #0b674ea2;
-    border-color: rgba(77, 177, 122, 0.801);
-    color: white
+    /* background-color: #037171; */
+    background-color: white;
+    border-color: #03312E;
+    color: #03312E
 }
 
 .btn-primary:disabled{
@@ -54,8 +59,8 @@ h2 {
 }
 
 .btn-outline-primary:hover{
-    border-color: #0B674E;
-    background-color:#0B674E;
+    border-color: #037171;
+    background-color:#037171;
     color: white
 }
 
