@@ -282,8 +282,8 @@ div#to-do-list-container-div{
 
 /* styling for checklist cards: */
 #to-do-list-list-div .card {
-    background-color: #68b0abb0;
-    border-color: #68B0AB;
+    background-color: #b1d3c3;
+    border-color: #a4ccb9;
     padding: 20px;
     width: 36rem;
     margin: auto;
@@ -296,10 +296,10 @@ div#to-do-list-container-div{
 
 #to-do-list-container-div li:hover {
     /* make darker background of list items when hovered over */
-    background: #57afa9;
+    background: #d8e9e1;
   }
 
-ul.to-do-list {
+ul.list-group {
     margin: 0;
     padding: 0
 }
@@ -309,17 +309,29 @@ ul li.checked {
     text-decoration: line-through;
 }
 
-ul.to-do-list li {
-    padding-right: 40px;
+ul.list-group li {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    cursor: pointer;
+    background-color: #cbe2d7;
+}
+
+.add-item-btn {
+    /* background-color: #457353; */
+    background-color: #2e4d37;
 }
 
 .delete-list-item {
+    
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 12px;
+  }
+
+.delete-list-item:hover {
     background-color: pink;
-    /* position: absolute; */
-    /* right: 0; */
-    /* top: 0; */
-    padding: 8px 8px 8px 8px;
-  } 
+}
 /* 
 .grid-container#to-do-list-pack-bags-list{
     grid-template-columns: auto auto auto;
