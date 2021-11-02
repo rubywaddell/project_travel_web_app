@@ -4,38 +4,16 @@
 
 {% block content %}
 
-<div id="to-do-list-container-div">
-    <h2>TO DO BEFORE YOU DEPART:</h2>
-<div id="to-do-list-list-div">
+<div class="container" id="to-do-list-container-div">
+    <h1>TO DO BEFORE YOU DEPART:</h1>
 
-    <div class="grid-container" id="to-do-list-prep-list">
-        <h4>Prepare For Your Trip: </h4>
-
-    <div class="grid-item trip-prep-list">
-        <ul class="to-do-list" id="travel-prep-list-ul">
-        {% for item in todo_list_items %}
-            {% if item.completed %}
-                <li class="checked to-do-list-item" id="{{ item.item_id }}">{{ item.item_text }}
-                    <span class="delete-list-item" id="{{ item.item_id }}">X</span> 
-                </li>
-            {% else %}
-                <li class="to-do-list-item" id="{{ item.item_id }}">{{ item.item_text }}
-                <span class="delete-list-item" id="{{ item.item_id }}">X</span> 
-                </li>
-            {% endif %}
-        {% endfor %}
-        </ul>
-        <input type="text" id="add-new-prep-list-item" name="new-prep-list-item" placeholder="Add new item">
-        <button class="btn btn-outline-success btn-sm" name="{{ todo_id }}" type="submit" id="prep-list-add-item-btn">Add</button>
-    </div>
-    </div>
-
-    <div id="to-do-list-pack-bags-list" class="grid-container">
-        <h4>Pack Your Bags:</h4>
-        <div class="grid-item pack-bags-list">
-            <strong>Clothes:</strong>
-            <ul class="to-do-list" id="clothes-bag-list-ul">
-                {% for item in clothes_list_items %}
+    <div id="to-do-list-list-div">
+        <h3>Prepare For Your Trip: </h3>
+        
+        <div class="row" id="to-do-list-prep-list">
+            <div class="col trip-prep-list">
+                <ul class="to-do-list" id="travel-prep-list-ul">
+                {% for item in todo_list_items %}
                     {% if item.completed %}
                         <li class="checked to-do-list-item" id="{{ item.item_id }}">{{ item.item_text }}
                             <span class="delete-list-item" id="{{ item.item_id }}">X</span> 
@@ -46,51 +24,75 @@
                         </li>
                     {% endif %}
                 {% endfor %}
-            </ul>
-            <input type="text" id="add-new-clothes-list-item" name="new-clothes-list-item" placeholder="Add new item">
-            <button class="btn btn-outline-success btn-sm" name="{{clothes_id}}" type="submit" id="clothes-list-add-item-btn">Add</button>
+                </ul>
+                <input type="text" id="add-new-prep-list-item" name="new-prep-list-item" placeholder="Add new item">
+                <button class="btn btn-outline-success btn-sm" name="{{ todo_id }}" type="submit" id="prep-list-add-item-btn">Add</button>
+            </div>
         </div>
 
-        <div class="grid-item pack-bags-list">
-            <strong>Toiletries:</strong>
-            <ul class="to-do-list" id="toiletries-bag-list-ul">
-                {% for item in toiletries_list_items %}
-                    {% if item.completed %}
-                        <li class="checked to-do-list-item" id="{{ item.item_id }}">{{ item.item_text }}
+        <div id="to-do-list-pack-bags-list" class="row">
+            <h3>Pack Your Bags:</h3>
+        </div>
+        <div class="row">
+            <div class="col-4 pack-bags-list">
+                <h4>Clothes:</h4>
+                <ul class="to-do-list" id="clothes-bag-list-ul">
+                    {% for item in clothes_list_items %}
+                        {% if item.completed %}
+                            <li class="checked to-do-list-item" id="{{ item.item_id }}">{{ item.item_text }}
+                                <span class="delete-list-item" id="{{ item.item_id }}">X</span> 
+                            </li>
+                        {% else %}
+                            <li class="to-do-list-item" id="{{ item.item_id }}">{{ item.item_text }}
                             <span class="delete-list-item" id="{{ item.item_id }}">X</span> 
-                        </li>
-                    {% else %}
-                        <li class="to-do-list-item" id="{{ item.item_id }}">{{ item.item_text }}
-                        <span class="delete-list-item" id="{{ item.item_id }}">X</span> 
-                        </li>
-                    {% endif %}
-                {% endfor %}
-            </ul>
-            <input type="text" id="add-new-toiletries-list-item" name="new-toiletries-list-item" placeholder="Add new item">
-            <button class="btn btn-outline-success btn-sm" name="{{toiletries_id}}" type="submit" id="toiletries-list-add-item-btn">Add</button>
-        </div>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+                <input type="text" id="add-new-clothes-list-item" name="new-clothes-list-item" placeholder="Add new item">
+                <button class="btn btn-outline-success btn-sm" name="{{clothes_id}}" type="submit" id="clothes-list-add-item-btn">Add</button>
+            </div>
 
-        <div class="grid-item pack-bags-list">
-            <strong>Misc.:</strong>
-            <ul class="to-do-list" id="misc-bag-list-ul">
-                {% for item in misc_list_items %}
-                    {% if item.completed %}
-                        <li class="checked to-do-list-item" id="{{ item.item_id }}">{{ item.item_text }}
+            <div class="col-4 pack-bags-list">
+                <h4>Toiletries:</h4>
+                <ul class="to-do-list" id="toiletries-bag-list-ul">
+                    {% for item in toiletries_list_items %}
+                        {% if item.completed %}
+                            <li class="checked to-do-list-item" id="{{ item.item_id }}">{{ item.item_text }}
+                                <span class="delete-list-item" id="{{ item.item_id }}">X</span> 
+                            </li>
+                        {% else %}
+                            <li class="to-do-list-item" id="{{ item.item_id }}">{{ item.item_text }}
                             <span class="delete-list-item" id="{{ item.item_id }}">X</span> 
-                        </li>
-                    {% else %}
-                        <li class="to-do-list-item" id="{{ item.item_id }}">{{ item.item_text }}
-                        <span class="delete-list-item" id="{{ item.item_id }}">X</span> 
-                        </li>
-                    {% endif %}
-                {% endfor %}
-            </ul>
-            <input type="text" id="add-new-misc-list-item" name="new-misc-list-item" placeholder="Add new item">
-            <button class="btn btn-outline-success btn-sm" name="{{misc_id}}" type="submit" id="misc-list-add-item-btn">Add</button>
-        </div>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+                <input type="text" id="add-new-toiletries-list-item" name="new-toiletries-list-item" placeholder="Add new item">
+                <button class="btn btn-outline-success btn-sm" name="{{toiletries_id}}" type="submit" id="toiletries-list-add-item-btn">Add</button>
+            </div>
 
-    </div>
-    </div>
+            <div class="col-4 pack-bags-list">
+                <h4>Misc.:</h4>
+                <ul class="to-do-list" id="misc-bag-list-ul">
+                    {% for item in misc_list_items %}
+                        {% if item.completed %}
+                            <li class="checked to-do-list-item" id="{{ item.item_id }}">{{ item.item_text }}
+                                <span class="delete-list-item" id="{{ item.item_id }}">X</span> 
+                            </li>
+                        {% else %}
+                            <li class="to-do-list-item" id="{{ item.item_id }}">{{ item.item_text }}
+                            <span class="delete-list-item" id="{{ item.item_id }}">X</span> 
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+                <input type="text" id="add-new-misc-list-item" name="new-misc-list-item" placeholder="Add new item">
+                <button class="btn btn-outline-success btn-sm" name="{{misc_id}}" type="submit" id="misc-list-add-item-btn">Add</button>
+            </div>
+
+        </div>
+        </div>
 </div>
 
 <script src="http://code.jquery.com/jquery.js"></script>

@@ -28,7 +28,6 @@ const addClothesListItem = (evt) => {
         location.reload();
     });
 
-    // $('#clothes-bag-list-ul').append(`<li class="to-do-list-item">${newItem}</li>`);
 }
 
 $('#clothes-list-add-item-btn').on('click', addClothesListItem);
@@ -46,7 +45,6 @@ const addToiletriesListItem = (evt) => {
         location.reload();
     });
 
-    // $('#toiletries-bag-list-ul').append(`<li class="to-do-list-item">${newItem}</li>`);
 }
 
 $('#toiletries-list-add-item-btn').on('click', addToiletriesListItem);
@@ -64,7 +62,6 @@ const addMiscListItem = (evt) => {
         location.reload();
     });
 
-    // $('#misc-bag-list-ul').append(`<li class="to-do-list-item">${newItem}</li>`);
 }
 
 $('#misc-list-add-item-btn').on('click', addMiscListItem);

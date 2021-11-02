@@ -9,6 +9,17 @@ h2 {
     font-family: 'News Cycle', sans-serif, 'Prompt';
 }
 
+nav {
+    background-color: #8fc0a9;
+    color: black;
+    font-family: 'Manrope';
+    font-weight: 400;
+}
+
+nav a {
+    color: black
+}
+
 /* Page number styling */
 .travel-tips-page-nums{
     font-size: large;
@@ -36,7 +47,6 @@ h2 {
 .btn-primary {
     /* change buttons to green */
     background-color: #037171;
-    /* background-color: #6ba788; */
     border-color: #037171;
 }
 
@@ -46,7 +56,6 @@ h2 {
 }
 
 .btn-primary:hover{
-    /* background-color: #037171; */
     background-color: white;
     border-color: #03312E;
     color: #03312E
@@ -106,7 +115,6 @@ h2 {
   }
 
 .card {
-    /* background-color: rgba(234, 245, 231, 0.75); */
     background-color: rgba(250, 243, 221, 0.55);
     font-weight: 500;
 }
@@ -165,7 +173,6 @@ h2 {
     position: relative;
     height: 100vh;
     width: 100%;
-    /* display: flex; */
     align-items: center;
     justify-content: center;
 }
@@ -241,29 +248,12 @@ tr.event-table-rows{
 }
 
 /* Styling for the view travel tips page */
-
-.grid-container-five-columns{
-    /* grid-template-columns: 90px 110px 110px 1000px 110px; */
-    grid-template-columns: auto auto auto auto auto;
-    display: grid;
-    column-gap: 10px;
-    row-gap: 10px;
-    text-align: center;
-}
-
-.grid-item{
-    padding: 15px;
-    text-align: center;
-    display: inline-block
-}
-
 #view-travel-tips-tip-data {
     border-bottom: 1px solid #dddd;
     padding: 10px;
 }
 
 /* Profile styling  */
-
 .profile-contact-container{
     grid-template-columns: auto auto auto;
     padding-bottom: 20px
@@ -276,9 +266,6 @@ tr.event-table-rows{
     display: inline-block;
 }
 
-/* .profile-vacation-grid{
-    grid-template-columns: auto auto auto auto auto auto auto auto
-} */
 
 /* Styling for to-do list */
 div#to-do-list-container-div{
