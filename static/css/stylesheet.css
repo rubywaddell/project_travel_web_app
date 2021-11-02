@@ -80,7 +80,7 @@ h2 {
 }
 
 .homepage-div h1{
-    color: #435058;
+    color: #03312E;
     position: relative;
     font-size: 12rem;
     padding-top: 0;
@@ -88,7 +88,7 @@ h2 {
 
 .homepage-about p{
     position: relative;
-    color: #435058;
+    color: #03312E;
     text-align: center;
     font-size: 1.5em;
 }
@@ -105,14 +105,15 @@ h2 {
     z-index: -1;
   }
 
-  .card {
-      background-color: rgba(234, 245, 231, 0.75);
-      font-weight: 500;
-  }
+.card {
+    /* background-color: rgba(234, 245, 231, 0.75); */
+    background-color: rgba(250, 243, 221, 0.55);
+    font-weight: 500;
+}
 
-  #thank-you-homepage {
-      color: white;
-  }
+#thank-you-homepage {
+    color: white;
+}
 
 /* Login page styling */
 .login-page-div {
@@ -121,21 +122,23 @@ h2 {
     height: 100vh;
     width: 100%;
     align-items: center;
-    /* justify-content: center; */
+    justify-content: center;
     margin: -18px;
 }
 
 .login-background-video {
     position: relative;
-    margin-top: -18px
+    margin-top: -18px;
+    margin-right: 0;
 }
 
 .login-background-video video {
     position: absolute;
     top: 0;
     left: 0;
-    /* right: 0; */
+    right: 0;
     z-index: -1;
+    object-fit: fill;
   }
 
 .login-page-div h1{
@@ -152,6 +155,10 @@ h2 {
 .login-page-div div {
     color: black;
     position: relative;
+}
+
+#login-msg-div {
+    color: white
 }
 
 /* Styling for Search Destinations Page */
@@ -251,12 +258,6 @@ tr.event-table-rows{
     display: inline-block
 }
 
-/* Log in page styling */
-.login-page-div {
-    text-align: center;
-    padding: 10px;
-}
-
 /* Profile styling  */
 
 .profile-contact-container{
@@ -282,7 +283,7 @@ div#to-do-list-container-div{
 
 #to-do-list-container-div li:hover {
     /* make darker background of list items when hovered over */
-    background: rgb(172, 230, 204);
+    background: #57afa9;
   }
 
 ul.to-do-list {
@@ -317,13 +318,13 @@ ul.to-do-list li {
 
 .grid-item.trip-prep-list{
     text-align: left;
-    background-color: rgb(222, 248, 236);
+    background-color: #1ba398b0;
     border-radius: 15px;
 }
 
 .grid-item.pack-bags-list{
     text-align: left;
-    background-color: rgb(222, 248, 236);
+    background-color: #1ba398b0;;
     border-radius: 15px;
     padding-left: 20px;
     padding-right: 20px

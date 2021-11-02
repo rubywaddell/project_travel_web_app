@@ -29,10 +29,13 @@ $('#login-submit-input').bind('click', checkPassword);
 const loginVideo = document.querySelector('.login-background-video video');
 
 const scaleVideo = () => {
-    const innderWidth = window.innerWidth;
+    const innerWidth = window.innerWidth;
     const innerHeight = window.innerHeight;
 
-    if (innderWidth > innerHeight){
+    console.log('innerWidth = ', innerWidth);
+    console.log('window.innerWidth', window.innerWidth);
+
+    if (innerWidth > innerHeight){
         loginVideo.setAttribute('width', innerWidth);
         loginVideo.setAttribute('height', '');
     }else{

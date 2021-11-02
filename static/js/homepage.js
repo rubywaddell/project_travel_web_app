@@ -20,10 +20,13 @@ $.get("/check_session", response => {
 const homepageVideo = document.querySelector('.background-video video');
 
 const scaleVideo = () => {
-    const innderWidth = window.innerWidth;
+    const innerWidth = window.innerWidth;
     const innerHeight = window.innerHeight;
 
-    if (innderWidth > innerHeight){
+    console.log('innerWidth = ', innerWidth);
+    console.log('window.innerWidth', window.innerWidth);
+
+    if (innerWidth > innerHeight){
         homepageVideo.setAttribute('width', innerWidth);
         homepageVideo.setAttribute('height', '');
     }else{

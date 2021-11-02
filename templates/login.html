@@ -3,17 +3,15 @@
 
 {% block content %}
 
-    <div class="login-page-div">
+<div class="login-background-video">
+    <video autoplay muted loop>
+        <source src="static/videos/two-ppl-hiking-stock-vid.mp4" type="video/webm">
+    </video>
+</div>
 
-        <div class="login-background-video">
-            <video autoplay muted loop>
-                <source src="static/videos/two-ppl-hiking-stock-vid.mp4" type="video/webm">
-            </video>
-        </div>
-
+<div class="login-page-div">
         <header class="login-video-header">
             <h1 id="login-header">Log In:</h1>
-
 
             <form id="login-form" action="/login" method="POST">
 
