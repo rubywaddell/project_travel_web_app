@@ -280,6 +280,20 @@ div#to-do-list-container-div{
     align-items: center;
 }
 
+/* styling for checklist cards: */
+#to-do-list-list-div .card {
+    background-color: #68b0abb0;
+    border-color: #68B0AB;
+    padding: 20px;
+    width: 36rem;
+    margin: auto;
+}
+
+#to-do-list-list-div .row {
+    padding: 20px
+}
+
+
 #to-do-list-container-div li:hover {
     /* make darker background of list items when hovered over */
     background: #57afa9;
