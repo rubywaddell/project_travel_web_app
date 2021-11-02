@@ -270,10 +270,14 @@ tr.event-table-rows{
 /* Styling for to-do list */
 div#to-do-list-container-div{
     margin: 50px;
-    }
+}
 
 #to-do-list-container-div h1, h3, h4{
     text-align: center;
+}
+
+.trip-prep-list {
+    align-items: center;
 }
 
 #to-do-list-container-div li:hover {
@@ -302,7 +306,7 @@ ul.to-do-list li {
     /* top: 0; */
     padding: 8px 8px 8px 8px;
   } 
-
+/* 
 .grid-container#to-do-list-pack-bags-list{
     grid-template-columns: auto auto auto;
 }
@@ -323,4 +327,4 @@ ul.to-do-list li {
     border-radius: 15px;
     padding-left: 20px;
     padding-right: 20px
-}
+} */
