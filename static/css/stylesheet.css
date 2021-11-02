@@ -69,7 +69,7 @@ nav a {
 .btn-outline-primary:hover{
     border-color: #527A65;
     background-color:#527A65;
-    color: white
+    color: white;
 }
 
 .btn-outline-danger a {
@@ -98,7 +98,11 @@ nav a {
     position: relative;
     color: #03312E;
     text-align: center;
-    font-size: 1.5em;
+    font-size: 2em;
+}
+
+#homepage-about-paragraph{
+    background: radial-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255,0.3), rgba(255, 255, 255,0));
 }
 
 .background-video {
@@ -114,9 +118,9 @@ nav a {
   }
 
 .card {
-    /* background-color: rgba(250, 243, 221, 0.55); */
-    background-color: rgba(255, 255, 255, 0.65);
-    font-weight: 500;
+    background-color: rgba(255, 255, 255, 0.60);
+    font-weight: 400;
+    font-size: large;
 }
 
 .card p, button{
