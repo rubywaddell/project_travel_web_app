@@ -13,16 +13,16 @@
             <!-- <h3>Pack Your Bags:</h3> -->
         </div>
         <div class="row">
-            <div class="col-6 pack-bags-list">
+            <div class="card col-6">
                 <h4>Clothes To Pack:</h4>
-                <ul class="to-do-list" id="clothes-bag-list-ul">
+                <ul class="list-group list-group-flush" id="clothes-bag-list-ul">
                     {% for item in clothes_list_items %}
                         {% if item.completed %}
-                            <li class="checked to-do-list-item" id="{{ item.item_id }}">{{ item.item_text }}
+                            <li class="checked list-group-item to-do-list-item" id="{{ item.item_id }}">{{ item.item_text }}
                                 <span class="delete-list-item" id="{{ item.item_id }}">X</span> 
                             </li>
                         {% else %}
-                            <li class="to-do-list-item" id="{{ item.item_id }}">{{ item.item_text }}
+                            <li class="list-group-item to-do-list-item" id="{{ item.item_id }}">{{ item.item_text }}
                             <span class="delete-list-item" id="{{ item.item_id }}">X</span> 
                             </li>
                         {% endif %}
@@ -32,16 +32,16 @@
                 <button class="btn btn-outline-success btn-sm" name="{{clothes_id}}" type="submit" id="clothes-list-add-item-btn">Add</button>
             </div>
 
-            <div class="col-6 pack-bags-list">
+            <div class="card col-6">
                 <h4>Toiletries To Pack:</h4>
-                <ul class="to-do-list" id="toiletries-bag-list-ul">
+                <ul class="list-group list-group-flush" id="toiletries-bag-list-ul">
                     {% for item in toiletries_list_items %}
                         {% if item.completed %}
-                            <li class="checked to-do-list-item" id="{{ item.item_id }}">{{ item.item_text }}
+                            <li class="checked list-group-item to-do-list-item" id="{{ item.item_id }}">{{ item.item_text }}
                                 <span class="delete-list-item" id="{{ item.item_id }}">X</span> 
                             </li>
                         {% else %}
-                            <li class="to-do-list-item" id="{{ item.item_id }}">{{ item.item_text }}
+                            <li class="list-group-item to-do-list-item" id="{{ item.item_id }}">{{ item.item_text }}
                             <span class="delete-list-item" id="{{ item.item_id }}">X</span> 
                             </li>
                         {% endif %}
@@ -57,16 +57,16 @@
         <!-- <h3>Prepare For Your Trip: </h3> -->
         <div class="row" id="to-do-list-prep-list">
 
-            <div class="col-6 pack-bags-list">
+            <div class="card col-6">
                 <h4>Misc. Items To Pack:</h4>
-                <ul class="to-do-list" id="misc-bag-list-ul">
+                <ul class="list-group list-group-flush" id="misc-bag-list-ul">
                     {% for item in misc_list_items %}
                         {% if item.completed %}
-                            <li class="checked to-do-list-item" id="{{ item.item_id }}">{{ item.item_text }}
+                            <li class="checked list-group-item to-do-list-item" id="{{ item.item_id }}">{{ item.item_text }}
                                 <span class="delete-list-item" id="{{ item.item_id }}">X</span> 
                             </li>
                         {% else %}
-                            <li class="to-do-list-item" id="{{ item.item_id }}">{{ item.item_text }}
+                            <li class="list-group-item to-do-list-item" id="{{ item.item_id }}">{{ item.item_text }}
                             <span class="delete-list-item" id="{{ item.item_id }}">X</span> 
                             </li>
                         {% endif %}
@@ -77,16 +77,16 @@
             </div>
 
 
-            <div class="col-6 trip-prep-list">
+            <div class="card col-6">
                 <h4>Things To Do Before Departure:</h4>
-                <ul class="to-do-list" id="travel-prep-list-ul">
+                <ul class="list-group list-group-flush" id="travel-prep-list-ul">
                 {% for item in todo_list_items %}
                     {% if item.completed %}
-                        <li class="checked to-do-list-item" id="{{ item.item_id }}">{{ item.item_text }}
+                        <li class="checked list-group-item to-do-list-item" id="{{ item.item_id }}">{{ item.item_text }}
                             <span class="delete-list-item" id="{{ item.item_id }}">X</span> 
                         </li>
                     {% else %}
-                        <li class="to-do-list-item" id="{{ item.item_id }}">{{ item.item_text }}
+                        <li class="list-group-item to-do-list-item" id="{{ item.item_id }}">{{ item.item_text }}
                         <span class="delete-list-item" id="{{ item.item_id }}">X</span> 
                         </li>
                     {% endif %}
