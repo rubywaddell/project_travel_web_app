@@ -3,30 +3,32 @@
 {% block tips %}
 {% if tip_tag_pages %}
     <div id="view-tips-div">
-        <div class="grid-container-four-columns" id="view-travel-tips-headers">
-            <div class="grid-item"><h4>Tag: </h4></div>
-            <div class="grid-item"><h4>State: </h4></div>
-            <div class="grid-item"><h4>City: </h4></div>
-            <div class="grid-item"><h4>Tip: </h4></div>
+        <!-- <div class="grid-container-four-columns" id="view-travel-tips-headers"> -->
+        <div class="row" id="view-travel-tips-headers">
+            <div class="col-1"><h4>Tag: </h4></div>
+            <div class="col-1"><h4>State: </h4></div>
+            <div class="col-1"><h4>City: </h4></div>
+            <div class="col-9"><h4>Tip: </h4></div>
         </div>
         
         <div id="view-travel-tips-tip-data-div">
         {% for item in tip_tag_pages[page_num].values() %}
-        <div class="grid-container-four-columns" id="view-travel-tips-tip-data">
-            <div class="grid-item">{{ item["tag_name"] }}</div>
+        <!-- class="grid-container-four-columns" -->
+        <div class="row" id="view-travel-tips-tip-data">
+            <div class="col-1">{{ item["tag_name"] }}</div>
             <!-- If the state is None, don't want to actually display None on page -->
             {% if item["tag_state"] %}
-                <div class="grid-item">{{ item["tag_state"] }}</div>
+                <div class="col-1">{{ item["tag_state"] }}</div>
             {% else %}
-                <div class="grid-item">     </div>
+                <div class="col-1">     </div>
             {% endif %}
             <!-- If the city is None, don't want to actually display None on the page -->
             {% if item["tag_city"] %}
-                <div class="grid-item">{{ item["tag_city"] }}</div>
+                <div class="col-1">{{ item["tag_city"] }}</div>
             {% else %}
-                <div class="grid-item">     </div>
+                <div class="col-1">     </div>
             {% endif %}
-            <div class="grid-item">{{ item["tip_text"] }}</div>
+            <div class="col-9">{{ item["tip_text"] }}</div>
         </div>
         {% endfor %}
         </div>

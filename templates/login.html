@@ -9,25 +9,27 @@
     </video>
 </div>
 
-<div class="login-page-div">
+<div class="container login-page-div">
+
         <header class="login-video-header">
-            <h1 id="login-header">Log In:</h1>
+                <h1 id="login-header">Log In:</h1>
 
-            <form id="login-form" action="/login" method="POST">
+                <form id="login-form" action="/login" method="POST">
 
-                <label>Username:</label>
-                <input id="login-username-input" type="text" name="username">
+                    <label>Username:</label>
+                    <input id="login-username-input" type="text" name="username">
 
-                <label>Password:</label>
-                <input id="login-password-input" type="password" name="password">
+                    <label>Password:</label>
+                    <input id="login-password-input" type="password" name="password">
 
-                <input id="login-submit-input" type="submit">
-            </form>
+                    <input id="login-submit-input" type="submit">
+                </form>
 
             <div id="login-msg-div"></div>
         </header>
     <!-- <img src="static/images/business-people-on-map.jpeg"> -->
-    </div>
-    <script src="http://code.jquery.com/jquery.js"></script>
-    <script src="static/js/login.js"></script>
+</div>
+
+<script src="http://code.jquery.com/jquery.js"></script>
+<script src="static/js/login.js"></script>
 {% endblock %}

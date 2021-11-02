@@ -120,16 +120,13 @@ h2 {
     text-align: center;
     position: relative;
     height: 100vh;
-    width: 100%;
     align-items: center;
     justify-content: center;
-    margin: -18px;
 }
 
 .login-background-video {
     position: relative;
     margin-top: -18px;
-    margin-right: 0;
 }
 
 .login-background-video video {
@@ -145,11 +142,13 @@ h2 {
     color: white;
     position: relative;
     font-size: 8rem;
+    padding: 20px
 }
 
 .login-page-div form {
     color: white;
     position: relative;
+    padding: 50px
 }
 
 .login-page-div div {
@@ -256,6 +255,11 @@ tr.event-table-rows{
     padding: 15px;
     text-align: center;
     display: inline-block
+}
+
+#view-travel-tips-tip-data {
+    border-bottom: 1px solid #dddd;
+    padding: 10px;
 }
 
 /* Profile styling  */
