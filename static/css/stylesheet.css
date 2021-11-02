@@ -253,6 +253,15 @@ tr.event-table-rows{
     padding: 10px;
 }
 
+#travel-tips-filter-div {
+    margin: 50px
+}
+
+/* Styling for travel_tips_disply */
+#view-tips-div{
+    margin: 40px
+}
+
 /* Profile styling  */
 .profile-contact-container{
     grid-template-columns: auto auto auto;
