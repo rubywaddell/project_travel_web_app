@@ -46,13 +46,13 @@ nav a {
 
 .btn-primary {
     /* change buttons to green */
-    background-color: #037171;
-    border-color: #037171;
+    background-color: #527A65;
+    border-color: #527A65;
 }
 
 .btn-outline-primary {
-    border-color: #03312E;
-    color: #03312E
+    border-color: #527A65;
+    color: #527A65
 }
 
 .btn-primary:hover{
@@ -68,8 +68,8 @@ nav a {
 }
 
 .btn-outline-primary:hover{
-    border-color: #037171;
-    background-color:#037171;
+    border-color: #527A65;
+    background-color:#527A65;
     color: white
 }
 
@@ -328,5 +328,5 @@ ul.list-group li {
   }
 
 .delete-list-item:hover {
-    background-color: pink;
+    background-color: #D29DAD;
 }
