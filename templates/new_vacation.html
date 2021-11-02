@@ -1,4 +1,4 @@
-{% extends 'travel_tips_display.html' %} 
+{% extends 'base.html' %} 
 {% block title %}Add a Trip{% endblock %} 
 
 {% block content %}
@@ -29,35 +29,35 @@
 
 <h2>Your Current Trips:</h2>
 {% if vacations %}
-<div class="profile-vacation-grid grid-container" id="user-vacations-profile-header-grid-div">
-    <div class="grid-item"><h6><strong>Departure Date</strong></h6></div>
-    <div class="grid-item"><h6><strong>Arrival Date</strong></h6></div>
-    <div class="grid-item"><h6><strong>State</strong></h6></div>
-    <div class="grid-item"><h6><strong>City</strong></h6></div>
-    <div class="grid-item"><h6><strong>See Events and Tips</strong></h6></div>
-    <div class="grid-item"><h6><strong>Edit Vacation</strong></h6></div>
-    <div class="grid-item"><h6><strong>View Packing List</strong></h6></div>
-    <div class="grid-item"><h6><strong>Delete Vacation</strong></h6></div>
+<div class="row" id="user-vacations-profile-header-grid-div">
+    <div class="col-1"><h6><strong>Departure Date</strong></h6></div>
+    <div class="col-1"><h6><strong>Arrival Date</strong></h6></div>
+    <div class="col-1"><h6><strong>State</strong></h6></div>
+    <div class="col-1"><h6><strong>City</strong></h6></div>
+    <div class="col-2"><h6><strong>See Events and Tips</strong></h6></div>
+    <div class="col-2"><h6><strong>Edit Vacation</strong></h6></div>
+    <div class="col-2"><h6><strong>View Packing List</strong></h6></div>
+    <div class="col-2"><h6><strong>Delete Vacation</strong></h6></div>
 </div>
 
 <div id="profile-vacations-for-loop-container">
     {% for vacation in vacations %}
-    <div class="profile-vacation-grid grid-container" id="user-vacations-profile-data-grid-div">
-        <div class="grid-item">{{ vacation.vacation_label.departure_date.month }} / {{ vacation.vacation_label.departure_date.day }}
+    <div class="row" id="user-vacations-profile-data-grid-div">
+        <div class="col-1">{{ vacation.vacation_label.departure_date.month }} / {{ vacation.vacation_label.departure_date.day }}
             / {{vacation.vacation_label.departure_date.year}}</div>
-        <div class="grid-item">{{ vacation.vacation_label.arrival_date.month }} / {{ vacation.vacation_label.arrival_date.day }} /
+        <div class="col-1">{{ vacation.vacation_label.arrival_date.month }} / {{ vacation.vacation_label.arrival_date.day }} /
             {{vacation.vacation_label.arrival_date.year}}</div>
-        <div class="grid-item">{{ vacation.vacation_label.state.state_name }}</div>
-        <div class="grid-item">{{ vacation.vacation_label.state.city.city_name }}</div>
-        <div class="grid-item"><button class="btn btn-outline-primary btn-sm" id="profile-see-desintation-btn">
+        <div class="col-1">{{ vacation.vacation_label.state.state_name }}</div>
+        <div class="col-1">{{ vacation.vacation_label.state.city.city_name }}</div>
+        <div class="col-2"><button class="btn btn-outline-primary btn-sm" id="profile-see-desintation-btn">
             <a class="destination-links" href="/destination_details?state={{vacation.vacation_label.state.state_name}}&city={{ vacation.vacation_label.state.city.city_name }}&departure-date={{ vacation.vacation_label.departure_date }}&arrival-date={{ vacation.vacation_label.arrival_date }}">
                 Events and Tips</a></button></div>
-        <div class="grid-item"><button class="edit-vacation-btn btn btn-outline-primary btn-sm"
+        <div class="col-2"><button class="edit-vacation-btn btn btn-outline-primary btn-sm"
              id="{{vacation.vacation_id}}">Edit</button></div>
-        <div class="grid-item"><button class="view-checklist-btn btn btn-outline-primary btn-sm">
+        <div class="col-2"><button class="view-checklist-btn btn btn-outline-primary btn-sm">
             <a href="/travel_prep_checklist_vacation_{{vacation.vacation_id}}">View Checklist</a></button>
         </div>
-        <div class="grid-item"><button class="delete-vacay-btn btn btn-outline-danger btn-sm" 
+        <div class="col-2"><button class="delete-vacay-btn btn btn-outline-danger btn-sm" 
             id="{{vacation.vacation_label.vacation_label_id}}">Delete</button></div>
     </div>
     {% endfor %}
@@ -69,30 +69,5 @@
 
 {% endblock %}
 
-<!-- User tips will appear here -->
-
-{% block more_content %}
-<h2>{{ user.fname }} Contact Information</h2>
-<div class="profile-contact-container grid-container" id="profile-user-contact-info-grid-container">
-    <div class="profile-contact grid-item" id="edit-email-div"><strong>Email: {{ user.email }}</strong></div>
-    <div class="profile-contact grid-item" id="edit-username-div"><strong>Username: {{ user.username }}</strong></div>
-    <div class="profile-contact grid-item" id="edit-password-div"><strong>Password: {% for char in user.password %}*{% endfor %}</strong></div>
-<p></p>
-    <div class="profile-contact grid-item">
-        <button class="btn btn-outline-dark btn-sm" id="edit-email-button">Update Email Address</button></div>
-    <div class="profile-contact grid-item">
-        <button class="btn btn-outline-dark btn-sm" id="edit-username-button">Change Username</button></div>
-    <div class="profile-contact grid-item">
-        <button class="btn btn-outline-dark btn-sm" id="edit-password-button">Change Password</button></div>
-</div>
-<p></p>
-
-<div class="delete-user-account" id="delete-account-div">
-    <button class="btn btn-outline-danger" id="delete-account-button" name="{{user.user_id}}">Delete Account</button>
-</div>
-
 <script src="http://code.jquery.com/jquery.js"></script>
 <script src="static/js/edit_profile.js"></script>
-
-{% endblock %}
-

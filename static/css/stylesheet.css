@@ -317,12 +317,10 @@ ul.list-group li {
 }
 
 .add-item-btn {
-    /* background-color: #457353; */
     background-color: #2e4d37;
 }
 
 .delete-list-item {
-    
     position: absolute;
     right: 0;
     top: 0;
@@ -332,25 +330,3 @@ ul.list-group li {
 .delete-list-item:hover {
     background-color: pink;
 }
-/* 
-.grid-container#to-do-list-pack-bags-list{
-    grid-template-columns: auto auto auto;
-}
-
-.grid-container#to-do-list-prep-list{
-    grid-template-columns: auto;
-}
-
-.grid-item.trip-prep-list{
-    text-align: left;
-    background-color: #1ba398b0;
-    border-radius: 15px;
-}
-
-.grid-item.pack-bags-list{
-    text-align: left;
-    background-color: #1ba398b0;;
-    border-radius: 15px;
-    padding-left: 20px;
-    padding-right: 20px
-} */
