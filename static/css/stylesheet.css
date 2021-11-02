@@ -4,7 +4,7 @@
     font-family: 'Manrope', sans-serif, 'Lato';
 }
 
-h2 {
+h1, h2 {
     text-align: center;
     font-family: 'News Cycle', sans-serif, 'Prompt';
 }
@@ -224,6 +224,10 @@ img.event-image {
     width: 150px
 }
 
+#destination-details-event-container-div {
+    margin: 40px
+}
+
 table.event-display-table{
     padding: 15px;
     width: 1000px;
@@ -275,6 +279,22 @@ tr.event-table-rows{
     display: inline-block;
 }
 
+#user-vacations-profile-header-grid-div{
+    margin-left: 40px;
+    margin-right: 40px;
+    padding-top: 15px;
+}
+
+#profile-vacations-for-loop-container {
+    margin-left: 40px;
+    margin-right: 40px;
+}
+
+#add-new-vacation {
+    text-align: center;
+    padding-top: 20px;
+    padding-bottom: 30px;
+}
 
 /* Styling for to-do list */
 div#to-do-list-container-div{
