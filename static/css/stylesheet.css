@@ -175,19 +175,23 @@ h2 {
 .search-destination-main-div h1 {
     position: relative;
     display: block;
-    color: #435058;
+    color: #000000;
     justify-content: center;
     text-align: center;
     padding: 30px;
+    font-size: 5rem;
 }
 
 .search-destination-main-div form {
     position: relative;
     display: block;
-    color: #435058;
+    color: #000000;
     justify-content: center;
     text-align: center;
     padding: 30px;
+    font-size: x-large;
+    font-weight: bolder;
+    background-color: rgba(234, 245, 231, 0.50);
 }
 
 /* Styling for images displayed on destination_details page */
