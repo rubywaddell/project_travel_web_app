@@ -272,6 +272,10 @@ div#to-do-list-container-div{
     margin: 50px;
     }
 
+#to-do-list-container-div h1, h3, h4{
+    text-align: center;
+}
+
 #to-do-list-container-div li:hover {
     /* make darker background of list items when hovered over */
     background: #57afa9;
