@@ -276,9 +276,9 @@ tr.event-table-rows{
     display: inline-block;
 }
 
-.profile-vacation-grid{
+/* .profile-vacation-grid{
     grid-template-columns: auto auto auto auto auto auto auto auto
-}
+} */
 
 /* Styling for to-do list */
 div#to-do-list-container-div{
