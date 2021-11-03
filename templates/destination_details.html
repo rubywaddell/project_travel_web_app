@@ -12,13 +12,13 @@
 {% if event_names %}
 
     {% for i in range(event_names|length) %}
-        <div class="row">
+        <div class="row justify-content-around">
 
-            <div class="col-lg-2 col-md-3 col-sm-3">
+            <div class="col-lg-1 col-md-3 col-sm-3 offset-lg-1 offse-md-0 offset-sm-0">
                 <img class="event-image" src="{{ img_urls[i] }}">
             </div>
 
-            <div class="col-lg-2 col-md-3 col-sm-3">
+            <div class="col-lg-1 col-md-3 col-sm-3">
 
                 {{ start_dates[i] }} 
                 {% if start_times[i] %}
@@ -26,7 +26,7 @@
                 {% endif %}
             </div>
 
-            <div class="col-lg-8 col-md-6 col-sm-3">
+            <div class="col-lg-4 col-md-6 col-sm-3">
                 {{ event_names[i] }}
                 {% if venues[i] %}
                     <p>At the {{ venues[i] }}</p>
@@ -38,7 +38,6 @@
             </p>
         </div>
     </div>
-            <!-- <p></p> -->
 {% endfor %}
 
 
