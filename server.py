@@ -34,7 +34,9 @@ def show_homepage():
 #=====================================================SESSION ROUTE=======================================================
 @app.route("/check_session")
 def check_session_for_user():
-    """Checks the session to see if user is logged in, and returns username or False as strings for AJAX functions in navigation_bar"""
+    """Checks the session to see if user is logged in
+    Returns session username or False as strings for AJAX functions in navigation_bar"""
+
     if session == {}:
         return "False"
     else:
@@ -46,11 +48,13 @@ def check_session_for_user():
 @app.route("/login")
 def show_login_page():
     """Renders the login page to allow users to log in to their account"""
+
     return render_template("login.html")
+
 
 @app.route("/login", methods=["POST"])
 def check_user_in_database():
-    """Takes in log-in form submission and redirects depending on if user is in db or not"""
+    """Takes in log-in form submission and redirects depending on user inputs"""
 
     username = request.form.get("username")
     password = request.form.get("password")
@@ -83,33 +87,34 @@ def show_user_profile(username):
 
     user = crud.get_user_by_username(username)
 
-    # pag_obj = crud.get_paginated_user_filtered_tip_tags(user_id=user.user_id)
-    # tip_tag_pages = crud.get_dict_of_tip_tag_pages(pagination_obj=pag_obj)
-
     user_tips = user.tip
     tip_tags = []
     for tip in user_tips:
         tip_tags.extend(tip.tip_tag)
     
-
     vacations = user.vacation
 
     if len(vacations) == 1:
+        #If there is only one vacation saved, query and return events from Ticketmaster API
         city = vacations[0].vacation_label.state.city.city_name
         departure_date = vacations[0].vacation_label.departure_date
         arrival_date = vacations[0].vacation_label.arrival_date
 
         events = crud.search_events_by_city_and_dates(api_key=MY_API_KEY, city=city, start_date=departure_date, end_date=arrival_date)
         if events:
+            #If there are events scheduled for the given location and dates
             event_names, event_urls, img_urls, start_dates, start_times, venues = crud.clean_up_event_results(all_events=events)
 
             return render_template("profile.html", user=user, vacations=vacations, tip_tags=tip_tags,event_names=event_names,
             event_urls=event_urls, img_urls=img_urls, start_dates=start_dates, start_times=start_times, venues=venues)
         
         else:   
+            #If there are no events, set event_names to False for Jinja templating
             return render_template("profile.html", user=user, vacations=vacations, tip_tags=tip_tags, event_names=False)
 
     else:   
+        #If the user has more than one vacation saved to their profile, then set event_names to False 
+        #Cannot search multiple locations at once
         return render_template("profile.html", user=user, vacations=vacations, tip_tags=tip_tags, event_names=False)
 
 
@@ -122,13 +127,6 @@ def delete_vacation(vacation_id):
     vacation = crud.get_vacation_by_id(vacation_id=vacation_id)
     user = crud.get_user_by_id(vacation.user_id)
     crud.delete_vacation(vacation=vacation)
-
-    vacations = user.vacation
-    vacation_labels = []
-    for vacation in vacations:
-        vacation_labels.append(vacation.vacation_label)
-
-    vacation_label_dict = crud.make_vacation_label_dict(vacation_labels)
 
     return user.username
 
@@ -148,6 +146,7 @@ def edit_vacation_dates(vacation_id):
     user = crud.get_user_by_vacation_id(vacation_id=vacation_id)
 
     return redirect(f"/profile_{user.username}")
+
 
 @app.route("/edit_vacation_location_id_<vacation_id>")
 def edit_vacation_location(vacation_id):
@@ -188,7 +187,7 @@ def edit_tip_text(tip_tag_id):
     new_tip_text = request.args.get("new-tip-text")
     tip_id = crud.get_tip_by_tip_tag(tip_tag_id=tip_tag_id).tip_id
 
-    tip = crud.edit_tip_text(new_text=new_tip_text, tip_id=tip_id)
+    crud.edit_tip_text(new_text=new_tip_text, tip_id=tip_id)
 
     username = session["logged_in_username"]
 
@@ -209,6 +208,7 @@ def edit_user_account():
 
     return redirect(f"/profile_{user.username}")
 
+
 @app.route("/edit_email")
 def edit_user_email():
     """Changes user's email stored in database based on user input in edit_profile form, redirects to profile"""
@@ -220,6 +220,7 @@ def edit_user_email():
 
     return redirect(f"/profile_{user.username}")
 
+
 @app.route("/edit_password_user_<user_id>", methods=["POST"])
 def edit_user_password(user_id):
     """Changes user's password stored in database and redirects to their profile"""
@@ -227,7 +228,6 @@ def edit_user_password(user_id):
     new_password = request.form.get("new-password")
     
     user_id = int(user_id)
-    
     user = crud.change_user_password(user_id=user_id, new_password=new_password)
 
     return redirect(f"/profile_{user.username}")
@@ -240,7 +240,9 @@ def delete_user_account(user_id):
 
     crud.delete_user(user_id)
     session.clear()
+
     return redirect("/")
+
 
 #=================================================CREATE ACCOUNT ROUTE FUNCTIONS=================================================
 @app.route("/create_account")
@@ -248,6 +250,7 @@ def show_create_account():
     """Renders the create_account page to allow a user to create a new account"""
 
     return render_template("create_account.html")
+
 
 @app.route("/check_new_username_email")
 def check_new_user_username_email():
@@ -295,7 +298,6 @@ def add_new_user():
     return redirect(f"/profile_{new_user.username}")
 
 #=================================================VIEW TRAVEL TIPS ROUTE FUNCTIONS===========================================
-
 @app.route("/view_travel_tips_page_<page_num>")
 def show_travel_tips(page_num):
     """Returns the pagination results for the next items in pagination object"""
@@ -312,7 +314,6 @@ def show_travel_tips(page_num):
 
 
 #=================================================FILTER TRAVEL TIPS FUNCTIONS================================================
-
 @app.route("/view_travel_tips_filtered_by_location_page_<page_num>")
 def show_paginated_travel_tips_filtered_by_location(page_num):
     """Filters travel tips by the state and city inputted by user and returns pagination object"""
@@ -339,6 +340,7 @@ def show_paginated_travel_tips_filtered_by_location(page_num):
         state_pag_obj = crud.get_paginated_state_filtered_tip_tags(state=state)
         state_pages = crud.get_dict_of_tip_tag_pages(pagination_obj=state_pag_obj)
         page_num = int(page_num)
+
         if state_pag_obj.page == 1:
             return render_template("travel_tips.html", tip_tag_pages=state_pages, pagination_obj=state_pag_obj, page_num=page_num)
         else:
@@ -348,9 +350,10 @@ def show_paginated_travel_tips_filtered_by_location(page_num):
     else:
         return render_template("travel_tips.html", tip_tag_pages=False, pagination_obj=False, page_num=page_num)
 
+
 @app.route("/view_travel_tips_filtered_by_tag_page_<page_num>")
 def show_pageinated_travel_tips_filtered_by_tag(page_num):
-    """"Filters tips by tag name and returns pagination object"""
+    """Filters tips by tag name and returns pagination object"""
 
     tag_name = request.args.get("filter-tags").lower()
 
@@ -369,6 +372,7 @@ def show_pageinated_travel_tips_filtered_by_tag(page_num):
         else:
             page_items = crud.navigate_through_pages(page_num=page_num, pagination_obj=tag_pages)
             return render_template("travel_tips.html", tip_tag_pages=tag_pages, pagination_obj=page_items, page_num=page_num)
+
 
 #=================================================CREATE TRAVEL TIP ROUTE FUNCTIONS==========================================
 @app.route("/create_tip")
@@ -434,19 +438,15 @@ def show_new_vacation():
     username = session["logged_in_username"]
     
     user = crud.get_user_by_username(username)
-
-    pag_obj = crud.get_paginated_user_filtered_tip_tags(user_id=user.user_id)
-    tip_tag_pages = crud.get_dict_of_tip_tag_pages(pagination_obj=pag_obj)
-
+    #Return current user vacations to show user vacations that have already been saved
     vacations = user.vacation
 
-    return render_template("new_vacation.html", user=user, vacations=vacations, tip_tag_pages=tip_tag_pages,
-    pagination_obj=pag_obj, page_num=1)
+    return render_template("new_vacation.html", user=user, vacations=vacations)
 
 
 @app.route("/add_new_vacation")
 def add_new_vacation():
-    """Adds new vacation to the database once user submits form"""
+    """Adds new vacation to the database once user submits new vacation form"""
     
     username = session["logged_in_username"]
     user = crud.get_user_by_username(username=username)
@@ -458,7 +458,8 @@ def add_new_vacation():
 
     check_city, check_state = crud.check_if_city_state_in_db_create_if_not(city=city, state=state)
     
-    new_vacation_label = crud.create_vacation_label(departure_date=departure_date, arrival_date=arrival_date, state_id=check_state.state_id)
+    new_vacation_label = crud.create_vacation_label(departure_date=departure_date, arrival_date=arrival_date, 
+        state_id=check_state.state_id)
     new_vacation = crud.create_vacation(vacation_label_id=new_vacation_label.vacation_label_id, user_id=user.user_id)
 
     return redirect(f"/profile_{user.username}")
@@ -474,7 +475,7 @@ def show_search_destination_page():
 
 @app.route("/destination_details")
 def show_destination_details():
-    """Shows user a page with travel tips and events for given destination"""
+    """Shows user a page with travel tips and events for searched destination"""
 
     state = request.args.get("state").title()
     city = request.args.get("city").title()
@@ -491,8 +492,7 @@ def show_destination_details():
         event_names, event_urls, img_urls, start_dates, start_times, venues = crud.clean_up_event_results(all_events=events)
 
         if city_in_tags == True:
-            # city_tags = crud.get_tags_by_tag_city(city=city)
-            # city_tip_tags = crud.parse_through_tags(tags=city_tags)
+            #Reformat the dates displayed to be American format mm-dd-yyyy
             display_departure_date = crud.format_date_strings(departure_date)
             display_arrival_date = crud.format_date_strings(arrival_date)
 
@@ -505,8 +505,7 @@ def show_destination_details():
             event_urls=event_urls, img_urls=img_urls, start_dates=start_dates,start_times=start_times, venues=venues)
         
         elif state_in_tags == True:
-            state_tags = crud.get_tags_by_tag_state(state=state)
-            state_tip_tags = crud.parse_through_tags(tags=state_tags)
+            #Reformat the dates displayed to be American mm-dd-yyyy format
             display_departure_date = crud.format_date_strings(departure_date)
             display_arrival_date = crud.format_date_strings(arrival_date)
 
@@ -519,17 +518,19 @@ def show_destination_details():
             event_urls=event_urls, img_urls=img_urls, start_dates=start_dates,start_times=start_times, venues=venues)
         
         else:
+            #If there are no tips for the searched destination, return an empty list
+            #Reformat the dates displayed to be American mm-dd-yyyy format
             display_departure_date = crud.format_date_strings(departure_date)
             display_arrival_date = crud.format_date_strings(arrival_date)
+
             return render_template("destination_details.html", tip_tag_pages=[], city=city, state=state, 
             departure_date=display_departure_date, arrival_date=display_arrival_date, event_names=event_names, 
             event_urls=event_urls, img_urls=img_urls, start_dates=start_dates,start_times=start_times, venues=venues)
 
     else:
-        #If there are not events for the given search
+        #If there are no events for the given search
         if city_in_tags == True:
-            city_tags = crud.get_tags_by_tag_city(city=city)
-            city_tip_tags = crud.parse_through_tags(tags=city_tags)
+            #Reformat the dates displayed to be American mm-dd-yyyy format
             display_departure_date = crud.format_date_strings(departure_date)
             display_arrival_date = crud.format_date_strings(arrival_date)
 
@@ -541,8 +542,7 @@ def show_destination_details():
             city=city, state=state, departure_date=display_departure_date, arrival_date=display_arrival_date, event_names=False)
         
         elif state_in_tags == True:
-            state_tags = crud.get_tags_by_tag_state(state=state)
-            state_tip_tags = crud.parse_through_tags(tags=state_tags)
+            #Reformat the dates displayed to be American mm-dd-yyyy format
             display_departure_date = crud.format_date_strings(departure_date)
             display_arrival_date = crud.format_date_strings(arrival_date)
 
@@ -554,6 +554,8 @@ def show_destination_details():
             city=city, state=state, departure_date=display_departure_date, arrival_date=display_arrival_date, event_names=False)
         
         else:
+            #If there are no tips for the given search, return an empty list
+            #Reformat the dates displayed to be American mm-dd-yyyy format
             display_departure_date = crud.format_date_strings(departure_date)
             display_arrival_date = crud.format_date_strings(arrival_date)
             return render_template("destination_details.html", tip_tag_pages=[], city=city, state=state, 
@@ -620,7 +622,5 @@ def complete_checklist_item():
 
 
 if __name__ == "__main__":
-    # DebugToolbarExtension(app)
+
     app.run(host="0.0.0.0", debug=True)
-    # model.connect_to_db(app)
-    # model.db.create_all()
