@@ -109,6 +109,7 @@ nav {
 }
 
 #homepage-about-paragraph{
+    /* adds white gradient background to make about message easier to read */
     background: radial-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255,0.3), rgba(255, 255, 255,0));
 }
 
@@ -265,7 +266,7 @@ img.event-image {
 
 #destination-details-tip-text{
     text-align: left;
-} */
+} 
 
 /* Styling for the view travel tips page */
 #view-travel-tips-tip-data {
