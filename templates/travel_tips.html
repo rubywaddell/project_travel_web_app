@@ -7,12 +7,13 @@
 
 <div id="travel-tips-filter-div">
         <form id="travel-tips-filter-form" action="/view_travel_tips_filtered_by_tag_page_1">
-        <div id="travel-tips-filter-tags">
+        <div id="travel-tips-filter-tags" aria-label="filter tips by tag, tags are: money, food, health, l g b t q, solo travel, roadtrip,
+        hiking, camping, or other">
             <label>Filter Tips By Tags:</label>
                 <input type="radio" name="filter-tags"  value="money"><label>Money/Theft</label>
                 <input type="radio" name="filter-tags" value="food"><label>Food</label>
                 <input type="radio" name="filter-tags" value="health"><label>Health</label>
-                <input type="radio" name="filter-tags" value="lgbt"><label>LGBTQIA+</label>
+                <input type="radio" name="filter-tags" value="lgbt" aria-label="L G B T Q "><label>LGBTQIA+</label>
                 <input type="radio" name="filter-tags" value="solo-travel"><label>Solo Travel</label>
                 <input type="radio" name="filter-tags" value="roadtrips"><label>Roadtrip</label>
                 <input type="radio" name="filter-tags" value="hiking"><label>Hiking/Backpacking</label>
@@ -20,7 +21,9 @@
                 <input type="radio" name="filter-tags" value="other"><label>Other</label>
             <input type="submit" id="tags-filter-submit">
         </form>
+        </div>
         <p></p>
+        <div id="travel-tips-filter-location" aria-label="filter tips by location">
         <form action="/view_travel_tips_filtered_by_location_page_1">
             <label>Or, Filter By Location:</label>
             <label for="state">State: </label>
@@ -31,7 +34,7 @@
         </form>
         </div>
 
-<button class="add-tip-button btn btn-primary">Add a New Tip</button>
+<button class="add-tip-button btn btn-primary" aria-label="add a new tip button">Add a New Tip</button>
 
 </div>
 
