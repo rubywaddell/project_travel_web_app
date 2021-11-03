@@ -55,10 +55,10 @@
 <h2>Events Scheduled During Your Vacation</h2>
 
 <div id="profile-event-container-div">
-    <table class="event-display-table" id="profile-event-table">
+    <table class="table table-hover event-display-table" id="profile-event-table">
         
         {% for i in range(event_names | length) %}
-        <tr class="event-table-rows">
+        <tr class="event-table-rows" scope="row">
 
             <td id="profile-event-image">
                 <img class="event-image" src="{{ img_urls[i] }}">

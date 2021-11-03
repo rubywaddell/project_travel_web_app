@@ -241,33 +241,12 @@ nav a {
     background-color: rgba(234, 245, 231, 0.50);
 }
 
-/* Styling for images displayed on destination_details page */
-img.destination-details-image {
-    height: 100px;
-    width: 150px;
-}
-
 /* Styling for events displayed from Ticketmaster API */
 img.event-image {
     height: 100px;
     width: 150px
 }
 
-#destination-details-event-container-div {
-    margin: 40px
-}
-
-table.event-display-table{
-    padding: 15px;
-    width: 1000px;
-    text-align: center;
-}
-
-tr.event-table-rows{
-    padding: 15px;
-    border-bottom: 1px solid #ddd;
-    text-align: center;
-}
 
 /* Styling for destination_details tips table */
 #destination-details-travel-tips-headers{
@@ -278,7 +257,7 @@ tr.event-table-rows{
 
 #destination-details-tip-text{
     text-align: left;
-}
+} */
 
 /* Styling for the view travel tips page */
 #view-travel-tips-tip-data {
