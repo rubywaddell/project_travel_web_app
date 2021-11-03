@@ -8,7 +8,7 @@
 <h2>Events in {{ city }}, {{ state }} Between {{ departure_date.month }}/{{departure_date.day}}/{{ departure_date.year }}
     and {{ arrival_date.month }}/{{arrival_date.day}}/{{ arrival_date.year }}</h2>
 
-<div class="container" id="destination-details-event-container-div">
+<div class="container" id="destination-details-event-container-div" aria-label="Ticket Master Events">
 {% if event_names %}
 
     {% for i in range(event_names|length) %}
