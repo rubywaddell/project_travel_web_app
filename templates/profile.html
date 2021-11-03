@@ -22,7 +22,8 @@
 <div id="profile-vacations-for-loop-container">
     {% for vacation in vacations %}
     <div class="row" id="user-vacations-profile-data-grid-div">
-        <div class="col-1">{{ vacation.vacation_label.departure_date.month }} / {{ vacation.vacation_label.departure_date.day }}
+        <div class="col-1">
+            {{ vacation.vacation_label.departure_date.month }} / {{ vacation.vacation_label.departure_date.day }}
             / {{vacation.vacation_label.departure_date.year}}</div>
         <div class="col-1">{{ vacation.vacation_label.arrival_date.month }} / {{ vacation.vacation_label.arrival_date.day }} /
             {{vacation.vacation_label.arrival_date.year}}</div>
