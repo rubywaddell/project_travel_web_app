@@ -1,9 +1,9 @@
-/* Style for Travel Safety App */
+/* Styling for Travel Safety App */
 * {
     font-family: 'Manrope', sans-serif, 'Lato';
 }
 
-h1, h2 {
+h1, h2, h3, h4 {
     text-align: center;
     font-family: 'News Cycle', sans-serif, 'Prompt';
 }
@@ -15,10 +15,6 @@ nav {
     font-weight: 400;
 }
 
-nav a {
-    color: black
-}
-
 .flashed-messages{
     text-align: center;
     font-size: large;
@@ -27,6 +23,11 @@ nav a {
 /* Page number styling */
 .travel-tips-page-nums{
     font-size: large;
+}
+
+#view-tips-page-number-div{
+    text-align: center;
+    padding: 10px;
 }
 
 /* Styling for buttons */

@@ -34,10 +34,11 @@
 
         <div id="view-tips-page-number-div">
             {% if page_num > 1%}
-            <button class="btn btn-primary btn-sm" type="submit" id="view-tips-prev-page-btn">
+            <button class="btn btn-primary btn-sm" type="submit" id="view-tips-prev-page-btn" aria-label="previous page">
                 <a href="/view_travel_tips_page_{{ page_num-1 }}">&lt&lt</a></button>
             {% else %}
-            <button class="btn btn-primary btn-sm" type="button" id="view-tips-prev-page-btn" disabled>&lt&lt</button>
+            <button class="btn btn-primary btn-sm" type="button" id="view-tips-prev-page-btn" aria-label="previous page disabled" disabled>
+                &lt&lt</button>
             {% endif %}
 
             {% for page in pagination_obj.iter_pages(left_edge=2, left_current=2, right_current=5, right_edge=2) %} 
@@ -58,10 +59,11 @@
             {% endfor %}
 
             {% if page_num+1 in tip_tag_pages.keys() %}
-                <button class="btn btn-primary btn-sm" type="submit" id="view-tips-next-page-btn">
+                <button class="btn btn-primary btn-sm" type="submit" id="view-tips-next-page-btn" aria-label="next page">
                     <a href="/view_travel_tips_page_{{ page_num + 1}}">&gt&gt</a></button>
             {% else %}
-                <button class="btn btn-primary btn-sm" type="submit" id="view-tips-next-page-btn" disabled>&gt&gt</button>
+                <button class="btn btn-primary btn-sm" type="submit" id="view-tips-next-page-btn" aria-label="next page disabled" disabled>
+                    &gt&gt</button>
             {% endif %}
         </div>
     </div>
