@@ -5,7 +5,6 @@ import requests
 from datetime import datetime
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~User CRUD functions:~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
 def create_user(username, fname, lname, email, password):
     """Create a return a new user"""
 
@@ -17,22 +16,20 @@ def create_user(username, fname, lname, email, password):
 
     return user
 
-
 def get_user_by_id(user_id):
-    """Return the first user with a given id number"""
+    """Return the first user with a given user id number"""
 
-    user = model.User.query.filter(model.User.user_id == user_id).first()
+    user = model.User.query.get(user_id)
     return user
 
 def get_user_by_email(email):
-    """Return the first user with a given email"""
+    """Return the first user with a given email address"""
 
     user = model.User.query.filter(model.User.email == email).first()
     return user
 
-
 def get_user_by_username(username):
-    """Return the first user with a give username"""
+    """Return the first user with a given username"""
 
     user = model.User.query.filter(model.User.username == username).first()
     return user
@@ -79,6 +76,7 @@ def delete_user(user_id):
     model.db.session.delete(user)
     model.db.session.commit()
 
+
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Vacation CRUD functions:~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def create_vacation(vacation_label_id, user_id):
     """Create and return a vacation object"""
@@ -89,13 +87,19 @@ def create_vacation(vacation_label_id, user_id):
     model.db.session.commit()
 
     departure_month = vacation.vacation_label.departure_date.month
-    print("departure_month = ", departure_month)
 
+    # Create default travel checklists for each vacation that's created
+    # If the departure month is in the summer (June though August)
     if departure_month > 5 and departure_month < 9:
+        #then, create a list of summer clothes to pack
         create_default_summer_clothes_checklist(vacation_id=vacation.vacation_id)
+    # If the departure month is in the winter (October through February)
     elif departure_month > 9 or departure_month < 3:
+        #then, create a list of winter clothes to pack
         create_default_winter_clothes_checklist(vacation_id=vacation.vacation_id)
+    #If the month is not in summer or winter,
     else:
+        #create the default list of clothes to pack
         create_default_clothes_checklist(vacation_id=vacation.vacation_id)
 
     create_default_toiletries_checklist(vacation_id=vacation.vacation_id)
@@ -104,30 +108,10 @@ def create_vacation(vacation_label_id, user_id):
 
     return vacation
 
-
 def get_vacation_by_id(vacation_id):
     """Get and return the first vacation object with a given id number"""
 
-    vacation = model.Vacation.query.filter(model.Vacation.vacation_id == vacation_id).first()
-    return vacation
-
-def get_vacation_by_user_id(user_id):
-    """Get and return all vacation objects associated iwth a given user_id numbers"""
-
-    user_vacations = model.Vacation.query.filter(model.Vacation.user_id == user_id).all()
-    return user_vacations
-
-def get_vacation_by_vacation_label_id(vacation_label_id):
-    """Queries and returns the first vacation object with the given vacation_label_id"""
-
-    vacation_vacation_label_join = model.db.session.query(model.Vacation).join(model.Vacation.vacation_label)
-    return vacation_vacation_label_join.filter(model.VacationLabel.vacation_label_id == vacation_label_id).first()
-
-def get_vacation_by_vacation_label(vacation_label):
-    """Queries and returns the first vacation object tied to the given vacation_label"""
-
-    vacation_vacation_label_join = model.db.session.query(model.Vacation).join(model.Vacation.vacation_label)
-    return vacation_vacation_label_join.filter(model.VacationLabel.vacation_label_id == vacation_label.vacation_label_id).first()
+    return model.Vacation.query.get(vacation_id)
 
 def delete_vacation(vacation):
     """Deletes the given vacation and its vacation_label from the database"""
@@ -149,7 +133,6 @@ def create_vacation_label(departure_date, arrival_date, state_id=None):
 
     return vacation_label
 
-
 def get_vacation_label_by_vacation(vacation):
     """Query and returns the first vacation_label object with the given vacation relation"""
 
@@ -165,6 +148,7 @@ def change_arrival_and_departure_dates(vacation_label_id, new_departure_date, ne
     vacation_label.departure_date = new_departure_date
     vacation_label.arrival_date = new_arrival_date
     model.db.session.commit()
+
     return vacation_label
 
 def change_vacation_label_location(vacation_label_id, new_state, new_city):
@@ -201,6 +185,7 @@ def make_vacation_label_dict(vacation_labels):
 
     return vacation_label_dict
 
+
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~State CRUD functions:~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def create_state(state_name, city_id):
     """Create a new state, add to database, and return it"""
@@ -211,7 +196,6 @@ def create_state(state_name, city_id):
     model.db.session.commit()
     
     return new_state
-
 
 def get_state_by_name(state_name):
     """Query and return the first state with a given name"""
@@ -224,7 +208,6 @@ def get_state_by_city_id(city_id):
 
     state = model.db.session.query(model.State).filter(model.State.city_id == city_id).first()
     return state
-
 
 def check_if_state_in_db(state_name):
     """Checks if the given state name is already stored in the database, returns True or False"""
@@ -246,7 +229,6 @@ def create_city(city_name):
     model.db.session.commit()
     
     return new_city
-
 
 def get_city_by_name(city_name):
     """Query and return the first city with a given name"""
@@ -319,19 +301,16 @@ def create_tip_tag(tag_id, tip_id):
 
     return new_tip_tag
 
-
 def order_tip_tags_by_tip_tag_id_desc():
     """Returns a list of all tip_tags in descending order"""
 
     return model.db.session.query(model.TipTag).order_by(model.db.desc(model.TipTag.tip_tag_id)).all()
-
 
 def get_paginated_tip_tags():
     """Returns a pagination of all tip_tags in the database"""
 
     tip_tag_base_query = model.db.session.query(model.TipTag).order_by(model.db.desc(model.TipTag.tip_tag_id))
     return tip_tag_base_query.paginate(per_page=10)
-
 
 def get_paginated_tag_filtered_tip_tags(filter_tag):
     """Returns a pagination object of all tip_tags filtered by the given tag name"""
@@ -407,7 +386,6 @@ def navigate_through_pages(page_num, pagination_obj):
     return tip_tag_pagination
 
 
-
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Tag CRUD functions: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def create_tag(tag_name, tag_state, tag_city):
     """Create a new tag, add it to the database, and return it"""
@@ -419,7 +397,6 @@ def create_tag(tag_name, tag_state, tag_city):
 
     return new_tag
 
-
 def show_tag_states():
     """Return a list of all tag_states in the database"""
 
@@ -429,7 +406,6 @@ def show_tag_cities():
     """Return a list of all tag_cities in the database"""
 
     return model.db.session.query(model.Tag.tag_city).all()
-
 
 def get_tags_by_tag_name(tag_name):
     """Return a list of all tags with a given tag_name"""
@@ -509,12 +485,10 @@ def create_vacation_checklist(vacation_id, name):
 
     return checklist
 
-
 def get_vacation_checklists_by_vacation(vacation_id):
     """Returns a list of all VacationChecklists for the given vacation_id"""
 
     return model.VacationChecklist.query.filter(model.VacationChecklist.vacation_id==vacation_id).all()
-
 
 def get_vacation_checklist_by_list_item(item_id):
     """Returns the first VacationChecklist with the given item_id relation"""
@@ -522,6 +496,7 @@ def get_vacation_checklist_by_list_item(item_id):
     join = model.VacationChecklist.query.join(model.VacationChecklist.checklist_item)
     item_filter = join.filter(model.ChecklistItem.item_id == item_id)
     return item_filter.first()
+
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ChecklistItem functions ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def create_checklist_item(item, checklist_id, completed=False):
@@ -533,7 +508,6 @@ def create_checklist_item(item, checklist_id, completed=False):
     model.db.session.commit()
 
     return list_item
-
 
 def complete_list_item(item_id):
     """Updates item completed status to True and returns item"""
@@ -558,7 +532,7 @@ def create_default_clothes_checklist(vacation_id, name="clothes"):
     clothes = ["Shirts", "Pants", "Socks", "Underwear", "Pajamas", "Comfortable Walking Shoes", "Exercise Clothes"]
     checklist = create_vacation_checklist(vacation_id=vacation_id, name=name)
     for item in clothes:
-        create_checklist_item(item=item, checklist_id=checklist.checklist_id)
+        create_checklist_item(item=item.title(), checklist_id=checklist.checklist_id)
 
     return checklist
 
@@ -617,6 +591,7 @@ def create_default_todo_checklist(vacation_id):
 
     return checklist
 
+
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Format dates inputted by HTML form~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def format_date_strings(date):
     """Takes string in yyyy-mm-dd format and returns datetime to display on desitnation_details page"""
@@ -650,6 +625,7 @@ def format_time_strings(time):
 #Notes on Ticketmaster Discovery API:
     #The results are not entirely consistent, some events have data for the event time and date, others just the date
         #some events have data for the venue, others don't, included in these functions are helper functions to parse through
+        #and clean up those results to avoid errors for any empty values
 
 def reformat_city_names(city_name):
     """Reformats the city name so that it can be passed in API url"""
@@ -658,6 +634,7 @@ def reformat_city_names(city_name):
 
     for char in city_name:
         if char == " ":
+            #spaces cannot be passed to API requests, needs to be %20
             formatted_city += "%20"
         else:
             formatted_city += char
@@ -667,12 +644,13 @@ def reformat_city_names(city_name):
 def reformat_date(date):
     """Reformats the given date so that it can be passed through an API request"""
     #TicketMaster dates are YYYY-MM-DD
-    #My date inputs are currently YYYY-MM-DD
+    #HTML date inputs are also YYYY-MM-DD
+    #TicketMaster API requests also require time, though, so each date query needs to have
+        #time added to the end, by default I will use midnight (00:00)
     time = "T00:00:00Z"
     date = str(date)
     formatted_date = date+time
     return formatted_date
-
 
 def search_events_by_city_and_dates(api_key, city, start_date, end_date):
     """Searches for events in TicketMaster in a given city area from a given date to a given end date
@@ -683,7 +661,7 @@ def search_events_by_city_and_dates(api_key, city, start_date, end_date):
     formatted_end_date = reformat_date(date=end_date)
 
     url = f"""https://app.ticketmaster.com/discovery/v2/events?apikey={api_key}&locale=*&startDateTime={formatted_start_date}&endDateTime={formatted_end_date}&city={formatted_city}"""
-        
+    
     response = requests.get(url)
 
     results = response.json()
