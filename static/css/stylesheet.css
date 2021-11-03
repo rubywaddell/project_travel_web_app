@@ -247,6 +247,13 @@ img.event-image {
     width: 150px
 }
 
+.ticketmaster-events-div {
+    padding: 10px;
+}
+
+.ticketmaster-events-div:hover{
+    background-color: rgba(234, 245, 231, 0.50);
+}
 
 /* Styling for destination_details tips table */
 #destination-details-travel-tips-headers{
