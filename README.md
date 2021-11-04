@@ -3,12 +3,14 @@
 Learn more about the developer: https://www.linkedin.com/in/rubywaddell/
 
 ## INTRO:
-TravelWise is a full-stack web-app dedicated to helping people travel throughout the United States in a safe and fun way. The developer, Ruby Waddell, is an avid travller herself who, though she enjoys taking trips alone, sometimes struggles with keeping track of planned trips and finding insider tips about how to stay safe and where to go. TravelWise is intended to help users stay safe while travelling by accessing fellow users' travel tips. It is also intended to help people have fun and learn about what events are happening while they are on vacation by showing users events requested from the TicketMaster Discovery API. 
+TravelWise is a full-stack web-app dedicated to helping people travel throughout the United States in a safe and fun way. The developer, Ruby Waddell, is an avid traveller herself who, though she enjoys taking trips alone, struggled with keeping track of planned trips and finding insider tips about how to stay safe and where to go. TravelWise is intended to help users solve these problems by allowing them to create a profile where they can save planned vacations, view and write tips about any domestic destination, and view events requested from the TicketMaster Discovery API scheduled during their dates of travel. 
+TravelWise is intended to help users stay safe while travelling by accessing fellow users' travel tips. It is also intended to help people have fun and learn about what events are happening while they are on vacation by showing users events requested from the TicketMaster Discovery API. 
 
 ## Technologies Used:
 - Python
 - Flask
 - PostreSQL
+- Flask-SQLAlchemy
 - Jinja2
 - HTML
 - JavaScript
@@ -18,6 +20,18 @@ TravelWise is a full-stack web-app dedicated to helping people travel throughout
 - Bootstrap
 - TicketMaster Discovery API
 - Regex
+
+## How To Run Locally:
+1. Click "clone" and copy the link that appears
+2. In your terminal, type the command `git clone` and paste the link
+3. Once cloned, create a virtual environment using the command `virtualenv env`
+4. Activate your virtual environment `source env/bin/activate`
+5. Install the requirements by running `pip3 install -r requirements.txt`
+6. Make sure you have the necessary database by running `createdb travel_app`
+7. Seed the database by running `python3 seed_database.py`
+8. Run the server with `python3 server.py`
+9. Then, access the app on your browser by going to localhost:5000
+10. You're ready to create an account and explore the app!
 
 ## Features:
 #### View Travel Tips:
