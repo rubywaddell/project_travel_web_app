@@ -2,6 +2,8 @@
 ---
 Learn more about the developer: https://www.linkedin.com/in/rubywaddell/
 
+You can visit the app at http://54.70.84.63 or follow the installations below to run locally on your own computer.
+
 ## INTRO:
 TravelWise is a full-stack web-app dedicated to helping people travel throughout the United States in a safe and fun way. The developer, Ruby Waddell, is an avid traveller herself who, though she enjoys taking trips alone, struggled with keeping track of planned trips and finding insider tips about how to stay safe and where to go. TravelWise is intended to help users solve these problems by allowing them to create a profile where they can save planned vacations, view and write tips about any domestic destination, and view events requested from the TicketMaster Discovery API scheduled during their dates of travel. 
 TravelWise is intended to help users stay safe while travelling by accessing fellow users' travel tips. It is also intended to help people have fun and learn about what events are happening while they are on vacation by showing users events requested from the TicketMaster Discovery API. 
